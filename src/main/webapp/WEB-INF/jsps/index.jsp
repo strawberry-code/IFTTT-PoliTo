@@ -97,7 +97,7 @@
 
           </div>
           <button type="submit" class="btn btn-default" ng-if="!iftttLogged" style="margin-left: 6px"   data-toggle="modal" data-target="#loginIFTTTModal" ng-click="routeListener('index/myRecipes')"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</button>
-          <a href="#index/createAccount"><button type="submit" class="btn btn-default" style=" margin-left: 6px"  ng-if="!iftttLogged"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Logon</button></a>
+          <a href="#index/createAccount"><button type="submit" class="btn btn-default" style=" margin-left: 6px"  ng-if="!iftttLogged"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Create account</button></a>
           <button type="submit" class="btn btn-default" ng-if="iftttLogged" ng-click="logoutIFTTT()">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
         </form>
       </div><!-- /.navbar-collapse -->
