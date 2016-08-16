@@ -65,12 +65,19 @@
             <a type="submit" href="" ng-if="!iftttLogged" data-toggle="modal"
                data-target="#loginIFTTTModal" ng-click="routeListener('createRecipe')">Create a recipe <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
           </li>
-          <li>
 
+          <li>
           <a type="submit" href="#createRecipe" ng-if="iftttLogged"
              data-target="#loginIFTTTModal">
             <span  aria-hidden="true"></span>Create a recipe</a>
           </li>
+
+
+            <li>
+                <a href="#passwordRecovery" ng-if="iftttLogged">
+                    <span  aria-hidden="true"></span>Change password</a>
+            </li>
+
             <!--
           <li><a href="#chooseChannel">Channels</a></li>
             -->
@@ -124,6 +131,8 @@
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
   <!-- INNER PAGES END -->
+
+
 
   <!-- MODAL FORM IFTTT -- BEGIN -->
   <div class="modal fade" id="loginIFTTTModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
