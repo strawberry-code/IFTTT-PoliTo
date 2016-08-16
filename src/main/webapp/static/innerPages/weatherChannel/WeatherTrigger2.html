@@ -5,7 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link href="css/custonWeatherTrigger1/customWeather.css" rel="stylesheet" type="text/css">
     -->
-    <script src="innerPages/weatherChannel/WeatherTrigger2Machine/customWeather.js"></script>
+    <script src="/progetto/static/innerPages/weatherChannel/WeatherTrigger2Machine/customWeather.js"></script>
 
 </head>
 <body ng-controller="customWeatherActionControllerTrigger2">
@@ -17,7 +17,7 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
 
-                <p><h1><img src="../../images/weatherChannel/t4.png" style="width:42px;height:42px;border:0;"/> Specific weather condition trigger</h1></p>
+                <p><h1><img src="/progetto/static/images/weatherChannel/t4.png" style="width:42px;height:42px;border:0;"/> Specific weather condition trigger</h1></p>
                 <hr>
                 <div id="search-bar">
                     <div class="input-group">
@@ -60,7 +60,7 @@
                             type="checkbox"
                             ng-model="checkmodelcheckweather"
 
-                    > <img src="../../images/trigger-icons/wcondition.png" height="30" width="30"/> <b>Select the weather condition</b></label>
+                    > <img src="/progetto/static/images/trigger-icons/wcondition.png" height="30" width="30"/> <b>Select the weather condition</b></label>
                     <div  ng-if="checkmodelcheckweather" class="animate-if">
                         <form name="myForm">
                         <label for="mySelect">Make a choice:</label>
@@ -85,7 +85,7 @@
                             type="checkbox"
                             ng-model="checkmodelcheckperiod"
 
-                    > <img src="../../images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic checking </b></label>
+                    > <img src="/progetto/static/images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic checking </b></label>
                         <div  ng-if="checkmodelcheckperiod" class="animate-if">
 
                             every
@@ -114,7 +114,7 @@
                                 type="checkbox"
                                 ng-model="checktimeZone"
 
-                        > <img src="../../images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone</b></label>
+                        > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone</b></label>
                         <div  ng-if="checktimeZone" class="animate-if">
 
                             <label>

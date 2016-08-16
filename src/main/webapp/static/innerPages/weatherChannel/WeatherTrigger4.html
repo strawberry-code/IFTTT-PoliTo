@@ -5,7 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link href="css/custonWeatherTrigger1/customWeather.css" rel="stylesheet" type="text/css">
     -->
-    <script src="innerPages/weatherChannel/WeatherTrigger4Machine/customWeather.js"></script>
+    <script src="/progetto/static/innerPages/weatherChannel/WeatherTrigger4Machine/customWeather.js"></script>
 
 </head>
 <body ng-controller="customWeatherActionControllerTrigger4">
@@ -18,7 +18,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
 
-            <p><h1><img src="../../images/weatherChannel/temp-range.png" style="width:42px;height:42px;border:0;"/> Triggered at temperature range</h1></p>
+            <p><h1><img src="/progetto/static/images/weatherChannel/temp-range.png" style="width:42px;height:42px;border:0;"/> Triggered at temperature range</h1></p>
             <hr>
 
             <div id="search-bar">
@@ -59,7 +59,7 @@
                         id="thmaxidcheckbox"
                         type="checkbox"
                         ng-model="checkmodelcheckthmax"
-                > <img src="../../images/trigger-icons/max.png" height="30" width="30"/> <b> Max temperature</b></label>
+                > <img src="/progetto/static/images/trigger-icons/max.png" height="30" width="30"/> <b> Max temperature</b></label>
                     <div  ng-if="checkmodelcheckthmax" class="animate-if">
 
                         <label>
@@ -81,7 +81,7 @@
                         type="checkbox"
                         ng-model="checkmodelcheckthmin"
 
-                > <img src="../../images/trigger-icons/min.png" height="30" width="30"/><b> Min temperature</b></label>
+                > <img src="/progetto/static/images/trigger-icons/min.png" height="30" width="30"/><b> Min temperature</b></label>
 
                     <div  ng-if="checkmodelcheckthmin" class="animate-if">
 
@@ -107,7 +107,7 @@
                             type="checkbox"
                             ng-model="checkmodelcheckperiod"
 
-                    > <img src="../../images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic</b></label>
+                    > <img src="/progetto/static/images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic</b></label>
 
                     <div  ng-if="checkmodelcheckperiod" class="animate-if">
 
@@ -137,7 +137,7 @@
                             type="checkbox"
                             ng-model="checktimeZone"
 
-                    > <img src="../../images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone</b></label>
+                    > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone</b></label>
                     <div  ng-if="checktimeZone" class="animate-if">
 
                         <label>
