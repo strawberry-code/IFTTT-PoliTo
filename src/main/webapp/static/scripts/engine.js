@@ -4070,6 +4070,29 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
     }]);
 
 
+iftttApp.filter('capitalize', function() {
+    return function(input) {
+        console.log(JSON.stringify(input));
+        return input.substring(0,1).toUpperCase()+input.substring(1)
+    }
+});
+
+iftttApp.filter('reformat', function() {
+    return function(x) {
+
+        switch (x) {
+            case 'lastChecked': return 'Last checked';
+            case 'hashtag_text': return 'Hashtag text';
+            case 'username_sender': return 'Username sender';
+            case 'eventAction': return 'Event action';
+        }
+
+
+        return x;
+    };
+});
+
+
 
 function sendingToServerAll ()
 {
