@@ -1420,7 +1420,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
 
                                 modulinoj2 =
                                 {
-                                    "triggerType" : "twitter",
+                                    "actionType" : "twitter",
                                     "type"      :  false,
                                     "body"      :  subject_action1TwitterController,
                                     "destination" :  null
@@ -1437,7 +1437,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
 
                                 modulinoj2 =
                                 {
-                                    "triggerType" : "twitter",
+                                    "actionType" : "twitter",
                                     "type"      :  true,
                                     "destination"   :  title_action2TwitterController,
                                     "body" :  subjec_action2TwitterController
@@ -1853,7 +1853,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
 
                         modulinoj2 =
                         {
-                            "triggerType" : "twitter",
+                            "actionType" : "twitter",
                             "type"      :  false,
                             "body"      :  subject_action1TwitterController,
                             "destination" :  null
@@ -1870,7 +1870,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
 
                         modulinoj2 =
                         {
-                            "triggerType" : "twitter",
+                            "actionType" : "twitter",
                             "type"      :  true,
                             "destination"   :  title_action2TwitterController,
                             "body" :  subjec_action2TwitterController
@@ -3786,7 +3786,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
 
                 modulinoj2 =
                 {
-                    "triggerType" : "twitter",
+                    "actionType" : "twitter",
                     "type"      :  false,
                     "body"      :  subject_action1TwitterController,
                     "destination" :  null
@@ -3918,7 +3918,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
 
                 modulinoj2 =
                 {
-                    "triggerType" : "twitter",
+                    "actionType" : "twitter",
                     "type"      :  true,
                     "destination"   :  title_action2TwitterController,
                     "body" :  subjec_action2TwitterController
