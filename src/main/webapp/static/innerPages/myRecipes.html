@@ -19,9 +19,9 @@
                         <div class="col-md-8">
                             <h4><!-- data-content="{{f.desc}}" -->
                                 <span class="glyphicon glyphicon-file" title="Header" data-placement="bottom" data-toggle="popover" data-trigger="hover" ></span>
-                                Recipe description:
+                                <b>Recipe description:</b>
                             </h4>
-                            {{f.desc}}
+                            {{f.description}}
 
                         </div>
 
@@ -57,21 +57,40 @@
 
                     </div>
 
-                    <div class="row panel-body" ng-show="!f.isCollapsed">
+                    <div class="row panel-body" ng-show="f.isCollapsed">
 
 
                         <hr>
 
                         <div class="col-md-6">
-                            <h3>{{f.trigger.triggerType | capitalize}} trigger</h3>
-                            <div ng-repeat="(key, data) in f.trigger" ng-if="!(key == 'triggerType') || !(key == 'lastChecked')">
+                            <h3 class="underline">{{f.trigger.triggerType | capitalize}} trigger</h3>
+                            <div ng-repeat="(key, data) in f.trigger" ng-if="!(key == 'triggerType')
+                            && !(key == 'lastCheck')
+                            && !(key == 'sender')
+                            && !(key == 'gtid')
+                            && !(key == 'ctid')
+                            && !(key == 'mtid')
+                            && !(key == 'wtid')
+                            && !(key == 'type')
+                            && !(key == 'ttid')
+                            && !(data == null)
+                            ">
                                 <h4>{{key | reformat | capitalize}}:</h4> {{data}}
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <h3>{{f.action.actionType | capitalize}} action</h3>
-                            <div ng-repeat="(key, data) in f.action" ng-if="key.toString().localeCompare('actionType') || data.notNull() || !data">
+                            <h3 class="underline">{{f.action.actionType | capitalize}} action</h3>
+                            <div ng-repeat="(key, data) in f.action" ng-if="!(key == 'actionType')
+                            && !(key == 'lastCheck')
+                            && !(key == 'sender')
+                            && !(key == 'type')
+                            && !(key == 'gaid')
+                            && !(key == 'caid')
+                            && !(key == 'maid')
+                            && !(key == 'taid')
+                            && !(data == null)
+                            ">
                                 <h4>{{key | reformat | capitalize}}:</h4> {{data}}
                             </div>
                         </div>

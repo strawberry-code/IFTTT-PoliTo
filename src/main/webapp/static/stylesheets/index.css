@@ -13,3 +13,7 @@
 .popover{
     max-width: 200px; /* Max Width of the popover (depending on the container!) */
 }
+
+.underline{
+    text-decoration: underline;
+}

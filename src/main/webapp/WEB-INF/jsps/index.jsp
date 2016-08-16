@@ -10,6 +10,8 @@
   <head>
     <title>IFTTT Polito</title>
 
+      <link rel="icon" href="./static/images/favicon.ico" />
+
     <!-- JavaScript Libraries -->
     <script src="./static/bower_components/jquery/dist/jquery.js"></script>
     <script src="./static/bower_components/angular/angular.js"></script>
@@ -27,6 +29,8 @@
     <link rel="stylesheet" href="./static/stylesheets/2-col-portfolio.css">
     <link rel="stylesheet" href="./static/stylesheets/index.css">
     <link rel="stylesheet" href="./static/stylesheets/loginPage.css">
+
+
 
   </head>
   <body ng-controller="indexController">
@@ -49,13 +53,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
 
-          <li>
-              <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
-              <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged"
-               data-target="#loginIFTTTModal">
-              <span  aria-hidden="true"></span>Your recipes
-            </a>
-          </li>
+
 
 
          <!--
@@ -72,6 +70,14 @@
             <span  aria-hidden="true"></span>Create a recipe</a>
           </li>
 
+            <li>
+                <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
+                <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged"
+                   data-target="#loginIFTTTModal">
+                    <span  aria-hidden="true"></span>My recipes
+                </a>
+            </li>
+
 
             <li>
                 <a href="#passwordChange" ng-if="iftttLogged">
@@ -86,8 +92,8 @@
 
 
             <li>
-                <a  href="#publicRecipes">
-                    Public recipes <span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+                <a  ng-if="!iftttLogged" href="#publicRecipes"> Public recipes <span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+                <a  ng-if="iftttLogged" href="#publicRecipes"> Public recipes </span></a>
             </li>
 
 
@@ -182,7 +188,7 @@
           </button>
             <!-- <button id="google-auth-btn" type="submit" class="btn btn-default" ng-click="requestGoogleAuth()">Sign in</button> -->
             <div style="text-align: center">
-                    <h4 class="modal-title"><img src="./static/images/logos/google-logged-in.png" height="25" width="25"/> Login with Google</h4>
+                    <h3 class="modal-title"><img src="./static/images/logos/google-logged-in.png" height="25" width="25"/> Login with Google</h3>
             </div>
         </div>
         <div class="modal-body text-center">
@@ -196,6 +202,9 @@
   <!-- MODAL FORM GOOGLE -- END -->
 
   <!-- MODAL FORM TWITTER -- BEGIN -->
+
+  <!-- OLD MODAL TWITTER -->
+  <!--
   <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -206,8 +215,9 @@
           <h2 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="30" width="30"/> Login with Twitter</h2>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body"> -->
           <!-- The form is placed inside the body of modal -->
+  <!--
           <form class="form-horizontal">
             <div class="form-group">
               <label for="inputEmailTwitter" class="col-sm-3 control-label">Twitter mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></label>
@@ -232,6 +242,42 @@
     </div>
   </div>
   <!-- MODAL FORM TWITTER -- END -->
+
+  <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <!-- <button id="google-auth-btn" type="submit" class="btn btn-default" ng-click="requestGoogleAuth()">Sign in</button> -->
+                  <div style="text-align: center">
+                      <h3 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="45" width="45"/> Login with Twitter</h3>
+                  </div>
+              </div>
+              <div class="modal-body text-center">
+                  <a id="twitter-auth-btn" type="submit" class="btn btn-default" ng-click="requestTwitterAuth()">
+                      Connect
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- MODAL FORM TWITTER -- END -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -->
   <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">

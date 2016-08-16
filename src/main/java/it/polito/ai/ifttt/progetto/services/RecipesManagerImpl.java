@@ -194,7 +194,7 @@ public class RecipesManagerImpl implements RecipesManager {
 				recipe.setTriggerid(triggerid);
 				recipe.setActionid(actionid);
 				recipe.setPublish((Boolean) ricetta.get("publish"));
-				recipe.setDescription((String) ricetta.get("desc"));
+				recipe.setDescription((String) ricetta.get("description"));
 				recipe.setUser(user);
 				session.save(recipe);
 				session.flush();
