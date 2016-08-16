@@ -265,9 +265,9 @@ $(function(){
 
     $("#but").on("click", function updateView(){
         //alert(idCity);
-        flagWeatherCheck = "1";
-        flagPeriodCheck = "1";
-        flagZoneCheck = "1";
+        flagWeatherCheck = true;
+        flagPeriodCheck = true;
+        flagZoneCheck = true;
         triggerChose = 7;
         if (idCity == '0')
         {
@@ -407,9 +407,9 @@ $(function(){
             }
 
             /*
-             flagWeatherCheck = "1";
-             flagPeriodCheck = "1";
-             flagZoneCheck = "1";
+             flagWeatherCheck = true;
+             flagPeriodCheck = true;
+             flagZoneCheck = true;
 
              */
 
@@ -437,7 +437,7 @@ $(function(){
                 }
                 else
                 {
-                    flagTriggerDone = "1";
+                    flagTriggerDone = true;
 
                     modulinoj1=
                     {
@@ -449,7 +449,7 @@ $(function(){
                         "timezone" : pzone_customWeatherActionControllerTrigger2
                     };
 
-                    if(modifyVar == "1")
+                    if(modifyVar == true)
                     {
                         sendingToServerAllput();
                     }
@@ -494,9 +494,9 @@ $(function(){
                 pzone_customWeatherActionControllerTrigger2 == "-10" ||
                 pzone_customWeatherActionControllerTrigger2 == "-11" ||
                 pzone_customWeatherActionControllerTrigger2 == "-12")
-                flagZoneCheck = "1";
+                flagZoneCheck = true;
             else
-                flagZoneCheck ="0";
+                flagZoneCheck =false;
 
         };
 
@@ -507,9 +507,9 @@ $(function(){
                 pweather_customWeatherActionControllerTrigger2 == "300" ||
                 pweather_customWeatherActionControllerTrigger2 == "500"
             )
-                flagWeatherCheck = "1";
+                flagWeatherCheck = true;
             else
-                flagWeatherCheck ="0";
+                flagWeatherCheck =false;
 
         };
 
@@ -517,11 +517,11 @@ $(function(){
         function  periodidcheckfunc  ()
         {
             var i=0;
-            flagPeriodCheck = "0";
+            flagPeriodCheck = false;
             for (i=0; i<701; i++)
             {
                 if(pperiod_customWeatherActionControllerTrigger2 == i.toString())
-                    flagPeriodCheck = "1";
+                    flagPeriodCheck = true;
 
             }
 
@@ -550,7 +550,7 @@ $(function(){
 
 
 
-})
+});
 //Prova atom
 
 /* Template for checkbox [] ^ $ */

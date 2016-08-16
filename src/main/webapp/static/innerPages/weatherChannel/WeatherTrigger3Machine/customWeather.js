@@ -10,7 +10,7 @@ $(function(){
     var deg;
     var idCity=0;
     /* Per i checking  */
-    var flagTimezoneCheck = "1";
+    var flagTimezoneCheck = true;
     var getToDate=function(time){
         var date = new Date(time*1000);
         var day=date.getDate();
@@ -261,7 +261,7 @@ $(function(){
     $("#but").on("click", function updateView()
     {
         //alert(idCity);
-        flagTimezoneCheck = "1";
+        flagTimezoneCheck = true;
         triggerChose=8;
         if (idCity == '0')
         {
@@ -284,18 +284,18 @@ $(function(){
                 //checksunrise
 
                 if ($('#checksunset').is(":checked")) {
-                    sunset_customWeatherActionControllerTrigger3 = "1";
+                    sunset_customWeatherActionControllerTrigger3 = true;
                 }
                 else {
-                    sunrise_customWeatherActionControllerTrigger3 = "0";
+                    sunrise_customWeatherActionControllerTrigger3 = false;
                 }
 
                 //checksunset
                 if ($('#checksunrise').is(":checked")) {
-                    sunrise_customWeatherActionControllerTrigger3 = "1";
+                    sunrise_customWeatherActionControllerTrigger3 = true;
                 }
                 else {
-                    sunrise_customWeatherActionControllerTrigger3 = "0";
+                    sunrise_customWeatherActionControllerTrigger3 = false;
                 }
 
                 //timezone
@@ -308,7 +308,7 @@ $(function(){
                 }
 
                 if (flagTimezoneCheck == 1) {
-                    flagTriggerDone = "1";
+                    flagTriggerDone = true;
                     idCity_customWeatherActionControllerTrigger3  = idCity;
                     modulinoj1 =
                     {
@@ -322,7 +322,7 @@ $(function(){
 
                     };
 
-                    if(modifyVar == "1")
+                    if(modifyVar == true)
                     {
                         sendingToServerAllput();
                     }
@@ -391,11 +391,11 @@ $(function(){
                 timezone_customWeatherActionControllerTrigger3 == "-10" ||
                 timezone_customWeatherActionControllerTrigger3 == "-11" ||
                 timezone_customWeatherActionControllerTrigger3 == "-12")
-                flagTimezoneCheck = "1";
+                flagTimezoneCheck = true;
             else
-                flagTimezoneCheck ="0";
+                flagTimezoneCheck =false;
 
-        };
+        }
 
 
         /*
@@ -430,7 +430,7 @@ $(function(){
 
 
 
-})
+});
 
 /* Template for checkbox [] ^ $ */
 /*

@@ -11,8 +11,8 @@ $(function()
     var deg;
     var idCity=0;
     /* Per i checking  */
-    var flagTimezoneCheck = "1";
-    var flagTimeCheck = "1";
+    var flagTimezoneCheck = true;
+    var flagTimeCheck = true;
 
 
 
@@ -267,8 +267,8 @@ $(function()
     {
         //alert(idCity);
         triggerChose = 6;
-        flagTimezoneCheck = "1";
-        flagTimeCheck = "1";
+        flagTimezoneCheck = true;
+        flagTimeCheck = true;
 
         if (idCity == '0')
         {
@@ -313,9 +313,9 @@ $(function()
            }
            else ora_customWeatherActionControllerTrigger1 = null;
 
-            if(flagTimezoneCheck == "1" &&  flagTimeCheck == "1")
+            if(flagTimezoneCheck == true &&  flagTimeCheck == true)
             {
-                flagTriggerDone = "1";
+                flagTriggerDone = true;
 
                 modulinoj1=
                 {
@@ -326,7 +326,7 @@ $(function()
                     "timezone" : timezone_customWeatherActionControllerTrigger1
                 };
 
-                if(modifyVar == "1")
+                if(modifyVar == true)
                 {
                     sendingToServerAllput();
                 }
@@ -341,7 +341,7 @@ $(function()
                 //var url = "/#/WeatherTrigger1";
                 //window.location.replace(url);
                 //Alert sull'errore commesso:
-                if(flagTimezoneCheck == "0" && flagTimeCheck == "0")
+                if(flagTimezoneCheck == false && flagTimeCheck == false)
                 {
 
                     $("#notificationsWrapper").notify(
@@ -355,7 +355,7 @@ $(function()
                 }
                 else
                 {
-                    if (flagTimeCheck == "0")
+                    if (flagTimeCheck == false)
                     {
                         alert("The time is not right");
                     }
@@ -410,9 +410,9 @@ $(function()
             timezone == "-10" ||
             timezone == "-11" ||
             timezone == "-12")
-            flagTimezoneCheck = "1";
+            flagTimezoneCheck = true;
         else
-            flagTimezoneCheck ="0";
+            flagTimezoneCheck =false;
 
     };
 
@@ -507,10 +507,10 @@ $(function()
                 mvar == "58" ||
                 mvar == "59" )
         )
-            flagTimeCheck ="1";
+            flagTimeCheck =true;
         else
         {
-            flagTimeCheck = "0";
+            flagTimeCheck = false;
         }
 
     }

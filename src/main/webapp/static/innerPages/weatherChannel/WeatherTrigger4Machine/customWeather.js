@@ -10,10 +10,10 @@ $(function(){
     var deg;
     var idCity=0;
     /* Per i checking  */
-    var flagThmaxCheck = "1";
-    var flagThminCheck = "1";
-    var flagPeriodCheck = "1";
-    var flagTimeZoneCheck = "1";
+    var flagThmaxCheck = true;
+    var flagThminCheck = true;
+    var flagPeriodCheck = true;
+    var flagTimeZoneCheck = true;
 
 
 
@@ -266,10 +266,10 @@ $(function(){
 
     $("#but").on("click", function updateView(){
         //alert(idCity);
-        flagThmaxCheck = "1";
-        flagThminCheck = "1";
-        flagPeriodCheck = "1";
-        flagTimeZoneCheck = "1";
+        flagThmaxCheck = true;
+        flagThminCheck = true;
+        flagPeriodCheck = true;
+        flagTimeZoneCheck = true;
         var timezone = "";
         var thmax =  "";
         var thmin = "";
@@ -328,10 +328,10 @@ $(function(){
                 pthmin_customWeatherActionControllerTrigger4 = thmin;
                 period_customWeatherActionControllerTrigger4 = period;
                 /*
-                 var flagThmaxCheck = "1";
-                 var flagThminCheck = "1";
-                 var flagPeriodCheck = "1";
-                 var flagTimeZoneCheck = "1";
+                 var flagThmaxCheck = true;
+                 var flagThminCheck = true;
+                 var flagPeriodCheck = true;
+                 var flagTimeZoneCheck = true;
                  */
 
                 if ($('#thmaxidcheckbox').is(":checked"))
@@ -361,8 +361,8 @@ $(function(){
                     };
 
 
-                    flagTriggerDone = "1";
-                    if(modifyVar == "1")
+                    flagTriggerDone = true;
+                    if(modifyVar == true)
                     {
                         sendingToServerAllput();
                     }
@@ -394,14 +394,14 @@ $(function(){
         function flagThmaxCheckfunc ()
         {
             var i=0;
-            flagThmaxCheck = "0";
+            flagThmaxCheck = false;
             for (i=-70; i<71; i++)
             {
                 if(pthmax_customWeatherActionControllerTrigger4 == i.toString())
-                    flagThmaxCheck = "1";
+                    flagThmaxCheck = true;
 
             }
-            if(flagThmaxCheck=="0")
+            if(flagThmaxCheck==false)
                 //alert("The range of the max temperature is -70/70");
             $("#notificationsWrapper").notify(
                 "The range of the max temperature is -70/70",
@@ -418,14 +418,14 @@ $(function(){
         {
 
             var i=0;
-            flagThminCheck = "0";
+            flagThminCheck = false;
             for (i=-70; i<71; i++)
             {
                 if(pthmin_customWeatherActionControllerTrigger4 == i.toString())
-                    flagThminCheck = "1";
+                    flagThminCheck = true;
 
             }
-            if(flagThminCheck=="0")
+            if(flagThminCheck==false)
                 //alert("The range of the min temperature is -70/70");
             $("#notificationsWrapper").notify(
                 "The range of the min temperature is -70/70",
@@ -441,14 +441,14 @@ $(function(){
         function flagPeriodCheckfunc ()
         {
             var i=0;
-            flagPeriodCheck = "0";
+            flagPeriodCheck = false;
             for (i=0; i<701; i++)
             {
                 if(period_customWeatherActionControllerTrigger4 == i.toString())
-                    flagPeriodCheck = "1";
+                    flagPeriodCheck = true;
 
             }
-            if(flagPeriodCheck=="0")
+            if(flagPeriodCheck==false)
                 //alert("The range of the min temperature is 0/700");
                 $("#notificationsWrapper").notify(
                     "The range of the min temperature is 0/700",
@@ -465,14 +465,14 @@ $(function(){
         {
 
             var i=0;
-            flagTimeZoneCheck = "0";
+            flagTimeZoneCheck = false;
             for (i=-12; i<13; i++)
             {
                 if(ptimezone_customWeatherActionControllerTrigger4 == i.toString())
-                    flagTimeZoneCheck = "1";
+                    flagTimeZoneCheck = true;
 
             }
-            if(flagTimeZoneCheck=="0")
+            if(flagTimeZoneCheck==false)
                 //alert("The range of the time zone is -12/12");
 
             $("#notificationsWrapper").notify(

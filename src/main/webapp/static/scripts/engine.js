@@ -3019,7 +3019,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             var  yearVector = "";
             var monthVector = "";
             var dayVector = "";
-            var flag = "1";
+            var flag = true;
             var timeZone = "";
             var durationHour = "";
             var durationMinute = "";
@@ -3208,7 +3208,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
 
 
-                if (flag == "1")
+                if (flag == true)
                 {
                     if (monthVector === "1" ||
                         monthVector === "3" ||
@@ -3273,7 +3273,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 }
 
                 if (flag != "3") {
-                    flagTriggerDone = "0";
+                    flagTriggerDone = false;
                     count=7;
 
                     if (modifyVar == 0)
