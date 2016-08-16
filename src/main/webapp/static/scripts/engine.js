@@ -4146,6 +4146,8 @@ iftttApp.filter('reformat', function() {
             case 'hashtag_text': return 'Hashtag text';
             case 'username_sender': return 'Username sender';
             case 'eventAction': return 'Event action';
+            case 'thmax': return 'Max temperature (C°)';
+            case 'thmin': return 'Min temperature (C°)';
         }
 
 
