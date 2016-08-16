@@ -1157,7 +1157,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
                     var index = 0;
                     $scope.userRecipes.forEach(function () {
 
-                        descriptionRecipeGlobal = $scope.userRecipes[index].desc;
+                        descriptionRecipeGlobal = $scope.userRecipes[index].description;
                         idRecipe = $scope.userRecipes[index].id;
                         triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
@@ -1593,7 +1593,7 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
             var data = $scope.userRecipes[index];
 
 
-            descriptionRecipeGlobal = $scope.userRecipes[index].desc;
+            descriptionRecipeGlobal = $scope.userRecipes[index].description;
             idRecipe = $scope.userRecipes[index].id;
             triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
             actionGlobalVariable = $scope.userRecipes[index].action.actionType;
