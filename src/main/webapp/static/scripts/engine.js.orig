@@ -2037,7 +2037,11 @@ iftttApp.controller('passwordChangeController',  ['$scope',
                         data: loginDataSend,
                         success: function() {
                             $('#serverSpinner').spin(false);
+<<<<<<< HEAD
+                            console.log("(passwordChangeController): ricevuta correttamente una risposta dal server");
+=======
                             if(consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+>>>>>>> master
                             alert("La password è stata modificata con successo");
                             window.location.replace('#myRecipes');
                         },

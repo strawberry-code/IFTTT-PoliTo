@@ -80,7 +80,7 @@
 
 
             <li>
-                <a href="#passwordRecovery" ng-if="iftttLogged">
+                <a href="#passwordChange" ng-if="iftttLogged">
                     <span  aria-hidden="true"></span>Change password</a>
             </li>
 
