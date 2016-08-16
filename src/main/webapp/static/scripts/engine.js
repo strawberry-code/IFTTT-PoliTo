@@ -341,6 +341,10 @@ iftttApp.config(['$routeProvider', function($routeProvider){
 iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
+        $scope.consoleLogs = false;
+
+        if($scope.consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
+        
     var nextPath;
 
         /*
@@ -358,14 +362,14 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
       	  method: "POST",
       	  dataType: 'application/json'
         }).then(function success(response) {
-      	  console.log(response);
-      	  //console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+      	  if($scope.consoleLogs) console.log(response);
+      	  //if($scope.consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
       	  if(response.data.authenticated.localeCompare("true")==0){
       		  $scope.iftttLogged = true;
       		  iftttLogin= true;
       		 
       	  }
-      	  //console.log($scope.iftttLogged);
+      	  //if($scope.consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
       	  $('#loginIFTTTModal').modal('hide');
       	  $("#notificationsWrapper").notify(
@@ -377,7 +381,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
       	  );
       	  $scope.iftttLogged = false;
       	  iftttLogin= false;
-      	  console.log($scope.iftttLogged);
+      	  if($scope.consoleLogs) console.log($scope.iftttLogged);
         });  
           
 
@@ -391,7 +395,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 //                email: $('#inputEmailIFTTT').val(),
 //                password: $('#inputPasswordIFTTT').val()
 //            };
-//            console.log(JSON.stringify(iftttCredentials));
+//            if($scope.consoleLogs) console.log(JSON.stringify(iftttCredentials));
 //            $('#serverSpinner').spin();
 //            $http({
 //                url: '/MyServlet',
@@ -400,7 +404,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 //                dataType: 'application/json'
 //                //headers: {'Content-Type': 'application/json'}
 //            }).then(function success(response) {
-//                console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+//                if($scope.consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
 //                if(response.data.authenticated.localeCompare("true")==0){
 //                    $scope.iftttLogged = true;
 //                    iftttLogin= true;
@@ -426,7 +430,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 //                    );
 //                }
 //                $('#serverSpinner').spin(false);
-//                console.log($scope.iftttLogged);
+//                if($scope.consoleLogs) console.log($scope.iftttLogged);
 //            }, function error() {
 //                $('#loginIFTTTModal').modal('hide');
 //                $('#serverSpinner').spin(false);
@@ -439,7 +443,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 //                );
 //                $scope.iftttLogged = false;
 //                iftttLogin= false;
-//                console.log($scope.iftttLogged);
+//                if($scope.consoleLogs) console.log($scope.iftttLogged);
 //            });
 //
 //        };
@@ -458,7 +462,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 url: 'http://localhost:8080/progetto/logout',
                 data: requestLogout
             }).then(function success(response) {
-                console.log(response.data.disconnected);
+                if($scope.consoleLogs) console.log(response.data.disconnected);
             //    if(response.data.disconnected.localeCompare("true")==0){
                     $scope.iftttLogged = false;
                     iftttLogin =  false;
@@ -482,7 +486,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                     );
                 }*/
 
-                console.log($scope.iftttLogged);
+                if($scope.consoleLogs) console.log($scope.iftttLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginIFTTTModal').modal('hide');
@@ -493,7 +497,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         position: 'bottom right'
                     }
                 );
-                console.log($scope.iftttLogged);
+                if($scope.consoleLogs) console.log($scope.iftttLogged);
             });
 
         };
@@ -509,7 +513,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 password: $('#inputPasswordGoogle').val()
             };
 
-            console.log(JSON.stringify(googleCredentials));
+            if($scope.consoleLogs) console.log(JSON.stringify(googleCredentials));
             $('#serverSpinner').spin();
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
@@ -519,7 +523,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if($scope.consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
                 $('#serverSpinner').spin(false);
                 if(response.data.authenticated.localeCompare("true")==0){
                     $scope.googleLogged = true;
@@ -547,7 +551,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                     url = "http://localhost:8080/progetto/api/connect/google.do";
                     window.location.replace(url);
                 }
-                console.log($scope.googleLogged);
+                if($scope.consoleLogs) console.log($scope.googleLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginGoogleModal').modal('hide');
@@ -560,7 +564,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 );
                 $scope.googleLogged = false;
                 googleLogin=false;
-                console.log($scope.googleLogged);
+                if($scope.consoleLogs) console.log($scope.googleLogged);
             });
 
         };
@@ -580,7 +584,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 data: requestLogout
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
-                console.log(response.data.disconnected);
+                if($scope.consoleLogs) console.log(response.data.disconnected);
                 if(response.data.disconnected.localeCompare("true")==0){
                     $scope.googleLogged = false;
                     googleLogin=false;
@@ -601,7 +605,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                     );
                 }
 
-                console.log($scope.googleLogged);
+                if($scope.consoleLogs) console.log($scope.googleLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginGoogleModal').modal('hide');
@@ -612,7 +616,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         position: 'bottom right'
                     }
                 );
-                console.log($scope.googleLogged);
+                if($scope.consoleLogs) console.log($scope.googleLogged);
             });
 
         };
@@ -628,7 +632,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 password: $('#inputPasswordTwitter').val()
             };
 
-            console.log(JSON.stringify(twitterCredentials));
+            if($scope.consoleLogs) console.log(JSON.stringify(twitterCredentials));
             $('#serverSpinner').spin();
             $http({
                 url: '/MyServlet',
@@ -638,7 +642,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
-                console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if($scope.consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
                 if(response.data.authenticated.localeCompare("true")==0){
                     $scope.twitterLogged = true;
                     twitterLogin = true;
@@ -650,7 +654,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                             position: 'bottom right'
                         }
                     );
-                    //console.log("#"+nextPath);
+                    //if($scope.consoleLogs) console.log("#"+nextPath);
                     url = "#"+nextPath;
                     window.location.replace(url);
                 } else {
@@ -662,7 +666,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         }
                     );
                 }
-                console.log($scope.twitterLogged);
+                if($scope.consoleLogs) console.log($scope.twitterLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginTwitterModal').modal('hide');
@@ -675,7 +679,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 );
                 $scope.twitterLogged = false;
                 twitterLogin = false;
-                console.log(""+$scope.twitterLogged);
+                if($scope.consoleLogs) console.log(""+$scope.twitterLogged);
             });
 
         };
@@ -700,7 +704,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 data: requestLogout
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
-                console.log(response.data.disconnected);
+                if($scope.consoleLogs) console.log(response.data.disconnected);
                 if(response.data.disconnected.localeCompare("true")==0){
                     $scope.twitterLogged = false;
                     twitterLogin=false;
@@ -721,7 +725,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                     );
                 }
 
-                console.log($scope.twitterLogged);
+                if($scope.consoleLogs) console.log($scope.twitterLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginTwitterModal').modal('hide');
@@ -732,7 +736,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         position: 'bottom right'
                     }
                 );
-                console.log($scope.twitterLogged);
+                if($scope.consoleLogs) console.log($scope.twitterLogged);
             });
 
         };
@@ -743,7 +747,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
         $scope.routeListener = function (nextRoute) {
             nextPath = nextRoute;
             rootingAutenticationTriggerAction=nextRoute;
-            //console.log("routeListener(nextRoute): "+nextPath);
+            //if($scope.consoleLogs) console.log("routeListener(nextRoute): "+nextPath);
         };
         
 
@@ -768,9 +772,9 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 dataType: "application/json;charset=UTF-8"
             }).then(function success(response) {
                 // Success code here
-                console.log(JSON.stringify(response));
+                if($scope.consoleLogs) console.log(JSON.stringify(response));
                 response.data.forEach(function (x) {
-                    console.log(JSON.stringify(x));
+                    if($scope.consoleLogs) console.log(JSON.stringify(x));
                     $scope.userRecipes.push(x);
                 });
 
@@ -794,7 +798,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
             {
                 // Success code here
                 $scope.userRecipes = [];
-                console.log(JSON.stringify(response));
+                if($scope.consoleLogs) console.log(JSON.stringify(response));
                 $scope.userRecipes = [];
                 //alert(JSON.stringify(response));
 
@@ -803,10 +807,10 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 response.data.forEach(function (x)
                 {
 
-                    //console.log(JSON.stringify(x));
-                    //console.log("????"+JSON.stringify($scope.userRecipes));
+                    //if($scope.consoleLogs) console.log(JSON.stringify(x));
+                    //if($scope.consoleLogs) console.log("????"+JSON.stringify($scope.userRecipes));
                     $scope.userRecipes.push(x);
-                    //console.log("after"+JSON.stringify($scope.userRecipes));
+                    //if($scope.consoleLogs) console.log("after"+JSON.stringify($scope.userRecipes));
                     //alert("WTF");
                     //Per ottenere la descrizione:
                     alert("-->" + JSON.stringify($scope.userRecipes));
@@ -846,7 +850,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         $scope.userRecipes=[];
                         // Success code here
                         //For debug
-                        //console.log(JSON.stringify(response));
+                        //if($scope.consoleLogs) console.log(JSON.stringify(response));
                         //alert(JSON.stringify(response));
 
                         var i = 0;
@@ -855,8 +859,8 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                         (
                             function (x)
                             {
-                                //console.log(JSON.stringify(x));
-                                //console.log("????"+JSON.stringify($scope.userRecipes));
+                                //if($scope.consoleLogs) console.log(JSON.stringify(x));
+                                //if($scope.consoleLogs) console.log("????"+JSON.stringify($scope.userRecipes));
 
                                 //$scope.userRecipes.push(x);
 
@@ -872,7 +876,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                                 //alert( $scope.userRecipes[0].triggerType);
 
 
-                                //console.log("after"+JSON.stringify($scope.userRecipes));
+                                //if($scope.consoleLogs) console.log("after"+JSON.stringify($scope.userRecipes));
                                 //alert("WTF");
                                 //Per ottenere la descrizione:
                                 //alert("-->" + JSON.stringify($scope.userRecipes));
@@ -936,7 +940,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 
             /*
 
-            console.log("inserted the following description: "+$scope.recipedDescriptionInput);
+            if($scope.consoleLogs) console.log("inserted the following description: "+$scope.recipedDescriptionInput);
             // Salvare la descrizione nella varaibile globale e nella ricetta in questione
             // Invio della descrizione al server con una UPDATE
             $http({
@@ -948,7 +952,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
                 // Success code here
                 alert(JSON.stringify(response));
                 response.data.forEach(function (x) {
-                    console.log(JSON.stringify(x));
+                    if($scope.consoleLogs) console.log(JSON.stringify(x));
                 });
 
 
@@ -961,17 +965,17 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
 
         /*
         $scope.removeRecipe = function(index){
-            console.log("REMOVING: "+index);
+            if($scope.consoleLogs) console.log("REMOVING: "+index);
             alert(JSON.stringify("id",$scope.userRecipes[index].id));
 
 
             $http.delete("http://localhost:3000/userRecipes", JSON.stringify("id",$scope.userRecipes[index].id))
                 .then(function success(response){
                         $scope.userRecipes.splice(index, 1);
-                        console.log("recipe deleted successfully from the server and local machine");
+                        if($scope.consoleLogs) console.log("recipe deleted successfully from the server and local machine");
                     },
                     function failure(response){
-                        console.log("some problem occurred, recipes was not deleted");
+                        if($scope.consoleLogs) console.log("some problem occurred, recipes was not deleted");
                     }
                 );
 
@@ -1013,7 +1017,7 @@ iftttApp.controller('homeController',  ['$scope', '$routeParams',
 
         $scope.loadHome = function()
         {
-            console.log("homeController: loaded");
+            if($scope.consoleLogs) console.log("homeController: loaded");
         }
 
     }]);
@@ -1023,7 +1027,7 @@ iftttApp.controller('createRecipeController',  ['$scope', '$routeParams',
         modifyVar=0;
         $scope.loadHome = function()
         {
-            console.log("createRecipeController: loaded");
+            if($scope.consoleLogs) console.log("createRecipeController: loaded");
         }
 
     }]);
@@ -1048,10 +1052,10 @@ iftttApp.controller('ifCreatorController',  ['$scope', '$routeParams', '$window'
     // A
         $scope.$watch(
             function () {
-                //console.log("angular: "+$window.googleLogged);
+                //if($scope.consoleLogs) console.log("angular: "+$window.googleLogged);
                 return $window.googleLogged
             }, function(n){
-               // console.log("changed ",n);
+               // if($scope.consoleLogs) console.log("changed ",n);
             },
             true
         );
@@ -1073,7 +1077,7 @@ iftttApp.controller('doCreatorController',  ['$scope',
 
         $scope.loadHome = function()
         {
-            console.log("createRecipeController: loaded");
+            if($scope.consoleLogs) console.log("createRecipeController: loaded");
         }
 
     }]);
@@ -1096,17 +1100,17 @@ iftttApp.controller('doCreatorController',  ['$scope', '$routeParams',
       	  method: "POST",
       	  dataType: 'application/json'
         }).then(function success(response) {
-      	  console.log(response);
-      	  console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+      	  if($scope.consoleLogs) console.log(response);
+      	  if($scope.consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
       	  if(response.data.authenticated.localeCompare("true")==0){
       		  $scope.iftttLogged = true;
       		  iftttLogin= true;
       	  } 
-      	  console.log($scope.iftttLogged);
+      	  if($scope.consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
       	  $scope.iftttLogged = false;
       	  iftttLogin= false;
-      	  console.log($scope.iftttLogged);
+      	  if($scope.consoleLogs) console.log($scope.iftttLogged);
         });  
     	
         $scope.userRecipes = null;
@@ -1963,7 +1967,7 @@ iftttApp.controller('createAccountController',  ['$scope',
             if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2)){
                 if(pws1==pws2)
                 {
-                    //console.log(user + " " + email + " " + " " + pws1);
+                    //if($scope.consoleLogs) console.log(user + " " + email + " " + " " + pws1);
 
                     var loginDataSend =
                     {
@@ -1971,7 +1975,7 @@ iftttApp.controller('createAccountController',  ['$scope',
                         "email": email,
                         "password": pws1
                     };
-                    //console.log(loginDataSend.user);
+                    //if($scope.consoleLogs) console.log(loginDataSend.user);
                     $('#serverSpinner').spin();
                     $.ajax
                     ({
@@ -1985,7 +1989,7 @@ iftttApp.controller('createAccountController',  ['$scope',
                         dataType: "json",
                         success: function() {
                             $('#serverSpinner').spin(false);
-                            console.log("la post ha avuto successo");
+                            if($scope.consoleLogs) console.log("la post ha avuto successo");
                             window.location.replace('#');
                         },
                         error: function(){
@@ -2016,7 +2020,7 @@ iftttApp.controller('passwordRecoveryController',  ['$scope',
             if (angular.isDefined(pws1) && angular.isDefined(pws2)){
                 if(pws1==pws2)
                 {
-                    //console.log(user + " " + email + " " + " " + pws1);
+                    //if($scope.consoleLogs) console.log(user + " " + email + " " + " " + pws1);
 
                     var loginDataSend =
                     {
@@ -2032,7 +2036,7 @@ iftttApp.controller('passwordRecoveryController',  ['$scope',
                         data: loginDataSend,
                         success: function() {
                             $('#serverSpinner').spin(false);
-                            console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                            if($scope.consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
                             alert("La password è stata modificata con successo");
                             window.location.replace('#myRecipes');
                         },
@@ -2072,7 +2076,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
             var subject = "";
             var flag = true;
             triggerChose=1;
-            //console.log($scope.gmailinput.email + " "  + $scope.gmailinput.subjectReceive);
+            //if($scope.consoleLogs) console.log($scope.gmailinput.email + " "  + $scope.gmailinput.subjectReceive);
 
             sender_GmailTriggerController="";
             subject_GmailTriggerController="";
@@ -2172,7 +2176,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
-                success: console.log("la post ha avuto successo")
+                success: if($scope.consoleLogs) console.log("la post ha avuto successo")
             });
             */
         };
@@ -2397,7 +2401,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
-                success: console.log("la post ha avuto successo")
+                success: if($scope.consoleLogs) console.log("la post ha avuto successo")
             });
             */
 
@@ -2444,7 +2448,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1',  ['$scope', '$route
                 $scope.checkadvisetimevar = 'NO';
             else
                 $scope.checkadvisetimevar = 'YES';
-            //console.log(name);
+            //if($scope.consoleLogs) console.log(name);
         };
 
         $scope.checktimeZonefunc = function(/*name*/)
@@ -2453,7 +2457,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1',  ['$scope', '$route
                 $scope.checktimeZonevar = 'NO';
             else
                 $scope.checktimeZonevar = 'YES';
-            //console.log(name);
+            //if($scope.consoleLogs) console.log(name);
         };
 
         $scope.modifyButton = false;
@@ -2630,7 +2634,7 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
                 $scope.checkadvisetsunrisevar = 'NO';
             else
                 $scope.checkadvisetsunrisevar = 'YES';
-            //console.log(name);
+            //if($scope.consoleLogs) console.log(name);
         };
 
         $scope.checkadvisetsunsetfunc = function(/*name*/)
@@ -2639,7 +2643,7 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
                 $scope.checkadvisesunsetvar = 'NO';
             else
                 $scope.checkadvisesunsetvar = 'YES';
-            //console.log(name);
+            //if($scope.consoleLogs) console.log(name);
         };
 
         $scope.checktimeZonefunc = function(/*name*/)
@@ -2648,7 +2652,7 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
                 $scope.checktimeZonevar = 'NO';
             else
                 $scope.checktimeZonevar = 'YES';
-            //console.log(name);
+            //if($scope.consoleLogs) console.log(name);
         };
 
         $scope.modifyButton = false;
@@ -2696,14 +2700,14 @@ iftttApp.controller('loginPageController',  ['$scope',
                     "password:": pass,
                     "email:": email
                 };
-                //console.log(loginDataSend.pssword);
+                //if($scope.consoleLogs) console.log(loginDataSend.pssword);
                 $.ajax({
                     method: "post",
                     url: "/MyServlet",
                     data: loginDataSend,
                     dataType: "json",
                     success: function () {
-                        console.log("la post ha avuto successo ");
+                        if($scope.consoleLogs) console.log("la post ha avuto successo ");
                         $('#serverSpinner').spin(false);
                     },
                     error: $('#serverSpinner').stop()
@@ -2987,7 +2991,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
-                success: function(){ console.log("la post ha avuto successo n 9");$('#serverSpinner').spin(false);},
+                success: function(){ if($scope.consoleLogs) console.log("la post ha avuto successo n 9");$('#serverSpinner').spin(false);},
                 error: $('#serverSpinner').stop()
             });
         };
@@ -3215,7 +3219,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         if (dayVector > "0" && dayVector < "32");
                         else {
                             flag = "3";
-                            //console.log("Your date is not right plase verify the day");
+                            //if($scope.consoleLogs) console.log("Your date is not right plase verify the day");
                             alertVariable = "Your date is not right plase verify the day";
                             alertFunction ();
                         }
@@ -3230,7 +3234,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         else
                         {
                             flag = "3";
-                            //console.log("Your date is not right plase verify the day");
+                            //if($scope.consoleLogs) console.log("Your date is not right plase verify the day");
                             alertVariable = "Your date is not right plase verify the day";
                             alertFunction ();
                         }
@@ -3249,7 +3253,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         if (monthVector === "2")
                             if (dayVector > 28) {
                                 flag = "3";
-                                //console.log("Thi is a leap year");
+                                //if($scope.consoleLogs) console.log("Thi is a leap year");
                                 alertVariable = "Thi is a leap year";
                                 alertFunction ();
                             }
@@ -3259,7 +3263,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
                     if(monthVector == "2" && dayVector >29 && flag != "3")
                     {
-                        //console.log("Febrary has not " + dayVector + " days, please check" );
+                        //if($scope.consoleLogs) console.log("Febrary has not " + dayVector + " days, please check" );
                         alertVariable = "Febrary has not " + dayVector + " days, please check";
                         alertFunction ();
                         flag = "3";
@@ -3882,7 +3886,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
-                success: console.log("la post ha avuto successo n 9")
+                success: if($scope.consoleLogs) console.log("la post ha avuto successo n 9")
             });
         };
         */
@@ -4027,7 +4031,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
-                success: console.log("la post ha avuto successo n 9")
+                success: if($scope.consoleLogs) console.log("la post ha avuto successo n 9")
             });
         };
         */
@@ -4128,7 +4132,7 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
 
 iftttApp.filter('capitalize', function() {
     return function(input) {
-        console.log(JSON.stringify(input));
+        if($scope.consoleLogs) console.log(JSON.stringify(input));
         return input.substring(0,1).toUpperCase()+input.substring(1);
     }
 });
@@ -4200,7 +4204,7 @@ function sedingServerAllRun (loginDataSend)
             $('#serverSpinner').spin(false);
             $('#recipedDescriptionModal').modal('hide');
 
-            //console.log("la post ha avuto successo n 9");
+            //if($scope.consoleLogs) console.log("la post ha avuto successo n 9");
             //result = response;
 
             //sendingToServerAll();
@@ -4216,7 +4220,7 @@ function sedingServerAllRun (loginDataSend)
                 data: result,
                 dataType: "json",
                 success: function(response) {
-                    //console.log("la post ha avuto successo n 9");
+                    //if($scope.consoleLogs) console.log("la post ha avuto successo n 9");
                     alert("2");
 
                 }
