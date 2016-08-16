@@ -328,6 +328,11 @@ iftttApp.config(['$routeProvider', function($routeProvider){
         templateUrl: './static/innerPages/publishPage/PublicRecipes.html',
         controller: 'publicRecipesController'
     });
+    
+    $routeProvider.when('/passwordRecovery', {
+        templateUrl: './static/innerPages/passwordRecovery.html',
+        controller: 'passwordRecoveryController'
+    });
 
 
     $routeProvider.otherwise({redirectTo: '/home'});
