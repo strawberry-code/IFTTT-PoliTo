@@ -20,6 +20,8 @@ public class TwitterTrigger {
 	Long lastCheck;
 	@Column
 	Integer type; //0: check tweets, 1: check directMessages
+	@Column
+	String triggerType;
 	
 	public String getUsername_sender() {
 		return username_sender;
@@ -50,5 +52,11 @@ public class TwitterTrigger {
 	}
 	public Integer getTwtid() {
 		return twtid;
+	}
+	public String getTriggerType() {
+		return triggerType;
+	}
+	public void setTriggerType(String triggerType) {
+		this.triggerType = triggerType;
 	}
 }

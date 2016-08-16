@@ -36,6 +36,8 @@ public class WeatherTrigger {
 	String timezone;
 	@Column(nullable=true)
 	Long period;
+	@Column
+	String triggerType;
 	
 	public Integer getWtid() {
 		return wtid;
@@ -108,5 +110,11 @@ public class WeatherTrigger {
 	}
 	public void setPeriod(Long period) {
 		this.period = period;
+	}
+	public String getTriggerType() {
+		return triggerType;
+	}
+	public void setTriggerType(String triggerType) {
+		this.triggerType = triggerType;
 	}
 }

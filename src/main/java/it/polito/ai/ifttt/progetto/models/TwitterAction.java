@@ -18,6 +18,8 @@ public class TwitterAction {
 	String destination;   //if null, vuol dire che non e' interessato
 	  					  //a questo tipo di trigger -> dunque obbligatorio
 						  //se si sceglie l'azione di tipo 2
+	@Column
+	String actionType;
 	
 	public Integer getTwaid() {
 		return twaid;
@@ -36,5 +38,11 @@ public class TwitterAction {
 	}
 	public void setDestination(String destination) {
 		this.destination = destination;
+	}
+	public String getActionType() {
+		return actionType;
+	}
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
 	}
 }

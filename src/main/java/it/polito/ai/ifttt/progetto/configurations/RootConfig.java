@@ -86,8 +86,7 @@ public class RootConfig {
 		c.addAnnotatedClass(TwitterTrigger.class);
 		c.addAnnotatedClass(TwitterAction.class);
 		c.setProperty(Environment.DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
-		c.setProperty(Environment.HBM2DDL_AUTO, "validate"
-				+ "");
+		c.setProperty(Environment.HBM2DDL_AUTO, "validate");
 		return c.buildSessionFactory();
 	}
 

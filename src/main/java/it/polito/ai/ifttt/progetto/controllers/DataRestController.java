@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,10 +47,15 @@ import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
 import it.polito.ai.ifttt.progetto.models.GmailAction;
 import it.polito.ai.ifttt.progetto.models.Recipes;
 import it.polito.ai.ifttt.progetto.models.Users;
+import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
+import it.polito.ai.ifttt.progetto.services.CalendarManager;
+import it.polito.ai.ifttt.progetto.services.GmailManager;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
 import it.polito.ai.ifttt.progetto.services.RecipesManager;
+import it.polito.ai.ifttt.progetto.services.TwitterManager;
+import it.polito.ai.ifttt.progetto.services.WeatherManager;
 
 @RestController
 @RequestMapping("/")
@@ -59,6 +65,14 @@ public class DataRestController {
 	LoginManager loginManager;
 	@Autowired
 	RecipesManager recipesManager;
+	@Autowired
+	GmailManager gmailManager;
+	@Autowired
+	WeatherManager weatherManager;;
+	@Autowired
+	CalendarManager calendarManager;
+	@Autowired
+	TwitterManager twitterManager;
 
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
 	Integer registerUser(@RequestBody Users user) {
@@ -112,6 +126,64 @@ public class DataRestController {
 		return recipeid;
 	}
 	
+	@RequestMapping(value = "userRecipes", method = RequestMethod.GET)
+	List<recipeJsonClass> getRecipes() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		List<Recipes> recipes = user.getRecipes();
+		System.out.println("Recipes list size: "+recipes.size());
+		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+		for(Recipes r : recipes) {
+			recipeJsonClass ricettaJson = new recipeJsonClass();
+			ricettaJson.setId(r.getRid());
+			ricettaJson.setDescription(r.getDescription());
+			
+			//prelevo trigger e setto
+			String triggerType = r.getTriggerType();
+			Integer triggerid = r.getTriggerid();
+			Object trigger = null;
+			if(triggerType.compareTo("gmail")==0) {
+				trigger = gmailManager.findGmailTriggerById(triggerid);
+			} else if(triggerType.compareTo("calendar")==0) {
+				trigger = calendarManager.findCalendarTriggerById(triggerid);
+			} else if(triggerType.compareTo("weather")==0) {
+				trigger = weatherManager.findWeatherTriggerById(triggerid);
+			} else if(triggerType.compareTo("twitter")==0) {
+				trigger = twitterManager.findTwitterTriggerById(triggerid);
+			}
+			else {
+				//valore non valido
+				return null;
+			}			
+			ricettaJson.setTrigger(trigger);
+			
+			//prelevo action e setto
+			String actionType = r.getActionType();
+			Integer actionid = r.getActionid();
+			Object action = null;
+			if(actionType.compareTo("gmail")==0) {
+				action = gmailManager.findGmailActionById(actionid);
+			} else if(actionType.compareTo("calendar")==0) {
+				action = calendarManager.findCalendarActionById(actionid);
+			} else if(actionType.compareTo("twitter")==0) {
+				action = twitterManager.findTwitterActionById(actionid);
+			}
+			else {
+				//valore non valido
+				return null;
+			}	
+			ricettaJson.setAction(action);
+			
+			ricettaJson.setPublish(r.getPublish());
+			
+			list.add(ricettaJson);
+			System.out.println(ricettaJson);
+		}
+		return list;
+	}
+	
+	
+	//To check if he/her is authenticated
 	@RequestMapping(value = "prova", method = RequestMethod.POST)
 	returnClass provaLogin() {
 		

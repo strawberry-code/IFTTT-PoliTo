@@ -26,7 +26,8 @@ public class CalendarAction {
 	String location;
 	@Column
 	String timezone;
-	
+	@Column
+	String actionType;
 	
 	public Integer getCaid() {
 		return caid;
@@ -69,5 +70,11 @@ public class CalendarAction {
 	}
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+	public String getActionType() {
+		return actionType;
+	}
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
 	}	
 }

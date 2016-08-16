@@ -22,6 +22,8 @@ public class GmailAction {
 	String subject;
 	@Column(nullable=true)
 	String body;
+	@Column
+	String actionType;
 	
 	public Integer getGaid() {
 		return gaid;
@@ -52,5 +54,11 @@ public class GmailAction {
 	}
 	public void setSender(boolean sender) {
 		this.sender = sender;
+	}
+	public String getActionType() {
+		return actionType;
+	}
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
 	}
 }

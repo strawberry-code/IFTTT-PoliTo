@@ -18,6 +18,8 @@ public class GmailTrigger {
 	String subject;
 	@Column
 	Long lastCheck;
+	@Column
+	String triggerType;
 	
 	public Integer getGtid() {
 		return gtid;
@@ -42,5 +44,11 @@ public class GmailTrigger {
 	}
 	public void setLastCheck(Long lastCheck) {
 		this.lastCheck = lastCheck;
+	}
+	public String getTriggerType() {
+		return triggerType;
+	}
+	public void setTriggerType(String triggerType) {
+		this.triggerType = triggerType;
 	}
 }

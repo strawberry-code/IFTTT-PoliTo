@@ -24,6 +24,8 @@ public class CalendarTrigger {
 	String location;
 	@Column
 	Long lastCheck;
+	@Column
+	String triggerType;
 	
 	public Integer getCtid() {
 		return ctid;
@@ -60,5 +62,11 @@ public class CalendarTrigger {
 	}
 	public void setLastCheck(Long lastCheck) {
 		this.lastCheck = lastCheck;
+	}
+	public String getTriggerType() {
+		return triggerType;
+	}
+	public void setTriggerType(String triggerType) {
+		this.triggerType = triggerType;
 	}
 }
