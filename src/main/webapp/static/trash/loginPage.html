@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../stylesheets/loginPage.css">
+</head>
+<body>
+
+
+<div class="container" style="padding-top: 6%">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Sign in to continue</h1>
+            <hr>
+                <img class="profile-img" src="../images/login.png"
+                     alt="">
+                <form class="form-signin" name="form">
+
+                    <div class="control-group" ng-class="{true: 'error'}[submitted && form.email.$invalid]">
+                        <div class="controls">
+                            <input type="email" name="email" class="form-control" ng-model="email" required placeholder="Email"
+                                   autofocus
+                            />
+                            <span style="color: #cd0a0a" class="help-inline"
+                                  ng-show="submitted && form.email.$error.required">Required</span>
+                            <span style="color: #cd0a0a" class="help-inline"
+                                  ng-show="submitted && form.email.$error.email">Invalid email</span>
+                        </div>
+                    </div>
+
+                    <!--
+                    <input type="text" class="form-control" placeholder="Email" required autofocus>
+
+                    <input type="password" class="form-control" placeholder="Password" required>
+                        -->
+
+                    <div class="control-group" ng-class="{true: 'error'}[submitted && form.email.$invalid]">
+                        <div class="controls">
+                            <input type="password" name="pass" class="form-control" ng-model="pass" required placeholder="Password"
+
+
+                            />
+                            <span style="color: #cd0a0a" class="help-inline"
+                                  ng-show="submitted && form.pass.$error.required">Required</span>
+                        </div>
+                    </div>
+
+
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit"
+                            ng-click="submitted=true; loginfunc(pass, email)"
+                    >
+                        Sign in</button>
+                    <label class="checkbox pull-left">
+                        <input type="checkbox" value="remember-me">
+                        Remember me
+                    </label>
+                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                </form>
+            <hr>
+            <a href="#index/createAccount" class="text-center new-account">Create an account </a>
+        </div>
+        <a href="#index/myRecipes" class="text-center new-account">Login success simulator </a>
+    </div>
+</div>
+
+
+<!--
+http://jsfiddle.net/thomporter/ANxmv/2/
+-->
+<!--
+<form name="form" ng-app>
+    <div class="control-group" ng-class="{true: 'error'}[submitted && form.email.$invalid]">
+        <label class="control-label" for="email">Your email address</label>
+        <div class="controls">
+            <input type="email" name="email" ng-model="email" required />
+            <span class="help-inline" ng-show="submitted && form.email.$error.required">Required</span>
+            <span class="help-inline" ng-show="submitted && form.email.$error.email">Invalid email</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-large" ng-click="submitted=true">Submit</button>
+</form>
+-->
+</body>
+</html>

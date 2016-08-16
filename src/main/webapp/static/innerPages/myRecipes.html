@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My recipes</title>
+</head>
+<body ng-controller="myRecipesController">
+
+<div class="container" style="padding-top: 6%">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                  <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
+                <div class="col-md-6">
+                    <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
+                        <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Your IFTTT Polito recipes</h1></li>
+                            <li ng-repeat="f in  elements" class="list-group-item">
+                                <h4><!-- data-content="{{f.desc}}" -->
+                                    <span class="glyphicon glyphicon-file" title="Header" data-placement="bottom" data-toggle="popover" data-trigger="hover" ></span>
+                                    N° {{$index + 1}} <em>{{f.desc}}</em>
+                                    <button style="margin-left: 3px" class="btn btn-danger pull-right">
+                                    <span class="glyphicon glyphicon-trash" data-ng-click="removeRecipe(f.index, f.id)"></span>
+                                        <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                                    </button>
+
+                                    <button style="margin-left: 3px" class="btn btn-primary pull-right animate-if" ng-if="!f.publish">
+                                        <span class="glyphicon glyphicon-share" data-ng-click="shareRecipe(f.index, f.id)"></span>
+                                        <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                                    </button>
+
+                                    <button style="margin-left: 3px" class="btn btn-danger pull-right animate-if" ng-if="f.publish">
+                                        <span class="glyphicon glyphicon-share-alt" data-ng-click="DoNotshareRecipe(f.index, f.id)"></span>
+                                        <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                                    </button>
+
+                                    <button style="margin-left: 3px" class="btn btn-warning pull-right">
+                                        <span class="glyphicon glyphicon-edit" data-ng-click="modifyRecipe(f.index)"></span>
+                                        <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                                    </button>
+
+
+                                    <!--
+
+                                        <div class="panel panel-default" ng-repeat="element in elements">
+                                            <div class="panel-heading">{{element.name}}
+                                                <button ng-click="element.isCollapsed = !element.isCollapsed">Toggle</button>
+                                            </div>
+                                            {{element.isCollapsed}}
+                                            <div collapse="element.isCollapsed"><div ng-show="!element.isCollapsed" class="panel-body ">
+
+                                            </div>
+                                       </div>
+
+
+                                       <!---
+
+
+                                       <div ng-repeat="shop in responseJson">
+                                          {{shop.id}}
+                                          <div ng-repeat="banner in shop.banners">
+                                               <img ng-src="{{banner.path}}>
+                                             </div>
+                                         </div>
+                                       -->
+
+                                       <!---
+
+                                    <div class="panel panel-default" ng-repeat="(key, data) in elements[1].action">
+                                        <div class="panel-heading">
+                                            <button ng-click="element.isCollapsed = !element.isCollapsed">Toggle</button>
+                                        </div>
+                                        {{key}}------{{data}}
+                                        <div collapse="element.isCollapsed"><div ng-show="!element.isCollapsed" class="panel-body ">
+
+                                        </div>
+                                        </div>
+                                            -->
+
+
+
+
+
+                                    <div class="panel-heading">
+                                        <button ng-click="f.isCollapsed = !f.isCollapsed">Show the recipe</button>
+                                    </div>
+                                    <div collapse="f.isCollapsed"><div ng-show="!f.isCollapsed" class="panel-body ">
+                                      <!--  <div ng-repeat=" azione in f.action"> -->
+                                        trigger*********************************
+                                        <div ng-repeat="(key, data) in f.trigger">
+                                            "{{key}} ---  {{data}}"
+                                        </div>
+                                        azione**************************************
+                                        <div ng-repeat="(key, data) in f.action">
+                                            "{{key}} ---  {{data}}"
+                                        </div>
+                                        </div>
+
+                                    </div>
+
+
+                                        <!--
+                                            <div ng-repeat=" azione in f ">
+
+                                            <div ng-repeat="(key, data) in azione">
+                                                "{{key}} ---  {{data}}"
+                                             </div>
+                                                <div>
+                                         </div>
+                                         -->
+
+
+
+                                        <!--
+
+                                                <div ng-repeat="(key, data) in f">
+                                                    {{key}} - {{data}} <br>
+                                                </div>
+
+                                        -->
+
+
+                            </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="row text-center" style="padding-top: 3%">
+                <h3>or</h3>
+            </div>
+            <div class="row text-center" style="padding-top: 4%">
+                <a class="btn btn-success btn-large" href="#createRecipe"><h4>Create a new recipe</h4></a>
+            </div>
+</div>
+</body>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            container: 'body'
+        });
+    });
+    if(iftttLogin == false)
+    {
+        modifyCountVar=0;
+        url = "#home";
+        window.location.replace(url);
+        count = 0;
+    }
+    else
+    {
+        modifyCountVar=1;
+    }
+</script>
+
+<style type="text/css">
+    em {
+        font-style: normal;         /* Removes italics */
+        text-decoration: underline; /* Makes underline */
+    }
+</style>
+
+</html>

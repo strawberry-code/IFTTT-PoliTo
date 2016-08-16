@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My recipes</title>
+</head>
+<body ng-controller="publicRecipesController">
+
+<div class="container" style="padding-top: 6%">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                  <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
+                <div class="col-md-6">
+                    <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
+                        <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Your IFTTT Polito recipes</h1></li>
+                            <li ng-repeat="f in  userRecipes" class="list-group-item">
+                                <h4><!-- data-content="{{f.desc}}" -->
+                                    <span class="glyphicon glyphicon-file" title="Header" data-placement="bottom"  data-trigger="hover" ></span>
+                                    N° {{$index + 1}} <em>{{f.desc}}</em>
+                                </h4>
+                            </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+</div>
+</body>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            container: 'body'
+        });
+    });
+
+</script>
+
+<style type="text/css">
+    em {
+        font-style: normal;         /* Removes italics */
+        text-decoration: underline; /* Makes underline */
+    }
+</style>
+
+</html>

@@ -1,0 +1,276 @@
+<html>
+<head>
+    <script src="innerPages/weatherChannel/WeatherTrigger1Machine/customWeather.js"></script>
+
+</head>
+<body ng-controller="customWeatherActionControllerTrigger1">
+
+
+<div class="container" style="padding-top: 6%">
+
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+            <p><h1><img src="../../images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;"/> Tomorrow weather conditions trigger</h1></p>
+            <hr>
+
+            <div id="search-bar">
+
+                <div class="input-group">
+                <span class="input-group-addon ">
+                    <div class="hidden-xs">Search for your city :
+                    </div>
+                </span>
+
+                    <input id="search-input" type="search" class="form-control" placeholder="Enter location...">
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Search!</button>
+                </span>
+                </div>
+            </div>
+
+            <br>
+
+            <div id="temper">
+                <div id="temp-board">
+                    <div id="temp-inner">
+
+                        <div id="weather-desc">Cant find your Location :(</div>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <div class="values">City : <span id="main-name">N.A</span></div>
+                    <div class="values">City Id : <span id="sys-id">N.A</span></div>
+                    <div class="values">Longitude : <span id="coord-lon">N.A</span></div>
+                    <div class="values">Latitude : <span id="coord-lat">N.A</span> </div>
+                    <div class="values">Country : <span id="sys-country">N.A</span>   </div>
+                      </div>
+                <br>
+                <label>
+                <input
+                        id="checktime"
+                        type="checkbox"
+                        ng-model="checkadvisetime"
+                        ng-change="checkadvisetimefunc(checkadvisetimevar)"
+                > <img src="../../images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to watch</b></label>
+
+                <div  ng-if="checkadvisetime" class="animate-if">
+                <form name="timeHour">
+                    <label>Hour:
+                        <input  id="timehourid" ng-disabled="!checkadvisetime"  type="number" name="input1" ng-model="trigger1input.value1"
+                               min="0" max="23" required>
+                    </label>
+
+
+                    <label> minute:
+                        <input  id="timeminuteid" ng-disabled="!checkadvisetime" type="number" name="input2" ng-model="trigger1input.value2"
+                               min="0" max="59" required>
+                    </label>
+                    <div role="alert">
+                        <span style="color:#ac2925" class="error" ng-show="(timeHour.input1.$error.required ||
+                         timeHour.input2.$error.required) && checkadvisetime">
+                            Required!</span>
+                        <span  style="color:#ac2925"  class="error" ng-show="(timeHour.input1.$error.number ||
+                          timeHour.input2.$error.number) && checkadvisetime">
+                            Not valid number!</span>
+                    </div>
+
+
+
+
+                </form>
+                    </div>
+
+                <!--   Time zone    --->
+
+                <form name="timeZone">
+                <label>
+                    <input
+                            id="checktimeZonevar"
+                            type="checkbox"
+                            ng-model="checktimeZone"
+                            ng-change="checktimeZonefunc(checktimeZonevar)"
+                    > <img src="../../images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone: </b>
+                </label>
+                    <div  ng-if="checktimeZone" class="animate-if">
+                    <input id="timezoneid" ng-disabled="!checktimeZone" type="number" name="input" ng-model="trigger1input.value3"
+                           min="-12" max="12" required> GMT
+
+                    <div role="alert">
+                        <span  style="color:#ac2925" class="error" ng-show="timeZone.input.$error.required  && checktimeZone">
+                            Required!</span>
+                        <span  style="color:#ac2925"  class="error" ng-show="timeZone.input.$error.number  && checktimeZone">
+                            Not valid number!</span>
+                    </div>
+            </div>
+
+
+                </form>
+                <!--   -->
+
+                <hr>
+
+
+                <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#allTriggers"
+                    ng-if="!modifyButton"
+                >Cancel</a>
+
+                <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#choseModify"
+                    ng-if="modifyButton"
+                >Cancel</a>
+
+
+                <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
+                        ng-if="!modifyButton"
+                >Next</button>
+
+                <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
+                        ng-if="modifyButton"
+                >Submit</button>
+
+
+
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+
+</div>
+
+<!-- Script di page -->
+
+<script>
+    angular.module('numberExample', [])
+            .controller('ExampleController', ['$scope', function($scope) {
+                $scope.example = {
+                    value: 12
+                };
+            }]);
+
+    angular.module('timeExample', [])
+            .controller('DateController', ['$scope', function($scope) {
+                $scope.example = {
+                    value: new Date(1970, 0, 1, 14, 57, 0)
+                };
+            }]);
+
+    if (setChooseAx == 4)
+    {
+        if (iftttLogin == false)
+        {
+            url = "#home";
+            window.location.replace(url);
+        }
+
+    }
+    else {
+
+        if (modifyVar == 1) {
+            if (iftttLogin == false) {
+                url = "#home";
+                window.location.replace(url);
+                modifyCountVar = 0;
+            }
+            else {
+                if (modifyCountVar == 2) {
+                    modifyCountVar++;
+                }
+                else {
+                    if (modifyCountVar < 2) {
+                        url = "#/index/myRecipes";
+                        window.location.replace(url);
+                    }
+
+                }
+
+            }
+        }
+
+
+        else {
+
+
+            if (iftttLogin == false) {
+                url = "#home";
+                window.location.replace(url);
+                count = 0;
+                flagTriggerDone = "0";
+            }
+            else {
+                if (count == 2) {
+                    count++;
+                    url1back = "#WeatherTrigger1";
+                }
+                else {
+                    if (count < 2) {
+                        url = "#allTriggers";
+                        window.location.replace(url);
+                    }
+
+                }
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>
+
+<!-- Codici di esempio
+ UTC-12 a UTC+12
+
+<form name="myForm" ng-controller="ExampleController">
+    <label>Number:
+        <input type="number" name="input" ng-model="example.value"
+               min="-12" max="12" required>
+    </label>
+    <div role="alert">
+    <span class="error" ng-show="myForm.input.$error.required">
+      Required!</span>
+        <span class="error" ng-show="myForm.input.$error.number">
+      Not valid number!</span>
+    </div>
+    <tt>value = {{example.value}}</tt><br/>
+    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+    <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+</form>
+
+-->
+
+
+
+
+<!--
+<script>
+ angular.module('timeExample', [])
+   .controller('DateController', ['$scope', function($scope) {
+     $scope.example = {
+       value: new Date(1970, 0, 1, 14, 57, 0)
+     };
+   }]);
+</script>
+<form name="myForm" ng-controller="DateController as dateCtrl">
+   <label for="exampleInput">Pick a time between 8am and 5pm:</label>
+   <input type="time" id="exampleInput" name="input" ng-model="example.value"
+       placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
+   <div role="alert">
+     <span class="error" ng-show="myForm.input.$error.required">
+         Required!</span>
+     <span class="error" ng-show="myForm.input.$error.time">
+         Not a valid date!</span>
+   </div>
+   <tt>value = {{example.value | date: "HH:mm:ss"}}</tt><br/>
+   <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+   <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+   <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+   <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+</form>
+-->

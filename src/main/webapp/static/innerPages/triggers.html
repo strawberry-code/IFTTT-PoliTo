@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a IFTTT recipe</title>
+</head>
+<body ng-controller="ifCreatorController">
+
+    <!-- Page Content -->
+    <div class="container">
+
+            <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Choose a trigger
+                <small  class="animate-if" ng-if="!modifyButton">Step 2/6</small>
+
+            </h1>
+
+        <!-- GCalendar -->
+        <div class="container" style="padding-top: 4%">
+
+
+            <div class="row">
+
+                <h1><img src="../images/gcal.png" style="width:42px;height:42px;border:0;"> GCalendar </h1>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/gcalendarChannel/event-start.png" style="width:42px;height:42px;border:0;"/> Event start
+                        </h2>
+                        <p>
+                            This triggers will be activated when an event starts that can be monitored through the Title, Description and / or Location.
+                        </p>
+                        <!--
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger1Gcalendar">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></a>
+
+                        <p>
+                        -->
+                        <p>
+                            <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal" data-target="#loginGoogleModal" ng-click="routeListener('Trigger1Gcalendar')">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger1Gcalendar" ng-if="googleLogged" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/gcalendarChannel/event-added.png" style="width:42px;height:42px;border:0;"/> Event added
+                        </h2>
+                        <p>
+                            When an event has benn created with a certain title or/and place, therefore
+                            you can create another event with a specific date, title, desctipion and/or place.
+                        </p>
+                        <!--
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger2Gcalendar">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        -->
+
+                        <p>
+                            <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal" data-target="#loginGoogleModal" ng-click="routeListener('Trigger2Gcalendar')">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger2Gcalendar" ng-if="googleLogged" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="../images/divider.png" height="100" width="100" class="img-responsive center-block"/>
+
+        <!-- GMail -->
+        <div class="container">
+
+
+            <div class="row">
+
+                <h1><img src="../images/gmail.ico" style="width:42px;height:42px;border:0;"> GMail </h1>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/gmailChannel/gmail.png" style="width:42px;height:42px;border:0;"> Incoming email
+                        </h2>
+                        <p>
+                            Trigger activated when you receive an email monitored by Title, Description or Location.
+                        </p>
+                       <!--
+                        <p>
+                            <a class="btn btn_next2" href="#gMailTrigger">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        -->
+
+                        <p>
+                            <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal" data-target="#loginGoogleModal" ng-click="routeListener('gMailTrigger')">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#gMailTrigger" ng-if="googleLogged" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="../images/divider.png" height="100" width="100" class="img-responsive center-block"/>
+
+        <!-- Weather -->
+        <div class="container" >
+
+
+            <div class="row">
+
+                <h1><img src="../images/weather.png" style="width:42px;height:42px;border:0;"> Weather </h1>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;"> Tomorrow weather
+                        </h2>
+                        <p>
+                            The weather of tomorrow: you can chose the location and the hour that you wish to monitor.
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#WeatherTrigger1">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/weatherChannel/temp-range.png" style="width:42px;height:42px;border:0;"> Temperature range
+                        </h2>
+                        <p>
+                            Get notified when the current temperature changes and moves above or below a given threshold.
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#WeatherTrigger4">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/weatherChannel/t31.png" style="width:42px;height:42px;border:0;"> Sunrise/Sunset <img src="../images/weatherChannel/t32.png" style="width:42px;height:42px;border:0;">
+                        </h2>
+                        <p>
+                            You wish to know when the sun rises today? Or what time takes the sunset?
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#WeatherTrigger3">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/weatherChannel/t4.png" style="width:42px;height:42px;border:0;"> Monitor a special weather condition
+                        </h2>
+                        <p>
+                            Do you wish to follow a special weather condition?
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#WeatherTrigger2">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="../images/divider.png" height="100" width="100" class="img-responsive center-block"/>
+
+        <!-- Twitter -->
+        <div class="container" >
+
+
+            <div class="row">
+
+                <h1><img src="../images/twitter.png" style="width:42px;height:42px;border:0;"> Twitter </h1>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/twitterChannel/tweet.png" style="width:42px;height:42px;border:0;"> Incoming tweets
+                        </h2>
+                        <p>
+                            Get notified when someone post a tweet, filtered by Person or Hashtag.
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal" data-target="#loginTwitterModal" ng-click="routeListener('Trigger1Twitter')">Login in Twitter <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger1Twitter" ng-if="twitterLogged" >Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>
+                            <img src="../images/twitterChannel/private-msg.png" style="width:42px;height:42px;border:0;"> Direct message
+                        </h2>
+                        <p>
+                            Get notified when someone send you a private message from a certain User or containing some Text.
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal" data-target="#loginTwitterModal" ng-click="routeListener('Trigger2Twitter')">Login in Twitter <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                        <p>
+                            <a class="btn btn_next2" href="#Trigger2Twitter" ng-if="twitterLogged" >Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<script>
+    if (setChooseAx == 4)
+    {
+        if (iftttLogin == false)
+        {
+            url = "#home";
+            window.location.replace(url);
+        }
+
+    }
+    else {
+        modifyCountVar = 0;
+        if (iftttLogin == false) {
+            url = "#home";
+            window.location.replace(url);
+            count = 0;
+            flagTriggerDone = "0";
+        }
+        else {
+            if (count == 1) {
+                count++;
+            }
+
+            else {
+                if (count < 1) {
+                    url = "#createRecipe";
+                    window.location.replace(url);
+                }
+
+
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>

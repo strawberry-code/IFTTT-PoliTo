@@ -1,0 +1,15 @@
+.navbar.center .navbar-inner {
+    text-align: center;
+}
+.navbar.center .navbar-inner .nav {
+    float: none;
+    display:inline-block;
+    vertical-align: top;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: fixed;
+}
+
+.popover{
+    max-width: 200px; /* Max Width of the popover (depending on the container!) */
+}

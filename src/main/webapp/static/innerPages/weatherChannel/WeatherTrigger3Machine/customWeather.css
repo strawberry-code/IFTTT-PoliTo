@@ -1,0 +1,123 @@
+body {
+    background: url(https://pixabay.com/static/uploads/photo/2015/12/08/21/18/grand-canyon-1083745_960_720.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align:center;
+    font-family: 'Open Sans', cursive;
+    color:black;
+
+}
+#temp-board, #temp-inner{
+
+    overflow:hidden;
+    color:white;
+    margin:0 auto;
+    width:350px;
+    height:200px;
+    border-width:3px;
+    background-color:rgba(0, 0, 0, 0.4);
+    border-style:solid;
+    border-color:rgba(255, 255, 255, 0.6);
+    border-radius: 5px 90px 10px ;
+
+}
+#temp-inner{
+    background-color:rgba(0, 0, 0, 0.7);
+    border-color:rgba(0, 0, 0, 0.5);
+    border-width:10px;
+    border-radius: 5px 90px 10px;
+    position:relative;
+    top:-3px;
+    width:330px;
+    height:200px;
+}
+#temp{
+    color:lightgreen;
+    font-size:3.5em;
+}
+#weather-desc{
+    font-size:1.5em;
+    color:lightblue;
+}
+#locality{
+
+    font-size:1em;
+    color:lightblue;
+}
+.info-board {
+
+    margin-top:10px;
+    overflow: hidden;
+    postion:relative;
+    background-color:rgba(0, 0, 0,0.7);
+    width:260px;
+    height:300px;
+    color:lightblue;
+    border-color:rgb(0, 0, 0);
+    border-style:solid;
+    border-width: 8px;
+    border-radius: 10px;
+
+
+}
+.titles{
+
+    font-size:2em;
+    color:lightblue;
+}
+.values{
+    font-size:1.4em;
+    color:lightgreen;
+}
+.info-section{
+    padding-bottom:8px;
+    border-bottom-style:solid;
+    border-bottom-width:1px;
+}
+.forecast{
+    color:lightgreen;
+    font-size:0.8em;
+}
+#search-bar{
+
+    margin:0 auto;
+    width:600px;
+    border-style:solid;
+    border-radius:12px;
+    padding:5px;
+    background-color:rgba(0,0,0,0.3);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 70%;
+
+
+
+}
+#mode{
+    display:inline-block;
+    color:white;
+    border-radius:15px;
+    margin:0 auto;
+    margin-top:5px;
+    margin-bottom:5px;
+    height:35px;
+    width:170px;
+    background-color:rgba(0,0,0,0.8);
+}
+#deg{
+    border-radius:15px;
+    display: inherit;
+    color:black;
+    line-height:35px;
+    height:35px;
+    width:35px;
+    position:relative;
+    left:0px;
+
+    background-color:rgba(255,255,255,0.8);
+}
