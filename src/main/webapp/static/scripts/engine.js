@@ -71,8 +71,8 @@ var pzone_customWeatherActionControllerTrigger2 = "";
 /* customWeatherActionControllerTrigger3  Tn 8 */
 var  idCity_customWeatherActionControllerTrigger3 = "";
 var  timezone_customWeatherActionControllerTrigger3 = "";
-var  sunset_customWeatherActionControllerTrigger3 = "";
-var  sunrise_customWeatherActionControllerTrigger3 = "";
+var  sunset_customWeatherActionControllerTrigger3 = false;
+var  sunrise_customWeatherActionControllerTrigger3 = false;
 
 /* customWeatherActionControllerTrigger4  Tn 9 */
 
@@ -2625,34 +2625,34 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
         $scope.checkadvisesunset = false;
         $scope.checkadvisesunrise = false;
 
-        $scope.checkadvisesunsetvar = 'NO';
-        $scope.checkadvisetsunrisevar = 'NO';
-        $scope.checktimeZonevar = 'NO';
+        $scope.checkadvisesunsetvar = false;
+        $scope.checkadvisetsunrisevar = false;
+        $scope.checktimeZonevar = false;
 
         $scope.checkadvisesunrisefunc = function(/*name*/)
         {
-            if($scope.checkadvisetsunrisevar === "YES")
-                $scope.checkadvisetsunrisevar = 'NO';
+            if($scope.checkadvisetsunrisevar === true)
+                $scope.checkadvisetsunrisevar = false;
             else
-                $scope.checkadvisetsunrisevar = 'YES';
+                $scope.checkadvisetsunrisevar = false;
             //if(consoleLogs) console.log(name);
         };
 
         $scope.checkadvisetsunsetfunc = function(/*name*/)
         {
-            if($scope.checkadvisesunsetvar === "YES")
-                $scope.checkadvisesunsetvar = 'NO';
+            if($scope.checkadvisesunsetvar === true)
+                $scope.checkadvisesunsetvar = false;
             else
-                $scope.checkadvisesunsetvar = 'YES';
+                $scope.checkadvisesunsetvar = true;
             //if(consoleLogs) console.log(name);
         };
 
         $scope.checktimeZonefunc = function(/*name*/)
         {
-            if($scope.checktimeZonevar === "YES")
-                $scope.checktimeZonevar = 'NO';
+            if($scope.checktimeZonevar === true)
+                $scope.checktimeZonevar = false;
             else
-                $scope.checktimeZonevar = 'YES';
+                $scope.checktimeZonevar = true;
             //if(consoleLogs) console.log(name);
         };
 

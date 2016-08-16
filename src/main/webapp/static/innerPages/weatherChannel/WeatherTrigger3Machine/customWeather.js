@@ -164,7 +164,7 @@ $(function(){
             $("#sys-sunset").text(getTime(result.sys.sunset));
 
 
-            $("#main-date").text(getToDate(result.dt))
+            $("#main-date").text(getToDate(result.dt));
             //box4
 
         }
