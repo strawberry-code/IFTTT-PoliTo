@@ -142,7 +142,7 @@
                       <div class="form-group">
                           <label for="inputUsernameIFTTT" class="col-sm-3 control-label">IFTTT Polito Username <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="inputEmailIFTTT" placeholder="Username" name="username">
+                              <input type="text" class="form-control" id="inputUsernameIFTTT" placeholder="Username" name="username">
                           </div>
                       </div>
                       <div class="form-group">
