@@ -4161,7 +4161,7 @@ function sendingToServerAll ()
     sendDataToServer =
     {
         id: null,
-        desc: descriptionRecipeGlobal,
+        "description": descriptionRecipeGlobal,
         "trigger" : modulinoj1,
         "action" : modulinoj2,
         "publish": false
@@ -4185,7 +4185,7 @@ function alertFunction ()
             className: 'warning',
             position: 'bottom center',
             id: null,
-            desc: null
+            description: null
         }
     );
 }
@@ -4238,7 +4238,7 @@ function sendingToServerAllput ()
     sendDataToServer =
     {
         id: idRecipe,
-        desc: descriptionRecipeGlobal,
+        "description": descriptionRecipeGlobal,
         "trigger" : modulinoj1,
         "action" : modulinoj2,
         "publish" : publishRecipeGlobal
