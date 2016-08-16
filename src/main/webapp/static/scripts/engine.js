@@ -2005,6 +2005,54 @@ iftttApp.controller('createAccountController',  ['$scope',
     }]);
 
 
+iftttApp.controller('passwordRecoveryController',  ['$scope',
+    function ($scope) {
+
+        $scope.passwordRecoveryFunc = function (pws1, pws2) {
+
+            if (angular.isDefined(pws1) && angular.isDefined(pws2)){
+                if(pws1==pws2)
+                {
+                    //console.log(user + " " + email + " " + " " + pws1);
+
+                    var loginDataSend =
+                    {
+                        "newpassword": pws1
+                    };
+                    
+                    $('#serverSpinner').spin();
+                    $.ajax
+                    ({
+                        contentType: "application/json",
+                        method: "post",
+                        url: "http://localhost:8080/progetto/api/recoverpassword",
+                        data: loginDataSend,
+                        success: function() {
+                            $('#serverSpinner').spin(false);
+                            console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                            alert("La password è stata modificata con successo");
+                            window.location.replace('#myRecipes');
+                        },
+                        error: function(){
+                            $('#serverSpinner').spin(false);
+                            //alert("some error occurred");
+                            alertVariable="some error occurred";
+                            alertFunction();
+
+                        }
+                    });
+
+                } else {
+                    alert("Input password error.");
+                }
+
+            }
+            
+        }
+
+    }]);
+
+
 
 
 //Update
