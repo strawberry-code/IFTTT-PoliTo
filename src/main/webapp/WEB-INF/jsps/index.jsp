@@ -10,6 +10,8 @@
   <head>
     <title>IFTTT Polito</title>
 
+      <link rel="icon" href="./static/images/favicon.ico" />
+
     <!-- JavaScript Libraries -->
     <script src="./static/bower_components/jquery/dist/jquery.js"></script>
     <script src="./static/bower_components/angular/angular.js"></script>
@@ -27,6 +29,8 @@
     <link rel="stylesheet" href="./static/stylesheets/2-col-portfolio.css">
     <link rel="stylesheet" href="./static/stylesheets/index.css">
     <link rel="stylesheet" href="./static/stylesheets/loginPage.css">
+
+
 
   </head>
   <body ng-controller="indexController">
