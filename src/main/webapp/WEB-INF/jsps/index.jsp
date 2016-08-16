@@ -186,7 +186,7 @@
           </button>
             <!-- <button id="google-auth-btn" type="submit" class="btn btn-default" ng-click="requestGoogleAuth()">Sign in</button> -->
             <div style="text-align: center">
-                    <h4 class="modal-title"><img src="./static/images/logos/google-logged-in.png" height="25" width="25"/> Login with Google</h4>
+                    <h3 class="modal-title"><img src="./static/images/logos/google-logged-in.png" height="25" width="25"/> Login with Google</h3>
             </div>
         </div>
         <div class="modal-body text-center">
@@ -200,6 +200,9 @@
   <!-- MODAL FORM GOOGLE -- END -->
 
   <!-- MODAL FORM TWITTER -- BEGIN -->
+
+  <!-- OLD MODAL TWITTER -->
+  <!--
   <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -210,8 +213,9 @@
           <h2 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="30" width="30"/> Login with Twitter</h2>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body"> -->
           <!-- The form is placed inside the body of modal -->
+  <!--
           <form class="form-horizontal">
             <div class="form-group">
               <label for="inputEmailTwitter" class="col-sm-3 control-label">Twitter mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></label>
@@ -236,6 +240,42 @@
     </div>
   </div>
   <!-- MODAL FORM TWITTER -- END -->
+
+  <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <!-- <button id="google-auth-btn" type="submit" class="btn btn-default" ng-click="requestGoogleAuth()">Sign in</button> -->
+                  <div style="text-align: center">
+                      <h3 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="45" width="45"/> Login with Twitter</h3>
+                  </div>
+              </div>
+              <div class="modal-body text-center">
+                  <a id="twitter-auth-btn" type="submit" class="btn btn-default" ng-click="requestTwitterAuth()">
+                      Connect
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- MODAL FORM TWITTER -- END -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -->
   <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
