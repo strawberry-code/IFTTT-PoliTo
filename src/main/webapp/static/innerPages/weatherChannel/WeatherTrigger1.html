@@ -1,6 +1,6 @@
 <html>
 <head>
-    <script src="innerPages/weatherChannel/WeatherTrigger1Machine/customWeather.js"></script>
+    <script src="/progetto/static/innerPages/weatherChannel/WeatherTrigger1Machine/customWeather.js"></script>
 
 </head>
 <body ng-controller="customWeatherActionControllerTrigger1">
@@ -13,7 +13,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
 
-            <p><h1><img src="../../images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;"/> Tomorrow weather conditions trigger</h1></p>
+            <p><h1><img src="/progetto/static/images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;"/> Tomorrow weather conditions trigger</h1></p>
             <hr>
 
             <div id="search-bar">
@@ -54,7 +54,7 @@
                         type="checkbox"
                         ng-model="checkadvisetime"
                         ng-change="checkadvisetimefunc(checkadvisetimevar)"
-                > <img src="../../images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to watch</b></label>
+                > <img src="/progetto/static/images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to watch</b></label>
 
                 <div  ng-if="checkadvisetime" class="animate-if">
                 <form name="timeHour">
@@ -92,7 +92,7 @@
                             type="checkbox"
                             ng-model="checktimeZone"
                             ng-change="checktimeZonefunc(checktimeZonevar)"
-                    > <img src="../../images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone: </b>
+                    > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone: </b>
                 </label>
                     <div  ng-if="checktimeZone" class="animate-if">
                     <input id="timezoneid" ng-disabled="!checktimeZone" type="number" name="input" ng-model="trigger1input.value3"
