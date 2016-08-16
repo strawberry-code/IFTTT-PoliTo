@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html ng-app="iftttApp" ng-init="consoleLogs = false">
+<html ng-app="iftttApp">
   <head>
     <title>IFTTT Polito</title>
 
@@ -53,13 +53,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
 
-          <li>
-              <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
-              <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged"
-               data-target="#loginIFTTTModal">
-              <span  aria-hidden="true"></span>Your recipes
-            </a>
-          </li>
+
 
 
          <!--
@@ -76,6 +70,14 @@
             <span  aria-hidden="true"></span>Create a recipe</a>
           </li>
 
+            <li>
+                <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
+                <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged"
+                   data-target="#loginIFTTTModal">
+                    <span  aria-hidden="true"></span>My recipes
+                </a>
+            </li>
+
 
             <li>
                 <a href="#passwordRecovery" ng-if="iftttLogged">
@@ -90,8 +92,8 @@
 
 
             <li>
-                <a  href="#publicRecipes">
-                    Public recipes <span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+                <a  ng-if="!iftttLogged" href="#publicRecipes"> Public recipes <span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
+                <a  ng-if="iftttLogged" href="#publicRecipes"> Public recipes </span></a>
             </li>
 
 
