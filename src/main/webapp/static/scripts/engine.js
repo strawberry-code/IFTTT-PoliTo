@@ -329,9 +329,9 @@ iftttApp.config(['$routeProvider', function($routeProvider){
         controller: 'publicRecipesController'
     });
     
-    $routeProvider.when('/passwordRecovery', {
-        templateUrl: './static/innerPages/passwordRecovery.html',
-        controller: 'passwordRecoveryController'
+    $routeProvider.when('/passwordChange', {
+        templateUrl: './static/innerPages/passwordChange.html',
+        controller: 'passwordChangeController'
     });
 
 
@@ -2008,10 +2008,10 @@ iftttApp.controller('createAccountController',  ['$scope',
     }]);
 
 
-iftttApp.controller('passwordRecoveryController',  ['$scope',
+iftttApp.controller('passwordChangeController',  ['$scope',
     function ($scope) {
 
-        $scope.passwordRecoveryFunc = function (pws1, pws2) {
+        $scope.passwordChangeFunc = function (pws1, pws2) {
 
             if (angular.isDefined(pws1) && angular.isDefined(pws2)){
                 if(pws1==pws2)
@@ -2028,11 +2028,11 @@ iftttApp.controller('passwordRecoveryController',  ['$scope',
                     ({
                         contentType: "application/json",
                         method: "post",
-                        url: "http://localhost:8080/progetto/api/recoverpassword",
+                        url: "http://localhost:8080/progetto/api/changepassword",
                         data: loginDataSend,
                         success: function() {
                             $('#serverSpinner').spin(false);
-                            console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                            console.log("(passwordChangeController): ricevuta correttamente una risposta dal server");
                             alert("La password è stata modificata con successo");
                             window.location.replace('#myRecipes');
                         },
