@@ -359,13 +359,13 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
       	  dataType: 'application/json'
         }).then(function success(response) {
       	  console.log(response);
-      	  console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+      	  //console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
       	  if(response.data.authenticated.localeCompare("true")==0){
       		  $scope.iftttLogged = true;
       		  iftttLogin= true;
       		 
       	  }
-      	  console.log($scope.iftttLogged);
+      	  //console.log($scope.iftttLogged);
         }, function error() {
       	  $('#loginIFTTTModal').modal('hide');
       	  $("#notificationsWrapper").notify(
@@ -1048,10 +1048,10 @@ iftttApp.controller('ifCreatorController',  ['$scope', '$routeParams', '$window'
     // A
         $scope.$watch(
             function () {
-                console.log("angular: "+$window.googleLogged);
+                //console.log("angular: "+$window.googleLogged);
                 return $window.googleLogged
             }, function(n){
-                console.log("changed ",n);
+               // console.log("changed ",n);
             },
             true
         );
