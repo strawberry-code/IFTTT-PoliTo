@@ -114,6 +114,13 @@
           <button type="submit" class="btn btn-default" ng-if="iftttLogged" ng-click="logoutIFTTT()">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
         </form>
       </div><!-- /.navbar-collapse -->
+
+
+        <!-- NOTIFICATIONS WRAPPER BEGIN -->
+        <div id="notificationsWrapper" style="margin: auto; padding-top: 5px"></div>
+        <!-- NOTIFICATIONS WRAPPER END -->
+
+
     </div><!-- /.container-fluid -->
   </nav>
 
@@ -130,9 +137,7 @@
   <!--
   {{"recipe: "+ userRecipes}}
   -->
-  <!-- NOTIFICATIONS WRAPPER BEGIN -->
-  <div id="notificationsWrapper" style="margin: auto"></div>
-  <!-- NOTIFICATIONS WRAPPER END -->
+
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
