@@ -575,18 +575,18 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
          */
         $scope.logoutGoogle = function () {
             var requestLogout = {
-                requestLogout: 'google'
+                requestLogoutGoogle: true
             };
 
             $('#serverSpinner').spin();
             $http({
                 method: 'POST',
-                url: '/MyServlet',
+                url: 'http://localhost:8080/progetto/api/disconnectGoogle',
                 data: requestLogout
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
-                if(consoleLogs) console.log(response.data.disconnected);
-                if(response.data.disconnected.localeCompare("true")==0){
+                if(consoleLogs) console.log("disconnected from Google response: "+response.data.disconnected);
+                if(response.data.disconnected){
                     $scope.googleLogged = false;
                     googleLogin=false;
                     $("#notificationsWrapper").notify(
@@ -701,7 +701,7 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
             $('#serverSpinner').spin();
             $http({
                 method: 'POST',
-                url: '/MyServlet',
+                url: 'http://localhost:8080/progetto/api/disconnectTwitter',
                 data: requestLogout
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
