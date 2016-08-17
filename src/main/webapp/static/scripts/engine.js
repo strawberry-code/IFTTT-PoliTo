@@ -4157,6 +4157,14 @@ iftttApp.filter('reformat', function() {
 
 
 
+iftttApp.directive('bsTooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).tooltip()
+        }
+    };
+});
 
 
 
