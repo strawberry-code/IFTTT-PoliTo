@@ -347,7 +347,7 @@ $(function(){
                 {
                     //alert("The input of the time zone is not right");
                     $("#notificationsWrapper").notify(
-                        "The input of the time zone is not right",
+                        "At least one between sunrise and sunset must be chosen",
                         {
                             className: 'warning',
                             position: 'bottom center'
