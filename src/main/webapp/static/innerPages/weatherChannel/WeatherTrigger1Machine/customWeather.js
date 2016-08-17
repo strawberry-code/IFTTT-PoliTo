@@ -332,7 +332,7 @@ $(function()
                 }
                 else
                 {
-                    var url = "/#/createRecipeAction";
+                    var url = "#/createRecipeAction";
                     window.location.replace(url);
                 }
             }
