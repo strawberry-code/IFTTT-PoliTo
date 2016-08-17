@@ -3,6 +3,7 @@ package it.polito.ai.ifttt.progetto.services;
 import java.util.List;
 
 import it.polito.ai.ifttt.progetto.models.Recipes;
+import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 
 public interface RecipesManager {
 
@@ -12,6 +13,7 @@ public interface RecipesManager {
 	List<Object[]> findAllActionsByTriggerId(Integer tid, String ttype);
 	
 	Integer addRecipe(String data);
+	Integer modifyRecipe(Integer id, String data);
 	
 	//List<Recipes> findRecipesByUser(Integer userid);
 	
