@@ -459,8 +459,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 //
 //        };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire la disconnessione da IFTTT Polito
+         * @method logoutIFTTT
+         * @return 
          */
         $scope.logoutIFTTT = function () {
             var requestLogout = {
@@ -513,8 +515,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
         };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire l'autenticazione a Google
+         * @method requestGoogleAuth
+         * @return 
          */
         $scope.requestGoogleAuth = function () {
 
@@ -579,8 +583,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
         };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire la disconnessione da Google
+         * @method logoutGoogle
+         * @return 
          */
         $scope.logoutGoogle = function () {
             var requestLogout = {
@@ -631,8 +637,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
         };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire l'autenticazione a Twitter
+         * @method requestTwitterAuth
+         * @return 
          */
         $scope.requestTwitterAuth = function () {
 
@@ -694,8 +702,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
         };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire la disconnessione da Twitter
+         * @method logoutTwitter
+         * @return 
          */
         $scope.logoutTwitter = function () {
             var requestLogout = {
@@ -751,8 +761,11 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
         };
 
-        /*
+        /**
          * Funzione che gestisce il click per gestire il corretto routing delle pagine
+         * @method routeListener
+         * @param {} nextRoute
+         * @return 
          */
         $scope.routeListener = function (nextRoute) {
             nextPath = nextRoute;
@@ -765,6 +778,11 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
 
         //  $scope.RequestRecipes = function ()
+        /**
+         * Description
+         * @method loadRecipesAndSeeThem
+         * @return 
+         */
         $scope.loadRecipesAndSeeThem = function () {
 
             //var luna = sendDataToServer;
@@ -913,6 +931,11 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
         };
 
 
+        /**
+         * Description
+         * @method saveRecipeDescription
+         * @return 
+         */
         $scope.saveRecipeDescription = function () {
             //Prende la descrizione della ricetta
 
@@ -1020,6 +1043,11 @@ iftttApp.controller('SuccessController', ['$scope', '$routeParams',
 iftttApp.controller('homeController', ['$scope', '$routeParams',
     function ($scope) {
 
+        /**
+         * Description
+         * @method loadHome
+         * @return 
+         */
         $scope.loadHome = function () {
             if (consoleLogs) console.log("homeController: loaded");
         }
@@ -1029,6 +1057,11 @@ iftttApp.controller('homeController', ['$scope', '$routeParams',
 iftttApp.controller('createRecipeController', ['$scope', '$routeParams',
     function ($scope) {
         modifyVar = 0;
+        /**
+         * Description
+         * @method loadHome
+         * @return 
+         */
         $scope.loadHome = function () {
             if (consoleLogs) console.log("createRecipeController: loaded");
         }
@@ -1072,6 +1105,11 @@ iftttApp.controller('doCreatorController', ['$scope',
         }
 
 
+        /**
+         * Description
+         * @method loadHome
+         * @return 
+         */
         $scope.loadHome = function () {
             if (consoleLogs) console.log("createRecipeController: loaded");
         }
@@ -1456,6 +1494,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             );
 
 
+        /**
+         * Description
+         * @method removeRecipe
+         * @param {} index
+         * @param {} id
+         * @return 
+         */
         $scope.removeRecipe = function (index, id) {
             $http
             (
@@ -1474,6 +1519,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                 });
         };
+        /**
+         * Description
+         * @method shareRecipe
+         * @param {} index
+         * @param {} id
+         * @return 
+         */
         $scope.shareRecipe = function (index, id) {
 
             //alert(true);
@@ -1505,6 +1557,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         };
 
         //Rosso don't share
+        /**
+         * Description
+         * @method DoNotshareRecipe
+         * @param {} index
+         * @param {} id
+         * @return 
+         */
         $scope.DoNotshareRecipe = function (index, id) {
 
             //alert("2");
@@ -1535,6 +1594,12 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         };
 
         //Salva i valori del vettore dentro alle variabili globali.
+        /**
+         * Description
+         * @method modifyRecipe
+         * @param {} index
+         * @return 
+         */
         $scope.modifyRecipe = function (index) {
             var data = $scope.userRecipes[index];
 
@@ -2209,6 +2274,15 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 iftttApp.controller('createAccountController', ['$scope',
     function ($scope) {
 
+        /**
+         * Description
+         * @method createAccountFunc
+         * @param {} user
+         * @param {} email
+         * @param {} pws1
+         * @param {} pws2
+         * @return 
+         */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
             if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2)) {
@@ -2233,11 +2307,21 @@ iftttApp.controller('createAccountController', ['$scope',
                         url: "http://localhost:8080/progetto/api/registration",
                         data: JSON.stringify(loginDataSend),
                         dataType: "json",
+                        /**
+                         * Description
+                         * @method success
+                         * @return 
+                         */
                         success: function () {
                             $('#serverSpinner').spin(false);
                             if (consoleLogs) console.log("la post ha avuto successo");
                             window.location.replace('#');
                         },
+                        /**
+                         * Description
+                         * @method error
+                         * @return 
+                         */
                         error: function () {
                             $('#serverSpinner').spin(false);
                             //alert("some error occurred");
@@ -2261,6 +2345,13 @@ iftttApp.controller('createAccountController', ['$scope',
 iftttApp.controller('passwordChangeController', ['$scope',
     function ($scope) {
 
+        /**
+         * Description
+         * @method passwordChangeFunc
+         * @param {} pws1
+         * @param {} pws2
+         * @return 
+         */
         $scope.passwordChangeFunc = function (pws1, pws2) {
 
             if (angular.isDefined(pws1) && angular.isDefined(pws2)) {
@@ -2279,12 +2370,22 @@ iftttApp.controller('passwordChangeController', ['$scope',
                         method: "post",
                         url: "http://localhost:8080/progetto/api/changepassword",
                         data: loginDataSend,
+                        /**
+                         * Description
+                         * @method success
+                         * @return 
+                         */
                         success: function () {
                             $('#serverSpinner').spin(false);
                             if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
                             alert("La password è stata modificata con successo");
                             window.location.replace('#myRecipes');
                         },
+                        /**
+                         * Description
+                         * @method error
+                         * @return 
+                         */
                         error: function () {
                             $('#serverSpinner').spin(false);
                             //alert("some error occurred");
@@ -2313,6 +2414,11 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
 
         $scope.flagEmail = "email is empty";
         $scope.gmailinput = [];
+        /**
+         * Description
+         * @method triggerGmail
+         * @return 
+         */
         $scope.triggerGmail = function () {
             var sender = "";
             var subject = "";
@@ -2425,6 +2531,12 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
         $scope.checkedEmail = false;
         $scope.checkedSubject = false;
 
+        /**
+         * Description
+         * @method validateEmail
+         * @param {} email
+         * @return CallExpression
+         */
         function validateEmail(email) {
             var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
@@ -2442,6 +2554,11 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
         $scope.test = "void";
         $scope.gmailActionvar = [];
 
+        /**
+         * Description
+         * @method actionGmail
+         * @return 
+         */
         $scope.actionGmail = function () {
 
             var sender = "";
@@ -2620,6 +2737,12 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
         }
 
 
+        /**
+         * Description
+         * @method validateEmail
+         * @param {} email
+         * @return CallExpression
+         */
         function validateEmail(email) {
             var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
@@ -2642,6 +2765,11 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
         $scope.errorButton = 'cia';
         $scope.checkadvisetimevar = 'NO';
         $scope.checktimeZonevar = 'NO';
+        /**
+         * Description
+         * @method checkadvisetimefunc
+         * @return 
+         */
         $scope.checkadvisetimefunc = function (/*name*/) {
             if ($scope.checkadvisetimevar === "YES")
                 $scope.checkadvisetimevar = 'NO';
@@ -2650,6 +2778,11 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
             //if(consoleLogs) console.log(name);
         };
 
+        /**
+         * Description
+         * @method checktimeZonefunc
+         * @return 
+         */
         $scope.checktimeZonefunc = function (/*name*/) {
             if ($scope.checktimeZonevar === "YES")
                 $scope.checktimeZonevar = 'NO';
@@ -2816,6 +2949,11 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
         $scope.checkadvisetsunrisevar = false;
         $scope.checktimeZonevar = false;
 
+        /**
+         * Description
+         * @method checkadvisesunrisefunc
+         * @return 
+         */
         $scope.checkadvisesunrisefunc = function (/*name*/) {
             if ($scope.checkadvisetsunrisevar === true)
                 $scope.checkadvisetsunrisevar = false;
@@ -2824,6 +2962,11 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
             //if(consoleLogs) console.log(name);
         };
 
+        /**
+         * Description
+         * @method checkadvisetsunsetfunc
+         * @return 
+         */
         $scope.checkadvisetsunsetfunc = function (/*name*/) {
             if ($scope.checkadvisesunsetvar === true)
                 $scope.checkadvisesunsetvar = false;
@@ -2832,6 +2975,11 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
             //if(consoleLogs) console.log(name);
         };
 
+        /**
+         * Description
+         * @method checktimeZonefunc
+         * @return 
+         */
         $scope.checktimeZonefunc = function (/*name*/) {
             if ($scope.checktimeZonevar === true)
                 $scope.checktimeZonevar = false;
@@ -2872,6 +3020,13 @@ iftttApp.controller('customWeatherActionControllerTrigger4', ['$scope',
 iftttApp.controller('loginPageController', ['$scope',
     function ($scope) {
 
+        /**
+         * Description
+         * @method loginfunc
+         * @param {} pass
+         * @param {} email
+         * @return 
+         */
         $scope.loginfunc = function (pass, email) {
             if (angular.isDefined(email) && angular.isDefined(pass)) {
                 var loginDataSend =
@@ -2885,6 +3040,11 @@ iftttApp.controller('loginPageController', ['$scope',
                     url: "/MyServlet",
                     data: loginDataSend,
                     dataType: "json",
+                    /**
+                     * Description
+                     * @method success
+                     * @return 
+                     */
                     success: function () {
                         if (consoleLogs) console.log("la post ha avuto successo ");
                         $('#serverSpinner').spin(false);
@@ -2902,6 +3062,11 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
     function ($scope) {
 
         $scope.trigger1GcalendarVar = [];
+        /**
+         * Description
+         * @method trigger1Gcalendar
+         * @return 
+         */
         $scope.trigger1Gcalendar = function () {
             triggerChose = 2;
             var title;
@@ -3027,6 +3192,11 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
     function ($scope) {
 
         $scope.trigger2GcalendarVar = [];
+        /**
+         * Description
+         * @method trigger2Gcalendar
+         * @return 
+         */
         $scope.trigger2Gcalendar = function () {
             triggerChose = 3;
             var title;
@@ -3148,6 +3318,12 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
         };
 
 
+        /**
+         * Description
+         * @method sedingServer
+         * @param {} loginDataSend
+         * @return 
+         */
         $scope.sedingServer = function (loginDataSend) {
             $('#serverSpinner').spin();
             $.ajax({
@@ -3155,6 +3331,11 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                 url: "/MyServlet",
                 data: loginDataSend,
                 dataType: "json",
+                /**
+                 * Description
+                 * @method success
+                 * @return 
+                 */
                 success: function () {
                     if (consoleLogs) console.log("la post ha avuto successo n 9");
                     $('#serverSpinner').spin(false);
@@ -3177,6 +3358,11 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
         $scope.gcalendarinput = [];
         //gcalendarinput,  yearVector, monthVector, dayVector
+        /**
+         * Description
+         * @method actiongcalendar
+         * @return 
+         */
         $scope.actiongcalendar = function () {
             var title = "";
             var subjectReceive = "";
@@ -3706,6 +3892,11 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
         $scope.trigger1TwitterInput = [];
         $scope.iftttLoginP = iftttLogin;
 
+        /**
+         * Description
+         * @method trigger1Twitterfunc
+         * @return 
+         */
         $scope.trigger1Twitterfunc = function () {
             triggerChose = 4;
             var title;
@@ -3802,6 +3993,11 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
     function ($scope) {
         $scope.trigger2TwitterInput = [];
 
+        /**
+         * Description
+         * @method trigger2Twitterfunc
+         * @return 
+         */
         $scope.trigger2Twitterfunc = function () {
             triggerChose = 5;
             var title;
@@ -3897,6 +4093,11 @@ iftttApp.controller('action1TwitterController', ['$scope',
     function ($scope) {
 
         $scope.action1TwitterInput = [];
+        /**
+         * Description
+         * @method twitterAction1func
+         * @return 
+         */
         $scope.twitterAction1func = function () {
             actionChose = 3;
 
@@ -3985,6 +4186,11 @@ iftttApp.controller('action2TwitterController', ['$scope',
     function ($scope) {
 
         $scope.action2TwitterInput = [];
+        /**
+         * Description
+         * @method action2Twitterfunc
+         * @return 
+         */
         $scope.action2Twitterfunc = function () {
 
             actionChose = 4;
@@ -4143,6 +4349,12 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
 
         }
 
+        /**
+         * Description
+         * @method changePage
+         * @param {} chosePath
+         * @return 
+         */
         $scope.changePage = function (chosePath) {
             if (chosePath == 0)
                 rootingAutenticationTriggerAction = ulrTriggreGlobalVariable;
@@ -4153,6 +4365,12 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         };
 
 
+        /**
+         * Description
+         * @method setupValueChange
+         * @param {} chosePath
+         * @return 
+         */
         $scope.setupValueChange = function (chosePath) {
             var urlx = "";
             if (chosePath == 0) {
@@ -4167,6 +4385,11 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         };
 
 
+        /**
+         * Description
+         * @method descriptionModifyLanch
+         * @return 
+         */
         $scope.descriptionModifyLanch = function () {
             $('#recipedDescriptionModal').modal('show');
         }
@@ -4209,6 +4432,14 @@ iftttApp.filter('reformat', function () {
 iftttApp.directive('bsTooltip', function () {
     return {
         restrict: 'A',
+        /**
+         * Description
+         * @method link
+         * @param {} scope
+         * @param {} element
+         * @param {} attrs
+         * @return 
+         */
         link: function (scope, element, attrs) {
             $(element).tooltip()
         }
@@ -4216,16 +4447,17 @@ iftttApp.directive('bsTooltip', function () {
 });
 
 
-/*
- ########################################################################################################################
- ########################################################################################################################
- ######
- ######                                                JavaScript functions
- ######
- ########################################################################################################################
- ########################################################################################################################
+/**
+ * ########################################################################################################################
+ * ########################################################################################################################
+ * ######
+ * ######                                                JavaScript functions
+ * ######
+ * ########################################################################################################################
+ * ########################################################################################################################
+ * @method sendingToServerAll
+ * @return 
  */
-
 function sendingToServerAll() {
     modulinoj1.lastChecked = null;
     sendDataToServer =
@@ -4245,6 +4477,11 @@ function sendingToServerAll() {
 //alertVariable
 //alertFunction ()
 
+/**
+ * Description
+ * @method alertFunction
+ * @return 
+ */
 function alertFunction() {
     $("#notificationsWrapper").notify(
         alertVariable,
@@ -4256,6 +4493,12 @@ function alertFunction() {
         }
     );
 }
+/**
+ * Description
+ * @method sedingServerAllRun
+ * @param {} loginDataSend
+ * @return 
+ */
 function sedingServerAllRun(loginDataSend) {
     //var result = "ciao";
     //url: 'http://localhost:3000/userRecipes
@@ -4266,6 +4509,12 @@ function sedingServerAllRun(loginDataSend) {
         url: "http://localhost:8080/progetto/api/userRecipes",
         data: JSON.stringify(loginDataSend),
         contentType: 'application/json; charset=UTF-8',
+        /**
+         * Description
+         * @method success
+         * @param {} response
+         * @return 
+         */
         success: function (response) {
 
             $('#serverSpinner').spin(false);
@@ -4298,6 +4547,11 @@ function sedingServerAllRun(loginDataSend) {
     });
 }
 
+/**
+ * Description
+ * @method sendingToServerAllput
+ * @return 
+ */
 function sendingToServerAllput() {
     modulinoj1.lastChecked = null;
     sendDataToServer =
@@ -4313,6 +4567,12 @@ function sendingToServerAllput() {
 }
 
 
+/**
+ * Description
+ * @method sedingServerAllRunput
+ * @param {} loginDataSend
+ * @return 
+ */
 function sedingServerAllRunput(loginDataSend) {
     $('#serverSpinner').spin();
     $.ajax({
@@ -4320,6 +4580,12 @@ function sedingServerAllRunput(loginDataSend) {
         url: "http://localhost:3000/userRecipes/" + idRecipe,
         data: loginDataSend,
         dataType: "json",
+        /**
+         * Description
+         * @method success
+         * @param {} response
+         * @return 
+         */
         success: function (response) {
             $('#serverSpinner').spin(false);
             if (modifyVar == true) {
