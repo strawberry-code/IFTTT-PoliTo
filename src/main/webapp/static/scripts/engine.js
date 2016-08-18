@@ -361,10 +361,23 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
         $http({
       	  url: 'http://localhost:8080/progetto/api/prova',
       	  method: "POST",
-      	  dataType: 'application/json'
+      	  dataType: 'application/json', //<-- (cristiano): Questo indica il formato della risposta che l'ajax si attende
+          contentType: "application/json" //<-- (cristiano): Questo indica il formato dei dati della richiesta che l'ajax invia
         }).then(function success(response) {
       	  if(consoleLogs) console.log(response);
       	  //if(consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+
+            /* (cristiano): Risposta simulata, facendo finta che il server risponda positivamente all'autenticazione a Google
+             *
+             *  La forma finale dovrà essere del tipo:
+             *
+             *   $scope.googleLogged = response.data.googleAuthenticated;
+             *
+             */
+            $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
+            alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
+
+
       	  if(response.data.authenticated.localeCompare("true")==0){
       		  $scope.iftttLogged = true;
       		  iftttLogin= true;
