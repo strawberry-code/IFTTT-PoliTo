@@ -375,7 +375,9 @@ iftttApp.controller('indexController',  ['$scope', '$routeParams', '$window', '$
              *
              */
             $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
+            googleLogin=true;
             alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
+
 
 
       	  if(response.data.authenticated.localeCompare("true")==0){
