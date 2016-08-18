@@ -16,6 +16,12 @@ $(function(){
     var flagZoneCheck = "1";
 
 
+    /**
+     * Description
+     * @method getToDate
+     * @param {} time
+     * @return BinaryExpression
+     */
     var getToDate=function(time){
         var date = new Date(time*1000);
         var day=date.getDate();
@@ -29,6 +35,12 @@ $(function(){
             jsonurl="http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
             $.ajax({method: "GET",
                 url: jsonurl,
+                /**
+                 * Description
+                 * @method success
+                 * @param {} presentlocation
+                 * @return 
+                 */
                 success: function(presentlocation){
                     result=presentlocation;
                     updateView(result);
@@ -41,6 +53,12 @@ $(function(){
             forejsonurl="http://api.openweathermap.org/data/2.5/forecast/daily?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
             $.ajax({method: "GET",
                 url: forejsonurl,
+                /**
+                 * Description
+                 * @method success
+                 * @param {} forepresentlocation
+                 * @return 
+                 */
                 success: function(forepresentlocation){
                     var foreresult=forepresentlocation;
 
@@ -56,6 +74,12 @@ $(function(){
 
 
 
+    /**
+     * Description
+     * @method updateView
+     * @param {} result
+     * @return 
+     */
     function updateView(result){
 
 
@@ -153,6 +177,12 @@ $(function(){
 
             //alert("Id" + result.id);
 
+            /**
+             * Description
+             * @method getTime
+             * @param {} time
+             * @return formattedTime
+             */
             var getTime = function (time) {
                 var date = new Date(time * 1000);
                 var hours = date.getUTCHours();
@@ -177,6 +207,12 @@ $(function(){
 
 
     };
+    /**
+     * Description
+     * @method updateBox3
+     * @param {} foreresult
+     * @return 
+     */
     var updateBox3=function(foreresult){
 
         for(var i=1;i<=6;i++){
@@ -191,12 +227,23 @@ $(function(){
         }
 
     };
+    /**
+     * Description
+     * @method searchEnter
+     * @return 
+     */
     var searchEnter=function(){
         var city=$("#search-input").val();
 
         jsonurl="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
         $.ajax({method: "GET",
             url: jsonurl,
+            /**
+             * Description
+             * @method success
+             * @param {} presentlocation
+             * @return 
+             */
             success: function(presentlocation){
                 result=presentlocation;
 
@@ -208,6 +255,12 @@ $(function(){
         forejsonurl="http://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
         $.ajax({method: "GET",
             url: forejsonurl,
+            /**
+             * Description
+             * @method success
+             * @param {} forepresentlocation
+             * @return 
+             */
             success: function(forepresentlocation){
                 var foreresult=forepresentlocation;
 
@@ -384,6 +437,11 @@ $(function(){
 
 
 
+        /**
+         * Description
+         * @method timezoneCheck
+         * @return 
+         */
         function  timezoneCheck  ()
         {
 
@@ -417,6 +475,11 @@ $(function(){
 
         };
 
+        /**
+         * Description
+         * @method weathercheckfunc
+         * @return 
+         */
         function  weathercheckfunc  ()
         {
 
@@ -431,6 +494,11 @@ $(function(){
         };
 
 
+        /**
+         * Description
+         * @method periodidcheckfunc
+         * @return 
+         */
         function  periodidcheckfunc  ()
         {
             var i=0;
@@ -449,6 +517,14 @@ $(function(){
 
 
 
+        /**
+         * Description
+         * @method sendingToServer
+         * @param {} pweather
+         * @param {} pperiod
+         * @param {} pzone
+         * @return 
+         */
         function sendingToServer (pweather, pperiod, pzone )
         {
             idCity_customWeatherActionControllerTrigger2 = idCity;
