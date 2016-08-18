@@ -18,7 +18,7 @@ The goal of this project is to set up a web application similar to [IFTTT](https
   * a clean and simple interface (mainy [Bootstrap](http://getbootstrap.com) but also some cute JavaScript third part library)
   * server restful data communication
 
-### 3. The teamwork side
+### 3. The teamwork approach
   * team communication: [Slack](https://slack.com) (and some bots)
   * continuous integration: [GitHub](https://github.com)
  
