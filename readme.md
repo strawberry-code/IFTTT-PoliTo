@@ -24,7 +24,7 @@ The goal of this project is to set up a web application similar to [IFTTT](https
  
 ***
  
-### The Students:
+### The students:
 - [_S. Prino_](mailto:unknown-student@polito.it) server side,
 - [_F.X. Renna_](mailto:g.s220351@studenti.polito.it) client side,
 - [_A. Polinkins_](mailto:unknown-student@studenti.polito.it) server side,
