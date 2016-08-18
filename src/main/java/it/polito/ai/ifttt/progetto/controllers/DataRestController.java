@@ -204,25 +204,11 @@ public class DataRestController {
 		return res;
 	}
 	
-
-	// @RequestMapping(value = "login", method = RequestMethod.POST)
-	// Integer login(@RequestBody String credentials) {
-	//
-	// String username = null;
-	// String password = null;
-	//
-	// System.out.println(credentials);
-	// String[] splits = credentials.split("&");
-	// username = splits[0].split("=")[1];
-	// password = splits[1].split("=")[1];
-	//
-	// int code = loginManager.login(username, password);
-	//
-	//// code=0 : ok
-	//// code=1 : Wrong combination uername/password
-	//// code=2 : User not activated
-	//// code=3 : Some Errors (database)
-	//
-	// return code;
-	// }
+	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.PUT)
+	Integer modifyRecipe(@PathVariable("id") Integer id, @RequestBody String data) {
+		System.out.println(data);
+		Integer code = recipesManager.modifyRecipe(id, data);
+		// -1 if error
+		return code;
+	}
 }
