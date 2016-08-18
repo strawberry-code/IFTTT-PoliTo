@@ -222,3 +222,4 @@ pip-log.txt
 progetto.iml
 .idea/**
 src/main/main.iml
+*.DS_Store
