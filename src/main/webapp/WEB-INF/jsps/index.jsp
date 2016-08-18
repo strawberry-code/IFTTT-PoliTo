@@ -53,50 +53,35 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
 
-
-
-
-         <!--
-          <li><a href="#createRecipe">Create a recipe</a></li>
-          -->
-          <li>
-            <a type="submit" href="" ng-if="!iftttLogged" data-toggle="modal"
-               data-target="#loginIFTTTModal" ng-click="routeListener('createRecipe')">Create a recipe <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
-          </li>
-
-          <li>
-          <a type="submit" href="#createRecipe" ng-if="iftttLogged"
-             data-target="#loginIFTTTModal">
-            <span  aria-hidden="true"></span>Create a recipe</a>
-          </li>
-
             <li>
-                <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
-                <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged"
-                   data-target="#loginIFTTTModal">
-                    <span  aria-hidden="true"></span>My recipes
+                <a type="submit" href="" ng-if="!iftttLogged" data-toggle="modal" data-target="#loginIFTTTModal" ng-click="routeListener('createRecipe')">Create a recipe
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                 </a>
             </li>
 
+            <li>
+                <a type="submit" href="#createRecipe" ng-if="iftttLogged" data-target="#loginIFTTTModal">
+                    <span  aria-hidden="true">Create a recipe</span>
+                </a>
+            </li>
+
+            <li>
+                <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
+                <a type="submit" href="#index/myRecipes"  ng-if="iftttLogged" data-target="#loginIFTTTModal">
+                    <span  aria-hidden="true">My recipes</span>
+                </a>
+            </li>
 
             <li>
                 <a href="#passwordChange" ng-if="iftttLogged">
-                    <span  aria-hidden="true"></span>Change password</a>
+                    <span  aria-hidden="true">Change password</span>
+                </a>
             </li>
-
-            <!--
-          <li><a href="#chooseChannel">Channels</a></li>
-            -->
-
-
-
 
             <li>
                 <a  ng-if="!iftttLogged" href="#publicRecipes"> Public recipes <span class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
                 <a  ng-if="iftttLogged" href="#publicRecipes"> Public recipes </a>
             </li>
-
-
 
         </ul>
         <form class="navbar-form navbar-right" role="search">
@@ -137,7 +122,6 @@
   <!--
   {{"recipe: "+ userRecipes}}
   -->
-
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
@@ -206,48 +190,9 @@
   </div>
   <!-- MODAL FORM GOOGLE -- END -->
 
-  <!-- MODAL FORM TWITTER -- BEGIN -->
 
-  <!-- OLD MODAL TWITTER -->
-  <!--
-  <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h2 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="30" width="30"/> Login with Twitter</h2>
-        </div>
 
-        <div class="modal-body"> -->
-          <!-- The form is placed inside the body of modal -->
-  <!--
-          <form class="form-horizontal">
-            <div class="form-group">
-              <label for="inputEmailTwitter" class="col-sm-3 control-label">Twitter mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></label>
-              <div class="col-sm-9">
-                <input type="email" class="form-control" id="inputEmailTwitter" placeholder="Email">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputPasswordTwitter" class="col-sm-3 control-label">Password <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></label>
-              <div class="col-sm-9">
-                <input type="password" class="form-control" id="inputPasswordTwitter" placeholder="Password">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-offset-3 col-sm-9">
-                <button id="twitter-auth-btn" type="submit" class="btn btn-default" ng-click="requestTwitterAuth()">Sign in</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- MODAL FORM TWITTER -- END -->
-
+  <!-- Updated Twitter login modal BEGIN -->
   <div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
       <div class="modal-dialog modal-sm">
           <div class="modal-content">
@@ -268,20 +213,7 @@
           </div>
       </div>
   </div>
-
-  <!-- MODAL FORM TWITTER -- END -->
-
-
-
-
-
-
-
-
-
-
-
-
+  <!-- Updated Twitter login modal END -->
 
 
   <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -->
@@ -309,12 +241,6 @@
   </div>
   <!-- MODAL FORM RECIPE DESCRIPTION -- END -->
 
-
-  <!-- Test area BEGIN -->
-  <!--
-  <button ng-click="RequestRecipes()">Request recipes</button>
-  -->
-  <!-- Test area END -->
 
   <div id="serverSpinner"></div>
 
@@ -390,3 +316,45 @@
 
 </html>
 
+<!-- TRASH -->
+<!-- MODAL FORM TWITTER -- BEGIN -->
+
+<!-- OLD MODAL TWITTER -->
+<!--
+<div class="modal fade" id="loginTwitterModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h2 class="modal-title"><img src="./static/images/logos/twitter-logged-in.png" height="30" width="30"/> Login with Twitter</h2>
+</div>
+
+<div class="modal-body"> -->
+<!-- The form is placed inside the body of modal -->
+<!--
+<form class="form-horizontal">
+<div class="form-group">
+<label for="inputEmailTwitter" class="col-sm-3 control-label">Twitter mail <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></label>
+<div class="col-sm-9">
+<input type="email" class="form-control" id="inputEmailTwitter" placeholder="Email">
+</div>
+</div>
+<div class="form-group">
+<label for="inputPasswordTwitter" class="col-sm-3 control-label">Password <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></label>
+<div class="col-sm-9">
+<input type="password" class="form-control" id="inputPasswordTwitter" placeholder="Password">
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offset-3 col-sm-9">
+<button id="twitter-auth-btn" type="submit" class="btn btn-default" ng-click="requestTwitterAuth()">Sign in</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL FORM TWITTER -- END -->
