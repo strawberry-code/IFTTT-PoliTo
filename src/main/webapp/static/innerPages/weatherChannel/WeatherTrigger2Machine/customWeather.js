@@ -300,9 +300,9 @@ $(function(){
             // weatheridcheckbox    periodidcheckbox    checktimeZonevar
             //  thmaxidinput      thminidinput
 
-            var pweather ="";
-            var pperiod = "";
-            var pzone = "";
+            var pweather ="200";
+            var pperiod = "0";
+            var pzone = "0";
 
             if ($('#weatheridcheckbox').is(":checked"))// &&  $('#periodidcheckbox').is(":checked") &&   $('#checktimeZonevar').is(":checked"))
             {
@@ -327,6 +327,7 @@ $(function(){
              flagZoneCheck = true;
 
              */
+            //alert(  pweather + pperiod  + " " + pzone);
             sendingToServer (pweather, pperiod, pzone );
 
             if ($('#weatheridcheckbox').is(":checked"))
@@ -386,7 +387,8 @@ $(function(){
         function  timezoneCheck  ()
         {
 
-            if (pzone_customWeatherActionControllerTrigger2.localeCompare('1') == 0 ||
+            if (pzone_customWeatherActionControllerTrigger2.localeCompare('0') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('1') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('2') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('3') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('4') == 0 ||
@@ -394,7 +396,6 @@ $(function(){
                 pzone_customWeatherActionControllerTrigger2.localeCompare('6') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('7') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('8') == 0 ||
-                pzone_customWeatherActionControllerTrigger2.localeCompare('9') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('9') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('10') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('11') == 0 ||
