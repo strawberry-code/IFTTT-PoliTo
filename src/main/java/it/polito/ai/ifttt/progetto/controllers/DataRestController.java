@@ -16,7 +16,6 @@ import org.hibernate.Transaction;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +59,6 @@ import it.polito.ai.ifttt.progetto.services.WeatherManager;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "http://127.0.0.1:8080/")
 public class DataRestController {
 
 	@Autowired

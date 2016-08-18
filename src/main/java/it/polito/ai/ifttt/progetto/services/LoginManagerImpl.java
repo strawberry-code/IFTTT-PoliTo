@@ -315,28 +315,6 @@ public class LoginManagerImpl implements LoginManager {
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Boolean checkTwitterConnection(String username) {
-		Session session = sessionFactory.openSession();
-		List<String> token = null;
-		try {
-			String hql = "select u.twitterTokenSecret from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";			
-			Query query = session.createQuery(hql);
-			query.setString("n", username);
-			token = query.list();
-			//users = query.list();
-		} finally {
-			if (session != null) {
-				// close session in any case
-				session.close();
-			}
-		}
-		if(token.get(0) == null) {
-			return false;
-		}
-		return true;
-	}
-	
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {
 		try {

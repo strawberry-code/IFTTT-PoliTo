@@ -754,7 +754,7 @@ public class ThreadFunction extends Thread {
 										String username_sender = tt.getUsername_sender();
 										String hashtag_text = tt.getHashtag_text();
 										
-										if(tt.getType()!=null && tt.getType()==false) {
+										if(tt.getType()!=null && tt.getType()==0) {
 											//check tweets
 											try {
 												if(username_sender!=null && hashtag_text==null) {
@@ -831,7 +831,7 @@ public class ThreadFunction extends Thread {
 											}
 											twitterManager.setLastCheck(System.currentTimeMillis(), tid);
 										}
-										else if(tt.getType()!=null && tt.getType()==true) {
+										else if(tt.getType()!=null && tt.getType()==1) {
 											//check direct messages
 											try {
 												
