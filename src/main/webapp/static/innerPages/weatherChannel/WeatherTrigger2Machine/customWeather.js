@@ -386,31 +386,30 @@ $(function(){
         function  timezoneCheck  ()
         {
 
-            if (pzone_customWeatherActionControllerTrigger2 == "0" ||
-                pzone_customWeatherActionControllerTrigger2 == "1" ||
-                pzone_customWeatherActionControllerTrigger2 == "2" ||
-                pzone_customWeatherActionControllerTrigger2 == "3" ||
-                pzone_customWeatherActionControllerTrigger2 == "4" ||
-                pzone_customWeatherActionControllerTrigger2 == "5" ||
-                pzone_customWeatherActionControllerTrigger2 == "6" ||
-                pzone_customWeatherActionControllerTrigger2 == "7" ||
-                pzone_customWeatherActionControllerTrigger2 == "8" ||
-                pzone_customWeatherActionControllerTrigger2 == "9" ||
-                pzone_customWeatherActionControllerTrigger2 == "10" ||
-                pzone_customWeatherActionControllerTrigger2 == "11" ||
-                pzone_customWeatherActionControllerTrigger2 == "12" ||
-                pzone_customWeatherActionControllerTrigger2 == "-1" ||
-                pzone_customWeatherActionControllerTrigger2 == "-2" ||
-                pzone_customWeatherActionControllerTrigger2 == "-3" ||
-                pzone_customWeatherActionControllerTrigger2 == "-4" ||
-                pzone_customWeatherActionControllerTrigger2 == "-5" ||
-                pzone_customWeatherActionControllerTrigger2 == "-6" ||
-                pzone_customWeatherActionControllerTrigger2 == "-7" ||
-                pzone_customWeatherActionControllerTrigger2 == "-8" ||
-                pzone_customWeatherActionControllerTrigger2 == "-9" ||
-                pzone_customWeatherActionControllerTrigger2 == "-10" ||
-                pzone_customWeatherActionControllerTrigger2 == "-11" ||
-                pzone_customWeatherActionControllerTrigger2 == "-12")
+            if (pzone_customWeatherActionControllerTrigger2.localeCompare('1') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('2') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('3') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('4') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('5') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('6') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('7') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('8') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('9') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('9') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('10') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('11') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('12') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-1') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-2') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-3') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-4') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-5') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-6') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-7') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-9') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-10') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-11') == 0 ||
+                pzone_customWeatherActionControllerTrigger2.localeCompare('-12') == 0)
                 flagZoneCheck = true;
             else
                 flagZoneCheck =false;
@@ -420,9 +419,9 @@ $(function(){
         function  weathercheckfunc  ()
         {
 
-            if (pweather_customWeatherActionControllerTrigger2 == "200" ||
-                pweather_customWeatherActionControllerTrigger2 == "300" ||
-                pweather_customWeatherActionControllerTrigger2 == "500"
+            if (pweather_customWeatherActionControllerTrigger2.localeCompare("200") == 0 ||
+                pweather_customWeatherActionControllerTrigger2.localeCompare("300") == 0 ||
+                pweather_customWeatherActionControllerTrigger2.localeCompare("500") == 0
             )
                 flagWeatherCheck = true;
             else
