@@ -19,7 +19,7 @@ public class TwitterTrigger {
 	@Column
 	Long lastCheck;
 	@Column
-	Boolean type; //false: check tweets, true: check directMessages
+	Integer type; //0: check tweets, 1: check directMessages
 	@Column
 	String triggerType;
 	
@@ -44,10 +44,10 @@ public class TwitterTrigger {
 	public void setLastCheck(Long lastCheck) {
 		this.lastCheck = lastCheck;
 	}
-	public Boolean getType() {
+	public Integer getType() {
 		return type;
 	}
-	public void setType(Boolean type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 	public Integer getTwtid() {
