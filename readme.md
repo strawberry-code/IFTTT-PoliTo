@@ -21,6 +21,20 @@ The goal of this project is to set up a web application similar to [IFTTT](https
 ### 3. The teamwork side
   * team communication: [Slack](https://slack.com) (and some bots)
   * continuous integration: [GitHub](https://github.com)
+ 
+***
+ 
+### The Students:
+- [_S. Prino_](mailto:a.servetti@polito.it) server side,
+- [_F.X. Renna_](mailto:g.malnati@polito.it) client side,
+- [_A. Polinkins_](mailto:g.malnati@polito.it) server side,
+- [_C. Cavo_](mailto:cristiano.cavo@polito.it) client side.
+
+### The teachers:
+- [_G. Malnati_](mailto:g.malnati@polito.it)
+- [_A. Servetti_](mailto:a.servetti@polito.it)
+
+***
 
 #### IDE and devlopment support (server side):
   * [Spring Tool Suite](https://spring.io/tools)
@@ -31,15 +45,7 @@ The goal of this project is to set up a web application similar to [IFTTT](https
   * [Json Restful Server](https://github.com/typicode/json-server) (debug and testing)
   * [Kaleidoscope](http://www.kaleidoscopeapp.com) (a powerful git merge tool)
   
-### The Students:
-- [_S. Prino_](mailto:a.servetti@polito.it) server side,
-- [_F.X. Renna_](mailto:g.malnati@polito.it) client side,
-- [_A. Polinkins_](mailto:g.malnati@polito.it) server side,
-- [_C. Cavo_](mailto:cristiano.cavo@polito.it) client side.
 
-### The teachers:
-- [_G. Malnati_](mailto:g.malnati@polito.it)
-- [_A. Servetti_](mailto:a.servetti@polito.it)
 
 Please visit our [presentation page](https://cristiano-c.github.io) to find out more.
 
