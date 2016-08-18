@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/cristiano-c/progetto.png?label=ready&title=Ready)](https://waffle.io/cristiano-c/progetto)
 # Project 15/16 - _IFThisThenThat_
 This project is part of the exam of the course of _Applicazioni Internet_.
 
