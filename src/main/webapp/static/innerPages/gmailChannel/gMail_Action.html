@@ -18,7 +18,7 @@
                     <form id="gmail-form" role="form" name="form" novalidate>
 
                         <div class="form-group">
-                            <label> <img src="/progetto/static/images/placeholder.png" height="30" width="30"/> Email address or receiver</label> <br>
+                            <label> <img src="/progetto/static/images/gmailChannel/email-address.png" height="30" width="30"/> Email address or receiver</label> <br>
                             <div>
                             <input type="title"  class="form-control" id="email" placeholder="insert your email"
                                    ng-model="gmailActionvar.email"
@@ -31,7 +31,7 @@
                         </div>
 
 
-                        <label> <img src="/progetto/static/images/placeholder.png" height="30" width="30"/> Send email from:</label><br>
+                        <label> <img src="/progetto/static/images/gmailChannel/email-sender.png" height="30" width="30"/> Send email from:</label><br>
                             <form class="form-group">
                                 <input type="radio" name="emailSending" value="false" ng-model="gmailActionvar.sender" ng-checked="true"> us (ifttt.ai2016@gmail.com) <br>
                                      <input type="radio" name="emailSending" value="true" ng-model="gmailActionvar.sender"> your IFTTT Polito email <br>
@@ -47,7 +47,7 @@
                                         type="checkbox"
                                         ng-model="checkedSubject"
 
-                                > <img src="/progetto/static/images/placeholder.png" height="30" width="30"/> Email subject
+                                > <img src="/progetto/static/images/gmailChannel/email-subject.png" height="30" width="30"/> Email subject
                             </label><br/>
                             <!--  ng-change="checkedSubjectfunc()" -->
                             <div ng-if="checkedSubject" class="animate-if">
@@ -68,7 +68,7 @@
                                         type="checkbox"
                                         ng-model="checkedBody"
 
-                                > <img src="/progetto/static/images/placeholder.png" height="30" width="30"/> Email content
+                                > <img src="/progetto/static/images/gmailChannel/email-content.png" height="30" width="30"/> Email content
                             </label><br/>
                             <!--  ng-change="checkedSubjectfunc()" -->
                             <div ng-if="checkedBody" class="animate-if">
