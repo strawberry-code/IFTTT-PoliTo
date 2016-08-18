@@ -8,9 +8,9 @@ The purpose of the  project is – for the students – to learn how to plan, se
 The goal of this project is to set up a web application similar to [IFTTT](https://ifttt.com/recipes), includind the most important aspect of any web application: the combination of the client and server sides wich their proper aspects and properties, many related between them. 
 
 ### 1. The server side
-  * a main server engine ([Spring]((https://spring.io/tools)) application context)
-  * database management ([Hibernate](http://hibernate.org)/MySql)
-  * security adn authentication ([Spring security]((https://spring.io/tools)))
+  * a main server engine ([Spring](https://spring.io/tools) application context)
+  * database management ([Hibernate](http://hibernate.org)/[MySql](https://www.mysql.it))
+  * security adn authentication ([Spring security](https://spring.io/tools))
   * client restful data communication
 
 ### 2. The client side
@@ -20,7 +20,7 @@ The goal of this project is to set up a web application similar to [IFTTT](https
 
 ### 3. The teamwork side
   * team communication: [Slack](https://slack.com) (and some bots)
-  * continuous integration: GitHub
+  * continuous integration: [GitHub](https://github.com)
 
 #### IDE and devlopment support (server side):
   * [Spring Tool Suite](https://spring.io/tools)
