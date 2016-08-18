@@ -5,7 +5,7 @@ This project is part of the exam of the course of _Applicazioni Internet_.
 The purpose of the  project is – for the students – to learn how to plan, set up and deploy a web based application and to experience how to solve problems using methods, algorithms and techniques taught in class (Java, HTML and JavaScript). The students have to conduct a joint teamwork to reach the **goal**.
 
 ## The **goal**
-The goal of this project is to set up a web application similar to [IFTTT](https://ifttt.com/recipes), includind the most important aspect of any web application: the combination of the client and server sides wich their proper aspects and properties, many related between them. 
+The goal of this project is to set up a web application similar to [IFTTT](https://ifttt.com/recipes), including the most important aspect of any web application: the combination of the client and server sides wich their proper aspects and properties, many related between them. 
 
 ### 1. The server side
   * a main server engine ([Spring](https://spring.io/tools) application context)
