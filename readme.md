@@ -11,5 +11,5 @@ The teachers:
 - [_G. Malnati_](mailto:g.malnati@polito.it)
 - [_A. Servetti_](mailto:a.servetti@polito.it)
 
-Please visit [our presentation](https://cristiano-c.github.io) page to find out more.
+Please visit our [presentation page](https://cristiano-c.github.io) to find out more.
 
