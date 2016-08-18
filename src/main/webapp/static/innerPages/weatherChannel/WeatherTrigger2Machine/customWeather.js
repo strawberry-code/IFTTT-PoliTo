@@ -300,111 +300,26 @@ $(function(){
             // weatheridcheckbox    periodidcheckbox    checktimeZonevar
             //  thmaxidinput      thminidinput
 
-            //          0                                       0                                       0
-            if ($('#weatheridcheckbox').is(":checked") &&  $('#periodidcheckbox').is(":checked") &&   $('#checktimeZonevar').is(":checked"))
+            var pweather ="";
+            var pperiod = "";
+            var pzone = "";
+
+            if ($('#weatheridcheckbox').is(":checked"))// &&  $('#periodidcheckbox').is(":checked") &&   $('#checktimeZonevar').is(":checked"))
             {
-                //pweather         pperiod,                  pzone
-                //mySelect         periodidinput            timezoneid
-
-                var pweather = $('#mySelect').val();
-                var pperiod = $('#periodidinput').val();
-                var pzone = $('#timezoneid').val();
-              
-                sendingToServer(pweather, pperiod, pzone );
-
-
+                 pweather = $('#mySelect').val();
             }
-            else
+            else  pweather = null;
+            if ($('#periodidcheckbox').is(":checked"))
             {
-                //          0                                       0
-                if ($('#weatheridcheckbox').is(":checked") &&  $('#periodidcheckbox').is(":checked"))
-                {
-                    var pweather = $('#mySelect').val();
-                    var pperiod = $('#periodidinput').val();
-                    //var pzone = $('#timezoneid').val();
-
-                    sendingToServer(pweather, pperiod, null );
-
-                }
-                else
-                {
-                    //          0                                       0
-                    if ($('#weatheridcheckbox').is(":checked")  &&   $('#checktimeZonevar').is(":checked"))
-                    {
-                        var pweather = $('#mySelect').val();
-                        //var pperiod = $('#periodidinput').val();
-                        var pzone = $('#timezoneid').val();
-
-                        sendingToServer(pweather, null, pzone );
-
-                    }
-                    else
-                    {
-                        //          0
-                        if ($('#weatheridcheckbox').is(":checked"))
-                        {
-
-                            var pweather = $('#mySelect').val();
-                            //var pperiod = $('#periodidinput').val();
-                            //var pzone = $('#timezoneid').val();
-
-                            sendingToServer(pweather, null, null );
-
-
-                        }
-                        else
-                        {
-                            //          1                                       0                                       1
-                            if ($('#periodidcheckbox').is(":checked"))
-                            {
-                               // var pweather = $('#mySelect').val();
-                                var pperiod = $('#periodidinput').val();
-                               // var pzone = $('#timezoneid').val();
-
-                                sendingToServer(null, pperiod, null );
-
-
-                            }
-                            else
-                            {
-                                //          1                                       1                                         0
-                                if ($('#checktimeZonevar').is(":checked"))
-                                {
-
-                                   // var pweather = $('#mySelect').val();
-                                   // var pperiod = $('#periodidinput').val();
-                                    var pzone = $('#timezoneid').val();
-
-                                    sendingToServer(null, null, pzone );
-
-
-                                }
-                                else
-                                {
-
-                                    //var pweather = $('#mySelect').val();
-                                    //var pperiod = $('#periodidinput').val();
-                                    //var pzone = $('#timezoneid').val();
-
-                                    sendingToServer(null, null, null );
-
-
-                                }
-
-
-
-                            }
-
-
-
-                        }
-
-
-                    }
-                }
-
-
+                     pperiod = $('#periodidinput').val();
             }
+            else  pperiod = null;
+            if ($('#checktimeZonevar').is(":checked"))
+            {
+                 pzone = $('#timezoneid').val();
+            }
+            else  pzone = null;
+
 
             /*
              flagWeatherCheck = true;
@@ -412,6 +327,7 @@ $(function(){
              flagZoneCheck = true;
 
              */
+            sendingToServer (pweather, pperiod, pzone );
 
             if ($('#weatheridcheckbox').is(":checked"))
                 weathercheckfunc();
@@ -420,9 +336,10 @@ $(function(){
             if ($('#checktimeZonevar').is(":checked"))
                 timezoneCheck();
 
-            //alert(flagWeatherCheck + "X" + flagPeriodCheck );
+            //alert(flagWeatherCheck + "X" + flagPeriodCheck + "X" + flagZoneCheck);
 
-                if(flagWeatherCheck == 0 ||  flagPeriodCheck == 0 || flagZoneCheck == 0)
+
+                if(flagWeatherCheck == false ||  flagPeriodCheck == false || flagZoneCheck == false)
                 {
                     //url = "#WeatherTrigger2";
                     //window.location.replace(url);
