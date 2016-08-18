@@ -4,37 +4,106 @@
     <meta charset="UTF-8">
     <title>My recipes</title>
 </head>
-<body ng-controller="publicRecipesController">
+<body ng-controller="publicRecipesController"> <!- versione di prova -->
 
 <div class="container" style="padding-top: 6%">
-            <div class="row">
-                <div class="col-md-3">
-                </div>
-                  <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
-                <div class="col-md-6">
-                    <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
-                        <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Your IFTTT Polito recipes</h1></li>
-                            <li ng-repeat="f in  userRecipes" class="list-group-item">
-                                <h4><!-- data-content="{{f.desc}}" -->
-                                    <span class="glyphicon glyphicon-file" title="Header" data-placement="bottom"  data-trigger="hover" ></span>
-                                    N° {{$index + 1}} <em>{{f.desc}}</em>
-                                </h4>
-                            </li>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
+        <div class="col-md-8">
+            <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
+                <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Your IFTTT Polito recipes</h1></li>
+                <li ng-repeat="f in  userRecipes" class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4><!-- data-content="{{f.desc}}" -->
+                                <span class="glyphicon glyphicon-file" title="Header" data-placement="bottom" data-toggle="popover" data-trigger="hover" ></span>
+                                <b>Recipe description:</b>
+                            </h4>
+                            {{f.description}}
 
-                    </ul>
+                        </div>
 
-                </div>
 
-            </div>
+
+                        <div class="col-md-4">
+                            <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip style="margin-left: 3px" class="btn btn-info pull-right" ng-click="f.isCollapsed = !f.isCollapsed">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row panel-body" ng-show="f.isCollapsed">
+
+
+                        <hr>
+
+                        <div class="col-md-6">
+                            <h3 class="underline">{{f.trigger.triggerType | capitalize}} trigger</h3>
+                            <div ng-repeat="(key, data) in f.trigger" ng-if="!(key == 'triggerType')
+                            && !(key == 'lastCheck')
+                            && !(key == 'sender')
+                            && !(key == 'gtid')
+                            && !(key == 'ctid')
+                            && !(key == 'mtid')
+                            && !(key == 'wtid')
+                            && !(key == 'type')
+                            && !(key == 'ttid')
+                            && !(data == null)
+                            ">
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3 class="underline">{{f.action.actionType | capitalize}} action</h3>
+                            <div ng-repeat="(key, data) in f.action" ng-if="!(key == 'actionType')
+                            && !(key == 'lastCheck')
+                            && !(key == 'sender')
+                            && !(key == 'type')
+                            && !(key == 'gaid')
+                            && !(key == 'caid')
+                            && !(key == 'maid')
+                            && !(key == 'taid')
+                            && !(data == null)
+                            ">
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data}}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="row text-center" style="padding-top: 3%">
+        <h3>or</h3>
+    </div>
+    <div class="row text-center" style="padding-top: 4%">
+        <a class="btn btn-success btn-large" href="#createRecipe"><h4>Create a new recipe</h4></a>
+    </div>
 </div>
 </body>
 
 <script>
+
+    // Commento aggiunto per poter fare il commit iniziale del branch 'client'
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover({
             container: 'body'
         });
     });
+
 
 </script>
 
