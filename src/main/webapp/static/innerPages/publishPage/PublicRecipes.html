@@ -90,8 +90,24 @@
         <h3>or</h3>
     </div>
     <div class="row text-center" style="padding-top: 4%">
-        <a class="btn btn-success btn-large" href="#createRecipe"><h4>Create a new recipe</h4></a>
+
+
+        <a class="btn btn-success btn-large"
+                ng-if="!iftttLogged" style="margin-left: 6px"
+                data-toggle="modal" data-target="#loginIFTTTModal"
+                ng-click="routeListener('#createRecipe')">
+            <h4>Create new recipe </h4></a>
+
     </div>
+
+    <div class="row text-center" style="padding-top: 4%">
+
+        <a class="btn btn-success btn-large" ng-if="iftttLogged" href="#createRecipe"><h4>Create a new recipe</h4></a>
+
+    </div>
+
+
+
 </div>
 </body>
 
