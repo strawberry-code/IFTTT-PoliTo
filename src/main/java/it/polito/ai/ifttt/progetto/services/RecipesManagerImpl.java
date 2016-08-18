@@ -233,10 +233,9 @@ public class RecipesManagerImpl implements RecipesManager {
 		String triggerType = trigger.get("triggerType").toString();
 		String actionType = action.get("actionType").toString();
 
-		Integer flag = 0;
 		Recipes rec = this.findRecipesById(id);
-		Integer triggerid = rec.getTriggerid();
-		Integer actionid = rec.getActionid();
+		
+		Integer flag = 0;
 
 		try {
 			// begin transaction
@@ -244,162 +243,75 @@ public class RecipesManagerImpl implements RecipesManager {
 			try {
 				
 				// TRIGGER
-				//check if trigger/action type is different 
-				//from passed data and handle this case
-				if(rec.getTriggerType().compareTo(triggerType)==0) {
-					//they are the same, so only changes on fields
-					if (triggerType.compareTo("calendar") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-						calendartrigger.setCtid(rec.getTriggerid());
-						calendartrigger.setLastCheck(System.currentTimeMillis());
-						session.update(calendartrigger);
-						session.flush();					
+				if (triggerType.compareTo("calendar") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
+					calendartrigger.setCtid(rec.getTriggerid());
+					calendartrigger.setLastCheck(System.currentTimeMillis());
+					session.update(calendartrigger);
+					session.flush();					
 
-					} else if (triggerType.compareTo("gmail") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
-						gmailtrigger.setGtid(rec.getTriggerid());
-						gmailtrigger.setLastCheck(System.currentTimeMillis());
-						session.update(gmailtrigger);
-						session.flush();
+				} else if (triggerType.compareTo("gmail") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+					gmailtrigger.setGtid(rec.getTriggerid());
+					gmailtrigger.setLastCheck(System.currentTimeMillis());
+					session.update(gmailtrigger);
+					session.flush();
 
-					} else if (triggerType.compareTo("weather") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-						weathertrigger.setWtid(rec.getTriggerid());
-						weathertrigger.setLastCheck(System.currentTimeMillis());
-						session.update(weathertrigger);
-						session.flush();
+				} else if (triggerType.compareTo("weather") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+					weathertrigger.setWtid(rec.getTriggerid());
+					weathertrigger.setLastCheck(System.currentTimeMillis());
+					session.update(weathertrigger);
+					session.flush();
 
-					} else if (triggerType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
-						twittertrigger.setTwtid(rec.getTriggerid());
-						twittertrigger.setLastCheck(System.currentTimeMillis());
-						session.update(twittertrigger);
-						session.flush();
+				} else if (triggerType.compareTo("twitter") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+					twittertrigger.setTwtid(rec.getTriggerid());
+					twittertrigger.setLastCheck(System.currentTimeMillis());
+					session.update(twittertrigger);
+					session.flush();
 
-					} else {
-						// errore: valore non valido!
-						flag = -1;
-					}
+				} else {
+					// errore: valore non valido!
+					flag = -1;
 				}
-				else {
-					//the trigger type changed
-					//insert the new trigger
-					if (triggerType.compareTo("calendar") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-						calendartrigger.setLastCheck(System.currentTimeMillis());
-						session.save(calendartrigger);
-						session.flush();					
-						triggerid = calendartrigger.getCtid();
-
-					} else if (triggerType.compareTo("gmail") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
-						gmailtrigger.setLastCheck(System.currentTimeMillis());
-						session.save(gmailtrigger);
-						session.flush();
-						triggerid = gmailtrigger.getGtid();
-
-					} else if (triggerType.compareTo("weather") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-						weathertrigger.setLastCheck(System.currentTimeMillis());
-						session.save(weathertrigger);
-						session.flush();
-						triggerid = weathertrigger.getWtid();
-
-					} else if (triggerType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
-						twittertrigger.setLastCheck(System.currentTimeMillis());
-						session.save(twittertrigger);
-						session.flush();
-						triggerid = twittertrigger.getTwtid();
-
-					} else {
-						// errore: valore non valido!
-						flag = -1;
-					}
-					
-				}				
-				
 				
 				// ACTION
-				if(rec.getActionType().compareTo(actionType)==0) {
-					//they are the same, so only changes on fields
-					if (actionType.compareTo("calendar") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
-						calendaraction.setCaid(rec.getActionid());
-						session.update(calendaraction);	
-						session.flush();
+				if (actionType.compareTo("calendar") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+					calendaraction.setCaid(rec.getActionid());
+					session.update(calendaraction);	
+					session.flush();
 
-					} else if (actionType.compareTo("gmail") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
-						gmailaction.setGaid(rec.getActionid());
-						session.update(gmailaction);	
-						session.flush();					
+				} else if (actionType.compareTo("gmail") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+					gmailaction.setGaid(rec.getActionid());
+					session.update(gmailaction);	
+					session.flush();					
 
-					} else if (actionType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
-						twitteraction.setTwaid(rec.getActionid());
-						session.update(twitteraction);	
-						session.flush();			
-					} else {
-						// errore: valore non valido!
-						flag = -1;
-					}
+				} else if (actionType.compareTo("twitter") == 0) {
+					ObjectMapper mapper = new ObjectMapper();
+					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+					twitteraction.setTwaid(rec.getActionid());
+					session.update(twitteraction);	
+					session.flush();			
+				} else {
+					// errore: valore non valido!
+					flag = -1;
 				}
-				else {
-					//the action type changed
-					//insert the new action
-					if (actionType.compareTo("calendar") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
-						session.save(calendaraction);	
-						session.flush();					
-						actionid = calendaraction.getCaid();
-
-					} else if (actionType.compareTo("gmail") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
-						session.save(gmailaction);	
-						session.flush();					
-						actionid = gmailaction.getGaid();
-
-					} else if (actionType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
-						session.save(twitteraction);	
-						session.flush();					
-						actionid = twitteraction.getTwaid();
-
-					} else {
-						// errore: valore non valido!
-						flag = -1;
-					}
-				}
-				
 				
 				// RECIPE
 				String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
@@ -408,8 +320,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				recipe.setRid(id);
 				recipe.setTriggerType(triggerType);
 				recipe.setActionType(actionType);
-				recipe.setTriggerid(triggerid);
-				recipe.setActionid(actionid);
+				recipe.setTriggerid(rec.getTriggerid());
+				recipe.setActionid(rec.getActionid());
 				recipe.setPublish((Boolean) ricetta.get("publish"));
 				recipe.setDescription((String) ricetta.get("description"));
 				recipe.setUser(user);
