@@ -1,10 +1,6 @@
 <html>
 <head>
-    <!-- Stile old web-site.
-    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-    <link href="css/custonWeatherTrigger1/customWeather.css" rel="stylesheet" type="text/css">
-    -->
+
     <script src="/progetto/static/innerPages/weatherChannel/WeatherTrigger2Machine/customWeather.js"></script>
 
 </head>
@@ -52,7 +48,8 @@
                 </div>
                 <br>
 
-                <!-- @renna  NOT CLOSED FORM! Dove mettere </form> -->
+                <!-- (renna):  NOT CLOSED FORM! Dove mettere </form> -->
+                <!-- (cristiano):  questo problema è stato risolto? -->
                 <form name="weather">
                     <label>
                     <input
@@ -130,13 +127,8 @@
                         </div>
 
                 </form>
-                <!--   -->
 
                 <hr>
-                <!-- Before Modify part
-                <a  type="submit" class="btn btn-danger pull-left"   href="#allTriggers" >Cancel</a>
-                <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3">Submit</button>
-                -->
 
 
 
@@ -159,18 +151,11 @@
                             ng-if="modifyButton"
                     >Submit</button>
 
-
-
-
-
-
                     <div class="col-md-3">
       </div>
         </div>
     </div>
 </div>
-
-<!-- Script di page -->
 
 <script>
     angular.module('numberExample', [])
@@ -247,56 +232,3 @@
 
 </body>
 </html>
-
-<!-- Codici di esempio
- UTC-12 a UTC+12
-
-<form name="myForm" ng-controller="ExampleController">
-    <label>Number:
-        <input type="number" name="input" ng-model="example.value"
-               min="-12" max="12" required>
-    </label>
-    <div role="alert">
-    <span class="error" ng-show="myForm.input.$error.required">
-      Required!</span>
-        <span class="error" ng-show="myForm.input.$error.number">
-      Not valid number!</span>
-    </div>
-    <tt>value = {{example.value}}</tt><br/>
-    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
-    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
-    <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
-    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
-</form>
-
--->
-
-
-
-
-<!--
-<script>
- angular.module('timeExample', [])
-   .controller('DateController', ['$scope', function($scope) {
-     $scope.example = {
-       value: new Date(1970, 0, 1, 14, 57, 0)
-     };
-   }]);
-</script>
-<form name="myForm" ng-controller="DateController as dateCtrl">
-   <label for="exampleInput">Pick a time between 8am and 5pm:</label>
-   <input type="time" id="exampleInput" name="input" ng-model="example.value"
-       placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
-   <div role="alert">
-     <span class="error" ng-show="myForm.input.$error.required">
-         Required!</span>
-     <span class="error" ng-show="myForm.input.$error.time">
-         Not a valid date!</span>
-   </div>
-   <tt>value = {{example.value | date: "HH:mm:ss"}}</tt><br/>
-   <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
-   <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
-   <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
-   <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
-</form>
--->
