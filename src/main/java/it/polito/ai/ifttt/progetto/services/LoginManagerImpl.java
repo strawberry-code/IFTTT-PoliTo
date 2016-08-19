@@ -43,11 +43,11 @@ public class LoginManagerImpl implements LoginManager {
 			// begin transaction
 			Transaction tx = session.beginTransaction();
 			try {
-				
-				if(password.length()<8) {
+
+				if (password.length() < 8) {
 					return 4;
 				}
-				if(username.length()<4) {
+				if (username.length() < 4) {
 					return 5;
 				}
 				// compute hash (MD5) of the user password to store it in an
@@ -101,11 +101,11 @@ public class LoginManagerImpl implements LoginManager {
 				user.setUsername(username);
 				user.setPassword(hashpass);
 				user.setEmail(email);
-				user.setUrlactivate(url);			
+				user.setUrlactivate(url);
 				Roles r = new Roles();
 				r.setName("ROLE_USER");
 				user.getRoles().add(r);
-				
+
 				// save the new user in the db
 				Integer id = (Integer) session.save(user);
 				tx.commit();
@@ -118,7 +118,8 @@ public class LoginManagerImpl implements LoginManager {
 					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 					message.setSubject("New Registration");
 					message.setContent("Dear " + username + "," + "\n\n to complete the registration please click \n"
-									+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url + "\">here</a>", "text/html");
+							+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url
+							+ "\">here</a>", "text/html");
 
 					Transport.send(message);
 
@@ -141,41 +142,41 @@ public class LoginManagerImpl implements LoginManager {
 		return 0;
 	}
 
-//	public int login(String username, String password) {
-//		// open session
-//		Session session = sessionFactory.openSession();
-//
-//		try {
-//			//compute hash of provided password
-//			String hashpass = this.computeMD5(password);
-//
-//			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n and u.password=:p";
-//			Query query = session.createQuery(hql);
-//			query.setString("n", username);
-//			query.setString("p", hashpass);
-//			List<Users> users = query.list();
-//			if (users.size() == 0) {
-//				// user/password wrong
-//				return 1;
-//			}
-//			Users usr = users.get(0);
-//			if (usr.getEnabled() == false) {
-//				// not activated
-//				return 2;
-//			}
-//
-//		} catch (Exception e) {
-//			// if some errors during the transaction occur,
-//			return -1;
-//		} finally {
-//			if (session != null) {
-//				// close session in any case
-//				session.close();
-//			}
-//		}
-//		return 0;
-//	}
-
+	// public int login(String username, String password) {
+	// // open session
+	// Session session = sessionFactory.openSession();
+	//
+	// try {
+	// //compute hash of provided password
+	// String hashpass = this.computeMD5(password);
+	//
+	// String hql = "from it.polito.ai.ifttt.progetto.models.Users u where
+	// u.username=:n and u.password=:p";
+	// Query query = session.createQuery(hql);
+	// query.setString("n", username);
+	// query.setString("p", hashpass);
+	// List<Users> users = query.list();
+	// if (users.size() == 0) {
+	// // user/password wrong
+	// return 1;
+	// }
+	// Users usr = users.get(0);
+	// if (usr.getEnabled() == false) {
+	// // not activated
+	// return 2;
+	// }
+	//
+	// } catch (Exception e) {
+	// // if some errors during the transaction occur,
+	// return -1;
+	// } finally {
+	// if (session != null) {
+	// // close session in any case
+	// session.close();
+	// }
+	// }
+	// return 0;
+	// }
 
 	public int activate(Integer id, String url) {
 
@@ -219,7 +220,7 @@ public class LoginManagerImpl implements LoginManager {
 		// everything is ok
 		return 0;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Users findUserByUsername(String username) {
 		Session session = sessionFactory.openSession();
@@ -235,12 +236,12 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if(users.size()==0) {
+		if (users.size() == 0) {
 			return null;
 		}
 		return users.get(0);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Users> findAllUsers() {
 		Session session = sessionFactory.openSession();
@@ -255,66 +256,88 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if(users.size()==0) {
+		if (users.size() == 0) {
 			return null;
 		}
 		return users;
 	}
-	
+
 	public void setGoogleCredentials(Users user, String token, Long expire) {
 		Session session = sessionFactory.openSession();
 		try {
 			user.setGoogleToken(token);
 			user.setGoogleExpire(expire);
 			session.update(user);
-			session.flush();			
+			session.flush();
 		} finally {
 			if (session != null) {
 				// close session in any case
 				session.close();
 			}
 		}
-		return;		
+		return;
 	}
-	
+
 	public void setTwitterCredentials(Users user, String token, String tokenSecret) {
 		Session session = sessionFactory.openSession();
 		try {
 			user.setTwitterToken(token);
 			user.setTwitterTokenSecret(tokenSecret);
 			session.update(user);
-			session.flush();			
+			session.flush();
 		} finally {
 			if (session != null) {
 				// close session in any case
 				session.close();
 			}
 		}
-		return;		
+		return;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Boolean checkGoogleConnection(String username) {
 		Session session = sessionFactory.openSession();
 		List<String> token = null;
 		try {
-			String hql = "select u.googleToken from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";			
+			String hql = "select u.googleToken from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
 			Query query = session.createQuery(hql);
 			query.setString("n", username);
 			token = query.list();
-			//users = query.list();
+			// users = query.list();
 		} finally {
 			if (session != null) {
 				// close session in any case
 				session.close();
 			}
 		}
-		if(token.get(0) == null) {
+		if (token.get(0) == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public Boolean checkTwitterConnection(String username) {
+		Session session = sessionFactory.openSession();
+		List<String> token = null;
+		try {
+			String hql = "select u.twitterTokenSecret from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			token = query.list();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		if (token.get(0) == null) {
+			return false;
+		}
+		return true;
+	}
+
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {
 		try {

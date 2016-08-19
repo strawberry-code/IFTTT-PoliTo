@@ -522,13 +522,13 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
          */
         $scope.requestGoogleAuth = function () {
 
-            var googleCredentials = {
-                serviceRequested: "google",
-                email: $('#inputEmailGoogle').val(),
-                password: $('#inputPasswordGoogle').val()
-            };
-
-            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
+//            var googleCredentials = {
+//                serviceRequested: "google",
+//                email: $('#inputEmailGoogle').val(),
+//                password: $('#inputPasswordGoogle').val()
+//            };
+//
+//            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
             $('#serverSpinner').spin();
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
@@ -644,47 +644,43 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
          */
         $scope.requestTwitterAuth = function () {
 
-            var twitterCredentials = {
-                serviceRequested: "twitter",
-                email: $('#inputEmailTwitter').val(),
-                password: $('#inputPasswordTwitter').val()
-            };
-
-            if (consoleLogs) console.log(JSON.stringify(twitterCredentials));
-            $('#serverSpinner').spin();
+        	$('#serverSpinner').spin();
             $http({
-                url: '/MyServlet',
+                url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify(twitterCredentials),
+                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath}),
+                contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                $('#serverSpinner').spin(false);
                 if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                $('#serverSpinner').spin(false);
                 if (response.data.authenticated.localeCompare("true") == 0) {
-                    $scope.twitterLogged = true;
-                    twitterLogin = true;
-                    $('#loginTwitterModal').modal('hide');
+                	$scope.twitterLogged = true;
+                	twitterLogin = true;
+                	$('#loginTwitterModal').modal('hide');
                     $("#notificationsWrapper").notify(
-                        "Logged with Twitter",
+                        "Logged with Google",
                         {
                             className: 'success',
                             position: 'bottom right'
                         }
                     );
-                    //if(consoleLogs) console.log("#"+nextPath);
-                    url = "#" + nextPath;
+                    //FXR
+                    var url = "#" + nextPath;
+                    if (modifyVar == 1) {
+                        url = "#" + rootingAutenticationTriggerAction; //<--------------------------------------------------------*
+                    }
                     window.location.replace(url);
+                    //end
                 } else {
-                    $("#notificationsWrapper").notify(
-                        "Authentication in Twitter failed",
-                        {
-                            className: 'error',
-                            position: 'bottom right'
-                        }
-                    );
+                    // Se non è connesso...
+                    $('#loginTwitterModal').modal('hide');
+                    // @server-side: mettere qui la url a Google O-Auth
+                    url = "http://localhost:8080/progetto/api/twitter/tw.do";
+                    window.location.replace(url);
                 }
-                if (consoleLogs) console.log($scope.twitterLogged);
+                if (consoleLogs) console.log($scope.googleLogged);
             }, function error() {
                 $('#serverSpinner').spin(false);
                 $('#loginTwitterModal').modal('hide');
@@ -697,7 +693,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 );
                 $scope.twitterLogged = false;
                 twitterLogin = false;
-                if (consoleLogs) console.log("" + $scope.twitterLogged);
+                if (consoleLogs) console.log($scope.twitterLogged);
             });
 
         };

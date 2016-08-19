@@ -24,5 +24,6 @@ public interface LoginManager {
 	void setTwitterCredentials(Users user, String token, String tokenSecret);
 	
 	Boolean checkGoogleConnection(String username);
+	Boolean checkTwitterConnection(String username);
 	
 }
