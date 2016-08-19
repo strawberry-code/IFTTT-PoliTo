@@ -3,7 +3,9 @@ package it.polito.ai.ifttt.progetto.configurations;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
- 	
+
+	/* Good luck! */
+
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[]{RootConfig.class, SecurityConfig.class};
