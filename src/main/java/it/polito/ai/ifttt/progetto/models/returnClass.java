@@ -2,7 +2,6 @@ package it.polito.ai.ifttt.progetto.models;
 
 public class returnClass {
 	
-	String authenticated;
 	String iftttLogged;
     String googleLogged;
     String twitterLogged;
@@ -29,13 +28,5 @@ public class returnClass {
 
 	public void setTwitterLogged(String twitterLogged) {
 		this.twitterLogged = twitterLogged;
-	}
-
-	public String getAuthenticated() {
-		return authenticated;
-	}
-
-	public void setAuthenticated(String authenticated) {
-		this.authenticated = authenticated;
 	}
 }

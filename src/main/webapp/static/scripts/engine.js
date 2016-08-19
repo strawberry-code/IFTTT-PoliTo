@@ -488,6 +488,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 //    if(response.data.disconnected.localeCompare("true")==0){
                 $scope.iftttLogged = false;
                 iftttLogin = false;
+                $scope.googleLogged = false;
+                googleLogin = false;
+                $scope.twitterLogged = false;
+                twitterLogin = false;
                 $('#serverSpinner').spin(false);
                 $("#notificationsWrapper").notify(
                     "Logged out from IFTTT Polito",
@@ -547,9 +551,9 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if (consoleLogs) console.log(JSON.stringify(response.data.googleLogged) + "locale" + response.data.googleLogged.localeCompare("true"));
                 $('#serverSpinner').spin(false);
-                if (response.data.authenticated.localeCompare("true") == 0) {
+                if (response.data.googleLogged.localeCompare("true") == 0) {
                     $scope.googleLogged = true;
                     googleLogin = true;
                     $('#loginGoogleModal').modal('hide');
@@ -662,9 +666,9 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if (consoleLogs) console.log(JSON.stringify(response.data.twitterLogged) + "locale" + response.data.twitterLogged.localeCompare("true"));
                 $('#serverSpinner').spin(false);
-                if (response.data.authenticated.localeCompare("true") == 0) {
+                if (response.data.twitterLogged.localeCompare("true") == 0) {
                 	$scope.twitterLogged = true;
                 	twitterLogin = true;
                 	$('#loginTwitterModal').modal('hide');
@@ -1138,10 +1142,18 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             dataType: 'application/json'
         }).then(function success(response) {
             if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
-            if (response.data.authenticated.localeCompare("true") == 0) {
+            if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
+            if (response.data.iftttLogged.localeCompare("true") == 0) {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
+            }
+            if (response.data.googleLogged.localeCompare("true") == 0) {
+                $scope.googleLogged = true;
+                googleLogin = true;
+            }
+            if (response.data.twitterLogged.localeCompare("true") == 0) {
+                $scope.twitterLogged = true;
+                twitterLogin = true;
             }
             if (consoleLogs) console.log($scope.iftttLogged);
         }, function error() {

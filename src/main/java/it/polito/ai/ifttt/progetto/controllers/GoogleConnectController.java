@@ -297,7 +297,7 @@ public class GoogleConnectController {
 		}
 		
 		returnClass res = new returnClass();
-		res.setAuthenticated(ret);
+		res.setGoogleLogged(ret);
 		return res;
 	}
 }

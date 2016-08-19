@@ -12,7 +12,7 @@ public interface RecipesManager {
 	List<Object[]> findAllActionsByTriggerId(Integer tid, String ttype);
 	
 	Integer addRecipe(String data);
-	
+	Integer modifyRecipe(Integer id, String data);
 	//List<Recipes> findRecipesByUser(Integer userid);
 	
 	//extract information from a particular recipe
