@@ -12,13 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import it.polito.ai.ifttt.progetto.models.Users;
+import it.polito.ai.ifttt.progetto.models.requestClass;
+import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
 import twitter4j.DirectMessage;
 import twitter4j.Query;
@@ -47,6 +51,8 @@ public class TwitterController {
 	Users user = null;
 	Authentication auth = null;
 	
+	String nextPath = null;
+
 	@Autowired
 	LoginManager loginManager;
 
@@ -62,10 +68,11 @@ public class TwitterController {
 		Configuration configuration = builder.build();
 		TwitterFactory factory = new TwitterFactory(configuration);
 		this.twitter = factory.getInstance();
-		
+
 		auth = SecurityContextHolder.getContext().getAuthentication();
-	//	String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-	//	this.user = loginManager.findUserByUsername(username);
+		// String username =
+		// SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		// this.user = loginManager.findUserByUsername(username);
 
 		RequestToken requestToken = null;
 		try {
@@ -78,138 +85,52 @@ public class TwitterController {
 	}
 
 	@RequestMapping(value = "/tw.token", method = RequestMethod.GET, params = { "oauth_token", "oauth_verifier" })
-	public ModelAndView oauth2Callback(@RequestParam(value = "oauth_token") String oauth_token,
-			@RequestParam(value = "oauth_verifier") String oauth_verifier, ModelAndView mv) {
+	public RedirectView oauth2Callback(@RequestParam(value = "oauth_token") String oauth_token,
+			@RequestParam(value = "oauth_verifier") String oauth_verifier) {
 
 		AccessToken accessToken = null;
 		try {
 			accessToken = twitter.getOAuthAccessToken(oauth_verifier);
-			// System.out.println(accessToken);						
+			// System.out.println(accessToken);
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
 		// save accessToken.getToken o getSecretToken o oauth_verifier
-		if(this.auth !=null) {
+		if (this.auth != null) {
 			SecurityContextHolder.getContext().setAuthentication(auth);
 			String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-			System.out.println(username);		
+			System.out.println(username);
 			this.user = loginManager.findUserByUsername(username);
 			loginManager.setTwitterCredentials(user, accessToken.getToken(), accessToken.getTokenSecret());
-			
+
 		}
-			
 
-//		try {
-//			System.out.println(twitter.getScreenName());
-//
-//			// ACTION 1
-//			// Status status = twitter.updateStatus("Prova da mia app");
-//			// System.out.println("posted: "+status.getText());
-//
-			// TRIGGER 1
-//			List<Status> statuses = twitter.getHomeTimeline();
-//			System.out.println(">>>>>>>> Showing last tweets of SimonaPrino.");
-//			for (Status st : statuses) {
-//				//System.out.println(st.getUser().getScreenName());
-//				if (st.getCreatedAt().getTime() > 1469001328 && st.getUser().getName().compareTo("Simona Prino") == 0) {
-//					System.out.println(st.getUser().getName() + ":" + st.getText());
-//					System.out.println("----------------------------------------");
-//				}
-//
-//			}
-//			System.out.println(">>>>>>>>> Showing BrunoPeres hashtag.");
-//			QueryResult result = twitter.search(new Query("#BrunoPeres"));
-//		//	System.out.println(result);
-//			List<Status> qrTweets = result.getTweets();
-//			for (Status st : qrTweets) {
-//				System.out.println("Date: " + st.getCreatedAt());
-//				System.out.println(st.getUser().getName() + ":" + st.getText());
-//				System.out.println("----------------------------------------");
-//			}
+		String path = "http://localhost:8080/progetto/#/" + this.nextPath;
+		System.out.println(path);
+		return new RedirectView(path);
+	}
 
-//			// ACTION 2
-////			// destinatario definito dall'utente: il nome deve essere lo username ESATTO della persona
-////			String recipient = "SimonaPrino";
-////			// messaggio definito dall'utente: body
-////			String body = "Sarà il body dei vari trigger";
-////		
-////			//occorre catturare l'eccezione di user not found
-////			User user = twitter.showUser(recipient);
-////			// System.out.println(user);
-////			DirectMessage message = twitter.sendDirectMessage(user.getId(), body);
-////			System.out.println("Sent: " + message.getText() + " to @" + message.getRecipientScreenName());
-//
-//			
-//			//TRIGGER 2
-//			String sender = "Simona Prino";
-//			String body1 = "Messaggio di Prova";
-//			
-//			ResponseList<User> users = twitter.searchUsers(sender, 1);
-//			System.out.println(">>>>>>>>> Ricerca 1: ");
-//			System.out.println("#: "+users.size());
-//			for(User u : users) {
-//				System.out.println(u.getScreenName());
-//				System.out.println(u.getId());
-//				System.out.println("----------------------------");
-//			}
-//			
-//			ResponseList<User> users2 = twitter.searchUsers("SimonaPrino", 1);
-//			System.out.println(">>>>>>>>> Ricerca 2: ");
-//			System.out.println("#: "+users2.size());
-//			for(User u : users2) {
-//				System.out.println(u.getScreenName());
-//				System.out.println(u.getId());
-//				System.out.println("----------------------------");
-//			}
-//			
-//			ResponseList<User> users3 = twitter.searchUsers("Massimo Caputi", 1);
-//			System.out.println(">>>>>>>>> Ricerca 3: ");
-//			System.out.println("#: "+users3.size());
-//			for(User u : users3) {
-//				System.out.println(u.getScreenName());
-//				System.out.println(u.getId());
-//				System.out.println("----------------------------");
-//			}
-//			
-//			ResponseList<User> users4 = twitter.searchUsers("Simona", 1);
-//			System.out.println(">>>>>>>>> Ricerca 4: ");
-//			System.out.println("#: "+users4.size());
-//			for(User u : users4) {
-//				System.out.println(u.getScreenName());
-//				System.out.println(u.getId());
-//				System.out.println("----------------------------");
-//			}
-//			
-//			ResponseList<User> users5 = twitter.searchUsers("Fiorello", 1);
-//			System.out.println(">>>>>>>>> Ricerca 5: ");
-//			System.out.println("#: "+users5.size());
-//			for(User u : users5) {
-//				System.out.println(u.getScreenName());
-//				System.out.println(u.getId());
-//				System.out.println("----------------------------");
-//			}
-//			
-//			
-//			ResponseList<DirectMessage> messages = twitter.getDirectMessages();
-//			for(DirectMessage d : messages) {
-//				if(d.getCreatedAt().getTime()>1469001328 && d.getSender().getId()==twitter.showUser(sender).getId()
-//						&& d.getText().compareTo(body1)==0) {
-//					System.out.println("Message: "+d.getSenderScreenName()+", "+d.getText());
-//				}
-//			}
-//			
-//			
-//
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (TwitterException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	@RequestMapping(value = "requestTwitter", method = RequestMethod.POST)
+	@ResponseBody returnClass checkGoogleConnection(@RequestBody requestClass data) {
 
-		mv.setViewName("authpage");
-		return mv;
+		System.out.println(data.getUrlNext());
+
+		this.nextPath = data.getUrlNext();
+
+		String ret = null;
+
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Boolean connected = loginManager.checkTwitterConnection(username);
+
+		if (connected == true) {
+			ret = "true";
+		} else {
+			ret = "false";
+		}
+
+		returnClass res = new returnClass();
+		res.setAuthenticated(ret);
+		return res;
 	}
 
 }
