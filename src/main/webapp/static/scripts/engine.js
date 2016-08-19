@@ -370,16 +370,25 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
              *   $scope.googleLogged = response.data.googleAuthenticated;
              *
              */
-            $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
-            googleLogin = true;
-            alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
+      //      $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
+      //      googleLogin = true;
+       //     alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
 
 
-            if (response.data.authenticated.localeCompare("true") == 0) {
+            if (response.data.iftttLogged.localeCompare("true") == 0) {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
-
             }
+            if (response.data.googleLogged.localeCompare("true") == 0) {
+                $scope.googleLogged = true;
+                googleLogin = true;
+            }
+            if (response.data.twitterLogged.localeCompare("true") == 0) {
+                $scope.twitterLogged = true;
+                twitterLogin = true;
+            }
+            
+            
             //if(consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $('#loginIFTTTModal').modal('hide');

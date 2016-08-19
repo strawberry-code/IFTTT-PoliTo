@@ -310,7 +310,8 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if (token.get(0) == null) {
+		System.out.println(token);
+		if (token == null || token.isEmpty() || token.get(0) == null) {
 			return false;
 		}
 		return true;
@@ -332,7 +333,7 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if (token.get(0) == null) {
+		if (token == null || token.isEmpty() || token.get(0) == null) {
 			return false;
 		}
 		return true;

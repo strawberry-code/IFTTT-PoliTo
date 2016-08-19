@@ -188,6 +188,10 @@ public class DataRestController {
 	returnClass provaLogin() {
 		
 		String ret = "";
+		String retG = "";
+		String retT = "";
+		
+		//check if he/her is auhenticated to ifttt polito
 		String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		if(user!=null && user.compareTo("anonymousUser")!=0) {
 			ret = "true";
@@ -196,9 +200,26 @@ public class DataRestController {
 			ret = "false";
 		}
 		
+		Boolean connectedG = loginManager.checkGoogleConnection(user);
+		if(connectedG) {
+			retG = "true";
+		}
+		else {
+			retT = "false";
+		}
+		
+		Boolean connectedT = loginManager.checkTwitterConnection(user);
+		if(connectedT) {
+			retT = "true";
+		}
+		else {
+			retT = "false";
+		}
+		
 		returnClass res = new returnClass();
-		res.setAuthenticated(ret);
-		System.out.println(ret);
+		res.setIftttLogged(ret);
+		res.setGoogleLogged(retG);
+		res.setTwitterLogged(retT);
 		return res;
 	}
 	
