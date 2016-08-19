@@ -5,6 +5,7 @@ public class returnClass {
 	String iftttLogged;
     String googleLogged;
     String twitterLogged;
+    Boolean disconnected;
     
     public String getIftttLogged() {
 		return iftttLogged;
@@ -28,5 +29,13 @@ public class returnClass {
 
 	public void setTwitterLogged(String twitterLogged) {
 		this.twitterLogged = twitterLogged;
+	}
+
+	public Boolean getDisconnected() {
+		return disconnected;
+	}
+
+	public void setDisconnected(Boolean disconnected) {
+		this.disconnected = disconnected;
 	}
 }

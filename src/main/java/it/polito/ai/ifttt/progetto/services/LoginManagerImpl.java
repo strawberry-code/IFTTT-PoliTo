@@ -338,6 +338,50 @@ public class LoginManagerImpl implements LoginManager {
 		}
 		return true;
 	}
+	
+	public void disconnectGoogle(String username) {
+		Session session = sessionFactory.openSession();
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			user = (Users) query.list().get(0);
+			user.setGoogleToken(null);
+			user.setGoogleExpire(null);
+			session.update(user);
+			session.flush();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return;
+	}
+	
+	public void disconnectTwitter(String username) {
+		Session session = sessionFactory.openSession();
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			user = (Users) query.list().get(0);
+			user.setTwitterToken(null);
+			user.setTwitterTokenSecret(null);
+			session.update(user);
+			session.flush();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return;
+	}
 
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {

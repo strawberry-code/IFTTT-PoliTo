@@ -734,7 +734,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
                 if (consoleLogs) console.log(response.data.disconnected);
-                if (response.data.disconnected.localeCompare("true") == 0) {
+                if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
                     $("#notificationsWrapper").notify(

@@ -208,6 +208,7 @@ public class DataRestController {
 			ret = "false";
 		}
 		
+		//check if he/her is auhenticated to google
 		Boolean connectedG = loginManager.checkGoogleConnection(user);
 		if(connectedG) {
 			retG = "true";
@@ -216,6 +217,7 @@ public class DataRestController {
 			retT = "false";
 		}
 		
+		//check if he/her is auhenticated to twitter
 		Boolean connectedT = loginManager.checkTwitterConnection(user);
 		if(connectedT) {
 			retT = "true";
@@ -228,6 +230,34 @@ public class DataRestController {
 		res.setIftttLogged(ret);
 		res.setGoogleLogged(retG);
 		res.setTwitterLogged(retT);
+		return res;
+	}
+	
+	@RequestMapping(value = "disconnectGoogle", method = RequestMethod.POST)
+	returnClass disconnectGoogle() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		loginManager.disconnectGoogle(username);
+		
+		//TODO: occorre invalidare anche tutte le ricette dell'utente
+		//		con google (ad esempio ponendo un booleano "valid" e 
+		//		aggiungendo tutti i controlli nella logica
+		
+		returnClass res = new returnClass();
+		res.setDisconnected(true);
+		return res;
+	}
+	
+	@RequestMapping(value = "disconnectTwitter", method = RequestMethod.POST)
+	returnClass disconnectTwitter() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		loginManager.disconnectTwitter(username);
+		
+		//TODO: occorre invalidare anche tutte le ricette dell'utente
+		//		con twitter (ad esempio ponendo un booleano "valid" e 
+		//		aggiungendo tutti i controlli nella logica
+		
+		returnClass res = new returnClass();
+		res.setDisconnected(true);
 		return res;
 	}
 }
