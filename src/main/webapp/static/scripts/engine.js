@@ -4594,8 +4594,8 @@ function sedingServerAllRunput(loginDataSend) {
     $('#serverSpinner').spin();
     $.ajax({
         method: "put",
-        url: "http://localhost:3000/userRecipes/" + idRecipe,
-        data: loginDataSend,
+        url: "http://localhost:8080/progetto/api/userRecipes/" + idRecipe,
+        data: JSON.stringify(loginDataSend),
         dataType: "json",
         /**
          * Description

@@ -291,6 +291,10 @@ public class RecipesManagerImpl implements RecipesManager {
 				else {
 					//the trigger type changed
 					//insert the new trigger
+					
+					//TODO: valutare se eliminare l'altro o lasciarlo
+					//		nel db (tanto non dovrebbe dare fastidio)
+					
 					if (triggerType.compareTo("calendar") == 0) {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -369,6 +373,10 @@ public class RecipesManagerImpl implements RecipesManager {
 				else {
 					//the action type changed
 					//insert the new action
+					
+					//TODO: valutare se eliminare l'altro o lasciarlo
+					//		nel db (tanto non dovrebbe dare fastidio)
+					
 					if (actionType.compareTo("calendar") == 0) {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
