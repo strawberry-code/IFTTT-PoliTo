@@ -89,6 +89,7 @@ public class RootConfig {
 		c.setProperty(Environment.HBM2DDL_AUTO, "validate");
 		return c.buildSessionFactory();
 	}
+/c
 
 	@Bean
 	public DataSource dataSource() {
