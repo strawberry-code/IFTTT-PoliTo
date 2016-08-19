@@ -223,3 +223,4 @@ progetto.iml
 .idea/**
 src/main/main.iml
 ._.DS_Store
+*.DS_Store
