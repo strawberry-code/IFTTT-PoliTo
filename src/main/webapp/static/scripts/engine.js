@@ -140,6 +140,9 @@ var urlActionGlobalVariable = "";
 //Temporary root for login
 var rootingAutenticationTriggerAction = "";
 
+//Flag se un utente si sta registrando o no
+var flag_registration_success = false;
+
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
 
@@ -1207,7 +1210,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         tmp++;
                     });
 
-                    
+
                     /*  *************/
 
 
@@ -2120,6 +2123,10 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=0 : You have successfully signed. To complete the registration, please check your email
                             if(response == 0)
                             {
+                                //flag_registration_success = true;
+                                //var url
+                                //window.location.replace('#SuccessRepice');
+
                                 alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
                                  var i = 0;
