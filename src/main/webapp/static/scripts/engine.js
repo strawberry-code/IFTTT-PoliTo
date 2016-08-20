@@ -980,6 +980,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
             if ($scope.recipedDescriptionInput == null)  descriptionRecipeGlobal = "This task has not a description";
             else if ($scope.recipedDescriptionInput == "")  descriptionRecipeGlobal = "This task has not a description";
 
+            $scope.recipedDescriptionInput ="";
 
             //Mando i dati al server con i due modulini + la descrizione.
             if (modifyVar == true) {
@@ -989,54 +990,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 sendingToServerAll();
         };
 
-        // $('#recipedDescriptionModal').modal('hide');
-
-
-        /*
-
-         if(consoleLogs) console.log("inserted the following description: "+$scope.recipedDescriptionInput);
-         // Salvare la descrizione nella varaibile globale e nella ricetta in questione
-         // Invio della descrizione al server con una UPDATE
-         $http({
-         method: 'UPDATE',
-         url: '/Recipes',
-         data: JSON.stringify({"desc":$scope.recipedDescriptionInput}),
-         dataType: "application/json"
-         }).then(function success(response) {
-         // Success code here
-         alert(JSON.stringify(response));
-         response.data.forEach(function (x) {
-         if(consoleLogs) console.log(JSON.stringify(x));
-         });
-
-
-         }, function error(response) {
-         // Error code here
-         alert("error to update description");
-         });
-         $('#recipedDescriptionModal').modal('hide');
-         };*/
-
-        /*
-         $scope.removeRecipe = function(index){
-         if(consoleLogs) console.log("REMOVING: "+index);
-         alert(JSON.stringify("id",$scope.userRecipes[index].id));
-
-
-         $http.delete("http://localhost:3000/userRecipes", JSON.stringify("id",$scope.userRecipes[index].id))
-         .then(function success(response){
-         $scope.userRecipes.splice(index, 1);
-         if(consoleLogs) console.log("recipe deleted successfully from the server and local machine");
-         },
-         function failure(response){
-         if(consoleLogs) console.log("some problem occurred, recipes was not deleted");
-         }
-         );
-
-         // MANCA DA FARE LA DELETE ALLA SERVLET
-         };
-         */
-
+        
 
     }]);
 
