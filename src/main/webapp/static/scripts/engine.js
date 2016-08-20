@@ -4674,7 +4674,8 @@ function sendingToServerAllput() {
         "description": descriptionRecipeGlobal,
         "trigger": modulinoj1,
         "action": modulinoj2,
-        "publish": publishRecipeGlobal
+        "publish": publishRecipeGlobal,
+        regTimezione: jstz.determine().toString() //cc
     };
     sedingServerAllRunput(sendDataToServer);
 
