@@ -122,8 +122,8 @@ public class DataRestController {
 	@RequestMapping(value = "userRecipes", method = RequestMethod.POST)
 	Integer fillDatabase(@RequestBody String data) {
 		System.out.println(data);
-		Integer recipeid = recipesManager.addRecipe(data);
-		return recipeid;
+		Integer code = recipesManager.addRecipe(data);
+		return code;
 	}
 	
 	@RequestMapping(value = "userRecipes", method = RequestMethod.GET)
