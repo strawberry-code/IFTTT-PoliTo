@@ -40,6 +40,8 @@ public class WeatherTrigger {
 	Long period;
 	@Column
 	String triggerType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getWtid() {
 		return wtid;
@@ -124,5 +126,11 @@ public class WeatherTrigger {
 	}
 	public void setTriggerType(String triggerType) {
 		this.triggerType = triggerType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }

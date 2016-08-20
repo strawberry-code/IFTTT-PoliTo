@@ -24,6 +24,8 @@ public class GmailAction {
 	String body;
 	@Column
 	String actionType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getGaid() {
 		return gaid;
@@ -60,5 +62,11 @@ public class GmailAction {
 	}
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }
