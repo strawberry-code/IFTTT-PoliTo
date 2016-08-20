@@ -29,6 +29,14 @@ public class RecipesManagerImpl implements RecipesManager {
 	SessionFactory sessionFactory;
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	CalendarManager calendarManager;
+	@Autowired
+	GmailManager gmailManager;
+	@Autowired
+	WeatherManager weatherManager;
+	@Autowired
+	TwitterManager twitterManager;
 	
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -200,7 +208,6 @@ public class RecipesManagerImpl implements RecipesManager {
 				session.flush();
 				
 				recipeid = recipe.getRid();
-				System.out.println("Ricetta id: "+recipeid);
 
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
@@ -220,7 +227,362 @@ public class RecipesManagerImpl implements RecipesManager {
 		return recipeid;
 	}
 	
+	public Integer modifyRecipe(Integer id, String data) {
+		Session session = sessionFactory.openSession();
+		
+		//new data
+		JSONObject ricetta = new JSONObject(data);
+		String trig = ricetta.get("trigger").toString();
+		String act = ricetta.get("action").toString();
+		JSONObject trigger = new JSONObject(trig);
+		JSONObject action = new JSONObject(act);
+		String triggerType = trigger.get("triggerType").toString();
+		String actionType = action.get("actionType").toString();
 
+		Integer flag = 0;
+		
+		//old data
+		Recipes rec = this.findRecipesById(id);
+		String triggerTypeOld = rec.getTriggerType();
+		String actionTypeOld = rec.getActionType();
+		Integer triggerid = rec.getTriggerid();
+		Integer actionid = rec.getActionid();
+
+		try {
+			// begin transaction
+			Transaction tx = session.beginTransaction();
+			try {
+				
+				// TRIGGER
+				//check if trigger/action type is different 
+				//from passed data and handle this case
+				if(rec.getTriggerType().compareTo(triggerType)==0) {
+					//they are the same, so only changes on fields
+					if (triggerType.compareTo("calendar") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
+						calendartrigger.setCtid(rec.getTriggerid());
+						calendartrigger.setLastCheck(System.currentTimeMillis());
+						session.update(calendartrigger);
+						session.flush();					
+
+					} else if (triggerType.compareTo("gmail") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						gmailtrigger.setGtid(rec.getTriggerid());
+						gmailtrigger.setLastCheck(System.currentTimeMillis());
+						session.update(gmailtrigger);
+						session.flush();
+
+					} else if (triggerType.compareTo("weather") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+						weathertrigger.setWtid(rec.getTriggerid());
+						weathertrigger.setLastCheck(System.currentTimeMillis());
+						session.update(weathertrigger);
+						session.flush();
+
+					} else if (triggerType.compareTo("twitter") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+						twittertrigger.setTwtid(rec.getTriggerid());
+						twittertrigger.setLastCheck(System.currentTimeMillis());
+						session.update(twittertrigger);
+						session.flush();
+
+					} else {
+						// errore: valore non valido!
+						flag = -1;
+					}
+				}
+				else {
+					//the trigger type changed
+					//delete the old trigger and insert the new one
+					
+					// TRIGGER to delete
+					if(triggerTypeOld.compareTo("calendar")==0) {
+						CalendarTrigger caltr = calendarManager.findCalendarTriggerById(triggerid);
+						session.delete(caltr);
+						session.flush();					
+					} else if(triggerTypeOld.compareTo("gmail")==0) {
+						GmailTrigger gmailtr = gmailManager.findGmailTriggerById(triggerid);
+						session.delete(gmailtr);
+						session.flush();					
+					} else if(triggerTypeOld.compareTo("weather")==0) {
+						WeatherTrigger weatr = weatherManager.findWeatherTriggerById(triggerid);
+						session.delete(weatr);
+						session.flush();
+					} else if(triggerTypeOld.compareTo("twitter")==0) {
+						TwitterTrigger twitr = twitterManager.findTwitterTriggerById(triggerid);
+						session.delete(twitr);
+						session.flush();
+					} else {
+						//type non valido
+						flag = -1;
+					}
+					
+					// TRIGGER to add
+					if (triggerType.compareTo("calendar") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
+						calendartrigger.setLastCheck(System.currentTimeMillis());
+						session.save(calendartrigger);
+						session.flush();					
+						triggerid = calendartrigger.getCtid();
+
+					} else if (triggerType.compareTo("gmail") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						gmailtrigger.setLastCheck(System.currentTimeMillis());
+						session.save(gmailtrigger);
+						session.flush();
+						triggerid = gmailtrigger.getGtid();
+
+					} else if (triggerType.compareTo("weather") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+						weathertrigger.setLastCheck(System.currentTimeMillis());
+						session.save(weathertrigger);
+						session.flush();
+						triggerid = weathertrigger.getWtid();
+
+					} else if (triggerType.compareTo("twitter") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+						twittertrigger.setLastCheck(System.currentTimeMillis());
+						session.save(twittertrigger);
+						session.flush();
+						triggerid = twittertrigger.getTwtid();
+
+					} else {
+						// errore: valore non valido!
+						flag = -1;
+					}
+					
+				}				
+				
+				
+				// ACTION
+				if(rec.getActionType().compareTo(actionType)==0) {
+					//they are the same, so only changes on fields
+					if (actionType.compareTo("calendar") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						calendaraction.setCaid(rec.getActionid());
+						session.update(calendaraction);	
+						session.flush();
+
+					} else if (actionType.compareTo("gmail") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						gmailaction.setGaid(rec.getActionid());
+						session.update(gmailaction);	
+						session.flush();					
+
+					} else if (actionType.compareTo("twitter") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+						twitteraction.setTwaid(rec.getActionid());
+						session.update(twitteraction);	
+						session.flush();			
+					} else {
+						// errore: valore non valido!
+						flag = -1;
+					}
+				}
+				else {
+					//the action type changed
+					//delete the old action and insert the new one
+					
+					// ACTION to delete
+					if(actionTypeOld.compareTo("calendar")==0) {
+						CalendarAction calac = calendarManager.findCalendarActionById(actionid);
+						session.delete(calac);
+						session.flush();
+					} else if(actionTypeOld.compareTo("gmail")==0) {
+						GmailAction gmailac = gmailManager.findGmailActionById(actionid);
+						session.delete(gmailac);
+						session.flush();
+					} else if(actionTypeOld.compareTo("twitter")==0) {
+						TwitterAction twiac = twitterManager.findTwitterActionById(actionid);
+						session.delete(twiac);
+						session.flush();
+					} else {
+						//type non valido
+						flag = -1;
+					}
+					
+					// ACTION to add
+					if (actionType.compareTo("calendar") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						session.save(calendaraction);	
+						session.flush();					
+						actionid = calendaraction.getCaid();
+
+					} else if (actionType.compareTo("gmail") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						session.save(gmailaction);	
+						session.flush();					
+						actionid = gmailaction.getGaid();
+
+					} else if (actionType.compareTo("twitter") == 0) {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+						session.save(twitteraction);	
+						session.flush();					
+						actionid = twitteraction.getTwaid();
+
+					} else {
+						// errore: valore non valido!
+						flag = -1;
+					}
+				}
+				
+				
+				// RECIPE
+				String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+				Users user = loginManager.findUserByUsername(username);				
+				Recipes recipe = new Recipes();
+				recipe.setRid(id);
+				recipe.setTriggerType(triggerType);
+				recipe.setActionType(actionType);
+				recipe.setTriggerid(triggerid);
+				recipe.setActionid(actionid);
+				recipe.setPublish((Boolean) ricetta.get("publish"));
+				recipe.setDescription((String) ricetta.get("description"));
+				recipe.setUser(user);
+				session.update(recipe);
+				session.flush();
+
+			} catch (Exception e) {
+				// if some errors during the transaction occur,
+				// rollback and return code -1
+				System.out.println(e);
+				tx.rollback();
+				return -1;
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+
+		//se qualcosa e' andato storto, sara' -1		
+		return flag;
+	}
+
+	public Integer deleteRecipe(Integer id) {
+		
+		Session session = sessionFactory.openSession();
+		Integer flag = 0;
+		
+		Recipes recipe = this.findRecipesById(id);		
+		String triggerType = recipe.getTriggerType();
+		String actionType = recipe.getActionType();
+		Integer triggerid = recipe.getTriggerid();		
+		Integer actionid = recipe.getActionid();
+		
+		
+		try {
+			// begin transaction
+			Transaction tx = session.beginTransaction();
+			try {
+				// TRIGGER to delete
+				if(triggerType.compareTo("calendar")==0) {
+					CalendarTrigger caltr = calendarManager.findCalendarTriggerById(triggerid);
+					session.delete(caltr);
+					session.flush();					
+				} else if(triggerType.compareTo("gmail")==0) {
+					GmailTrigger gmailtr = gmailManager.findGmailTriggerById(triggerid);
+					session.delete(gmailtr);
+					session.flush();					
+				} else if(triggerType.compareTo("weather")==0) {
+					WeatherTrigger weatr = weatherManager.findWeatherTriggerById(triggerid);
+					session.delete(weatr);
+					session.flush();
+				} else if(triggerType.compareTo("twitter")==0) {
+					TwitterTrigger twitr = twitterManager.findTwitterTriggerById(triggerid);
+					session.delete(twitr);
+					session.flush();
+				} else {
+					//type non valido
+					flag = -1;
+				}
+				
+				// ACTION to delete
+				if(actionType.compareTo("calendar")==0) {
+					CalendarAction calac = calendarManager.findCalendarActionById(actionid);
+					session.delete(calac);
+					session.flush();
+				} else if(actionType.compareTo("gmail")==0) {
+					GmailAction gmailac = gmailManager.findGmailActionById(actionid);
+					session.delete(gmailac);
+					session.flush();
+				} else if(actionType.compareTo("twitter")==0) {
+					TwitterAction twiac = twitterManager.findTwitterActionById(actionid);
+					session.delete(twiac);
+					session.flush();
+				} else {
+					//type non valido
+					flag = -1;
+				}
+				
+				// RECIPE to delete
+				session.delete(recipe);
+				session.flush();	
+		
+			} catch (Exception e) {
+				// if some errors during the transaction occur,
+				// rollback and return code -1
+				System.out.println(e);
+				tx.rollback();
+				return -1;
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		
+		// -1 if some error
+		return flag;
+	}
+
+	public void publishRecipe(Recipes recipe) {
+
+		Session session = sessionFactory.openSession();
+		
+		try {
+			session.update(recipe);
+			session.flush();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		
+		return;
+	}
+	
 /*	@SuppressWarnings("unchecked")
 	public List<Recipes> findRecipesByUser(Integer userid) {
 		Session session = sessionFactory.openSession();

@@ -20,6 +20,8 @@ public class TwitterAction {
 						  //se si sceglie l'azione di tipo 2
 	@Column
 	String actionType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getTwaid() {
 		return twaid;
@@ -44,5 +46,11 @@ public class TwitterAction {
 	}
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }

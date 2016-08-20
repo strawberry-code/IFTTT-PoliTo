@@ -28,6 +28,8 @@ public class CalendarAction {
 	String timezone;
 	@Column
 	String actionType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getCaid() {
 		return caid;
@@ -76,5 +78,11 @@ public class CalendarAction {
 	}
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}	
 }

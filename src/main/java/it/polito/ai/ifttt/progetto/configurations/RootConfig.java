@@ -89,6 +89,9 @@ public class RootConfig {
 		c.setProperty(Environment.HBM2DDL_AUTO, "validate");
 		return c.buildSessionFactory();
 	}
+	/*
+	create/validate ROLE_USER  (tabella roles) 
+	*/
 
 	@Bean
 	public DataSource dataSource() {

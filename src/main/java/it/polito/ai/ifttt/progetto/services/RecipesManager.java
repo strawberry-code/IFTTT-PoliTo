@@ -12,6 +12,9 @@ public interface RecipesManager {
 	List<Object[]> findAllActionsByTriggerId(Integer tid, String ttype);
 	
 	Integer addRecipe(String data);
+	Integer modifyRecipe(Integer id, String data);
+	Integer deleteRecipe(Integer id);
+	void publishRecipe(Recipes recipe);
 	
 	//List<Recipes> findRecipesByUser(Integer userid);
 	

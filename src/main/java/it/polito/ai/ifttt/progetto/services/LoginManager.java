@@ -25,5 +25,9 @@ public interface LoginManager {
 	
 	Boolean checkGoogleConnection(String username);
 	Boolean checkTwitterConnection(String username);
+	void disconnectGoogle(String username);
+	void disconnectTwitter(String username);
+	
+	Integer changePassword(String username, String newpass);
 	
 }

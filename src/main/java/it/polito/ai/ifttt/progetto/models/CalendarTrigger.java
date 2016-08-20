@@ -26,6 +26,8 @@ public class CalendarTrigger {
 	Long lastCheck;
 	@Column
 	String triggerType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getCtid() {
 		return ctid;
@@ -68,5 +70,11 @@ public class CalendarTrigger {
 	}
 	public void setTriggerType(String triggerType) {
 		this.triggerType = triggerType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }
