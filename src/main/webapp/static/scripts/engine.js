@@ -325,6 +325,11 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'SuccessController'
     });
 
+    $routeProvider.when('/SuccessRegistration', {
+        templateUrl: './static/innerPages/success/SuccessRegistration.html',
+        controller: 'SuccessControllerRegistration'
+    });
+
 
     $routeProvider.when('/choseModify', {
         templateUrl: './static/innerPages/choseModify.html',
@@ -1034,27 +1039,34 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
 
 
     }]);
+
+iftttApp.controller('SuccessControllerRegistration', ['$scope', '$routeParams',
+    function () {
+
+
+    }]);
+
+
 iftttApp.controller('SuccessController', ['$scope', '$routeParams',
     function () {
 
-        if (modifyVar == 1) {
 
+            if (modifyVar == 1) {
 
-        }
-        else {
             if (flagTriggerDone == true) {
-                //alert("Warning you must compile before the action form");
-                alertVariable = "Warning you must compile before the action form";
-                alertFunction();
-                var url = "#createRecipeAction";
-                window.location.replace(url);
+                    //alert("Warning you must compile before the action form");
+                    alertVariable = "Warning you must compile before the action form";
+                    alertFunction();
+                    var url = "#createRecipeAction";
+                    window.location.replace(url);
+                }
+                if (count == 7) count = 0;
+                else {
+                    url = "#createDO";
+                    window.location.replace(url);
+                }
             }
-            if (count == 7) count = 0;
-            else {
-                url = "#createDO";
-                window.location.replace(url);
-            }
-        }
+
 
     }]);
 
@@ -2123,11 +2135,10 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=0 : You have successfully signed. To complete the registration, please check your email
                             if(response == 0)
                             {
-                                //flag_registration_success = true;
-                                //var url
-                                //window.location.replace('#SuccessRepice');
+                                flag_registration_success = true;
+                                window.location.replace('#SuccessRegistration');
 
-                                alert("Success"); //Da metterci qualche cosa è solo una prova
+                                //alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
                                  var i = 0;
                                  [lbl] start:
