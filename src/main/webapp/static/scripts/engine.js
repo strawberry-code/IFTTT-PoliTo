@@ -1357,6 +1357,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 modulinoj1 =
                 {
                     "triggerType": "gmail",
+                    "ingredientCode": 13,
                     //Tn 1
                     "sender": sender_GmailTriggerController,
                     "subject": subject_GmailTriggerController
@@ -1376,6 +1377,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         modulinoj1 =
                         {
                             "triggerType": "calendar",
+                            "ingredientCode": 11,
                             "eventAction": false,
 
                             //Tn 2 S0
@@ -1396,6 +1398,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         modulinoj1 =
                         {
                             "triggerType": "calendar",
+                            "ingredientCode": 12,
                             "eventAction": true,
                             //Tn 3
                             "title": title_Trigger2GcalendarController,
@@ -1421,6 +1424,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             modulinoj1 =
                             {
                                 "triggerType": "weather",
+                                "ingredientCode": 14,
                                 "type": true,
                                 "location": idCity_customWeatherActionControllerTrigger1,
                                 "locationName"  : locationName_ControllerTrigger1,
@@ -1444,6 +1448,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj1 =
                                 {
                                     "triggerType": "weather",
+                                    "ingredientCode": 14,
                                     "type": "2",
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "locationName"  : locationName_ControllerTrigger2,
@@ -1466,6 +1471,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     modulinoj1 =
                                     {
                                         "triggerType": "weather",
+                                        "ingredientCode": 16,
                                         "type": "3",
                                         "location": idCity_customWeatherActionControllerTrigger3,
                                         "locationName"  : locationName_ControllerTrigger3,
@@ -1489,6 +1495,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         modulinoj1 =
                                         {
                                             "triggerType": "weather",
+                                            "ingredientCode": 17,
                                             "type": "4",
                                             "location": idCity_customWeatherActionControllerTrigger4,
                                             "locationName"  : locationName_ControllerTrigger4,
@@ -1517,6 +1524,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj1 =
                                 {
                                     "triggerType": "twitter",
+                                    "ingredientCode": 18,
                                     "type": false,
                                     "hashtag_text": hashtag_text_trigger1TwitterController,
                                     "username_sender": username_sender_trigger1TwitterController
@@ -1532,6 +1540,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj1 =
                                 {
                                     "triggerType": "twitter",
+                                    "ingredientCode": 19,
                                     "type": true,
                                     "hashtag_text": hashtag_text_trigger2TwitterController,
                                     "username_sender": username_sender_trigger2TwitterController
@@ -1556,6 +1565,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 modulinoj2 =
                 {
                     "actionType": "calendar",
+                    "ingredientCode": 21,
                     //An 2
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
@@ -1578,6 +1588,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     modulinoj2 =
                     {
                         "actionType": "gmail",
+                        "ingredientCode": 22,
                         "body": body_GmailActionController,
                         "receiver": receiver_GmailActionController,
                         "sender": sender_GmailActionController,
@@ -1595,6 +1606,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         modulinoj2 =
                         {
                             "actionType": "twitter",
+                            "ingredientCode": 23,
                             "type": false,
                             "body": subject_action1TwitterController,
                             "destination": null
@@ -1611,6 +1623,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         modulinoj2 =
                         {
                             "actionType": "twitter",
+                            "ingredientCode": 24,
                             "type": true,
                             "destination": title_action2TwitterController,
                             "body": subjec_action2TwitterController
@@ -4394,6 +4407,28 @@ iftttApp.filter('reformat', function () {
 
         return x;
     };
+});
+
+iftttApp.filter('skeumorphize', function(){
+    return function (input, watchKey) {
+
+        console.log('input: '+input+"\nwatchKey: "+watchKey);
+
+        switch (watchKey) {
+            case 'eventAction':
+                switch (input) {
+                    case true:
+                        return 'When a new event is added';
+                    case false:
+                        return 'When a new event is created';
+
+                }
+
+            default: return input;
+        }
+
+
+    }
 });
 
 
