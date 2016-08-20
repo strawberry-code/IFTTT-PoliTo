@@ -28,4 +28,6 @@ public interface LoginManager {
 	void disconnectGoogle(String username);
 	void disconnectTwitter(String username);
 	
+	Integer changePassword(String username, String newpass);
+	
 }

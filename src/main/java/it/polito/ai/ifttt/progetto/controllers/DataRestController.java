@@ -267,11 +267,15 @@ public class DataRestController {
 	}
 	
 	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
-	Integer changePassword(@RequestBody String newpassword) {
+	Integer changePassword(@RequestBody requestClass data) {
+		
 		Integer code = 0;
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		
-		System.out.println(newpassword);
+		String newpass = data.getNewpassword();		
+		code = loginManager.changePassword(username, newpass);
 		
+		//-1 if error
 		return code;
 	}
 }

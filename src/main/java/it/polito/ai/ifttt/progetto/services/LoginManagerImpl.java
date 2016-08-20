@@ -381,6 +381,33 @@ public class LoginManagerImpl implements LoginManager {
 		}
 		return;
 	}
+	
+	@SuppressWarnings("static-access")
+	public Integer changePassword(String username, String newpass) {
+		Session session = sessionFactory.openSession();
+		Integer flag = 0;
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			try {
+				user = (Users) query.list().get(0);
+			} catch(Exception e) {
+				flag = -1;
+			}			
+			user.setPassword(this.computeMD5(newpass));
+			session.update(user);
+			session.flush();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return flag;
+	}
 
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {
