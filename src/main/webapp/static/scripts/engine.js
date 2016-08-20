@@ -2237,7 +2237,7 @@ iftttApp.controller('createAccountController', ['$scope',
                 {
                     if (pws1.localeCompare(pws2) != 0)
                     {
-                        alertVariable = "The two password is not egual";
+                        alertVariable = "Warning: the two password is not egual";
                         alertFunction();
 
                     }
@@ -2340,7 +2340,7 @@ iftttApp.controller('createAccountController', ['$scope',
     }]);
 
 
-
+//fxr>
 iftttApp.controller('passwordChangeController', ['$scope',
     function ($scope) {
 
@@ -2357,85 +2357,111 @@ iftttApp.controller('passwordChangeController', ['$scope',
          -1 se qualcosa è andato storto,
          -2 se la nuova password è troppo corta
          */
-        $scope.passwordChangeFunc = function (pws1, pws2) {
+        $scope.passwordChangeFunc = function (pws1, pws2)
+        {
 
-            if (angular.isDefined(pws1) && angular.isDefined(pws2)) {
-                if (pws1 == pws2) {
-                    //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
-
-                    var loginDataSend =
+            if (angular.isDefined(pws1) && angular.isDefined(pws2))
+            {
+                if (pws1.localeCompare(pws2)==0)
+                {
+                    if (pws1.length < 8 || pws2.length < 8)
                     {
-                        "newpassword": pws1
-                    };
+                        alertVariable = "Warning: the password  is too short!";
+                        alertFunction();
+                    }
+                    else
+                    {
 
-                    $('#serverSpinner').spin();
-                    $.ajax
-                    ({
-                        contentType: "application/json",
-                        method: "post",
-                        url: "http://localhost:8080/progetto/api/changepassword",
-                        data: JSON.stringify(loginDataSend),
-                        /**
-                         * Description
-                         * @method success
-                         * @return 
-                         */
-                        success: function (response) {
-                            $('#serverSpinner').spin(false);
-                            //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
-                            //alert("La password è stata modificata con successo");
-                            if(response == 0)
+                        //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
+
+
+                        var loginDataSend =
+                        {
+                            "newpassword": pws1
+                        };
+
+                        $('#serverSpinner').spin();
+                        $.ajax
+                        ({
+                            contentType: "application/json",
+                            method: "post",
+                            url: "http://localhost:8080/progetto/api/changepassword",
+                            data: JSON.stringify(loginDataSend),
+                            /**
+                             * Description
+                             * @method success
+                             * @return
+                             */
+                            success: function (response)
                             {
-                                alertVariable = "Success: the password is changed";
+                                $('#serverSpinner').spin(false);
+                                //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                                //alert("La password è stata modificata con successo");
+                                if (response == 0)
+                                {
+                                    alertVariable = "Success: the password is changed";
+                                    alertFunction();
+                                    window.location.replace('#myRecipes');
+
+                                }
+                                else
+                                {
+
+                                    if (response == -1)
+                                    {
+                                        alertVariable = "Error: there has been a error . . .";
+                                        alertFunction();
+
+                                    }
+                                    else
+                                        if (response == -2)
+                                        {
+                                            alertVariable = "Error: the pasword is too much short";
+                                            alertFunction();
+                                            //window.location.replace('#myRecipes');
+
+
+                                        }
+                                }
+
+                            },
+                            /**
+                             * Description
+                             * @method error
+                             * @return
+                             */
+                            error: function ()
+                            {
+                                $('#serverSpinner').spin(false);
+                                alertVariable = "some error occurred";
                                 alertFunction();
-                                window.location.replace('#myRecipes');
 
                             }
-                            else
-                            {
+                        });
 
-                                if (response == -1)
-                                {
-                                    alertVariable = "Error: there has been a error . . .";
-                                    alertFunction();
+                    }
 
-                                }
-                                else if(response == -2)
-                                {
-                                    alertVariable = "Error: the pasword is too much short";
-                                    alertFunction();
-                                    //window.location.replace('#myRecipes');
-
-
-                                }
-                            }
-
-                        },
-                        /**
-                         * Description
-                         * @method error
-                         * @return 
-                         */
-                        error: function () {
-                            $('#serverSpinner').spin(false);
-                            alertVariable = "some error occurred";
-                            alertFunction();
-
-                        }
-                    });
-
-                } else {
+                }
+                else {
                     //alert("Input password error.");
-                    alertVariable = "Warning: input password error.";
+                    alertVariable = "Warning: the two password is not egual!";
                     alertFunction();
                 }
 
             }
+            else
+            {
+                alertVariable = "Warning: the password is empty";
+                alertFunction();
+
+            }
+
 
         }
 
     }]);
 
+//<fxr
 
 //Update
 iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
