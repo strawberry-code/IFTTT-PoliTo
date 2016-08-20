@@ -1187,19 +1187,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         $scope.userRecipes = [];
         modifyVar = 0;
 
-        /*
-         $scope.elements = [{
-         name: 'one',
-         isCollapsed: true
-         }, {
-         name: 'two',
-         isCollapsed: true
-         }, {
-         name: 'three',
-         isCollapsed: true
-         }];
-
-         */
         $scope.elements = [];
 
 
@@ -1249,11 +1236,14 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     url: 'http://localhost:8080/progetto/api/userRecipes/' + id
                 }
             ).error(function () {
-                // Error code here
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
                 alert("error");
             })
                 .success(function () {
-                    alert("o.k.");
+                    alertVariable = "SUCCESS!!!";
+                    alertFunction();
+
                     $scope.userRecipes.splice(index, 1)
 
 
