@@ -142,42 +142,6 @@ public class LoginManagerImpl implements LoginManager {
 		return 0;
 	}
 
-	// public int login(String username, String password) {
-	// // open session
-	// Session session = sessionFactory.openSession();
-	//
-	// try {
-	// //compute hash of provided password
-	// String hashpass = this.computeMD5(password);
-	//
-	// String hql = "from it.polito.ai.ifttt.progetto.models.Users u where
-	// u.username=:n and u.password=:p";
-	// Query query = session.createQuery(hql);
-	// query.setString("n", username);
-	// query.setString("p", hashpass);
-	// List<Users> users = query.list();
-	// if (users.size() == 0) {
-	// // user/password wrong
-	// return 1;
-	// }
-	// Users usr = users.get(0);
-	// if (usr.getEnabled() == false) {
-	// // not activated
-	// return 2;
-	// }
-	//
-	// } catch (Exception e) {
-	// // if some errors during the transaction occur,
-	// return -1;
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// return 0;
-	// }
-
 	public int activate(Integer id, String url) {
 
 		Session session = sessionFactory.openSession();
