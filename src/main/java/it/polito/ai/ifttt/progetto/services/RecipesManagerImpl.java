@@ -208,7 +208,6 @@ public class RecipesManagerImpl implements RecipesManager {
 				session.flush();
 				
 				recipeid = recipe.getRid();
-				System.out.println("Ricetta id: "+recipeid);
 
 			} catch (Exception e) {
 				// if some errors during the transaction occur,

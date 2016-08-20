@@ -310,7 +310,6 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		System.out.println(token);
 		if (token == null || token.isEmpty() || token.get(0) == null) {
 			return false;
 		}

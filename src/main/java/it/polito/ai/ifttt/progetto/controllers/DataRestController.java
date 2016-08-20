@@ -131,7 +131,6 @@ public class DataRestController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		List<Recipes> recipes = user.getRecipes();
-		System.out.println("Recipes list size: "+recipes.size());
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		for(Recipes r : recipes) {
 			recipeJsonClass ricettaJson = new recipeJsonClass();
@@ -177,7 +176,6 @@ public class DataRestController {
 			ricettaJson.setPublish(r.getPublish());
 			
 			list.add(ricettaJson);
-			System.out.println(ricettaJson);
 		}
 		return list;
 	}
@@ -266,5 +264,14 @@ public class DataRestController {
 		returnClass res = new returnClass();
 		res.setDisconnected(true);
 		return res;
+	}
+	
+	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
+	Integer changePassword(@RequestBody String newpassword) {
+		Integer code = 0;
+		
+		System.out.println(newpassword);
+		
+		return code;
 	}
 }

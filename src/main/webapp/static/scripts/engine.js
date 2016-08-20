@@ -2528,7 +2528,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
                         contentType: "application/json",
                         method: "post",
                         url: "http://localhost:8080/progetto/api/changepassword",
-                        data: loginDataSend,
+                        data: JSON.stringify(loginDataSend),
                         /**
                          * Description
                          * @method success
