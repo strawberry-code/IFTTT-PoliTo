@@ -1154,6 +1154,7 @@ iftttApp.controller('doCreatorController', ['$scope', '$routeParams',
     }]);
 
 
+//fxr>
 iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
@@ -1162,18 +1163,22 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             url: 'http://localhost:8080/progetto/api/prova',
             method: "POST",
             dataType: 'application/json'
-        }).then(function success(response) {
-            if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
-            if (response.data.iftttLogged.localeCompare("true") == 0) {
+        }).then(function success(response)
+        {
+            //if (consoleLogs) console.log(response);
+            //if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
+            if (response.data.iftttLogged.localeCompare("true") == 0)
+            {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
             }
-            if (response.data.googleLogged.localeCompare("true") == 0) {
+            if (response.data.googleLogged.localeCompare("true") == 0)
+            {
                 $scope.googleLogged = true;
                 googleLogin = true;
             }
-            if (response.data.twitterLogged.localeCompare("true") == 0) {
+            if (response.data.twitterLogged.localeCompare("true") == 0)
+            {
                 $scope.twitterLogged = true;
                 twitterLogin = true;
             }
@@ -1181,7 +1186,12 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         }, function error() {
             $scope.iftttLogged = false;
             iftttLogin = false;
-            if (consoleLogs) console.log($scope.iftttLogged);
+            //if (consoleLogs) console.log($scope.iftttLogged);
+
+            //Print a error
+            alertVariable = "Error: there is a error!!!";
+            alertFunction();
+
         });
 
         $scope.userRecipes = [];
@@ -1190,35 +1200,45 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         $scope.elements = [];
 
 
-        $http
-        (
-            {
-                method: 'GET',
-                url: 'http://localhost:8080/progetto/api/userRecipes'
-            }
-        )
-            .then
+            /**
+             * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+             */
+
+            $http
             (
-                function success(response)
                 {
-                    $scope.userRecipes = response.data;
-
-                    var tmp = 0;
-                    $scope.userRecipes.forEach(function (element) {
-                        element.index = tmp;
-                        tmp++;
-                    });
-
-
-                    /*  *************/
-
-
-                },
-                function error(response) {
-                    // Error code here
-                    alert("error");
+                    method: 'GET',
+                    url: 'http://localhost:8080/progetto/api/userRecipes'
                 }
-            );
+            )
+                .then
+                (
+                    function success(response) {
+                        if (response == null) {
+                            alertVariable = "Error: there is a error!!!";
+                            alertFunction();
+
+                        }
+                        else {
+                            $scope.userRecipes = response.data;
+
+                            var tmp = 0;
+                            $scope.userRecipes.forEach(function (element) {
+                                element.index = tmp;
+                                tmp++;
+                            });
+
+
+                            /*  *************/
+                        }
+
+                    },
+                    function error(response) {
+                        alertVariable = "Error: there is a error!!!";
+                        alertFunction();
+
+                    }
+                );
 
 
         /**
@@ -1228,6 +1248,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
          * @param {} id
          * @return 
          */
+
+        //fxr<
 
         //fxr>
 
