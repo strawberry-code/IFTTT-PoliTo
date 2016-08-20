@@ -174,6 +174,8 @@ $(function()
             $("#sys-country").text(result.sys.country);
             /*Get Id for server */
             idCity = result.id;
+            locationName_ControllerTrigger1 = result.name;
+
 
             //alert("Id" + result.id);
 
@@ -376,7 +378,8 @@ $(function()
                     "type" : "1",
                     "location" : idCity_customWeatherActionControllerTrigger1,
                     "ora"  : ora_customWeatherActionControllerTrigger1,
-                    "timezone" : timezone_customWeatherActionControllerTrigger1
+                    "timezone" : timezone_customWeatherActionControllerTrigger1,
+                    "locationName" : locationName_ControllerTrigger1
                 };
 
                 if(modifyVar == true)

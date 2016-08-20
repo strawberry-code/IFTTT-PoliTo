@@ -169,6 +169,7 @@ $(function(){
             $("#sys-country").text(result.sys.country);
             /*Get Id for server */
             idCity = result.id;
+            locationName_ControllerTrigger3 = result.name;
 
             //alert("Id" + result.id);
 
@@ -370,7 +371,8 @@ $(function(){
                         "location": idCity_customWeatherActionControllerTrigger3,
                         "timezone": timezone_customWeatherActionControllerTrigger3,
                         "sunset": sunset_customWeatherActionControllerTrigger3,
-                        "sunrise": sunrise_customWeatherActionControllerTrigger3
+                        "sunrise": sunrise_customWeatherActionControllerTrigger3,
+                        "locationName" : locationName_ControllerTrigger3
 
 
                     };

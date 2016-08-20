@@ -61,18 +61,23 @@ var hashtag_text_trigger2TwitterController = "";
 var idCity_customWeatherActionControllerTrigger1 = "";
 var timezone_customWeatherActionControllerTrigger1 = "";
 var ora_customWeatherActionControllerTrigger1 = "";
+var locationName_ControllerTrigger1 = "";
 
 /*  customWeatherActionControllerTrigger2 Tn 7 */
 var idCity_customWeatherActionControllerTrigger2 = "";
 var pweather_customWeatherActionControllerTrigger2 = "";
 var pperiod_customWeatherActionControllerTrigger2 = "";
 var pzone_customWeatherActionControllerTrigger2 = "";
+var locationName_ControllerTrigger2 = "";
+
 
 /* customWeatherActionControllerTrigger3  Tn 8 */
 var idCity_customWeatherActionControllerTrigger3 = "";
 var timezone_customWeatherActionControllerTrigger3 = "";
 var sunset_customWeatherActionControllerTrigger3 = false;
 var sunrise_customWeatherActionControllerTrigger3 = false;
+var locationName_ControllerTrigger3 = "";
+
 
 /* customWeatherActionControllerTrigger4  Tn 9 */
 
@@ -81,6 +86,8 @@ var ptimezone_customWeatherActionControllerTrigger4 = "";
 var pthmax_customWeatherActionControllerTrigger4 = "";
 var pthmin_customWeatherActionControllerTrigger4 = "";
 var period_customWeatherActionControllerTrigger4 = "";
+var locationName_ControllerTrigger4 = "";
+
 
 
 /* Modulini per json*/
@@ -1285,6 +1292,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                                         ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
                                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                                        locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                                         ulrTriggreGlobalVariable = "WeatherTrigger1";
 
                                         modulinoj1 =
@@ -1293,7 +1301,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                                             "location": idCity_customWeatherActionControllerTrigger1,
                                             "ora": ora_customWeatherActionControllerTrigger1,
-                                            "timezone": timezone_customWeatherActionControllerTrigger1
+                                            "timezone": timezone_customWeatherActionControllerTrigger1,
+                                            "locationNamel" :  locationName_ControllerTrigger1
                                         };
 
 
@@ -1305,6 +1314,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             pweather_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.tempo;
                                             pperiod_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.period;
                                             pzone_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.timezone;
+                                            locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
                                             ulrTriggreGlobalVariable = "WeatherTrigger2";
 
@@ -1315,7 +1325,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                 "location": idCity_customWeatherActionControllerTrigger2,
                                                 "tempo": pweather_customWeatherActionControllerTrigger2,
                                                 "period": pperiod_customWeatherActionControllerTrigger2,
-                                                "timezone": pzone_customWeatherActionControllerTrigger2
+                                                "timezone": pzone_customWeatherActionControllerTrigger2,
+                                                "locationNamel" :  locationName_ControllerTrigger2
                                             };
 
 
@@ -1326,6 +1337,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                 timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
                                                 sunset_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunset;
                                                 sunrise_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunrise;
+                                                locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                                 subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
                                                 ulrTriggreGlobalVariable = "WeatherTrigger3";
                                                 modulinoj1 =
@@ -1335,7 +1347,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                     "location": idCity_customWeatherActionControllerTrigger3,
                                                     "timezone": timezone_customWeatherActionControllerTrigger3,
                                                     "sunset": sunset_customWeatherActionControllerTrigger3,
-                                                    "sunrise": sunrise_customWeatherActionControllerTrigger3
+                                                    "sunrise": sunrise_customWeatherActionControllerTrigger3,
+                                                    "locationNamel" :  locationName_ControllerTrigger4
 
 
                                                 };
@@ -1348,6 +1361,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                     pthmin_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmin;
                                                     period_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.period;
                                                     subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                                                    locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                                     ulrTriggreGlobalVariable = "WeatherTrigger4";
                                                     modulinoj1 =
                                                     {
@@ -1357,7 +1371,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                                         "thmax": pthmax_customWeatherActionControllerTrigger4,
                                                         "thmin": pthmin_customWeatherActionControllerTrigger4,
-                                                        "period": period_customWeatherActionControllerTrigger4
+                                                        "period": period_customWeatherActionControllerTrigger4,
+                                                        "locationNamel" :  locationName_ControllerTrigger4
                                                     };
                                                 }
                                             }
@@ -1658,6 +1673,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         description_Trigger1GcalendarController = $scope.userRecipes[index].trigger.description;
                         place_Trigger1GcalendarController = $scope.userRecipes[index].trigger.location;
                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.eventAction;
+                        locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                         ulrTriggreGlobalVariable = "Trigger1Gcalendar";
 
                         modulinoj1 =
@@ -1678,6 +1694,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         description_Trigger2GcalendarController = $scope.userRecipes[index].trigger.subject;
                         place_Trigger2GcalendarController = $scope.userRecipes[index].trigger.location;
                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.eventAction;
+                        locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
                         ulrTriggreGlobalVariable = "Trigger2Gcalendar";
 
                         modulinoj1 =
@@ -1702,6 +1719,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                             ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                            locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                             ulrTriggreGlobalVariable = "WeatherTrigger1";
 
                             modulinoj1 =
@@ -1710,7 +1728,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 "type": true,
                                 "location": idCity_customWeatherActionControllerTrigger1,
                                 "ora": ora_customWeatherActionControllerTrigger1,
-                                "timezone": timezone_customWeatherActionControllerTrigger1
+                                "timezone": timezone_customWeatherActionControllerTrigger1,
+                                "locationName"  : locationName_ControllerTrigger1
                             };
 
 
@@ -1723,6 +1742,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 pperiod_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.period;
                                 pzone_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.timezone;
                                 subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                                locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
                                 ulrTriggreGlobalVariable = "WeatherTrigger2";
 
                                 modulinoj1 =
@@ -1732,7 +1752,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "tempo": pweather_customWeatherActionControllerTrigger2,
                                     "period": pperiod_customWeatherActionControllerTrigger2,
-                                    "timezone": pzone_customWeatherActionControllerTrigger2
+                                    "timezone": pzone_customWeatherActionControllerTrigger2,
+                                    "locationName"  : locationName_ControllerTrigger2
                                 };
 
 
@@ -1744,6 +1765,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     sunset_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunset;
                                     sunrise_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunrise;
                                     subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                                    locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                     ulrTriggreGlobalVariable = "WeatherTrigger3";
                                     modulinoj1 =
                                     {
@@ -1752,7 +1774,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         "location": idCity_customWeatherActionControllerTrigger3,
                                         "timezone": timezone_customWeatherActionControllerTrigger3,
                                         "sunset": sunset_customWeatherActionControllerTrigger3,
-                                        "sunrise": sunrise_customWeatherActionControllerTrigger3
+                                        "sunrise": sunrise_customWeatherActionControllerTrigger3,
+                                        "locationName"  : locationName_ControllerTrigger3
 
 
                                     };
@@ -1765,6 +1788,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         pthmin_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmin;
                                         period_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.period;
                                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
+                                        locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                         ulrTriggreGlobalVariable = "WeatherTrigger4";
                                         modulinoj1 =
                                         {
@@ -1774,7 +1798,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                             "thmax": pthmax_customWeatherActionControllerTrigger4,
                                             "thmin": pthmin_customWeatherActionControllerTrigger4,
-                                            "period": period_customWeatherActionControllerTrigger4
+                                            "period": period_customWeatherActionControllerTrigger4,
+                                            "locationName"  : locationName_ControllerTrigger4
                                         };
                                     }
                                 }
@@ -2056,6 +2081,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                                     if ($scope.userRecipes[index].trigger.type == 1) {
                                         idCity_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.location;
+                                        locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                                         timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                                         ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
                                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
@@ -2067,7 +2093,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                                             "location": idCity_customWeatherActionControllerTrigger1,
                                             "ora": ora_customWeatherActionControllerTrigger1,
-                                            "timezone": timezone_customWeatherActionControllerTrigger1
+                                            "timezone": timezone_customWeatherActionControllerTrigger1,
+                                            "locationName"  : locationName_ControllerTrigger1
                                         };
 
 
@@ -2081,6 +2108,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                             pzone_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.timezone;
                                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
                                             ulrTriggreGlobalVariable = "WeatherTrigger2";
+                                            locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
 
                                             modulinoj1 =
                                             {
@@ -2089,7 +2117,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                 "location": idCity_customWeatherActionControllerTrigger2,
                                                 "tempo": pweather_customWeatherActionControllerTrigger2,
                                                 "period": pperiod_customWeatherActionControllerTrigger2,
-                                                "timezone": pzone_customWeatherActionControllerTrigger2
+                                                "timezone": pzone_customWeatherActionControllerTrigger2,
+                                                "locationName"  : locationName_ControllerTrigger2
                                             };
 
 
@@ -2097,6 +2126,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                         else {
                                             if ($scope.userRecipes[index].trigger.type == 3) {
                                                 idCity_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.location;
+                                                locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                                 timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
                                                 sunset_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunset;
                                                 sunrise_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunrise;
@@ -2109,7 +2139,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                     "location": idCity_customWeatherActionControllerTrigger3,
                                                     "timezone": timezone_customWeatherActionControllerTrigger3,
                                                     "sunset": sunset_customWeatherActionControllerTrigger3,
-                                                    "sunrise": sunrise_customWeatherActionControllerTrigger3
+                                                    "sunrise": sunrise_customWeatherActionControllerTrigger3,
+                                                    "locationName"  : locationName_ControllerTrigger3
 
 
                                                 };
@@ -2117,6 +2148,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                             else {
                                                 if ($scope.userRecipes[index].trigger.type == 4) {
                                                     idCity_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.location;
+                                                    locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                                     ptimezone_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.timezone;
                                                     pthmax_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmax;
                                                     pthmin_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmin;
@@ -2131,7 +2163,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                                         "thmax": pthmax_customWeatherActionControllerTrigger4,
                                                         "thmin": pthmin_customWeatherActionControllerTrigger4,
-                                                        "period": period_customWeatherActionControllerTrigger4
+                                                        "period": period_customWeatherActionControllerTrigger4,
+                                                        "locationName"  : locationName_ControllerTrigger4
                                                     };
                                                 }
                                             }
@@ -2302,8 +2335,9 @@ iftttApp.controller('createAccountController', ['$scope',
          */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
-            if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2)) {
-                if (pws1 == pws2) {
+            if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2))
+            {
+                if (1==1) { //solo una prova da implementare ma stavo facendo il nome della città
                     //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
 
                     var loginDataSend =
@@ -2355,8 +2389,60 @@ iftttApp.controller('createAccountController', ['$scope',
 
         }
 
+        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
 
-    }]);
+        /*
+
+
+        var requestLogout = {
+            requestLogout: 'iftttpolito'
+        };
+
+        $('#serverSpinner').spin();
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/progetto/logout',
+            data: requestLogout
+        }).then(function success(response) {
+            if (consoleLogs) console.log(response.data.disconnected);
+            //    if(response.data.disconnected.localeCompare("true")==0){
+            $scope.iftttLogged = false;
+            iftttLogin = false;
+            $scope.googleLogged = false;
+            googleLogin = false;
+            $scope.twitterLogged = false;
+            twitterLogin = false;
+            $('#serverSpinner').spin(false);
+            $("#notificationsWrapper").notify(
+                "Logged out from IFTTT Polito",
+                {
+                    className: 'warning',
+                    position: 'bottom right'
+                }
+            );
+            window.location.replace('#');
+
+            if (consoleLogs) console.log($scope.iftttLogged);
+        }, function error() {
+            $('#serverSpinner').spin(false);
+            $('#loginIFTTTModal').modal('hide');
+            $("#notificationsWrapper").notify(
+                "Disconnect to IFTTT Polito failed",
+                {
+                    className: 'error',
+                    position: 'bottom right'
+                }
+            );
+            if (consoleLogs) console.log($scope.iftttLogged);
+        });
+
+    };
+*/
+
+
+
+
+}]);
 
 
 iftttApp.controller('passwordChangeController', ['$scope',
