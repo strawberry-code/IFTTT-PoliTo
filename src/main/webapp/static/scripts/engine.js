@@ -1154,6 +1154,7 @@ iftttApp.controller('doCreatorController', ['$scope', '$routeParams',
     }]);
 
 
+//fxr>
 iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
@@ -1162,18 +1163,22 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             url: 'http://localhost:8080/progetto/api/prova',
             method: "POST",
             dataType: 'application/json'
-        }).then(function success(response) {
-            if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
-            if (response.data.iftttLogged.localeCompare("true") == 0) {
+        }).then(function success(response)
+        {
+            //if (consoleLogs) console.log(response);
+            //if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
+            if (response.data.iftttLogged.localeCompare("true") == 0)
+            {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
             }
-            if (response.data.googleLogged.localeCompare("true") == 0) {
+            if (response.data.googleLogged.localeCompare("true") == 0)
+            {
                 $scope.googleLogged = true;
                 googleLogin = true;
             }
-            if (response.data.twitterLogged.localeCompare("true") == 0) {
+            if (response.data.twitterLogged.localeCompare("true") == 0)
+            {
                 $scope.twitterLogged = true;
                 twitterLogin = true;
             }
@@ -1181,7 +1186,12 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         }, function error() {
             $scope.iftttLogged = false;
             iftttLogin = false;
-            if (consoleLogs) console.log($scope.iftttLogged);
+            //if (consoleLogs) console.log($scope.iftttLogged);
+
+            //Print a error
+            alertVariable = "Error: there is a error!!!";
+            alertFunction();
+
         });
 
         $scope.userRecipes = [];
@@ -1190,35 +1200,45 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         $scope.elements = [];
 
 
-        $http
-        (
-            {
-                method: 'GET',
-                url: 'http://localhost:8080/progetto/api/userRecipes'
-            }
-        )
-            .then
+            /**
+             * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+             */
+
+            $http
             (
-                function success(response)
                 {
-                    $scope.userRecipes = response.data;
-
-                    var tmp = 0;
-                    $scope.userRecipes.forEach(function (element) {
-                        element.index = tmp;
-                        tmp++;
-                    });
-
-
-                    /*  *************/
-
-
-                },
-                function error(response) {
-                    // Error code here
-                    alert("error");
+                    method: 'GET',
+                    url: 'http://localhost:8080/progetto/api/userRecipes'
                 }
-            );
+            )
+                .then
+                (
+                    function success(response) {
+                        if (response == null) {
+                            alertVariable = "Error: there is a error!!!";
+                            alertFunction();
+
+                        }
+                        else {
+                            $scope.userRecipes = response.data;
+
+                            var tmp = 0;
+                            $scope.userRecipes.forEach(function (element) {
+                                element.index = tmp;
+                                tmp++;
+                            });
+
+
+                            /*  *************/
+                        }
+
+                    },
+                    function error(response) {
+                        alertVariable = "Error: there is a error!!!";
+                        alertFunction();
+
+                    }
+                );
 
 
         /**
@@ -1227,6 +1247,15 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
          * @param {} index
          * @param {} id
          * @return 
+         */
+
+        //fxr<
+
+        //fxr>
+
+        /*
+         0 se è andato a buon fine
+         -1 se qualcosa è andato storto.
          */
         $scope.removeRecipe = function (index, id) {
             $http
@@ -1238,17 +1267,27 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     alertVariable = "Warning: there are been some errors";
                     alertFunction();
-                alert("error");
+                    //alert("error");
             })
-                .success(function () {
-                    alertVariable = "SUCCESS!!!";
-                    alertFunction();
+                .success(function (response) {
+                    if(response == 0)
+                    {
+                        alertVariable = "SUCCESS!!!";
+                        alertFunction();
 
-                    $scope.userRecipes.splice(index, 1)
+                        $scope.userRecipes.splice(index, 1);
+                    }
+                    else
+                    {
+                        alertVariable = "Warning: there are been some errors";
+                        alertFunction();
+                    }
 
 
                 });
         };
+
+        //fxr<
         /**
          * Description
          * @method shareRecipe
@@ -1275,12 +1314,16 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                 $('#serverSpinner').spin(false);
                 // Error code here
-                alert("error");
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
+                //alert("error");
             })
                 .success(function () {
                         $('#serverSpinner').spin(false);
                         $scope.userRecipes[index].publish = true;
-                        alert("o.k. true");
+                    alertVariable = "Success: now your repice is public";
+                    alertFunction();
+                        //alert("o.k. true");
                     }
                 );
 
@@ -1313,12 +1356,16 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                 $('#serverSpinner').spin(false);
                 // Error code here
+                    alertVariable = "Warning: sorry there have been some mistake!";
+                    alertFunction();
                 alert("error");
             })
                 .success(function () {
                     $('#serverSpinner').spin(false);
                     $scope.userRecipes[index].publish = false;
-                    alert("o.k. false");
+                    //alert("o.k. false");
+                    alertVariable = "Success: your recpice is now private";
+                    alertFunction();
                 });
 
         };
@@ -2079,8 +2126,10 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                 },
                 function error(response) {
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
                     // Error code here
-                    alert("error");
+                    //alert("error");
                 }
             );
 
@@ -2129,6 +2178,16 @@ iftttApp.controller('createAccountController', ['$scope',
                          * @method success
                          * @return
                          */
+                       /**
+                        Per la REGISTRAZIONE vi ritorno una variabile i che può avere i seguenti casi:
+                        i=0 : You have successfully signed. To complete the registration, please check your email
+                        i=1 : user already exist
+                        i=2 : email already exist
+                        i=3 : email not valid
+                        i=4 : password too short
+                        i=5 : username too short
+                        i=6 : some errors
+                        **/
                         success: function (response)
                         {
                             $('#serverSpinner').spin(false);
@@ -2217,7 +2276,7 @@ iftttApp.controller('createAccountController', ['$scope',
                 {
                     if (pws1.localeCompare(pws2) != 0)
                     {
-                        alertVariable = "The two password is not egual";
+                        alertVariable = "Warning: the two password is not egual";
                         alertFunction();
 
                     }
@@ -2225,14 +2284,14 @@ iftttApp.controller('createAccountController', ['$scope',
                     {
                         if(pws1.length < 8)
                         {
-                            alertVariable = "Warning: the password one is too short!";
+                            alertVariable = "Warning: the password  is too short!";
                             alertFunction();
 
                         }
                         else
                         if(pws2.length < 8)
                         {
-                            alertVariable = "Warning: the password two is too short!";
+                            alertVariable = "Warning: the password  is too short!";
                             alertFunction();
                         }
 
@@ -2320,7 +2379,7 @@ iftttApp.controller('createAccountController', ['$scope',
     }]);
 
 
-
+//fxr>
 iftttApp.controller('passwordChangeController', ['$scope',
     function ($scope) {
 
@@ -2331,59 +2390,117 @@ iftttApp.controller('passwordChangeController', ['$scope',
          * @param {} pws2
          * @return 
          */
-        $scope.passwordChangeFunc = function (pws1, pws2) {
 
-            if (angular.isDefined(pws1) && angular.isDefined(pws2)) {
-                if (pws1 == pws2) {
-                    //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
+        /*
+         0 se è andato a buon fine,
+         -1 se qualcosa è andato storto,
+         -2 se la nuova password è troppo corta
+         */
+        $scope.passwordChangeFunc = function (pws1, pws2)
+        {
 
-                    var loginDataSend =
+            if (angular.isDefined(pws1) && angular.isDefined(pws2))
+            {
+                if (pws1.localeCompare(pws2)==0)
+                {
+                    if (pws1.length < 8 || pws2.length < 8)
                     {
-                        "newpassword": pws1
-                    };
+                        alertVariable = "Warning: the password  is too short!";
+                        alertFunction();
+                    }
+                    else
+                    {
 
-                    $('#serverSpinner').spin();
-                    $.ajax
-                    ({
-                        contentType: "application/json",
-                        method: "post",
-                        url: "http://localhost:8080/progetto/api/changepassword",
-                        data: JSON.stringify(loginDataSend),
-                        /**
-                         * Description
-                         * @method success
-                         * @return 
-                         */
-                        success: function () {
-                            $('#serverSpinner').spin(false);
-                            if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
-                            alert("La password è stata modificata con successo");
-                            window.location.replace('#myRecipes');
-                        },
-                        /**
-                         * Description
-                         * @method error
-                         * @return 
-                         */
-                        error: function () {
-                            $('#serverSpinner').spin(false);
-                            //alert("some error occurred");
-                            alertVariable = "some error occurred";
-                            alertFunction();
+                        //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
 
-                        }
-                    });
 
-                } else {
-                    alert("Input password error.");
+                        var loginDataSend =
+                        {
+                            "newpassword": pws1
+                        };
+
+                        $('#serverSpinner').spin();
+                        $.ajax
+                        ({
+                            contentType: "application/json",
+                            method: "post",
+                            url: "http://localhost:8080/progetto/api/changepassword",
+                            data: JSON.stringify(loginDataSend),
+                            /**
+                             * Description
+                             * @method success
+                             * @return
+                             */
+                            success: function (response)
+                            {
+                                $('#serverSpinner').spin(false);
+                                //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                                //alert("La password è stata modificata con successo");
+                                if (response == 0)
+                                {
+                                    alertVariable = "Success: the password is changed";
+                                    alertFunction();
+                                    window.location.replace('#myRecipes');
+
+                                }
+                                else
+                                {
+
+                                    if (response == -1)
+                                    {
+                                        alertVariable = "Error: there has been a error . . .";
+                                        alertFunction();
+
+                                    }
+                                    else
+                                        if (response == -2)
+                                        {
+                                            alertVariable = "Error: the pasword is too much short";
+                                            alertFunction();
+                                            //window.location.replace('#myRecipes');
+
+
+                                        }
+                                }
+
+                            },
+                            /**
+                             * Description
+                             * @method error
+                             * @return
+                             */
+                            error: function ()
+                            {
+                                $('#serverSpinner').spin(false);
+                                alertVariable = "some error occurred";
+                                alertFunction();
+
+                            }
+                        });
+
+                    }
+
+                }
+                else {
+                    //alert("Input password error.");
+                    alertVariable = "Warning: the two password is not egual!";
+                    alertFunction();
                 }
 
             }
+            else
+            {
+                alertVariable = "Warning: the password is empty";
+                alertFunction();
+
+            }
+
 
         }
 
     }]);
 
+//<fxr
 
 //Update
 iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
@@ -4397,9 +4514,9 @@ iftttApp.filter('reformat', function () {
             case 'eventAction':
                 return 'Event action';
             case 'thmax':
-                return 'Max temperature (C°)';
+                return 'Max temperature';
             case 'thmin':
-                return 'Min temperature (C°)';
+                return 'Min temperature';
             case 'locationName':
                 return 'Name of the city';
         }
@@ -4415,16 +4532,32 @@ iftttApp.filter('skeumorphize', function(){
         console.log('input: '+input+"\nwatchKey: "+watchKey);
 
         switch (watchKey) {
+
+            case 'thmax':
+                return input + " °C";
+
+            case 'thmin':
+                return input + " °C";
+
+            case 'timezone':
+                if (input > 0) {
+                    return "GMT+" + input;
+                } else {
+                    return "GMT" + input;
+                }
+
             case 'eventAction':
+            {
                 switch (input) {
                     case true:
                         return 'When a new event is added';
                     case false:
                         return 'When a new event is created';
-
                 }
+            }
 
-            default: return input;
+            default:
+                return input;
         }
 
 
@@ -4563,7 +4696,8 @@ function sendingToServerAllput() {
         "description": descriptionRecipeGlobal,
         "trigger": modulinoj1,
         "action": modulinoj2,
-        "publish": publishRecipeGlobal
+        "publish": publishRecipeGlobal,
+        regTimezione: jstz.determine().toString() //cc
     };
     sedingServerAllRunput(sendDataToServer);
 

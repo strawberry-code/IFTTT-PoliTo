@@ -21,6 +21,7 @@
     <script src="./static/scripts/engine.js"></script>
     <script src="./static/scripts/spin.js"></script>
     <script src="./static/scripts/jqueryspin.js"></script>
+    <script src="./static/scripts/jstz.js"></script>
 
 
     <!-- Cascade Style Sheets -->
@@ -122,6 +123,10 @@
   <!--
   {{"recipe: "+ userRecipes}}
   -->
+
+  <!-- cc>
+  <button id="qwe">click!</button>
+   <cc -->
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
@@ -310,6 +315,13 @@
         var spinner = new Spinner(opts).spin(target);
 
         spinner.stop();
+
+        /*cc>
+        $('#qwe').click(function () {
+            var tz = jstz.determine();
+            alert(tz.name());
+        });
+        *///<cc
 
     });
   </script>
