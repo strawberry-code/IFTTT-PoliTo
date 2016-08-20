@@ -1228,6 +1228,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
          * @param {} id
          * @return 
          */
+
+        //fxr>
+
+        /*
+         0 se è andato a buon fine
+         -1 se qualcosa è andato storto.
+         */
         $scope.removeRecipe = function (index, id) {
             $http
             (
@@ -1240,15 +1247,25 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     alertFunction();
                     //alert("error");
             })
-                .success(function () {
-                    alertVariable = "SUCCESS!!!";
-                    alertFunction();
+                .success(function (response) {
+                    if(response == 0)
+                    {
+                        alertVariable = "SUCCESS!!!";
+                        alertFunction();
 
-                    $scope.userRecipes.splice(index, 1)
+                        $scope.userRecipes.splice(index, 1);
+                    }
+                    else
+                    {
+                        alertVariable = "Warning: there are been some errors";
+                        alertFunction();
+                    }
 
 
                 });
         };
+
+        //fxr<
         /**
          * Description
          * @method shareRecipe
