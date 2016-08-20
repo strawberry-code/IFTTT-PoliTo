@@ -124,7 +124,9 @@
   {{"recipe: "+ userRecipes}}
   -->
 
+  <!-- cc> -->
   <button id="qwe">click!</button>
+  <!-- <cc -->
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
@@ -314,11 +316,12 @@
 
         spinner.stop();
 
+        //cc>
         $('#qwe').click(function () {
             var tz = jstz.determine();
-
             alert(tz.name());
         });
+        //<cc
 
     });
   </script>
