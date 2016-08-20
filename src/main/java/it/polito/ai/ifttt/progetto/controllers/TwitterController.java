@@ -129,7 +129,7 @@ public class TwitterController {
 		}
 
 		returnClass res = new returnClass();
-		res.setAuthenticated(ret);
+		res.setTwitterLogged(ret);
 		return res;
 	}
 

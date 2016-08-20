@@ -142,42 +142,6 @@ public class LoginManagerImpl implements LoginManager {
 		return 0;
 	}
 
-	// public int login(String username, String password) {
-	// // open session
-	// Session session = sessionFactory.openSession();
-	//
-	// try {
-	// //compute hash of provided password
-	// String hashpass = this.computeMD5(password);
-	//
-	// String hql = "from it.polito.ai.ifttt.progetto.models.Users u where
-	// u.username=:n and u.password=:p";
-	// Query query = session.createQuery(hql);
-	// query.setString("n", username);
-	// query.setString("p", hashpass);
-	// List<Users> users = query.list();
-	// if (users.size() == 0) {
-	// // user/password wrong
-	// return 1;
-	// }
-	// Users usr = users.get(0);
-	// if (usr.getEnabled() == false) {
-	// // not activated
-	// return 2;
-	// }
-	//
-	// } catch (Exception e) {
-	// // if some errors during the transaction occur,
-	// return -1;
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// return 0;
-	// }
-
 	public int activate(Integer id, String url) {
 
 		Session session = sessionFactory.openSession();
@@ -310,7 +274,7 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if (token.get(0) == null) {
+		if (token == null || token.isEmpty() || token.get(0) == null) {
 			return false;
 		}
 		return true;
@@ -332,10 +296,85 @@ public class LoginManagerImpl implements LoginManager {
 				session.close();
 			}
 		}
-		if (token.get(0) == null) {
+		if (token == null || token.isEmpty() || token.get(0) == null) {
 			return false;
 		}
 		return true;
+	}
+	
+	public void disconnectGoogle(String username) {
+		Session session = sessionFactory.openSession();
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			user = (Users) query.list().get(0);
+			user.setGoogleToken(null);
+			user.setGoogleExpire(null);
+			session.update(user);
+			session.flush();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return;
+	}
+	
+	public void disconnectTwitter(String username) {
+		Session session = sessionFactory.openSession();
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			user = (Users) query.list().get(0);
+			user.setTwitterToken(null);
+			user.setTwitterTokenSecret(null);
+			session.update(user);
+			session.flush();
+			// users = query.list();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return;
+	}
+	
+	@SuppressWarnings("static-access")
+	public Integer changePassword(String username, String newpass) {
+		Session session = sessionFactory.openSession();
+		Integer flag = 0;
+		Users user = null;
+		try {
+			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+			Query query = session.createQuery(hql);
+			query.setString("n", username);
+			try {
+				user = (Users) query.list().get(0);
+			} catch(Exception e) {
+				flag = -1;
+			}
+			if (newpass.length() < 8) {
+				flag = -2;
+			}
+			else {
+				user.setPassword(this.computeMD5(newpass));
+				session.update(user);
+				session.flush();
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		return flag;
 	}
 
 	// function to compute an MD5 hash of the user password

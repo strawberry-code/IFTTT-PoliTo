@@ -22,6 +22,8 @@ public class TwitterTrigger {
 	Boolean type; //false: check tweets, true: check directMessages
 	@Column
 	String triggerType;
+	@Column
+	Integer ingredientCode;
 	
 	public String getUsername_sender() {
 		return username_sender;
@@ -58,5 +60,11 @@ public class TwitterTrigger {
 	}
 	public void setTriggerType(String triggerType) {
 		this.triggerType = triggerType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }

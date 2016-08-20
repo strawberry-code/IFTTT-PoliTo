@@ -1,7 +1,6 @@
 package it.polito.ai.ifttt.progetto.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.polito.ai.ifttt.progetto.services.LoginManager;
-import it.polito.ai.ifttt.progetto.services.RecipesManager;
 
 @Controller
 // @RequestMapping("/")

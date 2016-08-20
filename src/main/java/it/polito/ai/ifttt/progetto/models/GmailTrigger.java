@@ -20,6 +20,8 @@ public class GmailTrigger {
 	Long lastCheck;
 	@Column
 	String triggerType;
+	@Column
+	Integer ingredientCode;
 	
 	public Integer getGtid() {
 		return gtid;
@@ -50,5 +52,11 @@ public class GmailTrigger {
 	}
 	public void setTriggerType(String triggerType) {
 		this.triggerType = triggerType;
+	}
+	public Integer getIngredientCode() {
+		return ingredientCode;
+	}
+	public void setIngredientCode(Integer ingredientCode) {
+		this.ingredientCode = ingredientCode;
 	}
 }

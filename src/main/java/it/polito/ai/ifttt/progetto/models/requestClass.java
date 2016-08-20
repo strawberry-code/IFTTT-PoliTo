@@ -4,6 +4,7 @@ public class requestClass {
 	
 	String requestGoogleAuth;
 	String urlNext;
+	String newpassword;
 	
 	public String getRequestGoogleAuth() {
 		return requestGoogleAuth;
@@ -16,5 +17,11 @@ public class requestClass {
 	}
 	public void setUrlNext(String urlNext) {
 		this.urlNext = urlNext;
+	}
+	public String getNewpassword() {
+		return newpassword;
+	}
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
 	}
 }

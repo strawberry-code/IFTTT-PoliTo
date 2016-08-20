@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Created by kazuhira on 22/07/16.
  */
 
@@ -61,18 +61,23 @@ var hashtag_text_trigger2TwitterController = "";
 var idCity_customWeatherActionControllerTrigger1 = "";
 var timezone_customWeatherActionControllerTrigger1 = "";
 var ora_customWeatherActionControllerTrigger1 = "";
+var locationName_ControllerTrigger1 = "";
 
 /*  customWeatherActionControllerTrigger2 Tn 7 */
 var idCity_customWeatherActionControllerTrigger2 = "";
 var pweather_customWeatherActionControllerTrigger2 = "";
 var pperiod_customWeatherActionControllerTrigger2 = "";
 var pzone_customWeatherActionControllerTrigger2 = "";
+var locationName_ControllerTrigger2 = "";
+
 
 /* customWeatherActionControllerTrigger3  Tn 8 */
 var idCity_customWeatherActionControllerTrigger3 = "";
 var timezone_customWeatherActionControllerTrigger3 = "";
 var sunset_customWeatherActionControllerTrigger3 = false;
 var sunrise_customWeatherActionControllerTrigger3 = false;
+var locationName_ControllerTrigger3 = "";
+
 
 /* customWeatherActionControllerTrigger4  Tn 9 */
 
@@ -81,6 +86,8 @@ var ptimezone_customWeatherActionControllerTrigger4 = "";
 var pthmax_customWeatherActionControllerTrigger4 = "";
 var pthmin_customWeatherActionControllerTrigger4 = "";
 var period_customWeatherActionControllerTrigger4 = "";
+var locationName_ControllerTrigger4 = "";
+
 
 
 /* Modulini per json*/
@@ -132,6 +139,9 @@ var urlActionGlobalVariable = "";
 
 //Temporary root for login
 var rootingAutenticationTriggerAction = "";
+
+//Flag se un utente si sta registrando o no
+var flag_registration_success = false;
 
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
@@ -315,6 +325,11 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'SuccessController'
     });
 
+    $routeProvider.when('/SuccessRegistration', {
+        templateUrl: './static/innerPages/success/SuccessRegistration.html',
+        controller: 'SuccessControllerRegistration'
+    });
+
 
     $routeProvider.when('/choseModify', {
         templateUrl: './static/innerPages/choseModify.html',
@@ -370,16 +385,25 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
              *   $scope.googleLogged = response.data.googleAuthenticated;
              *
              */
-            $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
-            googleLogin = true;
-            alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
+      //      $scope.googleLogged = true; // (cristiano): questa è solo una simulazione!
+      //      googleLogin = true;
+       //     alert("L'autenticazione a Google viene impostata automaticamente di default a causa di una simulazione");
 
 
-            if (response.data.authenticated.localeCompare("true") == 0) {
+            if (response.data.iftttLogged.localeCompare("true") == 0) {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
-
             }
+            if (response.data.googleLogged.localeCompare("true") == 0) {
+                $scope.googleLogged = true;
+                googleLogin = true;
+            }
+            if (response.data.twitterLogged.localeCompare("true") == 0) {
+                $scope.twitterLogged = true;
+                twitterLogin = true;
+            }
+            
+            
             //if(consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $('#loginIFTTTModal').modal('hide');
@@ -479,6 +503,10 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 //    if(response.data.disconnected.localeCompare("true")==0){
                 $scope.iftttLogged = false;
                 iftttLogin = false;
+                $scope.googleLogged = false;
+                googleLogin = false;
+                $scope.twitterLogged = false;
+                twitterLogin = false;
                 $('#serverSpinner').spin(false);
                 $("#notificationsWrapper").notify(
                     "Logged out from IFTTT Polito",
@@ -538,9 +566,9 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if (consoleLogs) console.log(JSON.stringify(response.data.googleLogged) + "locale" + response.data.googleLogged.localeCompare("true"));
                 $('#serverSpinner').spin(false);
-                if (response.data.authenticated.localeCompare("true") == 0) {
+                if (response.data.googleLogged.localeCompare("true") == 0) {
                     $scope.googleLogged = true;
                     googleLogin = true;
                     $('#loginGoogleModal').modal('hide');
@@ -653,9 +681,9 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
             }).then(function success(response) {
-                if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
+                if (consoleLogs) console.log(JSON.stringify(response.data.twitterLogged) + "locale" + response.data.twitterLogged.localeCompare("true"));
                 $('#serverSpinner').spin(false);
-                if (response.data.authenticated.localeCompare("true") == 0) {
+                if (response.data.twitterLogged.localeCompare("true") == 0) {
                 	$scope.twitterLogged = true;
                 	twitterLogin = true;
                 	$('#loginTwitterModal').modal('hide');
@@ -721,7 +749,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
             }).then(function success(response) {
                 $('#serverSpinner').spin(false);
                 if (consoleLogs) console.log(response.data.disconnected);
-                if (response.data.disconnected.localeCompare("true") == 0) {
+                if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
                     $("#notificationsWrapper").notify(
@@ -952,6 +980,7 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
             if ($scope.recipedDescriptionInput == null)  descriptionRecipeGlobal = "This task has not a description";
             else if ($scope.recipedDescriptionInput == "")  descriptionRecipeGlobal = "This task has not a description";
 
+            $scope.recipedDescriptionInput ="";
 
             //Mando i dati al server con i due modulini + la descrizione.
             if (modifyVar == true) {
@@ -961,77 +990,37 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
                 sendingToServerAll();
         };
 
-        // $('#recipedDescriptionModal').modal('hide');
+        
 
+    }]);
 
-        /*
-
-         if(consoleLogs) console.log("inserted the following description: "+$scope.recipedDescriptionInput);
-         // Salvare la descrizione nella varaibile globale e nella ricetta in questione
-         // Invio della descrizione al server con una UPDATE
-         $http({
-         method: 'UPDATE',
-         url: '/Recipes',
-         data: JSON.stringify({"desc":$scope.recipedDescriptionInput}),
-         dataType: "application/json"
-         }).then(function success(response) {
-         // Success code here
-         alert(JSON.stringify(response));
-         response.data.forEach(function (x) {
-         if(consoleLogs) console.log(JSON.stringify(x));
-         });
-
-
-         }, function error(response) {
-         // Error code here
-         alert("error to update description");
-         });
-         $('#recipedDescriptionModal').modal('hide');
-         };*/
-
-        /*
-         $scope.removeRecipe = function(index){
-         if(consoleLogs) console.log("REMOVING: "+index);
-         alert(JSON.stringify("id",$scope.userRecipes[index].id));
-
-
-         $http.delete("http://localhost:3000/userRecipes", JSON.stringify("id",$scope.userRecipes[index].id))
-         .then(function success(response){
-         $scope.userRecipes.splice(index, 1);
-         if(consoleLogs) console.log("recipe deleted successfully from the server and local machine");
-         },
-         function failure(response){
-         if(consoleLogs) console.log("some problem occurred, recipes was not deleted");
-         }
-         );
-
-         // MANCA DA FARE LA DELETE ALLA SERVLET
-         };
-         */
+iftttApp.controller('SuccessControllerRegistration', ['$scope', '$routeParams',
+    function () {
 
 
     }]);
+
+
 iftttApp.controller('SuccessController', ['$scope', '$routeParams',
     function () {
 
-        if (modifyVar == 1) {
 
+            if (modifyVar == 1) {
 
-        }
-        else {
             if (flagTriggerDone == true) {
-                //alert("Warning you must compile before the action form");
-                alertVariable = "Warning you must compile before the action form";
-                alertFunction();
-                var url = "#createRecipeAction";
-                window.location.replace(url);
+                    //alert("Warning you must compile before the action form");
+                    alertVariable = "Warning you must compile before the action form";
+                    alertFunction();
+                    var url = "#createRecipeAction";
+                    window.location.replace(url);
+                }
+                if (count == 7) count = 0;
+                else {
+                    url = "#createDO";
+                    window.location.replace(url);
+                }
             }
-            if (count == 7) count = 0;
-            else {
-                url = "#createDO";
-                window.location.replace(url);
-            }
-        }
+
 
     }]);
 
@@ -1129,10 +1118,18 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             dataType: 'application/json'
         }).then(function success(response) {
             if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
-            if (response.data.authenticated.localeCompare("true") == 0) {
+            if (consoleLogs) console.log(JSON.stringify(response.data.iftttLogged) + "locale" + response.data.iftttLogged.localeCompare("true"));
+            if (response.data.iftttLogged.localeCompare("true") == 0) {
                 $scope.iftttLogged = true;
                 iftttLogin = true;
+            }
+            if (response.data.googleLogged.localeCompare("true") == 0) {
+                $scope.googleLogged = true;
+                googleLogin = true;
+            }
+            if (response.data.twitterLogged.localeCompare("true") == 0) {
+                $scope.twitterLogged = true;
+                twitterLogin = true;
             }
             if (consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
@@ -1141,22 +1138,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             if (consoleLogs) console.log($scope.iftttLogged);
         });
 
-        $scope.userRecipes = null;
+        $scope.userRecipes = [];
         modifyVar = 0;
 
-        /*
-         $scope.elements = [{
-         name: 'one',
-         isCollapsed: true
-         }, {
-         name: 'two',
-         isCollapsed: true
-         }, {
-         name: 'three',
-         isCollapsed: true
-         }];
-
-         */
         $scope.elements = [];
 
 
@@ -1169,7 +1153,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         )
             .then
             (
-                function success(response) {
+                function success(response)
+                {
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
@@ -1177,6 +1162,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         element.index = tmp;
                         tmp++;
                     });
+
 
                     /* * * **************/
 
@@ -1489,6 +1475,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         index++;
                     });
 
+
                     /*  *************/
 
 
@@ -1512,14 +1499,17 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: 'delete',
-                    url: 'http://localhost:3000/userRecipes/' + id
+                    url: 'http://localhost:8080/progetto/api/userRecipes/' + id
                 }
             ).error(function () {
-                // Error code here
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
                 alert("error");
             })
                 .success(function () {
-                    alert("o.k.");
+                    alertVariable = "SUCCESS!!!";
+                    alertFunction();
+
                     $scope.userRecipes.splice(index, 1)
 
 
@@ -1544,8 +1534,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: "put",
-                    url: "http://localhost:3000/userRecipes/" + id,
-                    data: flagDataSend,
+                    url: "http://localhost:8080/progetto/api/publish/userRecipes/" + id,
+                    data: flagDataSend.publish,
                     contentType: "application/json"
                 }
             ).error(function () {
@@ -1582,8 +1572,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: "put",
-                    url: "http://localhost:3000/userRecipes/" + id,
-                    data: flagDataSend,
+                    url: "http://localhost:8080/progetto/api/publish/userRecipes/" + id,
+                    data: flagDataSend.publish,
                     contentType: "application/json"
                 }
             ).error(function () {
@@ -1688,6 +1678,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                         if ($scope.userRecipes[index].trigger.type == 1) {
                             idCity_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.location;
+                            locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                             timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                             ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
@@ -1698,6 +1689,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 "triggerType": "weather",
                                 "type": true,
                                 "location": idCity_customWeatherActionControllerTrigger1,
+                                "locationName"  : locationName_ControllerTrigger1,
                                 "ora": ora_customWeatherActionControllerTrigger1,
                                 "timezone": timezone_customWeatherActionControllerTrigger1
                             };
@@ -1708,6 +1700,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             if ($scope.userRecipes[index].trigger.type == 2) {
 
                                 idCity_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.location;
+                                locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
                                 pweather_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.tempo;
                                 pperiod_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.period;
                                 pzone_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.timezone;
@@ -1719,6 +1712,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     "triggerType": "weather",
                                     "type": "2",
                                     "location": idCity_customWeatherActionControllerTrigger2,
+                                    "locationName"  : locationName_ControllerTrigger2,
                                     "tempo": pweather_customWeatherActionControllerTrigger2,
                                     "period": pperiod_customWeatherActionControllerTrigger2,
                                     "timezone": pzone_customWeatherActionControllerTrigger2
@@ -1729,6 +1723,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             else {
                                 if ($scope.userRecipes[index].trigger.type == 3) {
                                     idCity_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.location;
+                                    locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                     timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
                                     sunset_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunset;
                                     sunrise_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunrise;
@@ -1739,6 +1734,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         "triggerType": "weather",
                                         "type": "3",
                                         "location": idCity_customWeatherActionControllerTrigger3,
+                                        "locationName"  : locationName_ControllerTrigger3,
                                         "timezone": timezone_customWeatherActionControllerTrigger3,
                                         "sunset": sunset_customWeatherActionControllerTrigger3,
                                         "sunrise": sunrise_customWeatherActionControllerTrigger3
@@ -1749,6 +1745,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 else {
                                     if ($scope.userRecipes[index].trigger.type == 4) {
                                         idCity_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.location;
+                                        locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                         ptimezone_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.timezone;
                                         pthmax_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmax;
                                         pthmin_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmin;
@@ -1760,6 +1757,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             "triggerType": "weather",
                                             "type": "4",
                                             "location": idCity_customWeatherActionControllerTrigger4,
+                                            "locationName"  : locationName_ControllerTrigger4,
                                             "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                             "thmax": pthmax_customWeatherActionControllerTrigger4,
                                             "thmin": pthmin_customWeatherActionControllerTrigger4,
@@ -1906,6 +1904,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
+        /*
         //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
         $http({
             url: 'http://localhost:8080/progetto/api/prova', //[renna] da cambiare la url per il server
@@ -1924,6 +1923,65 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
             iftttLogin = false;
             if (consoleLogs) console.log($scope.iftttLogged);
         });
+
+*/
+
+
+
+         //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
+
+         $scope.iftttLogged = false;
+         iftttLogin = false;
+
+         $scope.googleLogged = false;
+         googleLogin = false;
+
+         $scope.twitterLogged = false;
+         twitterLogin = false;
+
+         $http({
+         url: 'http://localhost:8080/progetto/api/prova',
+         method: "POST",
+         dataType: 'application/json',
+         contentType: "application/json"
+         }).then(function success(response) {
+         if (consoleLogs) console.log(response);
+
+         if (response.data.iftttLogged.localeCompare("true") == 0) {
+         $scope.iftttLogged = true;
+         iftttLogin = true;
+         }
+         if (response.data.googleLogged.localeCompare("true") == 0) {
+         $scope.googleLogged = true;
+         googleLogin = true;
+         }
+         if (response.data.twitterLogged.localeCompare("true") == 0) {
+         $scope.twitterLogged = true;
+         twitterLogin = true;
+         }
+
+
+         //if(consoleLogs) console.log($scope.iftttLogged);
+         }, function error() {
+         $('#loginIFTTTModal').modal('hide');
+         $("#notificationsWrapper").notify(
+         "Server error, retry",
+         {
+         className: 'error',
+         position: 'bottom right'
+         }
+         );
+         $scope.iftttLogged = false;
+         iftttLogin = false;
+         if (consoleLogs) console.log($scope.iftttLogged);
+         });
+
+
+
+
+
+
+
 
         $scope.userRecipes = null;
         modifyVar = 0;
@@ -1948,7 +2006,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
         (
             {
                 method: 'GET',
-                url: 'http://localhost:8080/progetto/api/userRecipes'
+                url: 'http://localhost:8080/progetto/api/publish/userRecipes'
             }
         )
             .then
@@ -2045,6 +2103,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                                     if ($scope.userRecipes[index].trigger.type == 1) {
                                         idCity_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.location;
+                                        locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
                                         timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                                         ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
                                         subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
@@ -2055,6 +2114,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                             "Trigger type": "weather",
 
                                             "location": idCity_customWeatherActionControllerTrigger1,
+                                            "locationName"  : locationName_ControllerTrigger1,
                                             "ora": ora_customWeatherActionControllerTrigger1,
                                             "timezone": timezone_customWeatherActionControllerTrigger1
                                         };
@@ -2065,6 +2125,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                         if ($scope.userRecipes[index].trigger.type == 2) {
 
                                             idCity_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.location;
+                                            locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
                                             pweather_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.tempo;
                                             pperiod_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.period;
                                             pzone_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.timezone;
@@ -2076,6 +2137,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                 "triggerType": "weather",
                                                 "type": "2",
                                                 "location": idCity_customWeatherActionControllerTrigger2,
+                                                "locationName"  : locationName_ControllerTrigger2,
                                                 "tempo": pweather_customWeatherActionControllerTrigger2,
                                                 "period": pperiod_customWeatherActionControllerTrigger2,
                                                 "timezone": pzone_customWeatherActionControllerTrigger2
@@ -2086,6 +2148,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                         else {
                                             if ($scope.userRecipes[index].trigger.type == 3) {
                                                 idCity_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.location;
+                                                locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                                 timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
                                                 sunset_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunset;
                                                 sunrise_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.sunrise;
@@ -2096,16 +2159,16 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                     "triggerType": "weather",
                                                     "type": "3",
                                                     "location": idCity_customWeatherActionControllerTrigger3,
+                                                    "locationName"  : locationName_ControllerTrigger3,
                                                     "timezone": timezone_customWeatherActionControllerTrigger3,
                                                     "sunset": sunset_customWeatherActionControllerTrigger3,
                                                     "sunrise": sunrise_customWeatherActionControllerTrigger3
-
-
                                                 };
                                             }
                                             else {
                                                 if ($scope.userRecipes[index].trigger.type == 4) {
                                                     idCity_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.location;
+                                                    locationName_ControllerTrigger4 = $scope.userRecipes[index].trigger.locationName;
                                                     ptimezone_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.timezone;
                                                     pthmax_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmax;
                                                     pthmin_customWeatherActionControllerTrigger4 = $scope.userRecipes[index].trigger.thmin;
@@ -2117,6 +2180,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                                         "triggerType": "weather",
                                                         "type": "4",
                                                         "location": idCity_customWeatherActionControllerTrigger4,
+                                                        "locationName"  : locationName_ControllerTrigger4,
                                                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                                         "thmax": pthmax_customWeatherActionControllerTrigger4,
                                                         "thmin": pthmin_customWeatherActionControllerTrigger4,
@@ -2287,14 +2351,14 @@ iftttApp.controller('createAccountController', ['$scope',
          * @param {} email
          * @param {} pws1
          * @param {} pws2
-         * @return 
+         * @return
          */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
-            if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2)) {
-                if (pws1 == pws2) {
-                    //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
-
+            if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2))
+            {
+                if (pws1.localeCompare(pws2) == 0 && pws1.length > 7)
+                {
                     var loginDataSend =
                     {
                         "username": user,
@@ -2316,17 +2380,81 @@ iftttApp.controller('createAccountController', ['$scope',
                         /**
                          * Description
                          * @method success
-                         * @return 
+                         * @return
                          */
-                        success: function () {
+                        success: function (response)
+                        {
                             $('#serverSpinner').spin(false);
-                            if (consoleLogs) console.log("la post ha avuto successo");
-                            window.location.replace('#');
+                            //if (consoleLogs) console.log("la post ha avuto successo");
+                            //window.location.replace('#');
+
+                            // i=0 : You have successfully signed. To complete the registration, please check your email
+                            if(response == 0)
+                            {
+                                flag_registration_success = true;
+                                window.location.replace('#SuccessRegistration');
+
+                                //alert("Success"); //Da metterci qualche cosa è solo una prova
+                                /*
+                                 var i = 0;
+                                 [lbl] start:
+                                 console.log("Hello, world!");
+                                 i++;
+                                 if(i < 538) goto start;
+                                 */
+
+                            }
+                            // i=1 : user already exist
+                            if(response == 1)
+                            {
+                                alertVariable = "Warning: user already exist";
+                                alertFunction();
+
+                            }
+                            // i=2 : email already exist
+                            if(response == 2)
+                            {
+                                alertVariable = "Warning: email already exist";
+                                alertFunction();
+
+
+                            }
+                            // i=3 : email not valid
+                            if(response == 3)
+                            {
+                                alertVariable = "Warning: email is not valid";
+                                alertFunction();
+
+
+                            }
+                            // i=4 : password too short
+                            if(response == 4)
+                            {
+                                alertVariable = "Warning: the password is too short";
+                                alertFunction();
+
+                            }
+                            // i=5 : username too short
+                            if(response == 5)
+                            {
+                                alertVariable = "Warning: username too short";
+                                alertFunction();
+
+                            }
+                            // i=6 : some errors
+                            if(response == 6)
+                            {
+                                alertVariable = "Sorry there is a error, " +
+                                    "try again mybe with some parameters or waiting some mitues and reload the site";
+                                alertFunction();
+
+                            }
+
                         },
                         /**
                          * Description
                          * @method error
-                         * @return 
+                         * @return
                          */
                         error: function () {
                             $('#serverSpinner').spin(false);
@@ -2338,14 +2466,112 @@ iftttApp.controller('createAccountController', ['$scope',
                     });
 
                 }
+                else
+                {
+                    if (pws1.localeCompare(pws2) != 0)
+                    {
+                        alertVariable = "The two password is not egual";
+                        alertFunction();
 
+                    }
+                    else
+                    {
+                        if(pws1.length < 8)
+                        {
+                            alertVariable = "Warning: the password one is too short!";
+                            alertFunction();
+
+                        }
+                        else
+                        if(pws2.length < 8)
+                        {
+                            alertVariable = "Warning: the password two is too short!";
+                            alertFunction();
+                        }
+
+                    }
+                }
             }
 
 
         }
 
+        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
+
+        /*
+
+
+         var requestLogout = {
+         requestLogout: 'iftttpolito'
+         };
+
+         $('#serverSpinner').spin();
+         $http({
+         method: 'POST',
+         url: 'http://localhost:8080/progetto/logout',
+         data: requestLogout
+         }).then(function success(response) {
+         if (consoleLogs) console.log(response.data.disconnected);
+         //    if(response.data.disconnected.localeCompare("true")==0){
+         $scope.iftttLogged = false;
+         iftttLogin = false;
+         $scope.googleLogged = false;
+         googleLogin = false;
+         $scope.twitterLogged = false;
+         twitterLogin = false;
+         $('#serverSpinner').spin(false);
+         $("#notificationsWrapper").notify(
+         "Logged out from IFTTT Polito",
+         {
+         className: 'warning',
+         position: 'bottom right'
+         }
+         );
+         window.location.replace('#');
+
+         if (consoleLogs) console.log($scope.iftttLogged);
+         }, function error() {
+         $('#serverSpinner').spin(false);
+         $('#loginIFTTTModal').modal('hide');
+         $("#notificationsWrapper").notify(
+         "Disconnect to IFTTT Polito failed",
+         {
+         className: 'error',
+         position: 'bottom right'
+         }
+         );
+         if (consoleLogs) console.log($scope.iftttLogged);
+         });
+
+         };
+         */
+
+
+        /*
+
+
+         Per la REGISTRAZIONE vi ritorno una variabile i che può avere i seguenti casi:
+         // i=0 : You have successfully signed. To complete the registration, please check your email
+         // i=1 : user already exist
+         // i=2 : email already exist
+         // i=3 : email not valid
+         // i=4 : password too short
+         // i=5 : username too short
+         // i=6 : some errors
+
+         Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+
+         Per la CREAZIONE DI UNA RICETTA (post), vi ritorno code che è il codice della ricetta appena creata; se code=-1 vuol dire che c'è stato qualche problema e la ricetta non è stata inserita.
+
+         Per la UPDATE DI UNA RICETTA (put, modify), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
+
+         Per la DELETE DI UNA RICETTA (delete, remove), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
+         */
+
+
 
     }]);
+
 
 
 iftttApp.controller('passwordChangeController', ['$scope',
@@ -2375,7 +2601,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
                         contentType: "application/json",
                         method: "post",
                         url: "http://localhost:8080/progetto/api/changepassword",
-                        data: loginDataSend,
+                        data: JSON.stringify(loginDataSend),
                         /**
                          * Description
                          * @method success
@@ -4427,6 +4653,8 @@ iftttApp.filter('reformat', function () {
                 return 'Max temperature (C°)';
             case 'thmin':
                 return 'Min temperature (C°)';
+            case 'locationName':
+                return 'Name of the city';
         }
 
 
@@ -4605,8 +4833,8 @@ function sedingServerAllRunput(loginDataSend) {
     $('#serverSpinner').spin();
     $.ajax({
         method: "put",
-        url: "http://localhost:3000/userRecipes/" + idRecipe,
-        data: loginDataSend,
+        url: "http://localhost:8080/progetto/api/userRecipes/" + idRecipe,
+        data: JSON.stringify(loginDataSend),
         dataType: "json",
         /**
          * Description
