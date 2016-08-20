@@ -1169,7 +1169,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             if (consoleLogs) console.log($scope.iftttLogged);
         });
 
-        $scope.userRecipes = null;
+        $scope.userRecipes = [];
         modifyVar = 0;
 
         /*
@@ -1197,7 +1197,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         )
             .then
             (
-                function success(response) {
+                function success(response)
+                {
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
@@ -1209,6 +1210,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     /* * * **************/
 
                     var index = 0;
+                    /*
+                    codice non più usato sicuro al 99,99%
                     $scope.userRecipes.forEach(function () {
 
                         descriptionRecipeGlobal = $scope.userRecipes[index].description;
@@ -1216,17 +1219,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
                         publishRecipeGlobal = $scope.userRecipes[index].publish;
-
-
-                        //alert("MODIFY RECIPE:\n\n\n"+descriptionRecipeGlobal+"\n\n"+idRecipe+"\n\n"+triggreGlobalVariable+"\n\n"+actionGlobalVariable+"\n\n"+publishRecipeGlobal+"\n\n"+"\n\n"+"\n\n");
-
-                        /*
-                         urlActionGlobalVariable = "";
-                         ulrTriggreGlobalVariable = "";
-
-                         */
-
-                        if (triggreGlobalVariable == "gmail") {
+                           if (triggreGlobalVariable == "gmail") {
                             sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
                             subject_GmailTriggerController = $scope.userRecipes[index].trigger.subject;
                             ulrTriggreGlobalVariable = "gMailTrigger";
@@ -1300,7 +1293,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             "Trigger type": "weather",
 
                                             "location": idCity_customWeatherActionControllerTrigger1,
-                                            "locationNamel" :  locationName_ControllerTrigger1,
+                                            "city" :  locationName_ControllerTrigger1,
                                             "ora": ora_customWeatherActionControllerTrigger1,
                                             "timezone": timezone_customWeatherActionControllerTrigger1
                                         };
@@ -1323,7 +1316,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                 "triggerType": "weather",
                                                 "type": "2",
                                                 "location": idCity_customWeatherActionControllerTrigger2,
-                                                "locationNamel" :  locationName_ControllerTrigger2,
+                                                "city" :  locationName_ControllerTrigger2,
                                                 "tempo": pweather_customWeatherActionControllerTrigger2,
                                                 "period": pperiod_customWeatherActionControllerTrigger2,
                                                 "timezone": pzone_customWeatherActionControllerTrigger2
@@ -1345,7 +1338,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                     "triggerType": "weather",
                                                     "type": "3",
                                                     "location": idCity_customWeatherActionControllerTrigger3,
-                                                    "locationNamel" :  locationName_ControllerTrigger3,
+                                                    "city" :  locationName_ControllerTrigger3,
                                                     "timezone": timezone_customWeatherActionControllerTrigger3,
                                                     "sunset": sunset_customWeatherActionControllerTrigger3,
                                                     "sunrise": sunrise_customWeatherActionControllerTrigger3
@@ -1368,7 +1361,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                         "triggerType": "weather",
                                                         "type": "4",
                                                         "location": idCity_customWeatherActionControllerTrigger4,
-                                                        "locationNamel" :  locationName_ControllerTrigger4,
+                                                        "city" :  locationName_ControllerTrigger4,
                                                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                                         "thmax": pthmax_customWeatherActionControllerTrigger4,
                                                         "thmin": pthmin_customWeatherActionControllerTrigger4,
@@ -1513,8 +1506,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         };
                         $scope.elements.push(dempJson);
                         index++;
-                    });
 
+                    });
+                    */
                     /*  *************/
 
 
@@ -4580,6 +4574,8 @@ iftttApp.filter('reformat', function () {
                 return 'Max temperature (C°)';
             case 'thmin':
                 return 'Min temperature (C°)';
+            case 'locationName':
+                return 'Name of the city';
         }
 
 
