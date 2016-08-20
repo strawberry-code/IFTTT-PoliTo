@@ -2139,6 +2139,16 @@ iftttApp.controller('createAccountController', ['$scope',
                          * @method success
                          * @return
                          */
+                       /**
+                        Per la REGISTRAZIONE vi ritorno una variabile i che può avere i seguenti casi:
+                        i=0 : You have successfully signed. To complete the registration, please check your email
+                        i=1 : user already exist
+                        i=2 : email already exist
+                        i=3 : email not valid
+                        i=4 : password too short
+                        i=5 : username too short
+                        i=6 : some errors
+                        **/
                         success: function (response)
                         {
                             $('#serverSpinner').spin(false);
