@@ -108,7 +108,7 @@ public class DataRestController {
 
 		System.out.println(i);
 
-		// i=0 : ok
+		// i=0 : You have successfully signed. To complete the registration, please check your email
 		// i=1 : user already exist
 		// i=2 : email already exist
 		// i=3 : email not valid

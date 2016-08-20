@@ -20,6 +20,8 @@ public class WeatherTrigger {
 	String ora;
 	@Column
 	Long location;
+	@Column
+	String locationName;
 	@Column(nullable=true)
 	Integer thmin;
 	@Column(nullable=true)
@@ -62,6 +64,12 @@ public class WeatherTrigger {
 	}
 	public void setLocation(Long location) {
 		this.location = location;
+	}
+	public String getLocationName() {
+		return locationName;
+	}
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 	public Integer getThmin() {
 		return thmin;
