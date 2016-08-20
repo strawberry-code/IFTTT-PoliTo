@@ -2351,6 +2351,12 @@ iftttApp.controller('passwordChangeController', ['$scope',
          * @param {} pws2
          * @return 
          */
+
+        /*
+         0 se è andato a buon fine,
+         -1 se qualcosa è andato storto,
+         -2 se la nuova password è troppo corta
+         */
         $scope.passwordChangeFunc = function (pws1, pws2) {
 
             if (angular.isDefined(pws1) && angular.isDefined(pws2)) {
@@ -2374,13 +2380,36 @@ iftttApp.controller('passwordChangeController', ['$scope',
                          * @method success
                          * @return 
                          */
-                        success: function () {
+                        success: function (response) {
                             $('#serverSpinner').spin(false);
-                            if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+                            //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
                             //alert("La password è stata modificata con successo");
-                            alertVariable = "Success: the password is changed";
-                            alertFunction();
-                            window.location.replace('#myRecipes');
+                            if(response == 0)
+                            {
+                                alertVariable = "Success: the password is changed";
+                                alertFunction();
+                                window.location.replace('#myRecipes');
+
+                            }
+                            else
+                            {
+
+                                if (response == -1)
+                                {
+                                    alertVariable = "Error: there has been a error . . .";
+                                    alertFunction();
+
+                                }
+                                else if(response == -2)
+                                {
+                                    alertVariable = "Error: the pasword is too much short";
+                                    alertFunction();
+                                    //window.location.replace('#myRecipes');
+
+
+                                }
+                            }
+
                         },
                         /**
                          * Description
@@ -2389,7 +2418,6 @@ iftttApp.controller('passwordChangeController', ['$scope',
                          */
                         error: function () {
                             $('#serverSpinner').spin(false);
-                            //alert("some error occurred");
                             alertVariable = "some error occurred";
                             alertFunction();
 
