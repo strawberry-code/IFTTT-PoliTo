@@ -1238,7 +1238,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     alertVariable = "Warning: there are been some errors";
                     alertFunction();
-                alert("error");
+                    //alert("error");
             })
                 .success(function () {
                     alertVariable = "SUCCESS!!!";
@@ -1275,12 +1275,16 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                 $('#serverSpinner').spin(false);
                 // Error code here
-                alert("error");
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
+                //alert("error");
             })
                 .success(function () {
                         $('#serverSpinner').spin(false);
                         $scope.userRecipes[index].publish = true;
-                        alert("o.k. true");
+                    alertVariable = "Success: now your repice is public";
+                    alertFunction();
+                        //alert("o.k. true");
                     }
                 );
 
@@ -1313,12 +1317,16 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                 $('#serverSpinner').spin(false);
                 // Error code here
+                    alertVariable = "Warning: sorry there have been some mistake!";
+                    alertFunction();
                 alert("error");
             })
                 .success(function () {
                     $('#serverSpinner').spin(false);
                     $scope.userRecipes[index].publish = false;
-                    alert("o.k. false");
+                    //alert("o.k. false");
+                    alertVariable = "Success: your recpice is now private";
+                    alertFunction();
                 });
 
         };
@@ -2079,8 +2087,10 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                 },
                 function error(response) {
+                    alertVariable = "Warning: there are been some errors";
+                    alertFunction();
                     // Error code here
-                    alert("error");
+                    //alert("error");
                 }
             );
 
@@ -2357,7 +2367,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                         success: function () {
                             $('#serverSpinner').spin(false);
                             if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
-                            alert("La password è stata modificata con successo");
+                            //alert("La password è stata modificata con successo");
+                            alertVariable = "Success: the password is changed";
+                            alertFunction();
                             window.location.replace('#myRecipes');
                         },
                         /**
@@ -2375,7 +2387,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     });
 
                 } else {
-                    alert("Input password error.");
+                    //alert("Input password error.");
+                    alertVariable = "Warning: input password error.";
+                    alertFunction();
                 }
 
             }
