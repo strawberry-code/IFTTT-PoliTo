@@ -21,6 +21,7 @@
     <script src="./static/scripts/engine.js"></script>
     <script src="./static/scripts/spin.js"></script>
     <script src="./static/scripts/jqueryspin.js"></script>
+    <script src="./static/scripts/jstz.js"></script>
 
 
     <!-- Cascade Style Sheets -->
