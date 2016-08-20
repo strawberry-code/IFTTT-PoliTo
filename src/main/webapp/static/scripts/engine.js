@@ -4449,9 +4449,9 @@ iftttApp.filter('reformat', function () {
             case 'eventAction':
                 return 'Event action';
             case 'thmax':
-                return 'Max temperature (C°)';
+                return 'Max temperature';
             case 'thmin':
-                return 'Min temperature (C°)';
+                return 'Min temperature';
             case 'locationName':
                 return 'Name of the city';
         }
@@ -4467,16 +4467,32 @@ iftttApp.filter('skeumorphize', function(){
         console.log('input: '+input+"\nwatchKey: "+watchKey);
 
         switch (watchKey) {
+
+            case 'thmax':
+                return input + " °C";
+
+            case 'thmin':
+                return input + " °C";
+
+            case 'timezone':
+                if (input > 0) {
+                    return "GMT+" + input;
+                } else {
+                    return "GMT" + input;
+                }
+
             case 'eventAction':
+            {
                 switch (input) {
                     case true:
                         return 'When a new event is added';
                     case false:
                         return 'When a new event is created';
-
                 }
+            }
 
-            default: return input;
+            default:
+                return input;
         }
 
 
