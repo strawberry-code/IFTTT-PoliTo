@@ -190,6 +190,13 @@ public class DataRestController {
 		return code;
 	}
 	
+	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.DELETE)
+	Integer deleteRecipe(@PathVariable("id") Integer id) {
+		Integer code = recipesManager.deleteRecipe(id);
+		// -1 if error
+		return code;
+	}
+	
 	
 	//To check if he/her is authenticated
 	@RequestMapping(value = "prova", method = RequestMethod.POST)

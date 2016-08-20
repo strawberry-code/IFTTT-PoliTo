@@ -1538,7 +1538,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: 'delete',
-                    url: 'http://localhost:3000/userRecipes/' + id
+                    url: 'http://localhost:8080/progetto/api/userRecipes/' + id
                 }
             ).error(function () {
                 // Error code here

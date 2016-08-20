@@ -13,6 +13,7 @@ public interface RecipesManager {
 	
 	Integer addRecipe(String data);
 	Integer modifyRecipe(Integer id, String data);
+	Integer deleteRecipe(Integer id);
 	//List<Recipes> findRecipesByUser(Integer userid);
 	
 	//extract information from a particular recipe

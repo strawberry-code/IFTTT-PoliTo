@@ -29,6 +29,14 @@ public class RecipesManagerImpl implements RecipesManager {
 	SessionFactory sessionFactory;
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	CalendarManager calendarManager;
+	@Autowired
+	GmailManager gmailManager;
+	@Autowired
+	WeatherManager weatherManager;
+	@Autowired
+	TwitterManager twitterManager;
 	
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -223,17 +231,21 @@ public class RecipesManagerImpl implements RecipesManager {
 	public Integer modifyRecipe(Integer id, String data) {
 		Session session = sessionFactory.openSession();
 		
+		//new data
 		JSONObject ricetta = new JSONObject(data);
 		String trig = ricetta.get("trigger").toString();
 		String act = ricetta.get("action").toString();
 		JSONObject trigger = new JSONObject(trig);
 		JSONObject action = new JSONObject(act);
-
 		String triggerType = trigger.get("triggerType").toString();
 		String actionType = action.get("actionType").toString();
 
 		Integer flag = 0;
+		
+		//old data
 		Recipes rec = this.findRecipesById(id);
+		String triggerTypeOld = rec.getTriggerType();
+		String actionTypeOld = rec.getActionType();
 		Integer triggerid = rec.getTriggerid();
 		Integer actionid = rec.getActionid();
 
@@ -290,11 +302,31 @@ public class RecipesManagerImpl implements RecipesManager {
 				}
 				else {
 					//the trigger type changed
-					//insert the new trigger
+					//delete the old trigger and insert the new one
 					
-					//TODO: valutare se eliminare l'altro o lasciarlo
-					//		nel db (tanto non dovrebbe dare fastidio)
+					// TRIGGER to delete
+					if(triggerTypeOld.compareTo("calendar")==0) {
+						CalendarTrigger caltr = calendarManager.findCalendarTriggerById(triggerid);
+						session.delete(caltr);
+						session.flush();					
+					} else if(triggerTypeOld.compareTo("gmail")==0) {
+						GmailTrigger gmailtr = gmailManager.findGmailTriggerById(triggerid);
+						session.delete(gmailtr);
+						session.flush();					
+					} else if(triggerTypeOld.compareTo("weather")==0) {
+						WeatherTrigger weatr = weatherManager.findWeatherTriggerById(triggerid);
+						session.delete(weatr);
+						session.flush();
+					} else if(triggerTypeOld.compareTo("twitter")==0) {
+						TwitterTrigger twitr = twitterManager.findTwitterTriggerById(triggerid);
+						session.delete(twitr);
+						session.flush();
+					} else {
+						//type non valido
+						flag = -1;
+					}
 					
+					// TRIGGER to add
 					if (triggerType.compareTo("calendar") == 0) {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -372,11 +404,27 @@ public class RecipesManagerImpl implements RecipesManager {
 				}
 				else {
 					//the action type changed
-					//insert the new action
+					//delete the old action and insert the new one
 					
-					//TODO: valutare se eliminare l'altro o lasciarlo
-					//		nel db (tanto non dovrebbe dare fastidio)
+					// ACTION to delete
+					if(actionTypeOld.compareTo("calendar")==0) {
+						CalendarAction calac = calendarManager.findCalendarActionById(actionid);
+						session.delete(calac);
+						session.flush();
+					} else if(actionTypeOld.compareTo("gmail")==0) {
+						GmailAction gmailac = gmailManager.findGmailActionById(actionid);
+						session.delete(gmailac);
+						session.flush();
+					} else if(actionTypeOld.compareTo("twitter")==0) {
+						TwitterAction twiac = twitterManager.findTwitterActionById(actionid);
+						session.delete(twiac);
+						session.flush();
+					} else {
+						//type non valido
+						flag = -1;
+					}
 					
+					// ACTION to add
 					if (actionType.compareTo("calendar") == 0) {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -438,6 +486,84 @@ public class RecipesManagerImpl implements RecipesManager {
 		}
 
 		//se qualcosa e' andato storto, sara' -1		
+		return flag;
+	}
+
+	public Integer deleteRecipe(Integer id) {
+		
+		Session session = sessionFactory.openSession();
+		Integer flag = 0;
+		
+		Recipes recipe = this.findRecipesById(id);		
+		String triggerType = recipe.getTriggerType();
+		String actionType = recipe.getActionType();
+		Integer triggerid = recipe.getTriggerid();		
+		Integer actionid = recipe.getActionid();
+		
+		
+		try {
+			// begin transaction
+			Transaction tx = session.beginTransaction();
+			try {
+				// TRIGGER to delete
+				if(triggerType.compareTo("calendar")==0) {
+					CalendarTrigger caltr = calendarManager.findCalendarTriggerById(triggerid);
+					session.delete(caltr);
+					session.flush();					
+				} else if(triggerType.compareTo("gmail")==0) {
+					GmailTrigger gmailtr = gmailManager.findGmailTriggerById(triggerid);
+					session.delete(gmailtr);
+					session.flush();					
+				} else if(triggerType.compareTo("weather")==0) {
+					WeatherTrigger weatr = weatherManager.findWeatherTriggerById(triggerid);
+					session.delete(weatr);
+					session.flush();
+				} else if(triggerType.compareTo("twitter")==0) {
+					TwitterTrigger twitr = twitterManager.findTwitterTriggerById(triggerid);
+					session.delete(twitr);
+					session.flush();
+				} else {
+					//type non valido
+					flag = -1;
+				}
+				
+				// ACTION to delete
+				if(actionType.compareTo("calendar")==0) {
+					CalendarAction calac = calendarManager.findCalendarActionById(actionid);
+					session.delete(calac);
+					session.flush();
+				} else if(actionType.compareTo("gmail")==0) {
+					GmailAction gmailac = gmailManager.findGmailActionById(actionid);
+					session.delete(gmailac);
+					session.flush();
+				} else if(actionType.compareTo("twitter")==0) {
+					TwitterAction twiac = twitterManager.findTwitterActionById(actionid);
+					session.delete(twiac);
+					session.flush();
+				} else {
+					//type non valido
+					flag = -1;
+				}
+				
+				// RECIPE to delete
+				session.delete(recipe);
+				session.flush();	
+		
+			} catch (Exception e) {
+				// if some errors during the transaction occur,
+				// rollback and return code -1
+				System.out.println(e);
+				tx.rollback();
+				return -1;
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		
+		// -1 if some error
 		return flag;
 	}
 	
