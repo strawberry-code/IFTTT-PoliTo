@@ -1209,9 +1209,12 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                     /* * * **************/
 
-                    var index = 0;
                     /*
                     codice non più usato sicuro al 99,99%
+
+
+                    var index = 0;
+
                     $scope.userRecipes.forEach(function () {
 
                         descriptionRecipeGlobal = $scope.userRecipes[index].description;
