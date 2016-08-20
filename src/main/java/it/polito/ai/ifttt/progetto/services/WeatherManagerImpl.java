@@ -6,8 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import it.polito.ai.ifttt.progetto.models.GmailAction;
 import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 
 public class WeatherManagerImpl implements WeatherManager {

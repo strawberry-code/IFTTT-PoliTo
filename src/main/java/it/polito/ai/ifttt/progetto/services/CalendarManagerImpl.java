@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import it.polito.ai.ifttt.progetto.models.CalendarAction;
 import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
-import it.polito.ai.ifttt.progetto.models.GmailAction;
-import it.polito.ai.ifttt.progetto.models.GmailTrigger;
-import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 
 public class CalendarManagerImpl implements CalendarManager {
 
