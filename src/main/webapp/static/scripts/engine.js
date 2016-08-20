@@ -1567,8 +1567,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: "put",
-                    url: "http://localhost:3000/userRecipes/" + id,
-                    data: flagDataSend,
+                    url: "http://localhost:8080/progetto/api/publish/userRecipes/" + id,
+                    data: flagDataSend.publish,
                     contentType: "application/json"
                 }
             ).error(function () {
@@ -1605,8 +1605,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             (
                 {
                     method: "put",
-                    url: "http://localhost:3000/userRecipes/" + id,
-                    data: flagDataSend,
+                    url: "http://localhost:8080/progetto/api/publish/userRecipes/" + id,
+                    data: flagDataSend.publish,
                     contentType: "application/json"
                 }
             ).error(function () {
@@ -2039,7 +2039,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
         (
             {
                 method: 'GET',
-                url: 'http://localhost:8080/progetto/api/userRecipes'
+                url: 'http://localhost:8080/progetto/api/publish/userRecipes'
             }
         )
             .then

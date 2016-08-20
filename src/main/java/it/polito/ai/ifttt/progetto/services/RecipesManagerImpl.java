@@ -565,6 +565,23 @@ public class RecipesManagerImpl implements RecipesManager {
 		// -1 if some error
 		return flag;
 	}
+
+	public void publishRecipe(Recipes recipe) {
+
+		Session session = sessionFactory.openSession();
+		
+		try {
+			session.update(recipe);
+			session.flush();
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		
+		return;
+	}
 	
 /*	@SuppressWarnings("unchecked")
 	public List<Recipes> findRecipesByUser(Integer userid) {

@@ -108,7 +108,8 @@ public class DataRestController {
 
 		System.out.println(i);
 
-		// i=0 : You have successfully signed. To complete the registration, please check your email
+		// i=0 : You have successfully signed. To complete the registration,
+		// please check your email
 		// i=1 : user already exist
 		// i=2 : email already exist
 		// i=3 : email not valid
@@ -125,61 +126,59 @@ public class DataRestController {
 		Integer code = recipesManager.addRecipe(data);
 		return code;
 	}
-	
+
 	@RequestMapping(value = "userRecipes", method = RequestMethod.GET)
 	List<recipeJsonClass> getRecipes() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		List<Recipes> recipes = user.getRecipes();
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
-		for(Recipes r : recipes) {
+		for (Recipes r : recipes) {
 			recipeJsonClass ricettaJson = new recipeJsonClass();
 			ricettaJson.setId(r.getRid());
 			ricettaJson.setDescription(r.getDescription());
-			
-			//prelevo trigger e setto
+
+			// prelevo trigger e setto
 			String triggerType = r.getTriggerType();
 			Integer triggerid = r.getTriggerid();
 			Object trigger = null;
-			if(triggerType.compareTo("gmail")==0) {
+			if (triggerType.compareTo("gmail") == 0) {
 				trigger = gmailManager.findGmailTriggerById(triggerid);
-			} else if(triggerType.compareTo("calendar")==0) {
+			} else if (triggerType.compareTo("calendar") == 0) {
 				trigger = calendarManager.findCalendarTriggerById(triggerid);
-			} else if(triggerType.compareTo("weather")==0) {
+			} else if (triggerType.compareTo("weather") == 0) {
 				trigger = weatherManager.findWeatherTriggerById(triggerid);
-			} else if(triggerType.compareTo("twitter")==0) {
+			} else if (triggerType.compareTo("twitter") == 0) {
 				trigger = twitterManager.findTwitterTriggerById(triggerid);
-			}
-			else {
-				//valore non valido
+			} else {
+				// valore non valido
 				return null;
-			}			
+			}
 			ricettaJson.setTrigger(trigger);
-			
-			//prelevo action e setto
+
+			// prelevo action e setto
 			String actionType = r.getActionType();
 			Integer actionid = r.getActionid();
 			Object action = null;
-			if(actionType.compareTo("gmail")==0) {
+			if (actionType.compareTo("gmail") == 0) {
 				action = gmailManager.findGmailActionById(actionid);
-			} else if(actionType.compareTo("calendar")==0) {
+			} else if (actionType.compareTo("calendar") == 0) {
 				action = calendarManager.findCalendarActionById(actionid);
-			} else if(actionType.compareTo("twitter")==0) {
+			} else if (actionType.compareTo("twitter") == 0) {
 				action = twitterManager.findTwitterActionById(actionid);
-			}
-			else {
-				//valore non valido
+			} else {
+				// valore non valido
 				return null;
-			}	
+			}
 			ricettaJson.setAction(action);
-			
+
 			ricettaJson.setPublish(r.getPublish());
-			
+
 			list.add(ricettaJson);
 		}
 		return list;
 	}
-	
+
 	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.PUT)
 	Integer modifyRecipe(@PathVariable("id") Integer id, @RequestBody String data) {
 		System.out.println(data);
@@ -187,94 +186,167 @@ public class DataRestController {
 		// -1 if error
 		return code;
 	}
-	
+
 	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.DELETE)
 	Integer deleteRecipe(@PathVariable("id") Integer id) {
 		Integer code = recipesManager.deleteRecipe(id);
 		// -1 if error
 		return code;
 	}
-	
-	
-	//To check if he/her is authenticated
+
+	// To check if he/her is authenticated
 	@RequestMapping(value = "prova", method = RequestMethod.POST)
 	returnClass provaLogin() {
-		
+
 		String ret = "";
 		String retG = "";
 		String retT = "";
-		
-		//check if he/her is auhenticated to ifttt polito
+
+		// check if he/her is auhenticated to ifttt polito
 		String user = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		if(user!=null && user.compareTo("anonymousUser")!=0) {
+		if (user != null && user.compareTo("anonymousUser") != 0) {
 			ret = "true";
-		}
-		else {
+		} else {
 			ret = "false";
 		}
-		
-		//check if he/her is auhenticated to google
+
+		// check if he/her is auhenticated to google
 		Boolean connectedG = loginManager.checkGoogleConnection(user);
-		if(connectedG) {
+		if (connectedG) {
 			retG = "true";
-		}
-		else {
+		} else {
 			retT = "false";
 		}
-		
-		//check if he/her is auhenticated to twitter
+
+		// check if he/her is auhenticated to twitter
 		Boolean connectedT = loginManager.checkTwitterConnection(user);
-		if(connectedT) {
+		if (connectedT) {
 			retT = "true";
-		}
-		else {
+		} else {
 			retT = "false";
 		}
-		
+
 		returnClass res = new returnClass();
 		res.setIftttLogged(ret);
 		res.setGoogleLogged(retG);
 		res.setTwitterLogged(retT);
 		return res;
 	}
-	
+
 	@RequestMapping(value = "disconnectGoogle", method = RequestMethod.POST)
 	returnClass disconnectGoogle() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		loginManager.disconnectGoogle(username);
-		
-		//TODO: occorre invalidare anche tutte le ricette dell'utente
-		//		con google (ad esempio ponendo un booleano "valid" e 
-		//		aggiungendo tutti i controlli nella logica
-		
+
+		// TODO: occorre invalidare anche tutte le ricette dell'utente
+		// con google (ad esempio ponendo un booleano "valid" e
+		// aggiungendo tutti i controlli nella logica
+
 		returnClass res = new returnClass();
 		res.setDisconnected(true);
 		return res;
 	}
-	
+
 	@RequestMapping(value = "disconnectTwitter", method = RequestMethod.POST)
 	returnClass disconnectTwitter() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		loginManager.disconnectTwitter(username);
-		
-		//TODO: occorre invalidare anche tutte le ricette dell'utente
-		//		con twitter (ad esempio ponendo un booleano "valid" e 
-		//		aggiungendo tutti i controlli nella logica
-		
+
+		// TODO: occorre invalidare anche tutte le ricette dell'utente
+		// con twitter (ad esempio ponendo un booleano "valid" e
+		// aggiungendo tutti i controlli nella logica
+
 		returnClass res = new returnClass();
 		res.setDisconnected(true);
 		return res;
 	}
-	
+
 	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
 	Integer changePassword(@RequestBody requestClass data) {
-		
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		
-		String newpass = data.getNewpassword();		
+		String newpass = data.getNewpassword();
 		Integer code = loginManager.changePassword(username, newpass);
-		
-		//-1 if error
+
+		// -1 if error
 		return code;
+	}
+
+	@RequestMapping(value = "publish/userRecipes/{id}", method = RequestMethod.PUT)
+	Integer publishRecipe(@PathVariable("id") Integer id, @RequestBody Boolean data) {
+
+		System.out.println(data);
+		Integer code = 0;
+
+		Recipes recipe = recipesManager.findRecipesById(id);
+		if (recipe == null) {
+			code = -1;
+		} else {
+			if (data==true) {
+				recipe.setPublish(true);
+				recipesManager.publishRecipe(recipe);
+			} else if(data==false) {
+				recipe.setPublish(false);
+				recipesManager.publishRecipe(recipe);
+			} else {
+				code = -1;
+			}
+		}
+		// -1 if error
+		return code;
+	}
+	
+	@RequestMapping(value = "publish/userRecipes", method = RequestMethod.GET)
+	List<recipeJsonClass> getPublishRecipe() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		List<Recipes> recipes = user.getRecipes();
+		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+		for (Recipes r : recipes) {
+			if(r.getPublish()) {
+				recipeJsonClass ricettaJson = new recipeJsonClass();
+				ricettaJson.setId(r.getRid());
+				ricettaJson.setDescription(r.getDescription());
+
+				// prelevo trigger e setto
+				String triggerType = r.getTriggerType();
+				Integer triggerid = r.getTriggerid();
+				Object trigger = null;
+				if (triggerType.compareTo("gmail") == 0) {
+					trigger = gmailManager.findGmailTriggerById(triggerid);
+				} else if (triggerType.compareTo("calendar") == 0) {
+					trigger = calendarManager.findCalendarTriggerById(triggerid);
+				} else if (triggerType.compareTo("weather") == 0) {
+					trigger = weatherManager.findWeatherTriggerById(triggerid);
+				} else if (triggerType.compareTo("twitter") == 0) {
+					trigger = twitterManager.findTwitterTriggerById(triggerid);
+				} else {
+					// valore non valido
+					return null;
+				}
+				ricettaJson.setTrigger(trigger);
+
+				// prelevo action e setto
+				String actionType = r.getActionType();
+				Integer actionid = r.getActionid();
+				Object action = null;
+				if (actionType.compareTo("gmail") == 0) {
+					action = gmailManager.findGmailActionById(actionid);
+				} else if (actionType.compareTo("calendar") == 0) {
+					action = calendarManager.findCalendarActionById(actionid);
+				} else if (actionType.compareTo("twitter") == 0) {
+					action = twitterManager.findTwitterActionById(actionid);
+				} else {
+					// valore non valido
+					return null;
+				}
+				ricettaJson.setAction(action);
+
+				ricettaJson.setPublish(r.getPublish());
+
+				list.add(ricettaJson);
+			}
+		}
+		return list;
 	}
 }
