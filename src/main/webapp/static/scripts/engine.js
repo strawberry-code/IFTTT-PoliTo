@@ -4424,6 +4424,10 @@ iftttApp.filter('reformat', function () {
     };
 });
 
+iftttApp.filter('skeumorphize', function(){
+    return function (input, watchKey) {
+});
+
 
 iftttApp.directive('bsTooltip', function () {
     return {
