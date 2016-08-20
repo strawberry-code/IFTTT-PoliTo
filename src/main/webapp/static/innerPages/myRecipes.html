@@ -85,10 +85,10 @@
                             && !(key == 'mtid')
                             && !(key == 'wtid')
                             && !(key == 'type')
-                            && !(key == 'ttid')
+                            && !(key == 'twtid')
                             && !(data == null)
                             ">
-                                <h4>{{key | reformat | capitalize}}:</h4> {{data}}
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key}}
                             </div>
                         </div>
 
@@ -101,7 +101,7 @@
                             && !(key == 'gaid')
                             && !(key == 'caid')
                             && !(key == 'maid')
-                            && !(key == 'taid')
+                            && !(key == 'twaid')
                             && !(data == null)
                             ">
                                 <h4>{{key | reformat | capitalize}}:</h4> {{data}}

@@ -4424,6 +4424,28 @@ iftttApp.filter('reformat', function () {
     };
 });
 
+iftttApp.filter('skeumorphize', function(){
+    return function (input, watchKey) {
+
+        console.log('input: '+input+"\nwatchKey: "+watchKey);
+
+        switch (watchKey) {
+            case 'eventAction':
+                switch (input) {
+                    case true:
+                        return 'When a new event is added';
+                    case false:
+                        return 'When a new event is created';
+
+                }
+
+            default: return input;
+        }
+
+
+    }
+});
+
 
 iftttApp.directive('bsTooltip', function () {
     return {
