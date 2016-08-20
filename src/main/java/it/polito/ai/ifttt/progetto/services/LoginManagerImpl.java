@@ -395,11 +395,15 @@ public class LoginManagerImpl implements LoginManager {
 				user = (Users) query.list().get(0);
 			} catch(Exception e) {
 				flag = -1;
-			}			
-			user.setPassword(this.computeMD5(newpass));
-			session.update(user);
-			session.flush();
-			// users = query.list();
+			}
+			if (newpass.length() < 8) {
+				flag = -2;
+			}
+			else {
+				user.setPassword(this.computeMD5(newpass));
+				session.update(user);
+				session.flush();
+			}
 		} finally {
 			if (session != null) {
 				// close session in any case
