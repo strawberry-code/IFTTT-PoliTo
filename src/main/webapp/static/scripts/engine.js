@@ -2384,15 +2384,14 @@ iftttApp.controller('createAccountController', ['$scope',
          * @param {} email
          * @param {} pws1
          * @param {} pws2
-         * @return 
+         * @return
          */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
             if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2))
             {
-                if (1==1) { //solo una prova da implementare ma stavo facendo il nome della città
-                    //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
-
+                if (pws1.localeCompare(pws2) == 0 && pws1.length > 7)
+                {
                     var loginDataSend =
                     {
                         "username": user,
@@ -2414,17 +2413,78 @@ iftttApp.controller('createAccountController', ['$scope',
                         /**
                          * Description
                          * @method success
-                         * @return 
+                         * @return
                          */
-                        success: function () {
+                        success: function (response)
+                        {
                             $('#serverSpinner').spin(false);
-                            if (consoleLogs) console.log("la post ha avuto successo");
-                            window.location.replace('#');
+                            //if (consoleLogs) console.log("la post ha avuto successo");
+                            //window.location.replace('#');
+
+                            // i=0 : You have successfully signed. To complete the registration, please check your email
+                            if(response == 0)
+                            {
+                                alert("Success"); //Da metterci qualche cosa è solo una prova
+                                /*
+                                 var i = 0;
+                                 [lbl] start:
+                                 console.log("Hello, world!");
+                                 i++;
+                                 if(i < 538) goto start;
+                                 */
+
+                            }
+                            // i=1 : user already exist
+                            if(response == 1)
+                            {
+                                alertVariable = "Warning: user already exist";
+                                alertFunction();
+
+                            }
+                            // i=2 : email already exist
+                            if(response == 2)
+                            {
+                                alertVariable = "Warning: email already exist";
+                                alertFunction();
+
+
+                            }
+                            // i=3 : email not valid
+                            if(response == 3)
+                            {
+                                alertVariable = "Warning: email is not valid";
+                                alertFunction();
+
+
+                            }
+                            // i=4 : password too short
+                            if(response == 4)
+                            {
+                                alertVariable = "Warning: the password is too short";
+                                alertFunction();
+
+                            }
+                            // i=5 : username too short
+                            if(response == 5)
+                            {
+                                alertVariable = "Warning: username too short";
+                                alertFunction();
+
+                            }
+                            // i=6 : some errors
+                            if(response == 6)
+                            {
+                                alertVariable = "Sorry there is a error, " +
+                                    "try again mybe with some parameters or waiting some mitues and reload the site";
+                                alertFunction();
+
+                            }
+
                         },
                         /**
                          * Description
                          * @method error
-                         * @return 
+                         * @return
                          */
                         error: function () {
                             $('#serverSpinner').spin(false);
@@ -2436,7 +2496,31 @@ iftttApp.controller('createAccountController', ['$scope',
                     });
 
                 }
+                else
+                {
+                    if (pws1.localeCompare(pws2) != 0)
+                    {
+                        alertVariable = "The two password is not egual";
+                        alertFunction();
 
+                    }
+                    else
+                    {
+                        if(pws1.length < 8)
+                        {
+                            alertVariable = "Warning: the password one is too short!";
+                            alertFunction();
+
+                        }
+                        else
+                        if(pws2.length < 8)
+                        {
+                            alertVariable = "Warning: the password two is too short!";
+                            alertFunction();
+                        }
+
+                    }
+                }
             }
 
 
@@ -2447,55 +2531,77 @@ iftttApp.controller('createAccountController', ['$scope',
         /*
 
 
-        var requestLogout = {
-            requestLogout: 'iftttpolito'
-        };
+         var requestLogout = {
+         requestLogout: 'iftttpolito'
+         };
 
-        $('#serverSpinner').spin();
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8080/progetto/logout',
-            data: requestLogout
-        }).then(function success(response) {
-            if (consoleLogs) console.log(response.data.disconnected);
-            //    if(response.data.disconnected.localeCompare("true")==0){
-            $scope.iftttLogged = false;
-            iftttLogin = false;
-            $scope.googleLogged = false;
-            googleLogin = false;
-            $scope.twitterLogged = false;
-            twitterLogin = false;
-            $('#serverSpinner').spin(false);
-            $("#notificationsWrapper").notify(
-                "Logged out from IFTTT Polito",
-                {
-                    className: 'warning',
-                    position: 'bottom right'
-                }
-            );
-            window.location.replace('#');
+         $('#serverSpinner').spin();
+         $http({
+         method: 'POST',
+         url: 'http://localhost:8080/progetto/logout',
+         data: requestLogout
+         }).then(function success(response) {
+         if (consoleLogs) console.log(response.data.disconnected);
+         //    if(response.data.disconnected.localeCompare("true")==0){
+         $scope.iftttLogged = false;
+         iftttLogin = false;
+         $scope.googleLogged = false;
+         googleLogin = false;
+         $scope.twitterLogged = false;
+         twitterLogin = false;
+         $('#serverSpinner').spin(false);
+         $("#notificationsWrapper").notify(
+         "Logged out from IFTTT Polito",
+         {
+         className: 'warning',
+         position: 'bottom right'
+         }
+         );
+         window.location.replace('#');
 
-            if (consoleLogs) console.log($scope.iftttLogged);
-        }, function error() {
-            $('#serverSpinner').spin(false);
-            $('#loginIFTTTModal').modal('hide');
-            $("#notificationsWrapper").notify(
-                "Disconnect to IFTTT Polito failed",
-                {
-                    className: 'error',
-                    position: 'bottom right'
-                }
-            );
-            if (consoleLogs) console.log($scope.iftttLogged);
-        });
+         if (consoleLogs) console.log($scope.iftttLogged);
+         }, function error() {
+         $('#serverSpinner').spin(false);
+         $('#loginIFTTTModal').modal('hide');
+         $("#notificationsWrapper").notify(
+         "Disconnect to IFTTT Polito failed",
+         {
+         className: 'error',
+         position: 'bottom right'
+         }
+         );
+         if (consoleLogs) console.log($scope.iftttLogged);
+         });
 
-    };
-*/
-
-
+         };
+         */
 
 
-}]);
+        /*
+
+
+         Per la REGISTRAZIONE vi ritorno una variabile i che può avere i seguenti casi:
+         // i=0 : You have successfully signed. To complete the registration, please check your email
+         // i=1 : user already exist
+         // i=2 : email already exist
+         // i=3 : email not valid
+         // i=4 : password too short
+         // i=5 : username too short
+         // i=6 : some errors
+
+         Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+
+         Per la CREAZIONE DI UNA RICETTA (post), vi ritorno code che è il codice della ricetta appena creata; se code=-1 vuol dire che c'è stato qualche problema e la ricetta non è stata inserita.
+
+         Per la UPDATE DI UNA RICETTA (put, modify), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
+
+         Per la DELETE DI UNA RICETTA (delete, remove), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
+         */
+
+
+
+    }]);
+
 
 
 iftttApp.controller('passwordChangeController', ['$scope',
