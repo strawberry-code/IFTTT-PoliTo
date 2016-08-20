@@ -4426,6 +4426,8 @@ iftttApp.filter('reformat', function () {
 
 iftttApp.filter('skeumorphize', function(){
     return function (input, watchKey) {
+
+        console.log('input: '+input+"\nwatchKey: "+watchKey);
 });
 
 
