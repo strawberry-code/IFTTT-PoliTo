@@ -1206,6 +1206,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             modulinoj1 =
                             {
                                 "Action type": "gmail",
+                                "ingredientCode": 13,
                                 //Tn 1
                                 "Sender": sender_GmailTriggerController,
                                 "Subject": subject_GmailTriggerController
@@ -1225,7 +1226,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     modulinoj1 =
                                     {
                                         "Action type": "calendar",
-
+                                        "ingredientCode": 11,
 
                                         //Tn 2 S0
                                         "Title": title_Trigger1GcalendarController,
@@ -1245,7 +1246,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     modulinoj1 =
                                     {
                                         "Trigger type": "calendar",
-
+                                        "ingredientCode": 12,
                                         //Tn 3
                                         "Title": title_Trigger2GcalendarController,
                                         "Description": description_Trigger2GcalendarController,
@@ -1269,7 +1270,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                         modulinoj1 =
                                         {
                                             "Trigger type": "weather",
-
+                                            "ingredientCode": 14,
                                             "location": idCity_customWeatherActionControllerTrigger1,
                                             "ora": ora_customWeatherActionControllerTrigger1,
                                             "timezone": timezone_customWeatherActionControllerTrigger1
@@ -1290,6 +1291,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             modulinoj1 =
                                             {
                                                 "triggerType": "weather",
+                                                "ingredientCode": 15,
                                                 "type": "2",
                                                 "location": idCity_customWeatherActionControllerTrigger2,
                                                 "tempo": pweather_customWeatherActionControllerTrigger2,
@@ -1310,6 +1312,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                 modulinoj1 =
                                                 {
                                                     "triggerType": "weather",
+                                                    "ingredientCode": 16,
                                                     "type": "3",
                                                     "location": idCity_customWeatherActionControllerTrigger3,
                                                     "timezone": timezone_customWeatherActionControllerTrigger3,
@@ -1332,6 +1335,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                                     {
                                                         "triggerType": "weather",
                                                         "type": "4",
+                                                        "ingredientCode": 17,
                                                         "location": idCity_customWeatherActionControllerTrigger4,
                                                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                                                         "thmax": pthmax_customWeatherActionControllerTrigger4,
@@ -1358,6 +1362,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             modulinoj1 =
                                             {
                                                 "triggerType": "twitter",
+                                                "ingredientCode": 18,
                                                 "type": false,
                                                 "hashtag_text": hashtag_text_trigger1TwitterController,
                                                 "username_sender": username_sender_trigger1TwitterController
@@ -1373,6 +1378,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                             modulinoj1 =
                                             {
                                                 "triggerType": "twitter",
+                                                "ingredientCode": 19,
                                                 "type": true,
                                                 "hashtag_text": hashtag_text_trigger2TwitterController,
                                                 "username_sender": username_sender_trigger2TwitterController
@@ -1397,6 +1403,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             modulinoj2 =
                             {
                                 "actionType": "calendar",
+                                "ingredientCode": 21,
                                 //An 2
                                 "title": title_action1GcalendarController,
                                 "description": subjectReceive_action1GcalendarController,
@@ -1419,6 +1426,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj2 =
                                 {
                                     "actionType": "gmail",
+                                    "ingredientCode": 22,
                                     "body": body_GmailActionController,
                                     "receiver": receiver_GmailActionController,
                                     "sender": sender_GmailActionController,
@@ -1436,6 +1444,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     modulinoj2 =
                                     {
                                         "actionType": "twitter",
+                                        "ingredientCode": 23,
                                         "type": false,
                                         "body": subject_action1TwitterController,
                                         "destination": null
@@ -1452,6 +1461,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     modulinoj2 =
                                     {
                                         "actionType": "twitter",
+                                        "ingredientCode": 24,
                                         "type": true,
                                         "destination": title_action2TwitterController,
                                         "body": subjec_action2TwitterController
@@ -4422,6 +4432,28 @@ iftttApp.filter('reformat', function () {
 
         return x;
     };
+});
+
+iftttApp.filter('skeumorphize', function(){
+    return function (input, watchKey) {
+
+        console.log('input: '+input+"\nwatchKey: "+watchKey);
+
+        switch (watchKey) {
+            case 'eventAction':
+                switch (input) {
+                    case true:
+                        return 'When a new event is added';
+                    case false:
+                        return 'When a new event is created';
+
+                }
+
+            default: return input;
+        }
+
+
+    }
 });
 
 
