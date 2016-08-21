@@ -82,6 +82,7 @@
                             && !(key == 'gtid')
                             && !(key == 'ctid')
                             && !(key == 'location')
+                            && !(key == 'eventAction')
                             && !(key == 'mtid')
                             && !(key == 'wtid')
                             && !(key == 'type')
@@ -103,7 +104,7 @@
                             && !(key == 'twaid')
                             && !(data == null)
                             ">
-                                <h4>{{key | reformat | capitalize}}:</h4> {{data}}
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key}}
                             </div>
                         </div>
 
