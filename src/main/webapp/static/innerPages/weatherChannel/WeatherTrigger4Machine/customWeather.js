@@ -405,9 +405,9 @@ $(function(){
 
                     modulinoj1 =
                     {
+                        "ingredientCode" : 17,
                         "triggerType": "weather",
                         "type": "4",
-                        "ingredientCode" : 17,
                         "location": idCity_customWeatherActionControllerTrigger4,
                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                         "thmax": pthmax_customWeatherActionControllerTrigger4,
