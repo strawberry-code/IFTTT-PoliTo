@@ -4625,7 +4625,6 @@ function sedingServerAllRun(loginDataSend) {
          * @return 
          */
         success: function (response) {
-            alert("hh");
             $('#serverSpinner').spin(false);
             if(response == -1)
             {
