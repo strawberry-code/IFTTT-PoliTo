@@ -1503,7 +1503,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj1 =
                                 {
                                     "triggerType": "weather",
-                                    "ingredientCode": 14,
+                                    "ingredientCode": 15,
                                     "type": "2",
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "locationName"  : locationName_ControllerTrigger2,
