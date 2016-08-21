@@ -31,17 +31,15 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
+import it.polito.ai.ifttt.progetto.services.RecipesManager;
 
 @Controller
 @RequestMapping("/connect")
 public class GoogleConnectController {
 
 	private final static Log logger = LogFactory.getLog(GoogleConnectController.class);
-	private static final String APPLICATION_NAME = "";
 	private static HttpTransport httpTransport;
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	private static com.google.api.services.calendar.Calendar client;
-	private static com.google.api.services.gmail.Gmail clientGmail;
 
 	GoogleClientSecrets clientSecrets;
 	GoogleAuthorizationCodeFlow flow;
@@ -51,6 +49,8 @@ public class GoogleConnectController {
 
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	RecipesManager recipesManager;
 
 	// abbiamo creato il progetto IFTTT su
 	// https://console.developers.google.com/apis/credentials?project=ifttt-1362
@@ -80,6 +80,7 @@ public class GoogleConnectController {
 	// viene chiamato questo metodo nella cui url c'è proprio questo codice
 	@RequestMapping(value = "/google.do", method = RequestMethod.GET, params = "code")
 	public RedirectView oauth2Callback(@RequestParam(value = "code") String code) {
+		Users user = null;
 		try {
 			// quindi viene creato un token con una certa scadenza,
 			// usato poi per ricevere le credenziali dnecessarie
@@ -88,127 +89,9 @@ public class GoogleConnectController {
 
 			// update db with the new token for the authenticated user
 			String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-			Users user = loginManager.findUserByUsername(username);
+			user = loginManager.findUserByUsername(username);
 			//loginManager.setCredentials(user, credential.getAccessToken(), credential.getExpirationTimeMilliseconds());
 			loginManager.setGoogleCredentials(user, credential.getRefreshToken(), credential.getExpirationTimeMilliseconds());
-
-			// Events events = client.events();
-			// com.google.api.services.calendar.model.Events eventList =
-			// events.list("primary").execute();
-			// mv.addObject("events", eventList.getItems());
-			
-			//useful when we will want to get the token from the db String
-//			String username1 = SecurityContextHolder.getContext().getAuthentication().
-//			getPrincipal().toString(); 
-//			Users user1 = loginManager.findUserByUsername(username1); 
-//			final HttpTransport HTTP_TRANSPORT = new NetHttpTransport(); 
-//			GoogleCredential c = new GoogleCredential.Builder()
-//								.setTransport(HTTP_TRANSPORT)
-//								.setJsonFactory(JSON_FACTORY)
-//								.setClientSecrets(clientId, clientSecret).build(); 
-//			c.setAccessToken(user1.getToken());
-//			c.setExpirationTimeMilliseconds(user1.getExpire()); 
-//			client = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
-//					JSON_FACTORY, c) .setApplicationName(APPLICATION_NAME).build();
-//			  
-//			com.google.api.services.calendar.model.Events eventList =  client.events().list("primary").execute();
-//			for(com.google.api.services.calendar.model.Event e :  eventList.getItems()) { 
-//				  	e.getCre
-//				  	e.getStart() 
-//			 }			
-			
-//			//GOOGLE CALENDAR:
-//			// si crea un client a cui si danno le credenziali appena create,
-//			// che verra' usato per compiere le operazioni desiderate
-//			client = new com.google.api.services.calendar.Calendar.Builder(httpTransport, JSON_FACTORY, credential)
-//					.setApplicationName(APPLICATION_NAME).build();	
-			
-//
-//			Event event = new Event().setSummary("Google I/O 2015")
-//					.setLocation("800 Howard St., San Francisco, CA 94103")
-//					.setDescription("A chance to hear more about Google's developer products.");
-//
-//			DateTime startDateTime = new DateTime("2016-07-04T09:00:00-07:00");
-//			EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone("America/Los_Angeles");
-//			event.setStart(start);
-//			DateTime endDateTime = new DateTime("2016-07-04T17:00:00-07:00");
-//			EventDateTime end = new EventDateTime().setDateTime(endDateTime).setTimeZone("America/Los_Angeles");
-//			event.setEnd(end);
-//
-//			event = client.events().insert("primary", event).execute();
-//			System.out.println("Event inserted"); 
-			
-			/*********************************************************************************************************/
-
-//			// GMAIL
-//			clientGmail = new com.google.api.services.gmail.Gmail.Builder(httpTransport, JSON_FACTORY, credential)
-//				.setApplicationName(APPLICATION_NAME).build();
-//
-//			// creo un messaggio
-//			Properties props = new Properties();
-//			Session session = Session.getDefaultInstance(props, null);
-//
-//			MimeMessage email = new MimeMessage(session);
-//			System.out.println(user.getEmail());
-//			
-//			// saranno tutti ingredienti passati dall'utente
-//			InternetAddress tAddress = new InternetAddress(user.getEmail());
-//			//InternetAddress fAddress = new InternetAddress("ifttt.ai2016@gmail.com");
-//			//email.setFrom(fAddress);
-//			//email.setSender(fAddress);
-//			email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
-//			email.setSubject("Email di Prova");
-//			email.setText("Ciao, come va?");
-//
-//			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//			email.writeTo(bytes);
-//			String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
-//			Message message = new Message();
-//			message.setRaw(encodedEmail);
-//			clientGmail.users().messages().send("me", message).execute();
-//			System.out.println("Message sent");
-//			
-//			//servira' poi 
-//			/*Users user1 = loginManager.findUserByUsername(username); 
-//			final HttpTransport HTTP_TRANSPORT = new NetHttpTransport(); 
-//			GoogleCredential c = new GoogleCredential.Builder()
-//								.setTransport(HTTP_TRANSPORT)
-//								.setJsonFactory(JSON_FACTORY)
-//								.setClientSecrets(clientId, clientSecret).build(); 
-//			c.setAccessToken(user1.getToken());
-//			c.setExpirationTimeMilliseconds(user1.getExpire()); */ 
-//			
-//			//stampa email utente autenticato con google
-//			com.google.api.services.gmail.Gmail clientg = new com.google.api.services.gmail.Gmail.Builder(httpTransport,
-//					JSON_FACTORY, credential) .setApplicationName(APPLICATION_NAME).build();
-//			 
-//			String query = "in:inbox";
-//			System.out.println("Prima di execute");
-//			ListMessagesResponse responseMess = clientg.users().messages().list("me").setQ(query).execute();
-//			System.out.println("Subito dopo di execute");
-//			
-//			List<Message> messages = new ArrayList<Message>(responseMess.getMessages());		    
-//			
-//		    System.out.println("Prima della stampa");	 
-//	        System.out.println(messages.size());
-//	        for (Message m : messages) {
-//	        	System.out.println(m.toPrettyString());
-//	        	System.out.println("Id: "+m.getId());
-//	        	Message mex = clientg.users().messages().get("me", m.getId()).setFormat("raw").execute();
-//	        	
-//	        	 byte[] emailBytes = Base64.decodeBase64(mex.getRaw());
-//	        	 MimeMessage email1 = new MimeMessage(session, new ByteArrayInputStream(emailBytes));
-//	        	 System.out.println(email1.getSubject());
-//	        	// System.out.println("From: "+email1.getFrom());
-//	        	// System.out.println("Dest: "+email1.getRecipients(javax.mail.Message.RecipientType.TO)[0]);
-//	        	 Address[] froms = email1.getFrom();
-//	        	 System.out.println( ((InternetAddress) froms[0]).getAddress());
-//	        	
-//	        	//System.out.println(mex.toPrettyString());
-//	        	System.out.println("-----------------------------------------------------------");
-//	        }
-	        
-	        /*********************************************************************************************************/
 
 		} catch (Exception e) {
 			logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
@@ -217,6 +100,12 @@ public class GoogleConnectController {
 	//	mv.setViewName("./#/createRecipe");
 		// mv.setViewName("eventList");
 //		return mv;
+		
+		// validate google recipes
+		if(user != null) {
+			recipesManager.validateGoogleRecipes(user);	
+		}
+		
 		String path = "/progetto/#/"+this.nextPath;
 		System.out.println(path);
 		return new RedirectView(path);
