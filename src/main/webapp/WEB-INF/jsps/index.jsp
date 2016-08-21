@@ -248,7 +248,7 @@
   <!-- Updated Twitter login modal END -->
 
 
-  <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -->
+  <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -- DA RISTRUTTURARE -->
   <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
       <div class="modal-dialog">
           <div class="modal-content">
