@@ -1190,7 +1190,59 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 $scope.twitterLogged = true;
                 twitterLogin = true;
             }
-            if (consoleLogs) console.log($scope.iftttLogged);
+
+
+            if(iftttLogin == true)
+            {
+                $scope.userRecipes = [];
+                modifyVar = 0;
+
+                $scope.elements = [];
+
+
+                /**
+                 * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+                 */
+
+                $http
+                (
+                    {
+                        method: 'GET',
+                        url: 'http://localhost:8080/progetto/api/userRecipes'
+                    }
+                )
+                    .then
+                    (
+                        function success(response) {
+                            if (response == null) {
+                                alertVariable = "Error: there is a error!!!";
+                                alertFunction();
+
+                            }
+                            else {
+                                $scope.userRecipes = response.data;
+
+                                var tmp = 0;
+                                $scope.userRecipes.forEach(function (element) {
+                                    element.index = tmp;
+                                    tmp++;
+                                });
+
+
+                                /*  *************/
+                            }
+
+                        },
+                        function error(response) {
+                            alertVariable = "Error: there is a error!!!";
+                            alertFunction();
+
+                        }
+                    );
+            }
+
+
+            //if (consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $scope.iftttLogged = false;
             iftttLogin = false;
@@ -1201,52 +1253,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             alertFunction();
 
         });
-
-        $scope.userRecipes = [];
-        modifyVar = 0;
-
-        $scope.elements = [];
-
-
-            /**
-             * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
-             */
-
-            $http
-            (
-                {
-                    method: 'GET',
-                    url: 'http://localhost:8080/progetto/api/userRecipes'
-                }
-            )
-                .then
-                (
-                    function success(response) {
-                        if (response == null) {
-                            alertVariable = "Error: there is a error!!!";
-                            alertFunction();
-
-                        }
-                        else {
-                            $scope.userRecipes = response.data;
-
-                            var tmp = 0;
-                            $scope.userRecipes.forEach(function (element) {
-                                element.index = tmp;
-                                tmp++;
-                            });
-
-
-                            /*  *************/
-                        }
-
-                    },
-                    function error(response) {
-                        alertVariable = "Error: there is a error!!!";
-                        alertFunction();
-
-                    }
-                );
 
 
         /**
