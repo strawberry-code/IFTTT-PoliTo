@@ -376,6 +376,7 @@ $(function()
                 {
                     "triggerType" : "weather",
                     "type" : "1",
+                    "ingredientCode" : 14,
                     "location" : idCity_customWeatherActionControllerTrigger1,
                     "ora"  : ora_customWeatherActionControllerTrigger1,
                     "timezone" : timezone_customWeatherActionControllerTrigger1,

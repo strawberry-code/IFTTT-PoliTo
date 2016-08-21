@@ -1503,7 +1503,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 modulinoj1 =
                                 {
                                     "triggerType": "weather",
-                                    "ingredientCode": 14,
+                                    "ingredientCode": 15,
                                     "type": "2",
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "locationName"  : locationName_ControllerTrigger2,
@@ -2589,6 +2589,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                     modulinoj1 =
                     {
                         "triggerType": "gmail",
+                        "ingredientCode" : 13,
                         //Tn 1
                         "sender": sender_GmailTriggerController,
                         "subject": subject_GmailTriggerController
@@ -2790,6 +2791,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                     modulinoj2 =
                     {
                         "actionType": "gmail",
+                        "ingredientCode" : 22,
                         "body": body_GmailActionController,
                         "receiver": receiver_GmailActionController,
                         "sender": sender_GmailActionController,
@@ -3249,6 +3251,7 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
                     {
                         "triggerType": "calendar",
                         "eventAction": false,
+                        "ingredientCode" : 11,
 
                         //Tn 2 S0
                         "title": title_Trigger1GcalendarController,
@@ -3380,6 +3383,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                     {
                         "triggerType": "calendar",
                         "eventAction": true,
+                        "ingredientCode" : 12,
                         //Tn 3
                         "title": title_Trigger2GcalendarController,
                         "description": description_Trigger2GcalendarController,
@@ -3627,6 +3631,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 modulinoj2 =
                 {
                     "actionType": "calendar",
+                    "ingredientCode" : 21,
                     //An 2
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
@@ -4047,6 +4052,7 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
                 {
                     "triggerType": "twitter",
                     "type": false,
+                    "ingredientCode" : 18,
                     "hashtag_text": hashtag_text_trigger1TwitterController,
                     "username_sender": username_sender_trigger1TwitterController
                 };
@@ -4147,6 +4153,7 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
                 {
                     "triggerType": "twitter",
                     "type": true,
+                    "ingredientCode" : 19,
                     "hashtag_text": hashtag_text_trigger2TwitterController,
                     "username_sender": username_sender_trigger2TwitterController
                 };
@@ -4227,6 +4234,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
                 modulinoj2 =
                 {
                     "actionType": "twitter",
+                    "ingredientCode" : 23,
                     "type": false,
                     "body": subject_action1TwitterController,
                     "destination": null
@@ -4329,6 +4337,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
                 modulinoj2 =
                 {
                     "actionType": "twitter",
+                    "ingredientCode" : 24,
                     "type": true,
                     "destination": title_action2TwitterController,
                     "body": subjec_action2TwitterController
