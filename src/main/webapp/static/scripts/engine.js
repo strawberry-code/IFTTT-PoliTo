@@ -4501,6 +4501,8 @@ iftttApp.filter('reformat', function () {
                 return 'Min temperature';
             case 'locationName':
                 return 'Name of the city';
+            case 'ingredientCode':
+                return 'Ingredient description';
         }
 
 
