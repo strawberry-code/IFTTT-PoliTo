@@ -358,10 +358,13 @@
 
         spinner.stop();
 
-        /*cc>
-        $('#qwe').click(function () {
-            var tz = jstz.determine();
-            alert(tz.name());
+
+        $('#qwe1').click(function () {
+            setSpinner(true);
+        });
+
+        $('#qwe2').click(function () {
+            setSpinner(false);
         });
 
     });
