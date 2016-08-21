@@ -4806,3 +4806,16 @@ function sedingServerAllRunput(loginDataSend) {
 }
 
 //fxr<
+
+
+function setSpinner(spinflag){
+    if(spinflag) {
+        // Accendi lo spinner
+        $('#serverSpinner').spin('true');
+        console.log('spin on');
+    } else {
+        // Spegni lo spinner
+        $('#serverSpinner').spin('false');
+        console.log('spin off');
+    }
+}
