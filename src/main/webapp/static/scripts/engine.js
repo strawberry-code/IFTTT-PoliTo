@@ -4635,10 +4635,14 @@ function alertFunction() {
  * @param {} loginDataSend
  * @return 
  */
+/*
+code=-1 vuol dire che c'è stato qualche problema e la ricetta non è stata inserita.
+
+
+*/
+//fxr>
 function sedingServerAllRun(loginDataSend) {
-    //var result = "ciao";
-    //url: 'http://localhost:3000/userRecipes
-    //url: "/MyServlet"
+
     $('#serverSpinner').spin();
     $.ajax({
         method: "post",
@@ -4652,34 +4656,29 @@ function sedingServerAllRun(loginDataSend) {
          * @return 
          */
         success: function (response) {
+            $('#serverSpinner').stop();
+            if(response == -1)
+            {
+                alertVariable="Warning: the recipe is not memorised by server try again or go home";
+                alertFunction ();
+            }
+            else
+            {
 
-            $('#serverSpinner').spin(false);
-            $('#recipedDescriptionModal').modal('hide');
+                $('#recipedDescriptionModal').modal('hide');
+                //sendingToServerAll();
+                url = "#SuccessRepice";
+                window.location.replace(url);
+            }
 
-            //if(consoleLogs) console.log("la post ha avuto successo n 9");
-            //result = response;
-
-            //sendingToServerAll();
-            url = "#SuccessRepice";
-            window.location.replace(url);
-
-            //alert(true);
-
-            /*
-             $.ajax({
-             method: "post",
-             url: "/MyServlet",
-             data: result,
-             dataType: "json",
-             success: function(response) {
-             //if(consoleLogs) console.log("la post ha avuto successo n 9");
-             alert("2");
-
-             }
-             });
-             */
         },
-        error: $('#serverSpinner').stop()
+        error: function (response)
+        {
+            $('#serverSpinner').stop();
+            alertVariable="Warning: the recipe is not memorised by server try again or go home";
+            alertFunction ();
+
+        }
     });
 }
 
@@ -4711,7 +4710,7 @@ function sendingToServerAllput() {
  * @return 
  */
 
-//fxr>
+
 /*
 
 0 se è andato a buon fine
