@@ -77,12 +77,14 @@
 
                         <div class="col-md-6">
                             <h3 class="underline">{{f.trigger.triggerType | capitalize}} trigger</h3>
+                            <h4> {{f.trigger.ingredientCode | describe}} </h4>
                             <div ng-repeat="(key, data) in f.trigger" ng-if="!(key == 'triggerType')
                             && !(key == 'lastCheck')
                             && !(key == 'gtid')
                             && !(key == 'ctid')
                             && !(key == 'location')
                             && !(key == 'eventAction')
+                            && !(key == 'ingredientCode')
                             && !(key == 'mtid')
                             && !(key == 'wtid')
                             && !(key == 'type')
@@ -95,11 +97,13 @@
 
                         <div class="col-md-6">
                             <h3 class="underline">{{f.action.actionType | capitalize}} action</h3>
+                            <h4> {{f.action.ingredientCode | describe}} </h4>
                             <div ng-repeat="(key, data) in f.action" ng-if="!(key == 'actionType')
                             && !(key == 'lastCheck')
                             && !(key == 'type')
                             && !(key == 'gaid')
                             && !(key == 'caid')
+                            && !(key == 'ingredientCode')
                             && !(key == 'maid')
                             && !(key == 'twaid')
                             && !(data == null)
