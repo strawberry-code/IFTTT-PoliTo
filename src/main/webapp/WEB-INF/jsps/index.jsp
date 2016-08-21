@@ -249,30 +249,25 @@
 
 
   <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -->
-  <div class="modal fade in" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%; display: block; padding-right: 15px;">
+  <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
       <div class="modal-dialog">
           <div class="modal-content">
-              
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
+                      <span aria-hidden="true">&times;</span>
                   </button>
-                  <div class="row text-center">
-                      <h2 class="modal-title"><img src="./static/images/insert-description.png" height="30" width="30"> Recipe description</h2>
-                  </div>
+                  <h2 class="modal-title"><img src="./static/images/insert-description.png" height="30" width="30"/> Recipe description</h2>
               </div>
 
-              <div class="modal-body" style="padding-top: 20px">
+              <div class="modal-body">
                   <!-- The form is placed inside the body of modal -->
                   <div class="form-group">
                       <label for="recipedDescriptionInput">Please give a description for this recipe:</label>
-                      <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" rows="5" id="recipedDescriptionInput" ng-model="recipedDescriptionInput"></textarea>
-                      <div class="row text-center" style="padding-top: 25px">
-                          <button type="submit" class="btn btn-primary" ng-click="saveRecipeDescription()">Submit</button>
-                      </div>
+                      <textarea class="form-control" rows="5" id="recipedDescriptionInput" ng-model="recipedDescriptionInput"></textarea>
+                      <button type="submit" class="btn btn-default" ng-click="saveRecipeDescription()">Submit</button>
+                      <!--  -->
                   </div>
               </div>
-
           </div>
       </div>
   </div>
