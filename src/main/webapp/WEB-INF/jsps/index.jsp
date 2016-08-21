@@ -252,7 +252,7 @@
   <div class="modal fade in" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%; display: block; padding-right: 15px;">
       <div class="modal-dialog">
           <div class="modal-content">
-              
+
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
