@@ -368,6 +368,7 @@ $(function(){
                     {
                         "triggerType": "weather",
                         "type": "3",
+                        "ingredientCode" : 16,
                         "location": idCity_customWeatherActionControllerTrigger3,
                         "timezone": timezone_customWeatherActionControllerTrigger3,
                         "sunset": sunset_customWeatherActionControllerTrigger3,
