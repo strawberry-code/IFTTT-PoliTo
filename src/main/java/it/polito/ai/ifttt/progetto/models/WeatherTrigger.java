@@ -14,6 +14,8 @@ public class WeatherTrigger {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer wtid;
+	@Column
+	Integer ingredientCode;
 	@Column(nullable=true)
 	Integer tempo;
 	@Column(nullable=true)
@@ -40,8 +42,6 @@ public class WeatherTrigger {
 	Long period;
 	@Column
 	String triggerType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getWtid() {
 		return wtid;
