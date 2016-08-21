@@ -4548,13 +4548,44 @@ iftttApp.filter('skeumorphize', function(){
                     return "GMT" + input;
                 }
 
-            case 'eventAction':
+            case 'sender':
             {
                 switch (input) {
-                    case true:
-                        return 'When a new event is added';
-                    case false:
-                        return 'When a new event is created';
+                    case true: return 'This email will be sent from IFTTT.';
+                    case false: return 'This email will be sent send this email from your registration address.';
+                }
+            }
+
+            case 'ingredientCode':
+            {
+                switch (input) {
+                    case 11:
+                        return 'IF a new event is added...';
+                    case 12:
+                        return 'IF a new event is created...';
+                    case 13:
+                        return 'IF an email is comes...';
+                    case 14:
+                        return 'IF tomorrow...';
+                    case 15:
+                        return 'IF...2?';
+                    case 16:
+                        return 'IF...3?';
+                    case 17:
+                        return 'IF...4?';
+                    case 18:
+                        return 'IF a new tweet comes...';
+                    case 19:
+                        return 'IF a new Twitter direct message comes...';
+                    case 21:
+                        return '...THEN create a new event.';
+                    case 22:
+                        return '...THEN send an email.';
+                    case 23:
+                        return '...THEN post a new tweet.';
+                    case 24:
+                        return '...THEN send a new Twitter direct message.';
+
                 }
             }
 
