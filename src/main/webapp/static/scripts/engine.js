@@ -4811,11 +4811,13 @@ function sedingServerAllRunput(loginDataSend) {
 function setSpinner(spinflag){
     if(spinflag) {
         // Accendi lo spinner
-        $('#serverSpinner').spin('true');
+        $('#spinnerModal').modal('show');
+        $('#serverSpinner').spin(true);
         console.log('spin on');
     } else {
         // Spegni lo spinner
-        $('#serverSpinner').spin('false');
+        $('#spinnerModal').modal('hide');
+        $('#serverSpinner').spin(false);
         console.log('spin off');
     }
 }
