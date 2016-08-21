@@ -3145,7 +3145,10 @@ iftttApp.controller('loginPageController', ['$scope',
                         if (consoleLogs) console.log("la post ha avuto successo ");
                         $('#serverSpinner').spin(false);
                     },
-                    error: $('#serverSpinner').stop()
+                    error: function ()
+                    {
+                        $('#serverSpinner').spin(false);
+                    }
                 });
             }
         }
@@ -3436,7 +3439,10 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                     if (consoleLogs) console.log("la post ha avuto successo n 9");
                     $('#serverSpinner').spin(false);
                 },
-                error: $('#serverSpinner').stop()
+                error: function()
+                {
+                    $('#serverSpinner').spin(false);
+                }
             });
         };
 
@@ -3472,21 +3478,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             var durationMinute = "";
 
             actionChose = 2;
-
-            /*
-
-             if($scope.googleLogged == true){
-             alert("E' TRUE!!!!");
-             } else {
-             alert("E' FALSE!!!!");
-             }
-
-             if(!$scope.googleLogged == true){
-             alert("E' FALSE!!!!");
-             } else {
-             alert("E' TRUE!!!!");
-             }
-             */
 
             if ($scope.googleLogged == true) {
 
@@ -4255,18 +4246,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
 
         };
 
-        /*
-         $scope.sedingServer = function(loginDataSend)
-         {
-         $.ajax({
-         method: "post",
-         url: "/MyServlet",
-         data: loginDataSend,
-         dataType: "json",
-         success: if(consoleLogs) console.log("la post ha avuto successo n 9")
-         });
-         };
-         */
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4314,12 +4294,6 @@ iftttApp.controller('action2TwitterController', ['$scope',
                     destination = "";
                 }
 
-                // }
-                /*
-                 else {
-                 title = null;
-                 }
-                 */
 
 
                 if ($scope.checkedSubject == true) {
@@ -4385,19 +4359,6 @@ iftttApp.controller('action2TwitterController', ['$scope',
 
         };
 
-        /*
-
-         $scope.sedingServer = function(loginDataSend)
-         {
-         $.ajax({
-         method: "post",
-         url: "/MyServlet",
-         data: loginDataSend,
-         dataType: "json",
-         success: if(consoleLogs) console.log("la post ha avuto successo n 9")
-         });
-         };
-         */
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4656,7 +4617,8 @@ function sedingServerAllRun(loginDataSend) {
          * @return 
          */
         success: function (response) {
-            $('#serverSpinner').stop();
+            alert("hh");
+            $('#serverSpinner').spin(false);
             if(response == -1)
             {
                 alertVariable="Warning: the recipe is not memorised by server try again or go home";
@@ -4674,12 +4636,13 @@ function sedingServerAllRun(loginDataSend) {
         },
         error: function (response)
         {
-            $('#serverSpinner').stop();
+            $('#serverSpinner').spin(false);
             alertVariable="Warning: the recipe is not memorised by server try again or go home";
             alertFunction ();
 
         }
     });
+
 }
 
 /**
@@ -4754,7 +4717,7 @@ function sedingServerAllRunput(loginDataSend) {
         },
         error: function ()
         {
-            $('#serverSpinner').stop();
+            $('#serverSpinner').spin(false);
             alertVariable="Warning: the recipe is not update try again or go home";
             alertFunction ();
 
