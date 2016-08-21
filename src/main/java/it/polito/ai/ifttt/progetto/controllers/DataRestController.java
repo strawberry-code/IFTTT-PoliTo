@@ -203,29 +203,51 @@ public class DataRestController {
 
 	@RequestMapping(value = "disconnectGoogle", method = RequestMethod.POST)
 	returnClass disconnectGoogle() {
+		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		
 		loginManager.disconnectGoogle(username);
-
-		// TODO: occorre invalidare anche tutte le ricette dell'utente
-		// con google (ad esempio ponendo un booleano "valid" e
-		// aggiungendo tutti i controlli nella logica
-
+		
+		Users user = loginManager.findUserByUsername(username);
+		if(user != null) {
+			code = recipesManager.invalidateGoogleRecipes(user);
+		}
+		else {
+			code = -1;
+		}	
+		
 		returnClass res = new returnClass();
-		res.setDisconnected(true);
+		if(code==-1) {
+			res.setDisconnected(false);
+		}
+		else {
+			res.setDisconnected(true);
+		}	
 		return res;
 	}
 
 	@RequestMapping(value = "disconnectTwitter", method = RequestMethod.POST)
 	returnClass disconnectTwitter() {
+		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		
 		loginManager.disconnectTwitter(username);
 
-		// TODO: occorre invalidare anche tutte le ricette dell'utente
-		// con twitter (ad esempio ponendo un booleano "valid" e
-		// aggiungendo tutti i controlli nella logica
-
+		Users user = loginManager.findUserByUsername(username);
+		if(user != null) {
+			code = recipesManager.invalidateTwitterRecipes(user);
+		}
+		else {
+			code = -1;
+		}	
+		
 		returnClass res = new returnClass();
-		res.setDisconnected(true);
+		if(code==-1) {
+			res.setDisconnected(false);
+		}
+		else {
+			res.setDisconnected(true);
+		}	
 		return res;
 	}
 

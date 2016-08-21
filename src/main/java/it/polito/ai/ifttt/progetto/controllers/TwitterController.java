@@ -15,6 +15,7 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
+import it.polito.ai.ifttt.progetto.services.RecipesManager;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -39,6 +40,8 @@ public class TwitterController {
 
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	RecipesManager recipesManager;
 
 	@RequestMapping(value = "/tw.do", method = RequestMethod.GET)
 	public RedirectView connectTwitter() {
@@ -87,6 +90,11 @@ public class TwitterController {
 			this.user = loginManager.findUserByUsername(username);
 			loginManager.setTwitterCredentials(user, accessToken.getToken(), accessToken.getTokenSecret());
 
+		}
+		
+		// validate twitter recipes
+		if(this.user != null) {
+			recipesManager.validateTwitterRecipes(this.user);
 		}
 
 		String path = "http://localhost:8080/progetto/#/" + this.nextPath;

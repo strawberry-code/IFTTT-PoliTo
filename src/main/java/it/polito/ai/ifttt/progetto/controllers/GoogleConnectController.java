@@ -31,6 +31,7 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
+import it.polito.ai.ifttt.progetto.services.RecipesManager;
 
 @Controller
 @RequestMapping("/connect")
@@ -48,6 +49,8 @@ public class GoogleConnectController {
 
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	RecipesManager recipesManager;
 
 	// abbiamo creato il progetto IFTTT su
 	// https://console.developers.google.com/apis/credentials?project=ifttt-1362
@@ -77,6 +80,7 @@ public class GoogleConnectController {
 	// viene chiamato questo metodo nella cui url c'è proprio questo codice
 	@RequestMapping(value = "/google.do", method = RequestMethod.GET, params = "code")
 	public RedirectView oauth2Callback(@RequestParam(value = "code") String code) {
+		Users user = null;
 		try {
 			// quindi viene creato un token con una certa scadenza,
 			// usato poi per ricevere le credenziali dnecessarie
@@ -85,7 +89,7 @@ public class GoogleConnectController {
 
 			// update db with the new token for the authenticated user
 			String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-			Users user = loginManager.findUserByUsername(username);
+			user = loginManager.findUserByUsername(username);
 			//loginManager.setCredentials(user, credential.getAccessToken(), credential.getExpirationTimeMilliseconds());
 			loginManager.setGoogleCredentials(user, credential.getRefreshToken(), credential.getExpirationTimeMilliseconds());
 
@@ -96,6 +100,12 @@ public class GoogleConnectController {
 	//	mv.setViewName("./#/createRecipe");
 		// mv.setViewName("eventList");
 //		return mv;
+		
+		// validate google recipes
+		if(user != null) {
+			recipesManager.validateGoogleRecipes(user);	
+		}
+		
 		String path = "/progetto/#/"+this.nextPath;
 		System.out.println(path);
 		return new RedirectView(path);
