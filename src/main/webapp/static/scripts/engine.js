@@ -792,8 +792,16 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          * @return 
          */
         $scope.routeListener = function (nextRoute) {
-            nextPath = nextRoute;
-            rootingAutenticationTriggerAction = nextRoute;
+            //cc>
+            if(nextRoute.localeCompare('currentUrl') == 0){
+                console.log('next url: '+ $location.url());
+                nextPath = $location.url();
+                rootingAutenticationTriggerAction = $location.url();
+            } else {
+                nextPath = nextRoute;
+                rootingAutenticationTriggerAction = nextRoute;
+            }
+             //<cc
             //if(consoleLogs) console.log("routeListener(nextRoute): "+nextPath);
         };
 
