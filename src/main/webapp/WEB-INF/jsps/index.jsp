@@ -264,8 +264,9 @@
                   <div class="form-group">
                       <label for="recipedDescriptionInput">Please give a description for this recipe:</label>
                       <textarea class="form-control" rows="5" id="recipedDescriptionInput" ng-model="recipedDescriptionInput"></textarea>
-                      <button type="submit" class="btn btn-default" ng-click="saveRecipeDescription()">Submit</button>
-                      <!--  -->
+                      <div class="row text-center" style="padding-top: 25px;">
+                      <button type="submit" class="btn btn-primary" ng-click="saveRecipeDescription()">Submit</button>
+                      </div>
                   </div>
               </div>
           </div>
