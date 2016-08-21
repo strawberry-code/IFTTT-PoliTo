@@ -15,11 +15,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.api.client.auth.oauth2.Credential;
-
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

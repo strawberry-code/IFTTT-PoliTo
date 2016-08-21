@@ -5,13 +5,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
 import it.polito.ai.ifttt.progetto.models.GmailAction;
 import it.polito.ai.ifttt.progetto.models.GmailTrigger;
-import it.polito.ai.ifttt.progetto.models.Users;
 
 public class GmailManagerImpl implements GmailManager {
 

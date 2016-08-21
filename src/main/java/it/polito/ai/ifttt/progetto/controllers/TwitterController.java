@@ -1,13 +1,5 @@
 package it.polito.ai.ifttt.progetto.controllers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,23 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
-import twitter4j.DirectMessage;
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.ResponseList;
-import twitter4j.Status;
+import it.polito.ai.ifttt.progetto.services.RecipesManager;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.User;
-import twitter4j.UserList;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
@@ -55,6 +40,8 @@ public class TwitterController {
 
 	@Autowired
 	LoginManager loginManager;
+	@Autowired
+	RecipesManager recipesManager;
 
 	@RequestMapping(value = "/tw.do", method = RequestMethod.GET)
 	public RedirectView connectTwitter() {
@@ -103,6 +90,11 @@ public class TwitterController {
 			this.user = loginManager.findUserByUsername(username);
 			loginManager.setTwitterCredentials(user, accessToken.getToken(), accessToken.getTokenSecret());
 
+		}
+		
+		// validate twitter recipes
+		if(this.user != null) {
+			recipesManager.validateTwitterRecipes(this.user);
 		}
 
 		String path = "http://localhost:8080/progetto/#/" + this.nextPath;
