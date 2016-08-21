@@ -144,7 +144,8 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-					weathertrigger.setLastCheck(System.currentTimeMillis());
+					//weathertrigger.setLastCheck(System.currentTimeMillis());
+					weathertrigger.setLastCheck(null);
 					session.save(weathertrigger);
 					session.flush();
 					triggerid = weathertrigger.getWtid();

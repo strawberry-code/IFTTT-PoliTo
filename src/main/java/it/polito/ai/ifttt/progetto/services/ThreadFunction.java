@@ -185,10 +185,6 @@ public class ThreadFunction extends Thread {
 													}
 												}
 											}
-											// settare il messaggio come letto
-											// oppure
-											// trovare il modo di farlo con last
-											// check
 											 gmailManager.setLastCheck(System.currentTimeMillis(), tid);
 
 										} else if (ttype.compareTo("calendar") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
@@ -313,9 +309,14 @@ public class ThreadFunction extends Thread {
 																String atype = (String) a[1];
 
 																String body = line + System.lineSeparator();
+																
+																Date date = new Date();
+																date.setTime(e.getStart().getDateTime().getValue());
+																SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+																String DateToStr = format.format(date);																
 
-																body = body + "Event at "
-																		+ e.getStart().getDateTime().toString() + ": "
+																body = body + "Date: "
+																		+ DateToStr + ": "
 																		+ System.lineSeparator();
 																if (title.compareTo("") != 0)
 																	body = body + "Title: " + title + System.lineSeparator();
@@ -384,9 +385,14 @@ public class ThreadFunction extends Thread {
 																DailyForecast df = owm.dailyForecastByCityCode(
 																		wt.getLocation(), (byte) 2);
 																if (df.isValid()) {
+																	Date date1 = new Date();
+																	date1.setTime(df.getForecastInstance(1).getDateTime().getTime());
+																	SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+																	String DateToStr = format.format(date1);	
+																	
 																	String body = "The temperature in "
 																			+ df.getCityInstance().getCityName() + " at "
-																			+ df.getForecastInstance(1).getDateTime()
+																			+ DateToStr
 																			+ " is: " + System.lineSeparator();
 																	body = body + "Morning temperature :" + String.format(
 																			"%.02f",
