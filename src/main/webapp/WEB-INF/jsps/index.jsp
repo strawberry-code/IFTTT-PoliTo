@@ -249,23 +249,28 @@
 
 
   <!-- MODAL FORM RECIPE DESCRIPTION -- BEGIN -- DA RISTRUTTURARE -->
-  <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
+  <div class="modal fade" id="recipedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="Login"
+       aria-hidden="true" style="padding-top: 10%">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
-                  <div class="row text-center"><h2 class="modal-title"><img src="./static/images/insert-description.png" height="30" width="30"/> Recipe description</h2></div>
+                  <div class="row text-center"><h2 class="modal-title"><img src="./static/images/insert-description.png"
+                                                                            height="30" width="30"/> Recipe description
+                  </h2></div>
               </div>
 
               <div class="modal-body">
                   <!-- The form is placed inside the body of modal -->
                   <div class="form-group">
                       <label for="recipedDescriptionInput">Please give a description for this recipe:</label>
-                      <textarea class="form-control" rows="5" id="recipedDescriptionInput" ng-model="recipedDescriptionInput"></textarea>
+                      <textarea class="form-control" rows="5" id="recipedDescriptionInput"
+                                ng-model="recipedDescriptionInput"></textarea>
                       <div class="row text-center" style="padding-top: 25px;">
-                      <button type="submit" class="btn btn-primary" ng-click="saveRecipeDescription()">Submit</button>
+                          <button type="submit" class="btn btn-primary" ng-click="saveRecipeDescription()">Submit
+                          </button>
                       </div>
                   </div>
               </div>
