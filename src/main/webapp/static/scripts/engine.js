@@ -4711,6 +4711,7 @@ function sendingToServerAllput() {
  * @return 
  */
 
+//fxr>
 /*
 
 0 se è andato a buon fine
@@ -4762,3 +4763,4 @@ function sedingServerAllRunput(loginDataSend) {
     });
 }
 
+//fxr<
