@@ -94,11 +94,21 @@
 
               <a href="" ng-click="logoutTwitter()" ><img id="twitterLogoON"  ng-if="twitterLogged" src="./static/images/logos/twitter-logged-in.png" height="34" width="34"/></a>
 
-              <img id="twitterLogoOFF" ng-if="!twitterLogged"  data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Not logged in Twitter" src="./static/images/logos/twitter-logged-out.png" height="34" width="34"/>
+                <span data-toggle="modal"
+                    data-target="#loginTwitterModal"
+                    ng-click="routeListener('currentUrl')">
+                        <img id="twitterLogoOFF"
+                            ng-if="!twitterLogged"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-trigger="hover"
+                            data-content="Not logged in Twitter - Click to connect"
+                            src="./static/images/logos/twitter-logged-out.png" height="34" width="34"/>
+                </span>
 
-              <a ng-click="logoutGoogle()" ><img id="googleLogoON"   ng-if="googleLogged" src="./static/images/logos/google-logged-in.png" height="30" width="30"/></a>
+                <a ng-click="logoutGoogle()" ><img id="googleLogoON"   ng-if="googleLogged" src="./static/images/logos/google-logged-in.png" height="30" width="30"/></a>
 
-              <span data-toggle="modal"
+                <span data-toggle="modal"
                     data-target="#loginGoogleModal"
                     ng-click="routeListener('currentUrl')">
                 <img id="googleLogoOFF"
