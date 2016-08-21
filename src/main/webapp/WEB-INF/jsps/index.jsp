@@ -88,11 +88,11 @@
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
 
-              <a href="" ng-click="logoutIFTTT()" ><img id="IFTTTLogoON"  ng-if="iftttLogged" src="./static/images/logos/polito-logged-in.png" height="30" width="30"/></a>
+                <a href="" ng-click="logoutIFTTT()" ><img id="IFTTTLogoON"  ng-if="iftttLogged" src="./static/images/logos/polito-logged-in.png" height="30" width="30"/></a>
 
-              <img id="iftttLogoOFF" ng-if="!iftttLogged"  data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Not logged in IFTTT Polito" src="./static/images/logos/polito-logged-out.png" height="30" width="30"/>
+                <img id="iftttLogoOFF" ng-if="!iftttLogged"  data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Not logged in IFTTT Polito" src="./static/images/logos/polito-logged-out.png" height="30" width="30"/>
 
-              <a href="" ng-click="logoutTwitter()" ><img id="twitterLogoON"  ng-if="twitterLogged" src="./static/images/logos/twitter-logged-in.png" height="34" width="34"/></a>
+                <a href="" ng-click="logoutTwitter()" ><img id="twitterLogoON"  ng-if="twitterLogged" src="./static/images/logos/twitter-logged-in.png" height="34" width="34"/></a>
 
                 <span data-toggle="modal"
                     data-target="#loginTwitterModal"
