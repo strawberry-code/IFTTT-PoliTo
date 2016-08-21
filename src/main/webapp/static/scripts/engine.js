@@ -989,6 +989,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             else if ($scope.recipedDescriptionInput == "")  descriptionRecipeGlobal = "This task has not a description";
 
 
+            $scope.recipedDescriptionInput="";
             //Mando i dati al server con i due modulini + la descrizione.
             if (modifyVar == true) {
                 sendingToServerAllput();
