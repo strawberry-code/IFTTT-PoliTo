@@ -4710,6 +4710,13 @@ function sendingToServerAllput() {
  * @param {} loginDataSend
  * @return 
  */
+
+/*
+
+0 se è andato a buon fine
+-1se qualcosa è andato storto.
+
+ */
 function sedingServerAllRunput(loginDataSend) {
     $('#serverSpinner').spin();
     $.ajax({
@@ -4723,17 +4730,35 @@ function sedingServerAllRunput(loginDataSend) {
          * @param {} response
          * @return 
          */
-        success: function (response) {
+        success: function (response)
+        {
             $('#serverSpinner').spin(false);
-            if (modifyVar == true) {
-                $('#recipedDescriptionModal').modal('hide');
+            if(response == 0)
+            {
+
+                if (modifyVar == true)
+                {
+                    $('#recipedDescriptionModal').modal('hide');
+
+                }
+                url = "#SuccessRepice";
+                window.location.replace(url);
+            }
+            else
+            {
+                alertVariable="Warning: the recipe is not update try again or go home";
+                alertFunction ();
 
             }
-            url = "#SuccessRepice";
-            window.location.replace(url);
 
         },
-        error: $('#serverSpinner').stop()
+        error: function ()
+        {
+            $('#serverSpinner').stop();
+            alertVariable="Warning: the recipe is not update try again or go home";
+            alertFunction ();
+
+        }
     });
 }
 
