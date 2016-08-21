@@ -351,8 +351,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$http',
-    function ($scope, $routeParams, $window, $http) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http',
+    function ($scope, $location, $routeParams, $window, $http) {
 
 
         if (consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
@@ -792,8 +792,16 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
          * @return 
          */
         $scope.routeListener = function (nextRoute) {
-            nextPath = nextRoute;
-            rootingAutenticationTriggerAction = nextRoute;
+            //cc>
+            if(nextRoute.localeCompare('currentUrl') == 0){
+                console.log('next url: '+ $location.url());
+                nextPath = $location.url();
+                rootingAutenticationTriggerAction = $location.url();
+            } else {
+                nextPath = nextRoute;
+                rootingAutenticationTriggerAction = nextRoute;
+            }
+             //<cc
             //if(consoleLogs) console.log("routeListener(nextRoute): "+nextPath);
         };
 
