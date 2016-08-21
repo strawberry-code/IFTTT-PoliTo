@@ -4515,6 +4515,24 @@ iftttApp.filter('skeumorphize', function(){
 
         console.log('input: '+input+"\nwatchKey: "+watchKey);
 
+        /*
+
+         gcalendarTrigger1	11
+         gcalendarTrigger2	12
+         gmailTrigger1	    13
+         weatherTrigger1	14
+         weatherTrigger2	15
+         weatherTrigger3	16
+         weatherTrigger4	17
+         twitterTrigger1	18
+         twitterTrigger2	19
+         gcalendarAction1	21
+         gmailAction1	    22
+         twitterAction1	    23
+         twitterAction2 	24
+
+         */
+
         switch (watchKey) {
 
             case 'thmax':
