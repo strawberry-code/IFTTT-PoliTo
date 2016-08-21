@@ -111,15 +111,15 @@
                 <span data-toggle="modal"
                     data-target="#loginGoogleModal"
                     ng-click="routeListener('currentUrl')">
-                <img id="googleLogoOFF"
-                     ng-if="!googleLogged"
-                     style="margin-left: 3px"
-                     data-toggle="popover"
-                     data-placement="bottom"
-                     data-trigger="hover"
-                     data-content="Not logged in Google - Click to connect"
-                     src="./static/images/logos/google-logged-out.png" height="30" width="30"/>
-              </span>
+                        <img id="googleLogoOFF"
+                            ng-if="!googleLogged"
+                            style="margin-left: 3px"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-trigger="hover"
+                            data-content="Not logged in Google - Click to connect"
+                            src="./static/images/logos/google-logged-out.png" height="30" width="30"/>
+                </span>
 
           </div>
           <button type="submit" class="btn btn-default" ng-if="!iftttLogged" style="margin-left: 6px"   data-toggle="modal" data-target="#loginIFTTTModal" ng-click="routeListener('index/myRecipes')"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</button>
