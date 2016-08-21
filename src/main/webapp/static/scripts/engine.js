@@ -351,8 +351,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$http',
-    function ($scope, $routeParams, $window, $http) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http',
+    function ($scope, $location, $routeParams, $window, $http) {
 
 
         if (consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
