@@ -989,6 +989,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             else if ($scope.recipedDescriptionInput == "")  descriptionRecipeGlobal = "This task has not a description";
 
 
+            $scope.recipedDescriptionInput="";
             //Mando i dati al server con i due modulini + la descrizione.
             if (modifyVar == true) {
                 sendingToServerAllput();
@@ -1190,7 +1191,59 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 $scope.twitterLogged = true;
                 twitterLogin = true;
             }
-            if (consoleLogs) console.log($scope.iftttLogged);
+
+
+            if(iftttLogin == true)
+            {
+                $scope.userRecipes = [];
+                modifyVar = 0;
+
+                $scope.elements = [];
+
+
+                /**
+                 * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
+                 */
+
+                $http
+                (
+                    {
+                        method: 'GET',
+                        url: 'http://localhost:8080/progetto/api/userRecipes'
+                    }
+                )
+                    .then
+                    (
+                        function success(response) {
+                            if (response == null) {
+                                alertVariable = "Error: there is a error!!!";
+                                alertFunction();
+
+                            }
+                            else {
+                                $scope.userRecipes = response.data;
+
+                                var tmp = 0;
+                                $scope.userRecipes.forEach(function (element) {
+                                    element.index = tmp;
+                                    tmp++;
+                                });
+
+
+                                /*  *************/
+                            }
+
+                        },
+                        function error(response) {
+                            alertVariable = "Error: there is a error!!!";
+                            alertFunction();
+
+                        }
+                    );
+            }
+
+
+            //if (consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $scope.iftttLogged = false;
             iftttLogin = false;
@@ -1201,52 +1254,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             alertFunction();
 
         });
-
-        $scope.userRecipes = [];
-        modifyVar = 0;
-
-        $scope.elements = [];
-
-
-            /**
-             * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
-             */
-
-            $http
-            (
-                {
-                    method: 'GET',
-                    url: 'http://localhost:8080/progetto/api/userRecipes'
-                }
-            )
-                .then
-                (
-                    function success(response) {
-                        if (response == null) {
-                            alertVariable = "Error: there is a error!!!";
-                            alertFunction();
-
-                        }
-                        else {
-                            $scope.userRecipes = response.data;
-
-                            var tmp = 0;
-                            $scope.userRecipes.forEach(function (element) {
-                                element.index = tmp;
-                                tmp++;
-                            });
-
-
-                            /*  *************/
-                        }
-
-                    },
-                    function error(response) {
-                        alertVariable = "Error: there is a error!!!";
-                        alertFunction();
-
-                    }
-                );
 
 
         /**
@@ -4556,46 +4563,46 @@ iftttApp.filter('skeumorphize', function(){
                 }
             }
 
-            case 'ingredientCode':
-            {
-                switch (input) {
-                    case 11:
-                        return 'IF a new event is added...';
-                    case 12:
-                        return 'IF a new event is created...';
-                    case 13:
-                        return 'IF an email is comes...';
-                    case 14:
-                        return 'IF tomorrow...';
-                    case 15:
-                        return 'IF...2?';
-                    case 16:
-                        return 'IF...3?';
-                    case 17:
-                        return 'IF...4?';
-                    case 18:
-                        return 'IF a new tweet comes...';
-                    case 19:
-                        return 'IF a new Twitter direct message comes...';
-                    case 21:
-                        return '...THEN create a new event.';
-                    case 22:
-                        return '...THEN send an email.';
-                    case 23:
-                        return '...THEN post a new tweet.';
-                    case 24:
-                        return '...THEN send a new Twitter direct message.';
-
-                }
-            }
-
-
-
             default:
                 return input;
         }
 
 
+    }
+});
+
+
+iftttApp.filter('describe', function(){
+    return function (input) {
+        switch (input) {
+            case 11:
+                return 'IF a new calendar event is added...';
+            case 12:
+                return 'IF a new calendar event is created...';
+            case 13:
+                return 'IF an email is comes...';
+            case 14:
+                return 'IF tomorrow...';
+            case 15:
+                return 'IF...2?';
+            case 16:
+                return 'IF...3?';
+            case 17:
+                return 'IF...4?';
+            case 18:
+                return 'IF a new tweet comes...';
+            case 19:
+                return 'IF a new Twitter direct message comes...';
+            case 21:
+                return '...THEN create a new calendar event.';
+            case 22:
+                return '...THEN send an email.';
+            case 23:
+                return '...THEN post a new tweet.';
+            case 24:
+                return '...THEN send a new Twitter direct message.';
+
+        }
     }
 });
 
