@@ -351,8 +351,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$http',
-    function ($scope, $routeParams, $window, $http) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http',
+    function ($scope, $location, $routeParams, $window, $http) {
 
 
         if (consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
@@ -792,8 +792,16 @@ iftttApp.controller('indexController', ['$scope', '$routeParams', '$window', '$h
          * @return 
          */
         $scope.routeListener = function (nextRoute) {
-            nextPath = nextRoute;
-            rootingAutenticationTriggerAction = nextRoute;
+            //cc>
+            if(nextRoute.localeCompare('currentUrl') == 0){
+                console.log('next url: '+ $location.url());
+                nextPath = $location.url();
+                rootingAutenticationTriggerAction = $location.url();
+            } else {
+                nextPath = nextRoute;
+                rootingAutenticationTriggerAction = nextRoute;
+            }
+             //<cc
             //if(consoleLogs) console.log("routeListener(nextRoute): "+nextPath);
         };
 
@@ -3145,7 +3153,10 @@ iftttApp.controller('loginPageController', ['$scope',
                         if (consoleLogs) console.log("la post ha avuto successo ");
                         $('#serverSpinner').spin(false);
                     },
-                    error: $('#serverSpinner').stop()
+                    error: function ()
+                    {
+                        $('#serverSpinner').spin(false);
+                    }
                 });
             }
         }
@@ -3436,7 +3447,10 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                     if (consoleLogs) console.log("la post ha avuto successo n 9");
                     $('#serverSpinner').spin(false);
                 },
-                error: $('#serverSpinner').stop()
+                error: function()
+                {
+                    $('#serverSpinner').spin(false);
+                }
             });
         };
 
@@ -3472,21 +3486,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             var durationMinute = "";
 
             actionChose = 2;
-
-            /*
-
-             if($scope.googleLogged == true){
-             alert("E' TRUE!!!!");
-             } else {
-             alert("E' FALSE!!!!");
-             }
-
-             if(!$scope.googleLogged == true){
-             alert("E' FALSE!!!!");
-             } else {
-             alert("E' TRUE!!!!");
-             }
-             */
 
             if ($scope.googleLogged == true) {
 
@@ -4255,18 +4254,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
 
         };
 
-        /*
-         $scope.sedingServer = function(loginDataSend)
-         {
-         $.ajax({
-         method: "post",
-         url: "/MyServlet",
-         data: loginDataSend,
-         dataType: "json",
-         success: if(consoleLogs) console.log("la post ha avuto successo n 9")
-         });
-         };
-         */
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4314,12 +4302,6 @@ iftttApp.controller('action2TwitterController', ['$scope',
                     destination = "";
                 }
 
-                // }
-                /*
-                 else {
-                 title = null;
-                 }
-                 */
 
 
                 if ($scope.checkedSubject == true) {
@@ -4385,19 +4367,6 @@ iftttApp.controller('action2TwitterController', ['$scope',
 
         };
 
-        /*
-
-         $scope.sedingServer = function(loginDataSend)
-         {
-         $.ajax({
-         method: "post",
-         url: "/MyServlet",
-         data: loginDataSend,
-         dataType: "json",
-         success: if(consoleLogs) console.log("la post ha avuto successo n 9")
-         });
-         };
-         */
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4635,10 +4604,14 @@ function alertFunction() {
  * @param {} loginDataSend
  * @return 
  */
+/*
+code=-1 vuol dire che c'è stato qualche problema e la ricetta non è stata inserita.
+
+
+*/
+//fxr>
 function sedingServerAllRun(loginDataSend) {
-    //var result = "ciao";
-    //url: 'http://localhost:3000/userRecipes
-    //url: "/MyServlet"
+
     $('#serverSpinner').spin();
     $.ajax({
         method: "post",
@@ -4652,35 +4625,32 @@ function sedingServerAllRun(loginDataSend) {
          * @return 
          */
         success: function (response) {
-
+            alert("hh");
             $('#serverSpinner').spin(false);
-            $('#recipedDescriptionModal').modal('hide');
+            if(response == -1)
+            {
+                alertVariable="Warning: the recipe is not memorised by server try again or go home";
+                alertFunction ();
+            }
+            else
+            {
 
-            //if(consoleLogs) console.log("la post ha avuto successo n 9");
-            //result = response;
+                $('#recipedDescriptionModal').modal('hide');
+                //sendingToServerAll();
+                url = "#SuccessRepice";
+                window.location.replace(url);
+            }
 
-            //sendingToServerAll();
-            url = "#SuccessRepice";
-            window.location.replace(url);
-
-            //alert(true);
-
-            /*
-             $.ajax({
-             method: "post",
-             url: "/MyServlet",
-             data: result,
-             dataType: "json",
-             success: function(response) {
-             //if(consoleLogs) console.log("la post ha avuto successo n 9");
-             alert("2");
-
-             }
-             });
-             */
         },
-        error: $('#serverSpinner').stop()
+        error: function (response)
+        {
+            $('#serverSpinner').spin(false);
+            alertVariable="Warning: the recipe is not memorised by server try again or go home";
+            alertFunction ();
+
+        }
     });
+
 }
 
 /**
@@ -4710,6 +4680,14 @@ function sendingToServerAllput() {
  * @param {} loginDataSend
  * @return 
  */
+
+
+/*
+
+0 se è andato a buon fine
+-1se qualcosa è andato storto.
+
+ */
 function sedingServerAllRunput(loginDataSend) {
     $('#serverSpinner').spin();
     $.ajax({
@@ -4723,17 +4701,36 @@ function sedingServerAllRunput(loginDataSend) {
          * @param {} response
          * @return 
          */
-        success: function (response) {
+        success: function (response)
+        {
             $('#serverSpinner').spin(false);
-            if (modifyVar == true) {
-                $('#recipedDescriptionModal').modal('hide');
+            if(response == 0)
+            {
+
+                if (modifyVar == true)
+                {
+                    $('#recipedDescriptionModal').modal('hide');
+
+                }
+                url = "#SuccessRepice";
+                window.location.replace(url);
+            }
+            else
+            {
+                alertVariable="Warning: the recipe is not update try again or go home";
+                alertFunction ();
 
             }
-            url = "#SuccessRepice";
-            window.location.replace(url);
 
         },
-        error: $('#serverSpinner').stop()
+        error: function ()
+        {
+            $('#serverSpinner').spin(false);
+            alertVariable="Warning: the recipe is not update try again or go home";
+            alertFunction ();
+
+        }
     });
 }
 
+//fxr<
