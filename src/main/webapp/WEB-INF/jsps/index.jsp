@@ -151,9 +151,10 @@
   {{"recipe: "+ userRecipes}}
   -->
 
-  <!-- cc>
-  <button id="qwe">click!</button>
-   <cc -->
+  <!-- DEBUG AREA
+  <button id="qwe1">Spin = ON</button>
+  <button id="qwe2">Spin = OFF</button>
+  -->
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
