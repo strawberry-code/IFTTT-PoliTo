@@ -413,6 +413,7 @@ $(function(){
 
                     modulinoj1=
                     {
+                        "ingredientCode" : 15,
                         "triggerType" : "weather",
                         "type" : "2",
                          "location":   idCity_customWeatherActionControllerTrigger2,

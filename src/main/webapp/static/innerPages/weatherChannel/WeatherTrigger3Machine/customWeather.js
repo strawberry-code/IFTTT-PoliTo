@@ -366,6 +366,7 @@ $(function(){
                     idCity_customWeatherActionControllerTrigger3  = idCity;
                     modulinoj1 =
                     {
+                        "ingredientCode" : 16,
                         "triggerType": "weather",
                         "type": "3",
                         "location": idCity_customWeatherActionControllerTrigger3,

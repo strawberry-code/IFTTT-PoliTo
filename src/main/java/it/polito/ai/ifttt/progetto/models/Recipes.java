@@ -29,6 +29,8 @@ public class Recipes {
 	String description;
 	@ColumnDefault("false")
 	Boolean publish = false;
+	@ColumnDefault("true")
+	Boolean valid = true;
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Users.class)
 	@JoinColumn(name="id")
 	Users user;
@@ -80,5 +82,11 @@ public class Recipes {
 	}
 	public void setUser(Users user) {
 		this.user = user;
+	}
+	public Boolean getValid() {
+		return valid;
+	}
+	public void setValid(Boolean valid) {
+		this.valid = valid;
 	}	
 }
