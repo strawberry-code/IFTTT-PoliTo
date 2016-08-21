@@ -2,8 +2,11 @@
 # Project 15/16 - _IFThisThenThat_
 This project is part of the exam of the course of _Applicazioni Internet_.
 
-##### Waffle stories!
+##### Issues ready to be solved
 [![Stories in Ready](https://badge.waffle.io/cristiano-c/progetto.png?label=ready&title=Ready)](https://waffle.io/cristiano-c/progetto)
+
+#### Our developing graph
+[![Throughput Graph](https://graphs.waffle.io/cristiano-c/progetto/throughput.svg)](https://waffle.io/cristiano-c/progetto/metrics/throughput)
 
 ## Project summary
 The purpose of the  project is – for the students – to learn how to plan, set up and deploy a web based application and to experience how to solve problems using methods, algorithms and techniques taught in class (Java, HTML and JavaScript). The students have to conduct a joint teamwork to reach the **goal**.
