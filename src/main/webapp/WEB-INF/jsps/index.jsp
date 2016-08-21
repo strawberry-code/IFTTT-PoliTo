@@ -280,6 +280,15 @@
   </div>
   <!-- MODAL FORM RECIPE DESCRIPTION -- END -->
 
+  <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" style="padding-top: 10%">
+
+              <div class="modal-body">
+
+                  <div id="serverSpinner"></div>
+
+              </div>
+
+  </div>
 
   <div id="serverSpinner"></div>
 
