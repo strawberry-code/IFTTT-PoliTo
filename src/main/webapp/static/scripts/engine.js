@@ -4856,3 +4856,16 @@ function successAlert(redirect) {
         window.location.replace(redirect);
     });
 }
+
+function successAlert(redirect) {
+    swal({
+        title: "Registration success!",
+        text: "Please check your email inbox and confirm registration!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
+}
