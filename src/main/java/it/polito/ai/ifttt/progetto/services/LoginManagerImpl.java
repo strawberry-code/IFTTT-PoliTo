@@ -2,6 +2,8 @@ package it.polito.ai.ifttt.progetto.services;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -77,8 +79,15 @@ public class LoginManagerImpl implements LoginManager {
 				}
 
 				// check if the provided email has a valid format
-				if (email.indexOf('@') == -1) {
-					// email NOT valid --> 3
+//				if (email.indexOf('@') == -1) {
+//					// email NOT valid --> 3
+//					return 3;
+//				}
+				//String EMAIL_PATTERN = "^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
+				String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+				Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+				Matcher matcher = pattern.matcher(email);
+				if(matcher.matches()==false) {
 					return 3;
 				}
 
