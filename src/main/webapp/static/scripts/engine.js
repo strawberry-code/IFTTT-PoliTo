@@ -4683,7 +4683,10 @@ iftttApp.directive('bsTooltip', function () {
 
 
 
-iftttApp.controller('hiddenPageConfirmationController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
+iftttApp.controller('hiddenPageConfirmationController',['$scope', '$rootScope', '$routeParams', '$http', '$location',
+    function ($scope, $rootscope, $routeParams, $http, $resource, $location) {
+
+    // Im very useful! :P
 
     }]);
 
