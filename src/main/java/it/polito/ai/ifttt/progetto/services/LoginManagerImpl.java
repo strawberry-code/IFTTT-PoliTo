@@ -83,12 +83,6 @@ public class LoginManagerImpl implements LoginManager {
 //					// email NOT valid --> 3
 //					return 3;
 //				}
-//				String EMAIL_PATTERN = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-//				Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-//				Matcher matcher = pattern.matcher(email);
-//				if(matcher.matches()==false) {
-//					return 3;
-//				}
 				EmailValidator emailval = new EmailValidator(email);
 				if(emailval.validate()==false) {
 					return 3;

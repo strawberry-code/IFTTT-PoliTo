@@ -614,7 +614,7 @@ public class ThreadFunction extends Thread {
 
 																if (currentTmp != null) {
 																	String body = "";
-																	if (wt.getThmin() != null) {
+																	if (wt.getThmin() != null && wt.getThmin()>=(-70) && wt.getThmin()<=70) {
 																		if (currentTmp < thmin) {
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid, ttype);
@@ -642,7 +642,7 @@ public class ThreadFunction extends Thread {
 																			}
 																		}
 																	}
-																	if (wt.getThmax() != null) {
+																	if (wt.getThmax() != null && wt.getThmax()>=(-70) && wt.getThmax()<=70) {
 																		if (currentTmp > thmax) {
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid, ttype);
@@ -923,22 +923,29 @@ public class ThreadFunction extends Thread {
 				event.setLocation(ca.getLocation());
 			}
 
-			DateTime startDateTime = null;
-			if (ca.getStartDate() != null) {
-				startDateTime = new DateTime(ca.getStartDate());
-			} else {
-				startDateTime = new DateTime(new Date());
+			try {
+				DateTime startDateTime = null;
+				if (ca.getStartDate() != null) {
+					startDateTime = new DateTime(ca.getStartDate());
+				} else {
+					startDateTime = new DateTime(new Date());
+				}
+				EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone(ca.getTimezone());
+				event.setStart(start);
+
+				DateTime endDateTime = null;
+				Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
+				endDateTime = new DateTime(new Date(mill));
+				EventDateTime end = new EventDateTime().setDateTime(endDateTime).setTimeZone(ca.getTimezone());
+				event.setEnd(end);
+
+				event = clientCal.events().insert("primary", event).execute();
 			}
-			EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone(ca.getTimezone());
-			event.setStart(start);
-
-			DateTime endDateTime = null;
-			Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
-			endDateTime = new DateTime(new Date(mill));
-			EventDateTime end = new EventDateTime().setDateTime(endDateTime).setTimeZone(ca.getTimezone());
-			event.setEnd(end);
-
-			event = clientCal.events().insert("primary", event).execute();
+			catch(Exception e) {
+				//try-catch to handle incorrect date
+				//TODO: handle the exception: ad esempio mettendo la data corrente
+			}
+			
 
 		} else if (atype.compareTo("twitter") == 0 && twitter != null) {
 			TwitterAction ta = twitterManager.findTwitterActionById(aid);

@@ -151,6 +151,16 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
 					//weathertrigger.setLastCheck(System.currentTimeMillis());
+					if(weathertrigger.getThmin()!=null) {
+						if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
+							return -1;
+						}
+					}
+					if(weathertrigger.getThmax()!=null) {
+						if(weathertrigger.getThmax()<(-70) || weathertrigger.getThmax()>70) {
+							return -1;
+						}
+					}
 					weathertrigger.setLastCheck(null);
 					session.save(weathertrigger);
 					session.flush();
@@ -299,8 +309,19 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+						if(weathertrigger.getThmin()!=null) {
+							if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
+								return -1;
+							}
+						}
+						if(weathertrigger.getThmax()!=null) {
+							if(weathertrigger.getThmax()<(-70) || weathertrigger.getThmax()>70) {
+								return -1;
+							}
+						}
 						weathertrigger.setWtid(rec.getTriggerid());
-						weathertrigger.setLastCheck(System.currentTimeMillis());
+						//weathertrigger.setLastCheck(System.currentTimeMillis());
+						weathertrigger.setLastCheck(null);
 						session.update(weathertrigger);
 						session.flush();
 
@@ -372,7 +393,18 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-						weathertrigger.setLastCheck(System.currentTimeMillis());
+						if(weathertrigger.getThmin()!=null) {
+							if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
+								return -1;
+							}
+						}
+						if(weathertrigger.getThmax()!=null) {
+							if(weathertrigger.getThmax()<(-70) || weathertrigger.getThmax()>70) {
+								return -1;
+							}
+						}
+						//weathertrigger.setLastCheck(System.currentTimeMillis());
+						weathertrigger.setLastCheck(null);
 						session.save(weathertrigger);
 						session.flush();
 						triggerid = weathertrigger.getWtid();
