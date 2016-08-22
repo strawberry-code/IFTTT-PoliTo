@@ -15,8 +15,14 @@ public class EmailValidator {
 		pattern = Pattern.compile(EMAIL_PATTERN);
 	}
 	
-	boolean validate() {		
-		Matcher matcher = pattern.matcher(email);
-		return matcher.matches();		
+	boolean validate() {	
+		if(this.email!=null) {
+			Matcher matcher = pattern.matcher(email);
+			return matcher.matches();
+		}
+		else {
+			return true;
+		}
+				
 	}	
 }
