@@ -4843,3 +4843,16 @@ function setSpinner(spinflag){
         console.log('spin off');
     }
 }
+
+function successAlert(redirect) {
+    swal({
+        title: "Success!",
+        text: "Your recipe is saved!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
+}
