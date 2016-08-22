@@ -83,8 +83,7 @@ public class LoginManagerImpl implements LoginManager {
 //					// email NOT valid --> 3
 //					return 3;
 //				}
-				String EMAIL_PATTERN = "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-				//String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+				String EMAIL_PATTERN = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 				Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 				Matcher matcher = pattern.matcher(email);
 				if(matcher.matches()==false) {
@@ -122,10 +121,10 @@ public class LoginManagerImpl implements LoginManager {
 					message.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
 					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 					message.setSubject("New Registration");
-					message.setContent("Dear " + username + "," + "\n\n to complete the registration please click \n"
+					message.setContent("<h4>Dear " + username + ",<br>to complete the registration please click "
 							+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url
-							+ "\">here</a>", "text/html");
-
+							+ "\">here</a>.</h4><br><p>If you didn't try to register to our site "
+							+ "(<a href=\"http://localhost:8080/progetto/\">ifttt polito</a>), please ignore this e-mail!</p>", "text/html");
 					Transport.send(message);
 
 				} catch (MessagingException e) {
