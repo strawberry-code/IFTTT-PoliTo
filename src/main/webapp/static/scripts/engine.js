@@ -374,22 +374,82 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
     });
         */
 
+
+    /**
+
+    LEGGERE QUESTO COMMENTO!!!
+
+     Le stringhe del tipo:
+
+     '/urlerroreServeNumero1'
+     '/urlerroreServeNumero2'
+     '/urlerroreServeNumero3'
+     ...
+
+     possono essere cambiate a piacere, purché corrispondano con quelle provenienti dal server.
+
+
+
+
+     Invece le funzioni del tipo:
+
+     alertNumero1();
+     alertNumero2();
+     alertNumero3();
+     ...
+
+     si deve fare così:
+
+     1. Andare in fondo a questo file
+     2. Cercare la funzione 'function successAlert(redirect)'
+     3. Copiarla, incollarla e cambiarle il nome (con alertNumer1() per esempio...)
+
+     Nota: La funzione alert può ricevere un parametro che può essere una nuova url di redirezione che si attiva quando l'utente preme il bottone.
+
+
+     (cristiano): Se mi spiegate bene i vari casi, posso farlo subito.
+
+     */
+
         $scope.parallax = true;
 
         $scope.$location = {};
         $scope.$location.path = function () {
             var result = $location.path();
             if ($scope.parallax) {
-                if ((angular.isObject(result) ? angular.toJson(result) : result).localeCompare("/hiddenPageConfirmation") == 0) {
-                    registrationSuccess('#/home');
-                    /* Qui si potrebbe implementare il codice che permette
-                    di bypassare il form del login, mettendo proprio qui una ajax al server
-                    che avvisa che l'utente è attualemtne collegato
-                    e aggiornare le varibaili di connessione proprio da qui
-                     */
-                    $scope.parallax = false;
-                } else {
-                    console.log("url loading failure");
+                var casoServer = (angular.isObject(result) ? angular.toJson(result) : result);
+                switch (casoServer) {
+                    case '/hiddenPageConfirmation':
+                        registrationSuccess('#/home');
+                        /* Qui si potrebbe implementare il codice che permette
+                         di bypassare il form del login, mettendo proprio qui una ajax al server
+                         che avvisa che l'utente è attualemtne collegato
+                         e aggiornare le varibaili di connessione proprio da qui
+                         */
+                        $scope.parallax = false;
+                        break;
+                    case '/urlerroreServeNumero1':
+                        alertNumero1();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero2':
+                        alertNumero2();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero3':
+                        alertNumero3();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero4':
+                        alertNumero4();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero5':
+                        alertNumero5();
+                        // Altre funzioni?
+                        break;
+                    default:
+                        console.log("url loading failure");
                 }
             }
             return angular.isObject(result) ? angular.toJson(result) : result;
