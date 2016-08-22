@@ -14,6 +14,8 @@ public class CalendarAction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer caid;
+	@Column
+	Integer ingredientCode;
 	@Column(nullable=true)
 	String startDate;
 	@ColumnDefault("3600000")
@@ -28,8 +30,6 @@ public class CalendarAction {
 	String timezone;
 	@Column
 	String actionType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getCaid() {
 		return caid;

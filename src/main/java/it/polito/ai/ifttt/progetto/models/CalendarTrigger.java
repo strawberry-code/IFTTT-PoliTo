@@ -13,6 +13,8 @@ public class CalendarTrigger {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer ctid;
 	@Column
+	Integer ingredientCode;
+	@Column
 	Boolean eventAction; //0 for started, 1 for added
 	@Column(nullable=true)
 	String title;
@@ -24,8 +26,6 @@ public class CalendarTrigger {
 	Long lastCheck;
 	@Column
 	String triggerType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getCtid() {
 		return ctid;

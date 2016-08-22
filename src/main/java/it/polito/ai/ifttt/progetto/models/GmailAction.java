@@ -14,6 +14,8 @@ public class GmailAction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer gaid;
+	@Column
+	Integer ingredientCode;
 	@ColumnDefault("false")
 	boolean sender;  //puo' essere ifttt o me
 	@Column(nullable=true)
@@ -24,8 +26,6 @@ public class GmailAction {
 	String body;
 	@Column
 	String actionType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getGaid() {
 		return gaid;

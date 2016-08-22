@@ -12,6 +12,8 @@ public class GmailTrigger {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer gtid;
+	@Column
+	Integer ingredientCode;
 	@Column(nullable=true)
 	String sender;
 	@Column(nullable=true)
@@ -20,8 +22,6 @@ public class GmailTrigger {
 	Long lastCheck;
 	@Column
 	String triggerType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getGtid() {
 		return gtid;
