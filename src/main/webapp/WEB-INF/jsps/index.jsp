@@ -22,6 +22,9 @@
     <script src="./static/scripts/spin.js"></script>
     <script src="./static/scripts/jqueryspin.js"></script>
     <script src="./static/scripts/jstz.js"></script>
+      <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+
+
 
 
     <!-- Cascade Style Sheets -->
@@ -30,6 +33,7 @@
     <link rel="stylesheet" href="./static/stylesheets/2-col-portfolio.css">
     <link rel="stylesheet" href="./static/stylesheets/index.css">
     <link rel="stylesheet" href="./static/stylesheets/loginPage.css">
+      <link rel="stylesheet" type="text/css" href="./static/bower_components/sweetalert/dist/sweetalert.css">
 
 
 
