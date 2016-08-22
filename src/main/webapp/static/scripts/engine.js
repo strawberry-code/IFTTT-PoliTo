@@ -3364,7 +3364,6 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                     }
                     else {
                         subject = null;
-                        alert("4");
                     }
 
 
