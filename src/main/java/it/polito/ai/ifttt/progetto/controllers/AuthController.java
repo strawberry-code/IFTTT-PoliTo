@@ -82,17 +82,18 @@ public class AuthController {
 		 * if(id==null && url == null) { return "activation"; } else {
 		 */
 		int code = loginManager.activate(id, url);
-//		if (code == 0) {
-//			attributes.addFlashAttribute("msg", "Activation Done");
-//		} else if (code == -1) {
-//			attributes.addFlashAttribute("msg", "Some Errors occured");
-//		} else if (code == 1) {
-//			attributes.addFlashAttribute("msg", "User already Registered");
-//		}
-//		return "redirect:/";
-		return new RedirectView("http://localhost:8080/progetto/#/hiddenPageConfirmation");
-		// }
-
-		// TODO: gestire il parametro di ritorno al client!!!
+		if (code == 0) {
+			return new RedirectView("http://localhost:8080/progetto/#/hiddenPageConfirmation");
+			//attributes.addFlashAttribute("msg", "Activation Done");
+		} else if (code == -1) {
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+			//attributes.addFlashAttribute("msg", "Some Errors occured");
+		} else if (code == 1) {
+			return new RedirectView("http://localhost:8080/progetto/#/emailAlreadyRegistered");
+			//attributes.addFlashAttribute("msg", "User already Registered");
+		}
+		else {
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+		}
 	}
 }
