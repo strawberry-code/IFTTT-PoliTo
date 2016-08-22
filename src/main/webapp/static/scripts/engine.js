@@ -348,6 +348,11 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'passwordChangeController'
     });
 
+    $routeProvider.when('/hiddenPageConfirmation', {
+        templateUrl: './static/innerPages/hidden.html',
+        controller: 'hiddenPageConfirmationController'
+    });
+
 
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
