@@ -2233,7 +2233,7 @@ iftttApp.controller('createAccountController', ['$scope',
                             if(response == 0)
                             {
                                 flag_registration_success = true;
-                                window.location.replace('#SuccessRegistration');
+                                successAlert('#/home');
 
                                 //alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
