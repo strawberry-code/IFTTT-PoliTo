@@ -2223,6 +2223,8 @@ iftttApp.controller('createAccountController', ['$scope',
          */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
+            $scope.parallax = true;
+
             if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2))
             {
                 if (pws1.localeCompare(pws2) == 0 && pws1.length > 7)
