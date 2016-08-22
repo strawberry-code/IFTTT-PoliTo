@@ -50,7 +50,7 @@ The goal of this project is to set up a web application similar to [IFTTT](https
 #### IDE and devlopment support (client side):
   * [IntelliJ IDEA](https://www.jetbrains.com/idea/) (30 day free-trial)
   * [Json Restful Server](https://github.com/typicode/json-server) (debug and testing)
-  * [Kaleidoscope](http://www.kaleidoscopeapp.com) (a powerful git merge tool)
+  * [Kaleidoscope](http://www.kaleidoscopeapp.com) and [Meld Merge](http://meldmerge.org) (two powerful git merge tools)
   
 
 
