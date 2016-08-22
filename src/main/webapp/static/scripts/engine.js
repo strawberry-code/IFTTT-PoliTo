@@ -2233,7 +2233,7 @@ iftttApp.controller('createAccountController', ['$scope',
                             if(response == 0)
                             {
                                 flag_registration_success = true;
-                                window.location.replace('#SuccessRegistration');
+                                successAlert('#/home');
 
                                 //alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
@@ -4729,8 +4729,9 @@ function sedingServerAllRun(loginDataSend) {
 
                 $('#recipedDescriptionModal').modal('hide');
                 //sendingToServerAll();
-                url = "#SuccessRepice";
-                window.location.replace(url);
+                successAlert('#/index/myRecipes');
+                //url = "#SuccessRepice";
+                //window.location.replace(url);
             }
 
         },
@@ -4804,8 +4805,9 @@ function sedingServerAllRunput(loginDataSend) {
                     $('#recipedDescriptionModal').modal('hide');
 
                 }
-                url = "#SuccessRepice";
-                window.location.replace(url);
+                successAlert('#/index/myRecipes');
+                //url = "#SuccessRepice";
+                //window.location.replace(url);
             }
             else
             {
@@ -4840,4 +4842,30 @@ function setSpinner(spinflag){
         $('#serverSpinner').spin(false);
         console.log('spin off');
     }
+}
+
+function successAlert(redirect) {
+    swal({
+        title: "Success!",
+        text: "Your recipe is saved!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
+}
+
+function successAlert(redirect) {
+    swal({
+        title: "Registration success!",
+        text: "Please check your email inbox and confirm registration!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
 }
