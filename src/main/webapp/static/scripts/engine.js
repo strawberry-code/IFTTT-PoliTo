@@ -4729,8 +4729,9 @@ function sedingServerAllRun(loginDataSend) {
 
                 $('#recipedDescriptionModal').modal('hide');
                 //sendingToServerAll();
-                url = "#SuccessRepice";
-                window.location.replace(url);
+                successAlert('#/index/myRecipes');
+                //url = "#SuccessRepice";
+                //window.location.replace(url);
             }
 
         },
@@ -4804,8 +4805,9 @@ function sedingServerAllRunput(loginDataSend) {
                     $('#recipedDescriptionModal').modal('hide');
 
                 }
-                url = "#SuccessRepice";
-                window.location.replace(url);
+                successAlert('#/index/myRecipes');
+                //url = "#SuccessRepice";
+                //window.location.replace(url);
             }
             else
             {
