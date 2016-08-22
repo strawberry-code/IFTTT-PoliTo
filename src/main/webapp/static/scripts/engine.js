@@ -357,8 +357,40 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http',
-    function ($scope, $location, $routeParams, $window, $http) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope',
+    function ($scope, $location, $routeParams, $window, $http, $rootScope) {
+
+    /*
+    $window.addEventListener('message', function (e) {
+        $rootScope.$apply(function () {
+
+            if($location.path().localeCompare("/hiddenPageConfirmation") == 0){
+                alert("registration success");
+                $location.path('#/home')
+            } else {
+                console.log($location.path());
+            }
+        });
+    });
+        */
+
+        $scope.parallax = true;
+
+        $scope.$location = {};
+        $scope.$location.path = function () {
+            var result = $location.path();
+            if ($scope.parallax) {
+                if ((angular.isObject(result) ? angular.toJson(result) : result).localeCompare("/hiddenPageConfirmation") == 0) {
+                    successAlert('#/home');
+                    $scope.parallax = false;
+                } else {
+                    console.log("url loading failure");
+                }
+            }
+            return angular.isObject(result) ? angular.toJson(result) : result;
+        };
+
+
 
 
         if (consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
