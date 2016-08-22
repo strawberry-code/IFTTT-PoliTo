@@ -348,12 +348,114 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'passwordChangeController'
     });
 
+    $routeProvider.when('/hiddenPageConfirmation', {
+        templateUrl: './static/innerPages/hidden.html',
+        controller: 'hiddenPageConfirmationController'
+    });
+
 
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http',
-    function ($scope, $location, $routeParams, $window, $http) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope',
+    function ($scope, $location, $routeParams, $window, $http, $rootScope) {
+
+    /*
+    $window.addEventListener('message', function (e) {
+        $rootScope.$apply(function () {
+
+            if($location.path().localeCompare("/hiddenPageConfirmation") == 0){
+                alert("registration success");
+                $location.path('#/home')
+            } else {
+                console.log($location.path());
+            }
+        });
+    });
+        */
+
+
+    /**
+
+    LEGGERE QUESTO COMMENTO!!!
+
+     Le stringhe del tipo:
+
+     '/urlerroreServeNumero1'
+     '/urlerroreServeNumero2'
+     '/urlerroreServeNumero3'
+     ...
+
+     possono essere cambiate a piacere, purché corrispondano con quelle provenienti dal server.
+
+
+
+
+     Invece le funzioni del tipo:
+
+     alertNumero1();
+     alertNumero2();
+     alertNumero3();
+     ...
+
+     si deve fare così:
+
+     1. Andare in fondo a questo file
+     2. Cercare la funzione 'function successAlert(redirect)'
+     3. Copiarla, incollarla e cambiarle il nome (con alertNumer1() per esempio...)
+
+     Nota: La funzione alert può ricevere un parametro che può essere una nuova url di redirezione che si attiva quando l'utente preme il bottone.
+
+
+     (cristiano): Se mi spiegate bene i vari casi, posso farlo subito.
+
+     */
+
+        $scope.parallax = true;
+
+        $scope.$location = {};
+        $scope.$location.path = function () {
+            var result = $location.path();
+            if ($scope.parallax) {
+                var casoServer = (angular.isObject(result) ? angular.toJson(result) : result);
+                switch (casoServer) {
+                    case '/hiddenPageConfirmation':
+                        registrationSuccess('#/home');
+                        /* Qui si potrebbe implementare il codice che permette
+                         di bypassare il form del login, mettendo proprio qui una ajax al server
+                         che avvisa che l'utente è attualemtne collegato
+                         e aggiornare le varibaili di connessione proprio da qui
+                         */
+                        $scope.parallax = false;
+                        break;
+                    case '/someErrorOccurred':
+                        someErrorOccurred();
+                        // Altre funzioni?
+                        break;
+                    case '/emailAlreadyRegistered':
+                        emailAlreadyRegistered();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero3':
+                        alertNumero3();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero4':
+                        alertNumero4();
+                        // Altre funzioni?
+                        break;
+                    case '/urlerroreServeNumero5':
+                        alertNumero5();
+                        // Altre funzioni?
+                        break;
+                    default:
+                        console.log("url loading failure");
+                }
+            }
+            return angular.isObject(result) ? angular.toJson(result) : result;
+        };
+
+
 
 
         if (consoleLogs) console.log("THE CONSOLE LOGS ARE ACTIVE!");
@@ -2186,6 +2288,8 @@ iftttApp.controller('createAccountController', ['$scope',
          */
         $scope.createAccountFunc = function (user, email, pws1, pws2) {
 
+            $scope.parallax = true;
+
             if (angular.isDefined(email) && angular.isDefined(user) && angular.isDefined(pws1) && angular.isDefined(pws2))
             {
                 if (pws1.localeCompare(pws2) == 0 && pws1.length > 7)
@@ -2233,7 +2337,7 @@ iftttApp.controller('createAccountController', ['$scope',
                             if(response == 0)
                             {
                                 flag_registration_success = true;
-                                successAlert('#/home');
+                                registrationSent('#/home');
 
                                 //alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
@@ -4645,11 +4749,21 @@ iftttApp.directive('bsTooltip', function () {
 });
 
 
+
+iftttApp.controller('hiddenPageConfirmationController',['$scope', '$rootScope', '$routeParams', '$http', '$location',
+    function ($scope, $rootscope, $routeParams, $http, $resource, $location) {
+
+    // Im very useful! :P
+
+    }]);
+
+
+
 /**
  * ########################################################################################################################
  * ########################################################################################################################
  * ######
- * ######                                                JavaScript functions
+ * ######                                                JavaScript functions zzz
  * ######
  * ########################################################################################################################
  * ########################################################################################################################
@@ -4857,9 +4971,9 @@ function successAlert(redirect) {
     });
 }
 
-function successAlert(redirect) {
+function registrationSent(redirect) {
     swal({
-        title: "Registration success!",
+        title: "Registration requested!",
         text: "Please check your email inbox and confirm registration!",
         type: "success"
         //confirmButtonColor: "#DD6B55",
@@ -4867,5 +4981,42 @@ function successAlert(redirect) {
         //closeOnConfirm: true
     }, function () {
         window.location.replace(redirect);
+    });
+}
+
+function registrationSuccess(redirect) {
+    swal({
+        title: "Registration success!",
+        text: "Welcome to our site!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
+}
+
+function someErrorOccurred() {
+    swal({
+        title: "Error!",
+        text: "Some error occurred.",
+        type: "error"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function emailAlreadyRegistered() {
+    swal({
+        title: "Hey!",
+        text: "This email is already registered.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
     });
 }
