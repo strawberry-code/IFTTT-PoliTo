@@ -428,12 +428,12 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                          */
                         $scope.parallax = false;
                         break;
-                    case '/urlerroreServeNumero1':
-                        alertNumero1();
+                    case '/someErrorOccurred':
+                        someErrorOccurred();
                         // Altre funzioni?
                         break;
-                    case '/urlerroreServeNumero2':
-                        alertNumero2();
+                    case '/emailAlreadyRegistered':
+                        emailAlreadyRegistered();
                         // Altre funzioni?
                         break;
                     case '/urlerroreServeNumero3':
@@ -4994,5 +4994,29 @@ function registrationSuccess(redirect) {
         //closeOnConfirm: true
     }, function () {
         window.location.replace(redirect);
+    });
+}
+
+function someErrorOccurred() {
+    swal({
+        title: "Error!",
+        text: "Some error occurred.",
+        type: "error"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function emailAlreadyRegistered() {
+    swal({
+        title: "Hey!",
+        text: "This email is already registered.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
     });
 }
