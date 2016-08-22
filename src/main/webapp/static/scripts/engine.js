@@ -549,7 +549,14 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          * @method requestGoogleAuth
          * @return 
          */
-        $scope.requestGoogleAuth = function () {
+        $scope.requestGoogleAuth = function ()
+        {
+            if(iftttLogin == false &&  googleLogin == false)
+            {
+                $('#loginGoogleModal').modal('hide');
+                $('#loginIFTTTModal').modal('show');
+
+            }
 
 //            var googleCredentials = {
 //                serviceRequested: "google",
@@ -671,7 +678,19 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          * @method requestTwitterAuth
          * @return 
          */
-        $scope.requestTwitterAuth = function () {
+        $scope.requestTwitterAuth = function ()
+        {
+
+            if(iftttLogin == false &&  twitterLogin == false)
+            {
+                $('#loginTwitterModal').modal('hide');
+                $('#loginIFTTTModal').modal('show');
+
+            }
+
+
+
+
 
             setSpinner(true);
             $http({
