@@ -90,7 +90,7 @@ public class AuthController {
 //			attributes.addFlashAttribute("msg", "User already Registered");
 //		}
 //		return "redirect:/";
-		return new RedirectView("http://localhost:8080/progetto/#/hiddenPageRegistration");
+		return new RedirectView("http://localhost:8080/progetto/#/hiddenPageConfirmation");
 		// }
 
 		// TODO: gestire il parametro di ritorno al client!!!
