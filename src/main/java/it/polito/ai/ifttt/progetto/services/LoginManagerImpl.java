@@ -128,7 +128,7 @@ public class LoginManagerImpl implements LoginManager {
 					message.setContent("<h4>Dear " + username + ",<br>to complete the registration please click "
 							+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url
 							+ "\">here</a>.</h4><br><p>If you didn't try to register to our site "
-							+ "(<a href=\"http://localhost:8080/progetto/\">ifttt polito</a>), please ignore this e-mail!</p>", "text/html");
+							+ "(<a href=\"http://localhost:8080/progetto/\">IFTTT-polito</a>), please ignore this e-mail!</p>", "text/html");
 					Transport.send(message);
 
 				} catch (MessagingException e) {
