@@ -12,6 +12,8 @@ public class TwitterTrigger {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer twtid;
+	@Column
+	Integer ingredientCode;
 	@Column(nullable=true)
 	String username_sender;
 	@Column(nullable=true)
@@ -22,9 +24,7 @@ public class TwitterTrigger {
 	Boolean type; //false: check tweets, true: check directMessages
 	@Column
 	String triggerType;
-	@Column
-	Integer ingredientCode;
-	
+
 	public String getUsername_sender() {
 		return username_sender;
 	}

@@ -159,33 +159,35 @@ public class ThreadFunction extends Thread {
 										if (ttype.compareTo("gmail") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
 											GmailTrigger gt = gmailManager.findGmailTriggerById(tid);
 											String subject = gt.getSubject();
-											String emailsender = gt.getSender();
-
-											Date current = new Date(gt.getLastCheck());
-											long epoch = current.getTime()/1000;
-											String query = "in:inbox is:unread after:"+epoch;
-											if (subject != null && emailsender != null) {
-												query = query + " from:" + emailsender + " subject:'" + subject + "'";
-											} else if (subject == null && emailsender != null) {
-												query = query + " from:" + emailsender;
-											} else if (subject != null && emailsender == null) {
-												query = query + " subject:" + subject;
-											}
-											ListMessagesResponse responseMess = clientGmail.users().messages().list("me")
-													.setQ(query).execute();
-											if (responseMess.getMessages() != null) {
-												// c'è qualche messaggio
-												for (Message m : responseMess.getMessages()) {
-													List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-															ttype);
-													for (Object[] a : actions) {
-														Integer aid = (Integer) a[0];
-														String atype = (String) a[1];
-														this.executeAction(atype, aid, session, null);
+											String emailsender = gt.getSender();											
+											EmailValidator emailval = new EmailValidator(emailsender);
+											if(emailval.validate()==true) {
+												Date current = new Date(gt.getLastCheck());
+												long epoch = current.getTime()/1000;
+												String query = "in:inbox is:unread after:"+epoch;
+												if (subject != null && emailsender != null) {
+													query = query + " from:" + emailsender + " subject:'" + subject + "'";
+												} else if (subject == null && emailsender != null) {
+													query = query + " from:" + emailsender;
+												} else if (subject != null && emailsender == null) {
+													query = query + " subject:" + subject;
+												}
+												ListMessagesResponse responseMess = clientGmail.users().messages().list("me")
+														.setQ(query).execute();
+												if (responseMess.getMessages() != null) {
+													// c'è qualche messaggio
+													for (Message m : responseMess.getMessages()) {
+														List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																ttype);
+														for (Object[] a : actions) {
+															Integer aid = (Integer) a[0];
+															String atype = (String) a[1];
+															this.executeAction(atype, aid, session, null);
+														}
 													}
 												}
+												gmailManager.setLastCheck(System.currentTimeMillis(), tid);
 											}
-											 gmailManager.setLastCheck(System.currentTimeMillis(), tid);
 
 										} else if (ttype.compareTo("calendar") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
 
@@ -871,37 +873,40 @@ public class ThreadFunction extends Thread {
 
 			MimeMessage email = new MimeMessage(session);
 
-			InternetAddress tAddress = new InternetAddress(ga.getReceiver());
-			email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
-			if (ga.getSubject() != null)
-				email.setSubject(ga.getSubject());
-			if (ga.getBody() != null)
-				email.setText(ga.getBody());
-			else if (body != null)
-				email.setText(body);
-
-			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			email.writeTo(bytes);
-			String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
-			Message message = new Message();
-			message.setRaw(encodedEmail);
-
-			if (ga.isSender() == true) {
-				// se ==true --> me
-				clientGmail.users().messages().send("me", message).execute();
-			} else {
-				// se false --> ifttt
-				javax.mail.Message message1 = new MimeMessage(sessionMail);
-				message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
-				message1.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(ga.getReceiver()));
+			EmailValidator emailval = new EmailValidator(ga.getReceiver());
+			if(emailval.validate()==true) {
+				InternetAddress tAddress = new InternetAddress(ga.getReceiver());
+				email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
 				if (ga.getSubject() != null)
-					message1.setSubject(ga.getSubject());
+					email.setSubject(ga.getSubject());
 				if (ga.getBody() != null)
-					message1.setText(ga.getBody());
+					email.setText(ga.getBody());
 				else if (body != null)
-					message1.setText(body);
+					email.setText(body);
 
-				Transport.send(message1);
+				ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+				email.writeTo(bytes);
+				String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
+				Message message = new Message();
+				message.setRaw(encodedEmail);
+
+				if (ga.isSender() == true) {
+					// se ==true --> me
+					clientGmail.users().messages().send("me", message).execute();
+				} else {
+					// se false --> ifttt
+					javax.mail.Message message1 = new MimeMessage(sessionMail);
+					message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
+					message1.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(ga.getReceiver()));
+					if (ga.getSubject() != null)
+						message1.setSubject(ga.getSubject());
+					if (ga.getBody() != null)
+						message1.setText(ga.getBody());
+					else if (body != null)
+						message1.setText(body);
+
+					Transport.send(message1);
+				}
 			}
 
 		} else if (atype.compareTo("calendar") == 0 && clientGmail != null) {

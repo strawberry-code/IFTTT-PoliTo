@@ -12,6 +12,8 @@ public class TwitterAction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer twaid;
+	@Column
+	Integer ingredientCode;
 	@Column(nullable=true) //if null, e' quello che gli passiamo 
 	String body;		   //noi (ad esempio weather report)
 	@Column(nullable=true)
@@ -20,8 +22,6 @@ public class TwitterAction {
 						  //se si sceglie l'azione di tipo 2
 	@Column
 	String actionType;
-	@Column
-	Integer ingredientCode;
 	
 	public Integer getTwaid() {
 		return twaid;

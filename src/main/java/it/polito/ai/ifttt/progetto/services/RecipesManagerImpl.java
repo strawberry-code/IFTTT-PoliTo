@@ -136,6 +136,12 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
 					gmailtrigger.setLastCheck(System.currentTimeMillis());
+					if(gmailtrigger.getSender()!=null) {
+						EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
+						if(emailval.validate()==false) {
+							return -1;
+						}
+					}
 					session.save(gmailtrigger);
 					session.flush();
 					triggerid = gmailtrigger.getGtid();
@@ -177,6 +183,12 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+					if(gmailaction.getReceiver()!=null) {
+						EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
+						if(emailval.validate()==false) {
+							return -1;
+						}
+					}
 					session.save(gmailaction);
 					session.flush();
 					actionid = gmailaction.getGaid();
@@ -272,6 +284,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						if(gmailtrigger.getSender()!=null) {
+							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
+							if(emailval.validate()==false) {
+								return -1;
+							}
+						}
 						gmailtrigger.setGtid(rec.getTriggerid());
 						gmailtrigger.setLastCheck(System.currentTimeMillis());
 						session.update(gmailtrigger);
@@ -339,6 +357,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						if(gmailtrigger.getSender()!=null) {
+							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
+							if(emailval.validate()==false) {
+								return -1;
+							}
+						}
 						gmailtrigger.setLastCheck(System.currentTimeMillis());
 						session.save(gmailtrigger);
 						session.flush();
@@ -384,6 +408,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						if(gmailaction.getReceiver()!=null) {
+							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
+							if(emailval.validate()==false) {
+								return -1;
+							}
+						}
 						gmailaction.setGaid(rec.getActionid());
 						session.update(gmailaction);
 						session.flush();
@@ -434,6 +464,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						if(gmailaction.getReceiver()!=null) {
+							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
+							if(emailval.validate()==false) {
+								return -1;
+							}
+						}
 						session.save(gmailaction);
 						session.flush();
 						actionid = gmailaction.getGaid();
