@@ -538,6 +538,7 @@ $(function()
                 mvar == "17" ||
                 mvar == "18" ||
                 mvar == "19" ||
+                mvar == "20" ||
                 mvar == "21" ||
                 mvar == "22" ||
                 mvar == "23" ||
@@ -557,6 +558,7 @@ $(function()
                 mvar == "37" ||
                 mvar == "38" ||
                 mvar == "39" ||
+                mvar == "40" ||
                 mvar == "41" ||
                 mvar == "42" ||
                 mvar == "43" ||
