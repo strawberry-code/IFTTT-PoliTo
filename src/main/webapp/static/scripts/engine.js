@@ -4558,8 +4558,8 @@ iftttApp.filter('skeumorphize', function(){
             case 'sender':
             {
                 switch (input) {
-                    case true: return 'This email will be sent from IFTTT.';
-                    case false: return 'This email will be sent send this email from your registration address.';
+                    case true: return 'This e-mail will be sent by IFTTT e-mail address.';
+                    case false: return 'This e-mail will be sent by your registration e-mail address.';
                 }
             }
 
