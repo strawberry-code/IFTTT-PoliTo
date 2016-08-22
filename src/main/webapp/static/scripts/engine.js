@@ -381,7 +381,12 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             var result = $location.path();
             if ($scope.parallax) {
                 if ((angular.isObject(result) ? angular.toJson(result) : result).localeCompare("/hiddenPageConfirmation") == 0) {
-                    successAlert('#/home');
+                    registrationSuccess('#/home');
+                    /* Qui si potrebbe implementare il codice che permette
+                    di bypassare il form del login, mettendo proprio qui una ajax al server
+                    che avvisa che l'utente è attualemtne collegato
+                    e aggiornare le varibaili di connessione proprio da qui
+                     */
                     $scope.parallax = false;
                 } else {
                     console.log("url loading failure");
@@ -2272,7 +2277,7 @@ iftttApp.controller('createAccountController', ['$scope',
                             if(response == 0)
                             {
                                 flag_registration_success = true;
-                                successAlert('#/home');
+                                registrationSent('#/home');
 
                                 //alert("Success"); //Da metterci qualche cosa è solo una prova
                                 /*
@@ -4906,10 +4911,23 @@ function successAlert(redirect) {
     });
 }
 
-function successAlert(redirect) {
+function registrationSent(redirect) {
+    swal({
+        title: "Registration requested!",
+        text: "Please check your email inbox and confirm registration!",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace(redirect);
+    });
+}
+
+function registrationSuccess(redirect) {
     swal({
         title: "Registration success!",
-        text: "Please check your email inbox and confirm registration!",
+        text: "Welcome to our site!",
         type: "success"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
