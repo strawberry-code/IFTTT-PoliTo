@@ -2330,7 +2330,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                 function error(response) {
                     //alertVariable = "Warning: there are been some errors";
                     //alertFunction();
-                    alertInfo("Sorry, in this moment there is not public recipes.");
+                    alertError("An unknown error occurred. (code: 514)");
                     // Error code here
                     //alert("error");
                 }
@@ -3078,7 +3078,12 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
         /**
          * Description
@@ -4313,7 +4318,15 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
+
+
 
 
 
@@ -4649,6 +4662,16 @@ iftttApp.controller('action1TwitterController', ['$scope',
 
         }
 
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
+
     }]);
 
 //action2TwitterController
@@ -4764,7 +4787,13 @@ iftttApp.controller('action2TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -5361,7 +5390,7 @@ function alertSuccess(message) {
 
 function alertInfo(message) {
     swal({
-        title: "Mmmm...",
+        title: "Success!",
         text: message,
         type: "info"
         //confirmButtonColor: "#DD6B55",
