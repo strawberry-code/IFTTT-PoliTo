@@ -1420,8 +1420,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 .success(function (response) {
                     if(response == 0)
                     {
-                        alertVariable = "SUCCESS!!!";
-                        alertFunction();
+                        //alertVariable = "SUCCESS!!!";
+                        //alertFunction();
+                        alertSuccess("The recipe was removed");
 
                         $scope.userRecipes.splice(index, 1);
                     }
