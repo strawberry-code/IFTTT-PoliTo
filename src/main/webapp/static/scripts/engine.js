@@ -144,6 +144,11 @@ var rootingAutenticationTriggerAction = "";
 var flag_registration_success = false;
 
 
+var importFlag = true;
+var triggerImportRoute = "";
+var actionImportRoute = "";
+
+
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
 
@@ -1836,30 +1841,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
-        /*
-        //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
-        $http({
-            url: 'http://localhost:8080/progetto/api/prova', //[renna] da cambiare la url per il server
-            method: "POST",
-            dataType: 'application/json'
-        }).then(function success(response) {
-            if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
-            if (response.data.authenticated.localeCompare("true") == 0) {
-                $scope.iftttLogged = true;
-                iftttLogin = true;
-            }
-            if (consoleLogs) console.log($scope.iftttLogged);
-        }, function error() {
-            $scope.iftttLogged = false;
-            iftttLogin = false;
-            if (consoleLogs) console.log($scope.iftttLogged);
-        });
-
-*/
-
-
-        $scope.ngImportRecipeAlert = function() {
+        $scope.ngImportRecipeAlert = function(triggerCode, actionCode) {
             swal({
                 title: "Do you like this recipe?",
                 text: "Good! You have to customize it to continue.",
@@ -1870,7 +1852,18 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
             }, function (isConfirm) {
                 if(isConfirm){
 
+                    // LE TRE VARIABILI *GLOBALI* PER FXR!!
+                    importFlag = true;
+                    triggerImportRoute = getRoute(triggerCode); //Se triggerCode è "14" allora ti ritorna "/WeatherTrigger1" cmq puoi fare degli alert per testare
+                    actionImportRoute = getRoute(actionCode);
+
+                    window.location.replace('#'+triggerImportRoute);
+
+                    /*
                     alert("implementare qui le funzioni che permettono di continuare l'importazione della ricetta (engine.js riga 1864 xxx)");
+                    alert("devo andare nel trigger form :" + triggerCode);
+                    alert("e POI devo andare nell'action form :" + actionCode);
+                    */
 
                 } else {
                     window.location.replace('#publicRecipes');
@@ -1878,7 +1871,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
             });
 
         };
-
 
          //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
 
@@ -5078,4 +5070,36 @@ function loginInactiveUser() {
         //closeOnConfirm: true
     }, function () {
     });
+}
+
+
+function getRoute(ingredientCodeInput){
+    switch (ingredientCodeInput) {
+        case 11:
+            return '/Trigger1Gcalendar';
+        case 12:
+            return '/Trigger2Gcalendar';
+        case 13:
+            return '/gMailTrigger';
+        case 14:
+            return '/WeatherTrigger1';
+        case 15:
+            return '/WeatherTrigger2';
+        case 16:
+            return '/WeatherTrigger3';
+        case 17:
+            return '/WeatherTrigger4';
+        case 18:
+            return '/Trigger1Twitter';
+        case 19:
+            return '/Trigger2Twitter';
+        case 21:
+            return '/action1Gcalendar.';
+        case 22:
+            return '/gMailAction';
+        case 23:
+            return '/Action1Twitter';
+        case 24:
+            return '/Action2Twitter';
+    }
 }
