@@ -1165,6 +1165,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          };
          */
 
+        $scope.closeModal = function () {
+            $('#loginIFTTTModal').modal('hide');
+        }
+
 
     }]);
 
