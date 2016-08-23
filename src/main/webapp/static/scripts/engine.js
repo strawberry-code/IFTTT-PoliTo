@@ -2379,8 +2379,9 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=1 : user already exist
                             if(response == 1)
                             {
-                                alertVariable = "Warning: user already exist";
-                                alertFunction();
+                                //alertVariable = "Warning: user already exist";
+                                //alertFunction();
+                                alertWarning("This username already exists.");
 
                             }
                             // i=2 : email already exist
