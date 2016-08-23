@@ -135,13 +135,13 @@
 
                     <br>
 
-                    <label for="selectHourDuration">Hour:</label>
+                    <label for="selectHourStart">Hour:</label>
                     <select name="mySelect" id="selectHourStart"
                             ng-disabled="!checkdata"
                             ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
                             ng-model="hourStart.selectedOption"></select>
 
-                    <label for="selectMinuteDuration">Minute:</label>
+                    <label for="selectMinuteStart">Minute:</label>
 
                     <select name="mySelect" id="selectMinuteStart"
                             ng-disabled="!checkdata"

@@ -3074,7 +3074,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
-        },
+        }
 
         /**
          * Description
@@ -4112,6 +4112,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.hourVector =
         {
             availableOptions: [
+                {id: '00', hour: '00'},               
                 {id: '01', hour: '01'},
                 {id: '02', hour: '02'},
                 {id: '03', hour: '03'},
