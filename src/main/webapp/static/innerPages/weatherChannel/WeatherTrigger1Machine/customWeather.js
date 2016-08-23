@@ -328,13 +328,14 @@ $(function()
         if (idCity == '0')
         {
 
-            $("#notificationsWrapper").notify(
-                "You have not found you ciry",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "You have not found you ciry",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("We have not found your city.");
             //alert("You have not found you ciry");
         }
         else
