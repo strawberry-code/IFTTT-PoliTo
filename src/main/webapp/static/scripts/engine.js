@@ -2615,9 +2615,10 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                 //alert("La password è stata modificata con successo");
                                 if (response == 0)
                                 {
-                                    alertVariable = "Success: the password is changed";
-                                    alertFunction();
-                                    window.location.replace('#myRecipes');
+                                    //alertVariable = "Success: the password is changed";
+                                    //alertFunction();
+                                    alertPasswordChangedSuccess();
+
 
                                 }
                                 else
