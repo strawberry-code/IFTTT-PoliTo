@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import it.polito.ai.ifttt.progetto.services.LoginManager;
 
@@ -75,22 +76,24 @@ public class AuthController {
 	// }
 
 	@RequestMapping(value = "/activation", method = RequestMethod.GET)
-	public String activationDone(@RequestParam(required = false, value = "id") Integer id,
+	public RedirectView activationDone(@RequestParam(required = false, value = "id") Integer id,
 			@RequestParam(required = false, value = "url") String url, RedirectAttributes attributes) {
 		/*
 		 * if(id==null && url == null) { return "activation"; } else {
 		 */
 		int code = loginManager.activate(id, url);
 		if (code == 0) {
-			attributes.addFlashAttribute("msg", "Activation Done");
+			return new RedirectView("http://localhost:8080/progetto/#/hiddenPageConfirmation");
+			//attributes.addFlashAttribute("msg", "Activation Done");
 		} else if (code == -1) {
-			attributes.addFlashAttribute("msg", "Some Errors occured");
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+			//attributes.addFlashAttribute("msg", "Some Errors occured");
 		} else if (code == 1) {
-			attributes.addFlashAttribute("msg", "User already Registered");
+			return new RedirectView("http://localhost:8080/progetto/#/emailAlreadyRegistered");
+			//attributes.addFlashAttribute("msg", "User already Registered");
 		}
-		return "redirect:/";
-		// }
-
-		// TODO: gestire il parametro di ritorno al client!!!
+		else {
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+		}
 	}
 }
