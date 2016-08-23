@@ -1933,8 +1933,9 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
         $http
         (
             {
-                method: 'GET',
-                url: 'http://localhost:8080/progetto/api/publish/userRecipes'
+                url: 'http://localhost:8080/progetto/api/publish/userRecipes',
+                method: "POST",
+                dataType: 'application/json',
             }
         )
             .then
