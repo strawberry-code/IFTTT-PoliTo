@@ -1472,8 +1472,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 .success(function () {
                     setSpinner(false);
                         $scope.userRecipes[index].publish = true;
-                    alertVariable = "Success: now your repice is public";
-                    alertFunction();
+                    //alertVariable = "Success: now your repice is public";
+                    //alertFunction();
+                    alertSuccess("You recipe was successfully published!");
                         //alert("o.k. true");
                     }
                 );
