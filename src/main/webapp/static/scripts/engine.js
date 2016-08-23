@@ -2396,8 +2396,9 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=3 : email not valid
                             if(response == 3)
                             {
-                                alertVariable = "Warning: email is not valid";
-                                alertFunction();
+                                //alertVariable = "Warning: email is not valid";
+                                //alertFunction();
+                                alertInfo("Sorry, this email is not valid.");
 
 
                             }
