@@ -3452,8 +3452,9 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
             }
             else {
                 //alert("You are sloged from google please relog and redo it");
-                alertVariable = "You are sloged from google please relog and redo it";
-                alertFunction();
+                //alertVariable = "You are sloged from google please relog and redo it";
+                //alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#allTriggers";
                 window.location.replace(url);
 
