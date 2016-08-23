@@ -2289,8 +2289,9 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                 },
                 function error(response) {
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                    alertError("An unknown error occurred. (code: 514)");
                     // Error code here
                     //alert("error");
                 }
