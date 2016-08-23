@@ -1412,8 +1412,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     url: 'http://localhost:8080/progetto/api/userRecipes/' + id
                 }
             ).error(function () {
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 338");
                     //alert("error");
             })
                 .success(function (response) {
