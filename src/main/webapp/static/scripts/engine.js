@@ -2476,7 +2476,7 @@ iftttApp.controller('createAccountController', ['$scope',
             }
 
 
-        }
+        };
 
         /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
 
