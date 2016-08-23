@@ -4068,7 +4068,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '30', hour: '30'},
                 {id: '31', hour: '31'}
             ],
-            selectedOption: {id: '1', hour: '1'}
+            selectedOption: {id: '00', hour: '00'}
 
         };
 
