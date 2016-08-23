@@ -391,13 +391,14 @@ $(function(){
                 }
                 else {
                     //alert("The input of the time zone is not right");
-                    $("#notificationsWrapper").notify(
-                        "The input of the time zone is not right",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // $("#notificationsWrapper").notify(
+                    //     "The input of the time zone is not right",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("The timezone code is invalid");
                 }
             }
             else
