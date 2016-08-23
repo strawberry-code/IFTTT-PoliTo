@@ -28,8 +28,36 @@
 
 
                         <div class="col-md-4">
-                            <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip style="margin-left: 3px" class="btn btn-info pull-right" ng-click="f.isCollapsed = !f.isCollapsed">
+
+                            <button title="Show details"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    bs-tooltip style="margin-left: 3px"
+                                    class="btn btn-info pull-right"
+                                    ng-click="f.isCollapsed = !f.isCollapsed">
                                 <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+
+                            <button ng-show="iftttLogged"
+                                    title="Import this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    bs-tooltip style="margin-left: 3px"
+                                    class="btn btn-primary pull-right"
+                                    data-ng-click="modifyRecipe(f.index)">
+                                <span class="glyphicon glyphicon glyphicon-save"></span>
+                            </button>
+
+                            <button ng-show="!iftttLogged"
+                                    title="Please login to import this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    bs-tooltip style="margin-left: 3px"
+                                    class="btn btn-warning pull-right"
+                                    data-toggle="modal"
+                                <span class="glyphicon glyphicon glyphicon-save"
+                                      data-target="#loginIFTTTModal"
+                                      ng-click="routeListener('#createRecipe')"></span>
                             </button>
 
 
