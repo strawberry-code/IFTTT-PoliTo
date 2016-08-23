@@ -3,7 +3,9 @@ package it.polito.ai.ifttt.progetto.controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.polito.ai.ifttt.progetto.models.CalendarAction;
+import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
+import it.polito.ai.ifttt.progetto.models.GmailAction;
+import it.polito.ai.ifttt.progetto.models.GmailTrigger;
 import it.polito.ai.ifttt.progetto.models.Recipes;
+import it.polito.ai.ifttt.progetto.models.TwitterAction;
+import it.polito.ai.ifttt.progetto.models.TwitterTrigger;
+import it.polito.ai.ifttt.progetto.models.Types;
 import it.polito.ai.ifttt.progetto.models.Users;
+import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
@@ -287,56 +297,82 @@ public class DataRestController {
 	}
 	
 	@RequestMapping(value = "publish/userRecipes", method = RequestMethod.GET)
-	List<recipeJsonClass> getPublishRecipe() {
-		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		Users user = loginManager.findUserByUsername(username);
-		List<Recipes> recipes = user.getRecipes();
-		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+	Set<Types> getPublishRecipe() {
+	//	String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+	//	Users user = loginManager.findUserByUsername(username);
+	//	List<Recipes> recipes = user.getRecipes();
+		
+		// devo prendere TUTTE le ricette presenti nel db
+		List<Recipes> recipes = recipesManager.findAllRecipes();
+	//	List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+		Set<Types> handleDup = new HashSet<Types>();
 		for (Recipes r : recipes) {
+			
+			// controllo se sono state pubblicate
 			if(r.getPublish()) {
-				recipeJsonClass ricettaJson = new recipeJsonClass();
-				ricettaJson.setId(r.getRid());
-				ricettaJson.setDescription(r.getDescription());
-
+				
+				Types retClass = new Types();
+				
+//				recipeJsonClass ricettaJson = new recipeJsonClass();
+//				ricettaJson.setId(r.getRid());
+//				ricettaJson.setDescription(r.getDescription());
+				
 				// prelevo trigger e setto
 				String triggerType = r.getTriggerType();
 				Integer triggerid = r.getTriggerid();
-				Object trigger = null;
+				Integer triggerIngredientCode = null;
+//				Object trigger = null;
 				if (triggerType.compareTo("gmail") == 0) {
-					trigger = gmailManager.findGmailTriggerById(triggerid);
+					GmailTrigger trigger = gmailManager.findGmailTriggerById(triggerid);
+					triggerIngredientCode = trigger.getIngredientCode();
 				} else if (triggerType.compareTo("calendar") == 0) {
-					trigger = calendarManager.findCalendarTriggerById(triggerid);
+					CalendarTrigger trigger = calendarManager.findCalendarTriggerById(triggerid);
+					triggerIngredientCode = trigger.getIngredientCode();
 				} else if (triggerType.compareTo("weather") == 0) {
-					trigger = weatherManager.findWeatherTriggerById(triggerid);
+					WeatherTrigger trigger = weatherManager.findWeatherTriggerById(triggerid);
+					triggerIngredientCode = trigger.getIngredientCode();
 				} else if (triggerType.compareTo("twitter") == 0) {
-					trigger = twitterManager.findTwitterTriggerById(triggerid);
+					TwitterTrigger trigger = twitterManager.findTwitterTriggerById(triggerid);
+					triggerIngredientCode = trigger.getIngredientCode();
 				} else {
 					// valore non valido
 					return null;
 				}
-				ricettaJson.setTrigger(trigger);
-
+//				ricettaJson.setTrigger(trigger);
+				retClass.setTriggerIngredientCode(triggerIngredientCode);
+				
 				// prelevo action e setto
 				String actionType = r.getActionType();
+				Integer actionIngredientCode = null;
 				Integer actionid = r.getActionid();
-				Object action = null;
+//				Object action = null;
 				if (actionType.compareTo("gmail") == 0) {
-					action = gmailManager.findGmailActionById(actionid);
+					GmailAction action = gmailManager.findGmailActionById(actionid);
+					actionIngredientCode = action.getIngredientCode();
 				} else if (actionType.compareTo("calendar") == 0) {
-					action = calendarManager.findCalendarActionById(actionid);
+					CalendarAction action = calendarManager.findCalendarActionById(actionid);
+					actionIngredientCode = action.getIngredientCode();
 				} else if (actionType.compareTo("twitter") == 0) {
-					action = twitterManager.findTwitterActionById(actionid);
+					TwitterAction action = twitterManager.findTwitterActionById(actionid);
+					actionIngredientCode = action.getIngredientCode();
 				} else {
 					// valore non valido
 					return null;
 				}
-				ricettaJson.setAction(action);
-
-				ricettaJson.setPublish(r.getPublish());
-
-				list.add(ricettaJson);
+				retClass.setActionIngredientCode(actionIngredientCode);
+			//	ricettaJson.setAction(action);
+			//	ricettaJson.setPublish(r.getPublish());
+				
+//				list.add(ricettaJson);
+				handleDup.add(retClass);
 			}
 		}
-		return list;
+		
+		//DEBUG
+//		for(Types r : handleDup) {
+//			System.out.println(r.getTriggerIngredientCode()+" - "+r.getActionIngredientCode());
+//		}
+//		
+		return handleDup;
 	}
 }

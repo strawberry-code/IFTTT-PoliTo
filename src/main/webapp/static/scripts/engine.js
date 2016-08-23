@@ -1165,6 +1165,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          };
          */
 
+        $scope.closeModal = function () {
+            $('#loginIFTTTModal').modal('hide');
+        }
+
 
     }]);
 
@@ -1855,6 +1859,26 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 */
 
 
+        $scope.ngImportRecipeAlert = function() {
+            swal({
+                title: "Do you like this recipe?",
+                text: "Good! You have to customize it to continue.",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonText: "Yes, import this recipe and let me customize it!",
+                cancelButtonText: "No, I don't like it anymore"
+            }, function (isConfirm) {
+                if(isConfirm){
+
+                    alert("implementare qui le funzioni che permettono di continuare l'importazione della ricetta (engine.js riga 1864 xxx)");
+
+                } else {
+                    window.location.replace('#publicRecipes');
+                }
+            });
+
+        };
+
 
          //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
 
@@ -1933,13 +1957,15 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
         $http
         (
             {
-                method: 'GET',
-                url: 'http://localhost:8080/progetto/api/publish/userRecipes'
+                url: 'http://localhost:8080/progetto/api/publish/userRecipes',
+                method: "GET",
+                dataType: 'application/json',
             }
         )
             .then
             (
                 function success(response) {
+                	console.log(response.data);
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
@@ -1955,7 +1981,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                         descriptionRecipeGlobal = $scope.userRecipes[index].description;
                         idRecipe = $scope.userRecipes[index].id;
-                        triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
+                        triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType; // ERRORE NON VIENE DISTINTO IL CASO IN CUI SI ARRIVI DA NON LOGGATO BISOGNA FARLO
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
                         publishRecipeGlobal = $scope.userRecipes[index].publish;
 
@@ -4701,7 +4727,7 @@ iftttApp.filter('describe', function(){
             case 12:
                 return 'IF a new calendar event is created...';
             case 13:
-                return 'IF an email is comes...';
+                return 'IF an email comes...';
             case 14:
                 return 'IF tomorrow...';
             case 15:

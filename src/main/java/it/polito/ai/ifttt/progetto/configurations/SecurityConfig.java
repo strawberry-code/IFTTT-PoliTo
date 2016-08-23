@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/index.jsp", "/api/registration", "/api/index.html", "/index.html", "/api/activation.html", "/api/twitter/tw.token").permitAll()
+		.antMatchers(HttpMethod.GET, "/index.jsp", "/api/registration", "/api/index.html", "/index.html", "/api/activation.html", "/api/twitter/tw.token", "/api/publish/userRecipes").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/registration", "/api/prova").permitAll()
         .anyRequest().hasRole("USER")
 		.and()
