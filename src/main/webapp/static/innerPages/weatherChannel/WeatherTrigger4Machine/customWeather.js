@@ -434,13 +434,14 @@ $(function(){
             else
                 {
                     //alert("Please chose tmax or/and tmin");
-                    $("#notificationsWrapper").notify(
-                        "Please chose tmax or/and tmin",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // $("#notificationsWrapper").notify(
+                    //     "Please chose tmax or/and tmin",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("Please, choose max temperature and / or min temperature.");
 
                 }
 
