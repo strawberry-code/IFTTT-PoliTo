@@ -1508,9 +1508,10 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     setSpinner(false);
                 // Error code here
-                    alertVariable = "Warning: sorry there have been some mistake!";
-                    alertFunction();
-                alert("error");
+                    //alertVariable = "Warning: sorry there have been some mistake!";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 837)");
+                //alert("error");
             })
                 .success(function () {
                     setSpinner(false);
