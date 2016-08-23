@@ -158,10 +158,17 @@
   <!-- DEBUG AREA
   <button id="qwe1">Spin = ON</button>
   <button id="qwe2">Spin = OFF</button>
+<<<<<<< HEAD
 -->
 
   <span hidden ng-bind="$location.path()"></span>
 
+=======
+  -->
+  
+  <span ng-bind="$location.path()"></span>
+  
+>>>>>>> server
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
