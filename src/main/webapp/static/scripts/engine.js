@@ -1870,7 +1870,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
         };
 
-
          //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
 
          $scope.iftttLogged = false;
