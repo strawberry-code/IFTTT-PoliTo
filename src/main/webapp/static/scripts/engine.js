@@ -4871,7 +4871,12 @@ iftttApp.filter('skeumorphize', function(){
                     return "GMT" + input;
                 }
 
-
+            case 'duration': {
+                var d = moment.duration(parseInt(input), 'milliseconds');
+                var hours = Math.floor(d.asHours());
+                var mins = Math.floor(d.asMinutes()) - hours * 60;
+                console.log("hours:" + hours + " mins:" + mins);
+                return hours + " h and " + mins + " m";
             }
 
             case 'sender':
