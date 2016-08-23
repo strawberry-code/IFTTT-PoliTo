@@ -159,9 +159,9 @@
   <button id="qwe1">Spin = ON</button>
   <button id="qwe2">Spin = OFF</button>
   -->
-  <!-- 
+  
   <span ng-bind="$location.path()"></span>
-  -->
+  
 
   <!-- INNER PAGES BEGIN -->
   <ng-view></ng-view>
