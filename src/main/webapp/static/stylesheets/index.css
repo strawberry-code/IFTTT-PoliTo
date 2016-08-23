@@ -17,3 +17,9 @@
 .underline{
     text-decoration: underline;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
