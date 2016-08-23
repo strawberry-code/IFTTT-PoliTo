@@ -3586,8 +3586,9 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
             }
             else {
                 //alert("You are non logged google please relog it and redo it");
-                alertVariable = "You are non logged google please relog it and redo it";
-                alertFunction();
+                //alertVariable = "You are non logged google please relog it and redo it";
+                //alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#allTriggers";
                 window.location.replace(url);
             }
