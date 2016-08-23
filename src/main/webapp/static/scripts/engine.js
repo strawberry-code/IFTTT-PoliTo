@@ -2672,8 +2672,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
             }
             else
             {
-                alertVariable = "Warning: the password is empty";
-                alertFunction();
+                //alertVariable = "Warning: the password is empty";
+                //alertFunction();
+                alertWarning("The password field is empty.");
 
             }
 
