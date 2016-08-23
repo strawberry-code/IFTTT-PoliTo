@@ -68,8 +68,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				synchronized (session) {
 					session.setAttribute("msg", exception.getMessage());
 				} 
+				//System.out.println("Exception: "+exception.getMessage());
 				//response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
-				response.sendRedirect("./");				
+				if(exception.getMessage().compareTo("Wrong password.")==0) {
+					response.sendRedirect("http://localhost:8080/progetto/#/loginWrongPassword");
+					//response.sendRedirect("http://localhost:8080/progetto/#/loginWrongPassword");
+				} else if(exception.getMessage().compareTo("User not activated.")==0) {
+					response.sendRedirect("http://localhost:8080/progetto/#/loginInactiveUser");
+				} else if(exception.getMessage().compareTo("Username not found.")==0) {
+					response.sendRedirect("http://localhost:8080/progetto/#/loginUnknownUsername");
+				} else { 
+					response.sendRedirect("http://localhost:8080/progetto/#/someErrorOccurred");
+				}
 			}
 		})
 		.and()

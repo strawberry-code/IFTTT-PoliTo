@@ -425,28 +425,25 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                          di bypassare il form del login, mettendo proprio qui una ajax al server
                          che avvisa che l'utente è attualemtne collegato
                          e aggiornare le varibaili di connessione proprio da qui
+                         
+                         il problema è spring security: se si bypassa il form, sul server risulta non connesso
                          */
                         $scope.parallax = false;
                         break;
                     case '/someErrorOccurred':
                         someErrorOccurred();
-                        // Altre funzioni?
                         break;
                     case '/emailAlreadyRegistered':
                         emailAlreadyRegistered();
-                        // Altre funzioni?
                         break;
-                    case '/urlerroreServeNumero3':
-                        alertNumero3();
-                        // Altre funzioni?
+                    case '/loginWrongPassword':
+                    	loginWrongPassword();
                         break;
-                    case '/urlerroreServeNumero4':
-                        alertNumero4();
-                        // Altre funzioni?
+                    case '/loginUnknownUsername':
+                    	loginUnknownUsername();
                         break;
-                    case '/urlerroreServeNumero5':
-                        alertNumero5();
-                        // Altre funzioni?
+                    case '/loginInactiveUser':
+                    	loginInactiveUser();
                         break;
                     default:
                         console.log("url loading failure");
@@ -5013,6 +5010,42 @@ function emailAlreadyRegistered() {
     swal({
         title: "Hey!",
         text: "This email is already registered.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function loginWrongPassword() {
+    swal({
+        title: "Hey!",
+        text: "Your password is not correct.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function loginUnknownUsername() {
+    swal({
+        title: "Hey!",
+        text: "Your username is not correct.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function loginInactiveUser() {
+    swal({
+        title: "Hey!",
+        text: "This user is not active yet.",
         type: "warning"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
