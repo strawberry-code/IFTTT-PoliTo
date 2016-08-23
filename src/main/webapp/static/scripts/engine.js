@@ -5058,6 +5058,19 @@ function loginUnknownUsername() {
     });
 }
 
+function loginInactiveUser() {
+    swal({
+        title: "Hey!",
+        text: "This user is not active yet.",
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+
 function getRoute(ingredientCodeInput){
     switch (ingredientCodeInput) {
         case 11:
@@ -5087,15 +5100,4 @@ function getRoute(ingredientCodeInput){
         case 24:
             return '/Action2Twitter';
     }
-}
-function loginInactiveUser() {
-    swal({
-        title: "Hey!",
-        text: "This user is not active yet.",
-        type: "warning"
-        //confirmButtonColor: "#DD6B55",
-        //confirmButtonText: "Yes, delete it!",
-        //closeOnConfirm: true
-    }, function () {
-    });
 }
