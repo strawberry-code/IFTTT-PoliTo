@@ -5117,6 +5117,67 @@ function loginInactiveUser() {
     });
 }
 
+function alertWarning(message) {
+    swal({
+        title: "Hey!",
+        text: message,
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertError(message) {
+    swal({
+        title: "Sorry...",
+        text: message,
+        type: "error"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertSuccess(message) {
+    swal({
+        title: "Success!",
+        text: message,
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertInfo(message) {
+    swal({
+        title: "Success!",
+        text: message,
+        type: "info"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertPasswordChangedSuccess() {
+    swal({
+        title: "Success!",
+        text: "Your passowrd has been changed.",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace('#myRecipes');
+    });
+}
+
 
 function getRoute(ingredientCodeInput){
     switch (ingredientCodeInput) {
