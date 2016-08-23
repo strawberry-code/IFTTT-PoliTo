@@ -4891,8 +4891,9 @@ function sedingServerAllRun(loginDataSend) {
             setSpinner(false);
             if(response == -1)
             {
-                alertVariable="Warning: the recipe is not memorised by server try again or go home";
-                alertFunction ();
+                //alertVariable="Warning: the recipe is not memorised by server try again or go home";
+                //alertFunction ();
+                alertWarning("The recipe is not stored on our server. Please, try again.");
             }
             else
             {
