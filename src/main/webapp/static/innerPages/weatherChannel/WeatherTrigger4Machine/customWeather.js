@@ -425,8 +425,16 @@ $(function(){
                     }
                     else
                     {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
+                        if(importFlag==true)
+                        {
+                            window.location.replace("#" + actionImportRoute);
+                        }
+                        else
+                        {
+                            url = "#createRecipeAction";
+                            window.location.replace(url);
+                        }
+
                     }
 
                 }

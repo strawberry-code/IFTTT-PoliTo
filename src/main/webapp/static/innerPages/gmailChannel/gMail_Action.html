@@ -93,13 +93,19 @@
 
                 <div>
                     <a type="submit" class="btn btn-danger pull-left animate-if" href="#allActions"
-                       ng-if="!modifyButton"
+                       ng-if="!modifyButton && importFlag"
                     >Cancel</a>
 
 
                     <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                       ng-if="modifyButton"
+                       ng-if="modifyButton && importFlag"
                     >Cancel</a>
+
+                    <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importFlag"
+                    >Cancel</a>
+
+
 
 
                     <a type="submit"
@@ -144,72 +150,83 @@ Example code
 -->
 
 <script>
-    if (setChooseAx == 5) {
-        if (iftttLogin == false) {
+    if(importFlag==true)
+    {
+        if (iftttLogin == false)
+        {
             url = "#home";
             window.location.replace(url);
         }
 
     }
     else {
-
-        if (modifyVar == 1) {
+        if (setChooseAx == 5) {
             if (iftttLogin == false) {
                 url = "#home";
                 window.location.replace(url);
-                modifyCountVar = 0;
             }
-            else {
-                if (googleLogin == "1") {
-                    if (modifyCountVar == 2) {
-                        modifyCountVar++;
-                    }
-                    else {
-                        if (modifyCountVar < 2) {
-                            url = "#/index/myRecipes";
-                            window.location.replace(url);
-                        }
 
-                    }
-
-
-                }
-                else {
-                    url = "#home";
-                    window.location.replace(url);
-                    alert("Non sei loggato a google");
-                }
-            }
         }
         else {
-            if (iftttLogin == false) {
-                url = "#home";
-                window.location.replace(url);
-                count = 0;
-                flagTriggerDone = "0";
-            }
-            else {
-                if (googleLogin == "1") {
-                    if (flagTriggerDone == "0") {
-                        alert("Warning you must compile before the trigger form");
-                        url = "#allTriggers";
-                        window.location.replace(url);
-                    }
 
-                    if (count == 5) {
-                        count++;
+            if (modifyVar == 1) {
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    modifyCountVar = 0;
+                }
+                else {
+                    if (googleLogin == "1") {
+                        if (modifyCountVar == 2) {
+                            modifyCountVar++;
+                        }
+                        else {
+                            if (modifyCountVar < 2) {
+                                url = "#/index/myRecipes";
+                                window.location.replace(url);
+                            }
+
+                        }
+
+
                     }
                     else {
-                        if (count < 5) {
-                            url = "#createDO";
+                        url = "#home";
+                        window.location.replace(url);
+                        alert("Non sei loggato a google");
+                    }
+                }
+            }
+            else {
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    count = 0;
+                    flagTriggerDone = "0";
+                }
+                else {
+                    if (googleLogin == "1") {
+                        if (flagTriggerDone == "0") {
+                            alert("Warning you must compile before the trigger form");
+                            url = "#allTriggers";
                             window.location.replace(url);
                         }
 
+                        if (count == 5) {
+                            count++;
+                        }
+                        else {
+                            if (count < 5) {
+                                url = "#createDO";
+                                window.location.replace(url);
+                            }
+
+                        }
                     }
-                }
-                else {
-                    url = "#createDO";
-                    window.location.replace(url);
+                    else {
+                        url = "#createDO";
+                        window.location.replace(url);
+                    }
                 }
             }
         }
