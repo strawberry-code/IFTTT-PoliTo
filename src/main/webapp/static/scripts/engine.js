@@ -1464,8 +1464,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     setSpinner(false);
                 // Error code here
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 114");
                 //alert("error");
             })
                 .success(function () {
