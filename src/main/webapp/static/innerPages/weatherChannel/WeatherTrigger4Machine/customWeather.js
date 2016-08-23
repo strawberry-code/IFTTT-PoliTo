@@ -556,13 +556,15 @@ $(function(){
             if(flagTimeZoneCheck==false)
                 //alert("The range of the time zone is -12/12");
 
-            $("#notificationsWrapper").notify(
-                "The range of the time zone is -12/12",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "The range of the time zone is -12/12",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("The range of the time zone is -12/12");
+
 
 
         }
