@@ -525,13 +525,14 @@ $(function(){
             }
             if(flagPeriodCheck==false)
                 //alert("The range of the min temperature is 0/700");
-                $("#notificationsWrapper").notify(
-                    "The range of the min temperature is 0/700",
-                    {
-                        className: 'warning',
-                        position: 'bottom center'
-                    }
-                );
+                // $("#notificationsWrapper").notify(
+                //     "The range of the min temperature is 0/700",
+                //     {
+                //         className: 'warning',
+                //         position: 'bottom center'
+                //     }
+                // );
+            alertWarning("The range of the min temperature is 0/700");
 
 
         }
