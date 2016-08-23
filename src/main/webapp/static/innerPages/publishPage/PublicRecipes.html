@@ -42,6 +42,7 @@
                                     data-placement="bottom"
                                     bs-tooltip style="margin-left: 3px"
                                     class="btn btn-primary pull-right"
+                                    ng-click="routeListener('#createRecipe'); ngImportRecipeAlert()"
                                     data-ng-click="modifyRecipe(f.index)">
                                 <span class="glyphicon glyphicon glyphicon-save"></span>
                             </button>
@@ -51,11 +52,11 @@
                                     data-toggle="tooltip"
                                     data-placement="bottom"
                                     bs-tooltip style="margin-left: 3px"
-                                    class="btn btn-warning pull-right"
-                                    data-toggle="modal">
+                                    class="btn btn-warning pull-right">
                                 <span class="glyphicon glyphicon glyphicon-save"
+                                      data-toggle="modal"
                                       data-target="#loginIFTTTModal"
-                                      ng-click="routeListener('#createRecipe')"></span>
+                                      ng-click="routeListener('#publicRecipes')"></span>
                             </button>
 
                         </div>
