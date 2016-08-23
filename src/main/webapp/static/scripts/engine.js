@@ -2867,8 +2867,9 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                         else {
                             flag = false;
                             //alert("Your e.mail is not right . . .");
-                            alertVariable = "Your e.mail is not right . . .";
-                            alertFunction();
+                            //alertVariable = "Your e.mail is not right . . .";
+                            //alertFunction();
+                            alertWarning("Your email is invalid.");
 
                         }
                     }
