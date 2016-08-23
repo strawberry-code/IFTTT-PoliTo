@@ -144,7 +144,8 @@ var rootingAutenticationTriggerAction = "";
 var flag_registration_success = false;
 
 
-var importFlag = true;
+/* import recipe */
+var importFlag = false;
 var triggerImportRoute = "";
 var actionImportRoute = "";
 
@@ -365,6 +366,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
 iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope',
     function ($scope, $location, $routeParams, $window, $http, $rootScope) {
 
+        importFlag = false;
+
     /*
     $window.addEventListener('message', function (e) {
         $rootScope.$apply(function () {
@@ -456,6 +459,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }
             return angular.isObject(result) ? angular.toJson(result) : result;
         };
+
 
 
 
@@ -1094,6 +1098,9 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          */
         $scope.saveRecipeDescription = function () {
             //Prende la descrizione della ricetta
+
+            importFlag = false;
+
 
 
             //Variabile per prendere la descrizione dell'user --> recipedDescriptionInput
@@ -2746,8 +2753,15 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                         sendingToServerAllput();
                     }
                     else {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
+                        if(importFlag==true)
+                        {
+                            window.location.replace("#" + actionImportRoute);
+                        }
+                        else
+                        {
+                            url = "#createRecipeAction";
+                            window.location.replace(url);
+                        }
                     }
                 }
             }
@@ -2810,7 +2824,8 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
          * @method actionGmail
          * @return 
          */
-        $scope.actionGmail = function () {
+        $scope.actionGmail = function ()
+        {
 
             var sender = "";
             var receiver = "";
@@ -3330,7 +3345,8 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
             var place;
 
 
-            if (googleLogin == true) {
+            if (googleLogin == true)
+            {
 
                 if ($scope.checkedtitle == true || $scope.checkedSubject == true || $scope.checkedplace == true) {
 
@@ -3411,9 +3427,17 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
                     if (modifyVar == true) {
                         sendingToServerAllput();
                     }
-                    else {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
+                    else
+                    {
+                        if(importFlag==true)
+                        {
+                            window.location.replace("#" + actionImportRoute);
+                        }
+                        else
+                        {
+                            url = "#createRecipeAction";
+                            window.location.replace(url);
+                        }
                     }
                 }
             }
@@ -3544,8 +3568,17 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                         sendingToServerAllput();
                     }
                     else {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
+                        if(importFlag==true)
+                        {
+                            url = "#" + actionImportRoute;
+                            alert("1x1" + url);
+                            window.location.replace(url);
+                        }
+                        else
+                        {
+                            url = "#createRecipeAction";
+                            window.location.replace(url);
+                        }
                     }
 
                 }
@@ -4212,8 +4245,16 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
                     sendingToServerAllput();
                 }
                 else {
-                    url = "#createRecipeAction";
-                    window.location.replace(url);
+                    if(importFlag==true)
+                    {
+                        window.location.replace("#" + actionImportRoute);
+                    }
+                    else
+                    {
+                        url = "#createRecipeAction";
+                        window.location.replace(url);
+                    }
+
                 }
             }
             if (twitterLogin == false) {
@@ -4311,9 +4352,20 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
                 if (modifyVar == true) {
                     sendingToServerAllput();
                 }
-                else {
-                    url = "#createRecipeAction";
-                    window.location.replace(url);
+                else
+                {
+                    if(importFlag==true)
+                    {
+                        window.location.replace("#" + actionImportRoute);
+                    }
+                    else
+                    {
+                        url = "#createRecipeAction";
+                        window.location.replace(url);
+                    }
+
+
+
                 }
             }
 
@@ -5094,7 +5146,7 @@ function getRoute(ingredientCodeInput){
         case 19:
             return '/Trigger2Twitter';
         case 21:
-            return '/action1Gcalendar.';
+            return '/action1Gcalendar';
         case 22:
             return '/gMailAction';
         case 23:

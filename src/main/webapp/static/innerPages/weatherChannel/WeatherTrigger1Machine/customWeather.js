@@ -389,8 +389,24 @@ $(function()
                 }
                 else
                 {
-                    var url = "#/createRecipeAction";
-                    window.location.replace(url);
+                    if(importFlag==true)
+                    {
+                        if (iftttLogin == false)
+                        {
+                            url = "#home";
+                            window.location.replace(url);
+                        }
+                        else
+                        {
+                            window.location.replace("#" + actionImportRoute);
+                        }
+
+                    }
+                    else
+                    {
+                        var url = "#/createRecipeAction";
+                        window.location.replace(url);
+                    }
                 }
             }
             else

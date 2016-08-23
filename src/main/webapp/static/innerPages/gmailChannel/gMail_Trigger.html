@@ -6,7 +6,6 @@
 </head>
 <body>
 
-
 <div class="row" style="padding-top: 6%">
 
     <div class="col-md-4" ></div>
@@ -69,11 +68,17 @@
 
                         <div>
                             <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                                ng-if="!modifyButton"
+                                ng-if="!modifyButton && importFlag"
                             >Cancel</a>
                             <a  type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                                ng-if="modifyButton"
+                                ng-if="modifyButton && importFlag"
                             >Cancel</a>
+
+                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+                                ng-if="!importFlag"
+                            >Cancel</a>
+
+
 
 
 
@@ -104,7 +109,7 @@
 
 
 <script>
-    if (setChooseAx == 4)
+    if(importFlag==true)
     {
         if (iftttLogin == false)
         {
@@ -113,64 +118,74 @@
         }
 
     }
-    else {
-        if (modifyVar == 1) {
+    else
+    {
+        if (setChooseAx == 4) {
             if (iftttLogin == false) {
                 url = "#home";
                 window.location.replace(url);
-                modifyCountVar = 0;
             }
-            else {
-                if (googleLogin == "1") {
-                    if (modifyCountVar == 2) {
-                        modifyCountVar++;
-                    }
-                    else {
-                        if (modifyCountVar < 2) {
-                            url = "#/index/myRecipes";
-                            window.location.replace(url);
-                        }
 
-                    }
-
-
-                }
-                else {
+        }
+        else {
+            if (modifyVar == 1) {
+                if (iftttLogin == false) {
                     url = "#home";
                     window.location.replace(url);
-                    alert("Non sei loggato a google");
-                }
-            }
-        }
-
-        else {
-
-
-            if (iftttLogin == false) {
-                url = "#home";
-                window.location.replace(url);
-                count = 0;
-                flagTriggerDone = "0";
-            }
-            else {
-                if (googleLogin == "1") {
-
-
-                    if (count == 2) {
-                        count++;
-                        url1back = "#gMailTrigger";
-                    }
-                    else {
-                        if (count < 2) {
-                            url = "#allTriggers";
-                            window.location.replace(url);
-                        }
-
-                    }
+                    modifyCountVar = 0;
                 }
                 else {
-                    url = "#allTriggers";
+                    if (googleLogin == "1") {
+                        if (modifyCountVar == 2) {
+                            modifyCountVar++;
+                        }
+                        else {
+                            if (modifyCountVar < 2) {
+                                url = "#/index/myRecipes";
+                                window.location.replace(url);
+                            }
+
+                        }
+
+
+                    }
+                    else {
+                        url = "#home";
+                        window.location.replace(url);
+                        alert("Non sei loggato a google");
+                    }
+                }
+            }
+
+            else {
+
+
+                if (iftttLogin == false) {
+                    url = "#home";
                     window.location.replace(url);
+                    count = 0;
+                    flagTriggerDone = "0";
+                }
+                else {
+                    if (googleLogin == "1") {
+
+
+                        if (count == 2) {
+                            count++;
+                            url1back = "#gMailTrigger";
+                        }
+                        else {
+                            if (count < 2) {
+                                url = "#allTriggers";
+                                window.location.replace(url);
+                            }
+
+                        }
+                    }
+                    else {
+                        url = "#allTriggers";
+                        window.location.replace(url);
+                    }
                 }
             }
         }
