@@ -128,6 +128,21 @@
                             ng-options="option.day  for option in dayVector.availableOptions track by option.id"
                             ng-model="dayVector.selectedOption"></select>
 
+                    <br>
+
+                    <label for="selectHourDuration">Hour:</label>
+                    <select name="mySelect" id="selectHourDuration_START"
+                            ng-disabled="!checkdata"
+                            ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
+                            ng-model="hourVector.selectedOption"></select>
+
+                    <label for="selectMinuteDuration">Minute:</label>
+
+                    <select name="mySelect" id="selectMinuteDuration_START"
+                            ng-disabled="!checkdata"
+                            ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
+                            ng-model="minuteVector.selectedOption"></select>
+
                 </div>
 
 
