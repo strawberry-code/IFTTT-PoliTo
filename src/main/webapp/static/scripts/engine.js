@@ -2458,8 +2458,9 @@ iftttApp.controller('createAccountController', ['$scope',
                     {
                         if(pws1.length < 8)
                         {
-                            alertVariable = "Warning: the password  is too short!";
-                            alertFunction();
+                            //alertVariable = "Warning: the password  is too short!";
+                            //alertFunction();
+                            alertWarning("The password is too short, 8 lenght is the minimum accepted.");
 
                         }
                         else
