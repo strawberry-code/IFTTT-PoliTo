@@ -1855,6 +1855,26 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 */
 
 
+        $scope.ngImportRecipeAlert = function() {
+            swal({
+                title: "Do you like this recipe?",
+                text: "Good! You have to customize it to continue.",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonText: "Yes, import this recipe and let me customize it!",
+                cancelButtonText: "No, I don't like it anymore"
+            }, function (isConfirm) {
+                if(isConfirm){
+
+                    alert("implementare qui le funzioni che permettono di continuare l'importazione della ricetta (engine.js riga 1864 xxx)");
+
+                } else {
+                    window.location.replace('#publicRecipes');
+                }
+            });
+
+        };
+
 
          //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
 
