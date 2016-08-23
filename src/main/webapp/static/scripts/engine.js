@@ -5075,6 +5075,36 @@ function loginUnknownUsername() {
     });
 }
 
+function getRoute(ingredientCodeInput){
+    switch (ingredientCodeInput) {
+        case 11:
+            return '/Trigger1Gcalendar';
+        case 12:
+            return '/Trigger2Gcalendar';
+        case 13:
+            return '/gMailTrigger';
+        case 14:
+            return '/WeatherTrigger1';
+        case 15:
+            return '/WeatherTrigger2';
+        case 16:
+            return '/WeatherTrigger3';
+        case 17:
+            return '/WeatherTrigger4';
+        case 18:
+            return '/Trigger1Twitter';
+        case 19:
+            return '/Trigger2Twitter';
+        case 21:
+            return '/action1Gcalendar.';
+        case 22:
+            return '/gMailAction';
+        case 23:
+            return '/Action1Twitter';
+        case 24:
+            return '/Action2Twitter';
+    }
+}
 function loginInactiveUser() {
     swal({
         title: "Hey!",
