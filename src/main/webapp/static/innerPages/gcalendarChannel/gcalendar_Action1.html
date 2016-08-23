@@ -110,19 +110,21 @@
                 <br>
                 <div ng-if="checkdata" class="animate-if">
 
-                    <label for="selectYear">Make a choice for year:</label>
+                    <label for="selectYear">Year:</label>
                     <select name="mySelect" id="selectYear"
                             ng-disabled="!checkdata"
                             ng-options="option.year  for option in yearVector.availableOptions track by option.id"
                             ng-model="yearVector.selectedOption"></select>
                     <br>
-                    <label for="selectMonth">Make a choice for month:</label>
+
+                    <label for="selectMonth">Month:</label>
                     <select name="mySelect" id="selectMonth"
                             ng-disabled="!checkdata"
                             ng-options="option.month  for option in monthVector.availableOptions track by option.id"
                             ng-model="monthVector.selectedOption"></select>
                     <br>
-                    <label for="selectDay">Make a choice for day:</label>
+
+                    <label for="selectDay">Day:</label>
                     <select name="mySelect" id="selectDay"
                             ng-disabled="!checkdata"
                             ng-options="option.day  for option in dayVector.availableOptions track by option.id"
