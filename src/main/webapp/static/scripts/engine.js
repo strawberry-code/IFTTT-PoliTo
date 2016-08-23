@@ -1381,8 +1381,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             //if (consoleLogs) console.log($scope.iftttLogged);
 
             //Print a error
-            alertVariable = "Error: there is a error!!!";
-            alertFunction();
+            //alertVariable = "Error: there is a error!!!";
+            //alertFunction();
+            alertError("An unknown error occurred. (code: 121");
 
         });
 
