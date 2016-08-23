@@ -185,6 +185,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+					if(calendaraction.getStartDate()!=null && calendaraction.getDuration()==null) {
+						calendaraction.setDuration((long) 3600000);
+					}
 					session.save(calendaraction);
 					session.flush();
 					actionid = calendaraction.getCaid();
@@ -432,6 +435,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						if(calendaraction.getStartDate()!=null && calendaraction.getDuration()==null) {
+							calendaraction.setDuration((long) 3600000);
+						}
 						calendaraction.setCaid(rec.getActionid());
 						session.update(calendaraction);
 						session.flush();
@@ -488,6 +494,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						if(calendaraction.getStartDate()!=null && calendaraction.getDuration()==null) {
+							calendaraction.setDuration((long) 3600000);
+						}
 						session.save(calendaraction);
 						session.flush();
 						actionid = calendaraction.getCaid();
