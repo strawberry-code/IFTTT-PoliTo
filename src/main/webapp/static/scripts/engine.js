@@ -2437,8 +2437,9 @@ iftttApp.controller('createAccountController', ['$scope',
                         error: function () {
                             setSpinner(false);
                             //alert("some error occurred");
-                            alertVariable = "some error occurred";
-                            alertFunction();
+                            //alertVariable = "some error occurred";
+                            //alertFunction();
+                            alertError("Sorry, some error occurred. (code 634)");
 
                         }
                     });
