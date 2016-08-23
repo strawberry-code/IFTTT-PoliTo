@@ -2854,6 +2854,10 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
         $scope.checkedEmail = false;
         $scope.checkedSubject = false;
 
@@ -3271,6 +3275,14 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
         }
 
 
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
     }]);
 
 
@@ -3331,6 +3343,15 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+
+
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
 
 
     }]);
@@ -3396,6 +3417,15 @@ iftttApp.controller('loginPageController', ['$scope',
                 });
             }
         }
+
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
 
     }]);
 
@@ -3534,6 +3564,13 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
         else {
             $scope.modifyButton = false;
         }
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
         $scope.checkedplace = false;
@@ -3714,6 +3751,16 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                 }
             });
         };
+
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4384,6 +4431,12 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
             $scope.modifyButton = true;
         }
 
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
 
     }]);
 
@@ -4486,12 +4539,21 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
             }
 
 
-            Trigger1GcalendarController
+
         };
         $scope.modifyButton = false;
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
