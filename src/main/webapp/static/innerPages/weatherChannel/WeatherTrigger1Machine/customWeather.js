@@ -401,14 +401,15 @@ $(function()
                 //Alert sull'errore commesso:
                 if(flagTimezoneCheck == false && flagTimeCheck == false)
                 {
-
-                    $("#notificationsWrapper").notify(
-                        "Your inputs are not right",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    //
+                    // $("#notificationsWrapper").notify(
+                    //     "Your inputs are not right",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("You input is not right.");
                     //alert("Your inputs are not right");
                 }
                 else
