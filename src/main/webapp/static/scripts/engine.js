@@ -1365,8 +1365,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                         },
                         function error(response) {
-                            alertVariable = "Error: there is a error!!!";
-                            alertFunction();
+                            //alertVariable = "Error: there is a error!!!";
+                            //alertFunction();
+                            alertError("An unknown error occurred. (code: 136");
 
                         }
                     );
