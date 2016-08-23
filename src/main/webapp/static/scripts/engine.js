@@ -1756,6 +1756,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
                 hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
                 minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
+                durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
+                durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                 urlActionGlobalVariable = "action1Gcalendar";
                 
                 var hour = hourStart_action1GcalendarController;
@@ -1775,6 +1777,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 	month = "0"+ monthVector_action1GcalendarController;
                 }             
                 var startDate = yearVector_action1GcalendarController+"-"+month+"-"+day+"T"+hour+":"+minute+":00";
+                
+                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
 
                 modulinoj2 =
                 {
@@ -1789,7 +1793,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 //                    "dayVector": dayVector_action1GcalendarController,
 //                    "hourStart": hourStart_action1GcalendarController,
 //                    "minuteStart":  minuteStart_action1GcalendarController
-                    "startDate": startDate
+                     "startDate": startDate,
+                     "duration": dur
 
                 };
 
@@ -2215,6 +2220,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
                             hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
                             minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
+                            durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
+                            durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                             urlActionGlobalVariable = "action1Gcalendar";
                             
                             var hour = hourStart_action1GcalendarController;
@@ -2234,6 +2241,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             	month = "0"+ monthVector_action1GcalendarController;
                             }             
                             var startDate = yearVector_action1GcalendarController+"-"+month+"-"+day+"T"+hour+":"+minute+":00";
+                            
+                            var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
 
                             modulinoj2 =
                             {
@@ -2247,7 +2256,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 //                              "dayVector": dayVector_action1GcalendarController,
 //                              "hourStart": hourStart_action1GcalendarController,
 //                              "minuteStart":  minuteStart_action1GcalendarController
-                              "startDate": startDate
+                                "startDate": startDate,
+                                "duration": dur
 
                             };
 
