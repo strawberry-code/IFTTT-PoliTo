@@ -4254,8 +4254,9 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
             }
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged in Twitter.");
                 url = "#allTriggers";
                 window.location.replace(url);
             }
