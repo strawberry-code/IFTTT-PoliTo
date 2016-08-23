@@ -2626,8 +2626,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
 
                                     if (response == -1)
                                     {
-                                        alertVariable = "Error: there has been a error . . .";
-                                        alertFunction();
+                                        //alertVariable = "Error: there has been a error . . .";
+                                        alertWarning("Some unknown error occurred. (code 342).");
+                                        //alertFunction();
 
                                     }
                                     else
