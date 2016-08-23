@@ -222,16 +222,16 @@
                 <div>
                     <!-- ng-disabled="!checkedtitle && !checkedSubject && !checkdata && !checkedplace" -->
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#allActions"
-                       ng-if="!modifyButton && !importRecipe"
+                       ng-if="!modifyButton && importFlag"
                     >Cancel</a>
 
 
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#choseModify"
-                       ng-if="modifyButton && !importRecipe"
+                       ng-if="modifyButton && importFlag"
                     >Cancel</a>
 
                     <a type="submit" class="btn btn-danger pull-left  animate-if"   ng-click="backfunctionActionPuclicRecipe()"
-                       ng-if="importRecipe && !modifyButton"
+                       ng-if="!importFlag"
                     >Cancel</a>
 
 
