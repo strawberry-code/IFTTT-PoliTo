@@ -37,6 +37,10 @@ var place_action1GcalendarController = "";
 var yearVector_action1GcalendarController = "";
 var monthVector_action1GcalendarController = "";
 var dayVector_action1GcalendarController = "";
+
+var hourStart_action1GcalendarController = "";
+var minuteStart_action1GcalendarController = "";
+
 var durationHour_action1GcalendarController = "";
 var durationMinute_action1GcalendarController = "";
 var timeZone_action1GcalendarController = "";
@@ -1758,10 +1762,20 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 title_action1GcalendarController = $scope.userRecipes[index].trigger.title;
                 subjectReceive_action1GcalendarController = $scope.userRecipes[index].trigger.description;
                 place_action1GcalendarController = $scope.userRecipes[index].trigger.place;
-                yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
+                yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
                 monthVector_action1GcalendarController = $scope.userRecipes[index].trigger.monthVector;
-                dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
+                dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
+                hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
+                minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
+                durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
+                durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                 urlActionGlobalVariable = "action1Gcalendar";
+                
+                var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+                +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+                +":"+minuteStart_action1GcalendarController+":00";
+                
+                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
 
                 modulinoj2 =
                 {
@@ -1771,9 +1785,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
                     "location": place_action1GcalendarController,
-                    "dayVector": yearVector_action1GcalendarController,
-                    "monthVector": monthVector_action1GcalendarController,
-                    "yearVector": dayVector_action1GcalendarController
+//                    "yearVector": yearVector_action1GcalendarController,
+//                    "monthVector": monthVector_action1GcalendarController,
+//                    "dayVector": dayVector_action1GcalendarController,
+//                    "hourStart": hourStart_action1GcalendarController,
+//                    "minuteStart":  minuteStart_action1GcalendarController
+                     "startDate": startDate,
+                     "duration": dur
 
                 };
 
@@ -2194,10 +2212,20 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             title_action1GcalendarController = $scope.userRecipes[index].trigger.title;
                             subjectReceive_action1GcalendarController = $scope.userRecipes[index].trigger.description;
                             place_action1GcalendarController = $scope.userRecipes[index].trigger.place;
-                            yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
+                            yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
                             monthVector_action1GcalendarController = $scope.userRecipes[index].trigger.monthVector;
-                            dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
+                            dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
+                            hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
+                            minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
+                            durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
+                            durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                             urlActionGlobalVariable = "action1Gcalendar";
+                            
+                          var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+                          +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+                          +":"+minuteStart_action1GcalendarController+":00";
+                            
+                            var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
 
                             modulinoj2 =
                             {
@@ -2206,9 +2234,13 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                 "title": title_action1GcalendarController,
                                 "description": subjectReceive_action1GcalendarController,
                                 "location": place_action1GcalendarController,
-                                "dayVector": yearVector_action1GcalendarController,
-                                "monthVector": monthVector_action1GcalendarController,
-                                "yearVector": dayVector_action1GcalendarController
+//                              "yearVector": yearVector_action1GcalendarController,
+//                              "monthVector": monthVector_action1GcalendarController,
+//                              "dayVector": dayVector_action1GcalendarController,
+//                              "hourStart": hourStart_action1GcalendarController,
+//                              "minuteStart":  minuteStart_action1GcalendarController
+                                "startDate": startDate,
+                                "duration": dur
 
                             };
 
@@ -3669,6 +3701,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             var yearVector = "";
             var monthVector = "";
             var dayVector = "";
+            var hourStart = "";
+            var minuteStart = "";
             var flag = true;
             var timeZone = "";
             var durationHour = "";
@@ -3742,12 +3776,16 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         dayVector = $('#selectDay').val();
                         yearVector = $('#selectYear').val();
                         monthVector = $('#selectMonth').val();
+                        hourStart = $('#selectHourStart').val();
+                        minuteStart = $('#selectMinuteStart').val();
                     }
 
                     else {
                         dayVector = null;
                         yearVector = null;
                         monthVector = null;
+                        hourStart = null;
+                        minuteStart = null;
                         flag = 0;
                     }
 
@@ -3757,6 +3795,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     dayVector = null;
                     yearVector = null;
                     monthVector = null;
+                    hourStart = null;
+                    minuteStart = null;
                     flag = 0;
                 }
 
@@ -3806,12 +3846,20 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 title_action1GcalendarController = title;
                 subjectReceive_action1GcalendarController = subjectReceive;
                 place_action1GcalendarController = place;
-                yearVector_action1GcalendarController = dayVector;
+                yearVector_action1GcalendarController = yearVector;
                 monthVector_action1GcalendarController = monthVector;
-                dayVector_action1GcalendarController = yearVector;
+                dayVector_action1GcalendarController = dayVector;
+                hourStart_action1GcalendarController = hourStart;
+                minuteStart_action1GcalendarController = minuteStart;
                 durationHour_action1GcalendarController = durationHour;
                 durationMinute_action1GcalendarController = durationMinute;
                 timeZone_action1GcalendarController = timeZone;
+                
+              var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+              +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+              +":"+minuteStart_action1GcalendarController+":00";
+                
+                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
 
                 modulinoj2 =
                 {
@@ -3820,10 +3868,14 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     //An 2
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
-                    "place": place_action1GcalendarController,
-                    "dayVector": yearVector_action1GcalendarController,
-                    "monthVector": monthVector_action1GcalendarController,
-                    "yearVector": dayVector_action1GcalendarController
+                    "location": place_action1GcalendarController,
+//                  "yearVector": yearVector_action1GcalendarController,
+//                  "monthVector": monthVector_action1GcalendarController,
+//                  "dayVector": dayVector_action1GcalendarController,
+//                  "hourStart": hourStart_action1GcalendarController,
+//                  "minuteStart":  minuteStart_action1GcalendarController
+                    "startDate": startDate,
+                    "duration":  dur
 
                 };
 
@@ -3959,20 +4011,20 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.monthVector =
         {
             availableOptions: [
-                {id: '1', month: 'January'},
-                {id: '2', month: 'February'},
-                {id: '3', month: 'March'},
-                {id: '4', month: 'April'},
-                {id: '5', month: 'May'},
-                {id: '6', month: 'June'},
-                {id: '7', month: 'July'},
-                {id: '8', month: 'August'},
-                {id: '9', month: 'September'},
+                {id: '01', month: 'January'},
+                {id: '02', month: 'February'},
+                {id: '03', month: 'March'},
+                {id: '04', month: 'April'},
+                {id: '05', month: 'May'},
+                {id: '06', month: 'June'},
+                {id: '07', month: 'July'},
+                {id: '08', month: 'August'},
+                {id: '09', month: 'September'},
                 {id: '10', month: 'October'},
                 {id: '11', month: 'November'},
                 {id: '12', month: 'December'}
             ],
-            selectedOption: {id: '1', month: 'January'} //This sets the default value of the select in the ui
+            selectedOption: {id: '01', month: 'January'} //This sets the default value of the select in the ui
 
         };
 
@@ -3980,15 +4032,15 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.dayVector =
         {
             availableOptions: [
-                {id: '1', day: '1'},
-                {id: '2', day: '2'},
-                {id: '3', day: '3'},
-                {id: '4', day: '4'},
-                {id: '5', day: '5'},
-                {id: '6', day: '6'},
-                {id: '7', day: '7'},
-                {id: '8', day: '8'},
-                {id: '9', day: '9'},
+                {id: '01', day: '01'},
+                {id: '02', day: '02'},
+                {id: '03', day: '03'},
+                {id: '04', day: '04'},
+                {id: '05', day: '05'},
+                {id: '06', day: '06'},
+                {id: '07', day: '07'},
+                {id: '08', day: '08'},
+                {id: '09', day: '09'},
                 {id: '10', day: '10'},
                 {id: '11', day: '11'},
                 {id: '12', day: '12'},
@@ -4012,7 +4064,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '30', day: '30'},
                 {id: '31', day: '31'}
             ],
-            selectedOption: {id: '1', day: '1'}
+            selectedOption: {id: '01', day: '01'}
 
         };
 
@@ -4020,15 +4072,15 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.hourVector =
         {
             availableOptions: [
-                {id: '1', hour: '1'},
-                {id: '2', hour: '2'},
-                {id: '3', hour: '3'},
-                {id: '4', hour: '4'},
-                {id: '5', hour: '5'},
-                {id: '6', hour: '6'},
-                {id: '7', hour: '7'},
-                {id: '8', hour: '8'},
-                {id: '9', hour: '9'},
+                {id: '01', hour: '01'},
+                {id: '02', hour: '02'},
+                {id: '03', hour: '03'},
+                {id: '04', hour: '04'},
+                {id: '05', hour: '05'},
+                {id: '06', hour: '06'},
+                {id: '07', hour: '07'},
+                {id: '08', hour: '08'},
+                {id: '09', hour: '09'},
                 {id: '10', hour: '10'},
                 {id: '11', hour: '11'},
                 {id: '12', hour: '12'},
@@ -4052,7 +4104,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '30', hour: '30'},
                 {id: '31', hour: '31'}
             ],
-            selectedOption: {id: '1', hour: '1'}
+            selectedOption: {id: '00', hour: '00'}
 
         };
 
@@ -4060,15 +4112,16 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.minuteVector =
         {
             availableOptions: [
-                {id: '1', minute: '1'},
-                {id: '2', minute: '2'},
-                {id: '3', minute: '3'},
-                {id: '4', minute: '4'},
-                {id: '5', minute: '5'},
-                {id: '6', minute: '6'},
-                {id: '7', minute: '7'},
-                {id: '8', minute: '8'},
-                {id: '9', minute: '9'},
+                {id: '00', minute: '00'},
+                {id: '01', minute: '01'},
+                {id: '02', minute: '02'},
+                {id: '03', minute: '03'},
+                {id: '04', minute: '04'},
+                {id: '05', minute: '05'},
+                {id: '06', minute: '06'},
+                {id: '07', minute: '07'},
+                {id: '08', minute: '08'},
+                {id: '09', minute: '09'},
                 {id: '10', minute: '10'},
                 {id: '11', minute: '11'},
                 {id: '12', minute: '12'},
@@ -4120,7 +4173,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '58', minute: '58'},
                 {id: '59', minute: '59'}
             ],
-            selectedOption: {id: '1', minute: '1'}
+            selectedOption: {id: '00', minute: '00'}
 
         };
 

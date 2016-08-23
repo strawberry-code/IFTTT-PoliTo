@@ -92,6 +92,7 @@
                 <!---       ---------------------------------------------------------------------     -->
 
 
+                <!-- EVENT DATE -->
                 <label>
                     <input
                             id="weatheridcheckbox"
@@ -108,24 +109,42 @@
                        -->
                 <br>
                 <div ng-if="checkdata" class="animate-if">
+                    <h5>Event begins at...</h5>
 
-                    <label for="selectYear">Make a choice for year:</label>
+                    <label for="selectYear">Year:</label>
                     <select name="mySelect" id="selectYear"
                             ng-disabled="!checkdata"
                             ng-options="option.year  for option in yearVector.availableOptions track by option.id"
                             ng-model="yearVector.selectedOption"></select>
                     <br>
-                    <label for="selectMonth">Make a choice for month:</label>
+
+                    <label for="selectMonth">Month:</label>
                     <select name="mySelect" id="selectMonth"
                             ng-disabled="!checkdata"
                             ng-options="option.month  for option in monthVector.availableOptions track by option.id"
                             ng-model="monthVector.selectedOption"></select>
                     <br>
-                    <label for="selectDay">Make a choice for day:</label>
+
+                    <label for="selectDay">Day:</label>
                     <select name="mySelect" id="selectDay"
                             ng-disabled="!checkdata"
                             ng-options="option.day  for option in dayVector.availableOptions track by option.id"
                             ng-model="dayVector.selectedOption"></select>
+
+                    <br>
+
+                    <label for="selectHourDuration">Hour:</label>
+                    <select name="mySelect" id="selectHourStart"
+                            ng-disabled="!checkdata"
+                            ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
+                            ng-model="hourStart.selectedOption"></select>
+
+                    <label for="selectMinuteDuration">Minute:</label>
+
+                    <select name="mySelect" id="selectMinuteStart"
+                            ng-disabled="!checkdata"
+                            ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
+                            ng-model="minuteStart.selectedOption"></select>
 
                 </div>
 
@@ -136,6 +155,7 @@
                 <br>
 
 
+                <!-- EVENT DURATION -->
                 <label>
                     <input
                             id="durationEvent"
@@ -159,7 +179,7 @@
                             ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
                             ng-model="hourVector.selectedOption"></select>
 
-                    <label for="selectMinuteDuration">Minute:</label>
+                    <label for="selectMinuteDuration">Minutes:</label>
                     <select name="mySelect" id="selectMinuteDuration"
                             ng-disabled="!durationEventCheck"
                             ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
