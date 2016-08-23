@@ -197,7 +197,17 @@
                       </div>
                       <div class="form-group">
                           <div class="col-sm-offset-3 col-sm-9">
-                              <button id="ifttt-auth-btn" type="submit" class="btn btn-default">Sign in</button>
+
+                              <!-- Login button -->
+                              <div class="col-md-5">
+                                      <button id="ifttt-auth-btn" type="submit" class="btn btn-default">Sign in</button>
+                              </div>
+
+                              <!-- Create new account link -->
+                              <div class="col-md-5">
+                                  <a href="#index/createAccount" ng-click="closeModal()">Create an account</a>
+                              </div>
+
                           </div>
                       </div>
                   </form>
