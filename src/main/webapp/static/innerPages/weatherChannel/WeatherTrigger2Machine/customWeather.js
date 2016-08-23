@@ -400,13 +400,14 @@ $(function(){
                     //url = "#WeatherTrigger2";
                     //window.location.replace(url);
                     //alert("Your input is not right");
-                    $("#notificationsWrapper").notify(
-                        "Your input is not right",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // $("#notificationsWrapper").notify(
+                    //     "Your input is not right",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("You input is not right");
                 }
                 else
                 {
