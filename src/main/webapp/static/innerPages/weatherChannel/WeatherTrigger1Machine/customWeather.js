@@ -328,13 +328,14 @@ $(function()
         if (idCity == '0')
         {
 
-            $("#notificationsWrapper").notify(
-                "You have not found you ciry",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "You have not found you ciry",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("We have not found your city.");
             //alert("You have not found you ciry");
         }
         else
@@ -389,8 +390,24 @@ $(function()
                 }
                 else
                 {
-                    var url = "#/createRecipeAction";
-                    window.location.replace(url);
+                    if(importFlag==true)
+                    {
+                        if (iftttLogin == false)
+                        {
+                            url = "#home";
+                            window.location.replace(url);
+                        }
+                        else
+                        {
+                            window.location.replace("#" + actionImportRoute);
+                        }
+
+                    }
+                    else
+                    {
+                        var url = "#/createRecipeAction";
+                        window.location.replace(url);
+                    }
                 }
             }
             else
@@ -400,14 +417,15 @@ $(function()
                 //Alert sull'errore commesso:
                 if(flagTimezoneCheck == false && flagTimeCheck == false)
                 {
-
-                    $("#notificationsWrapper").notify(
-                        "Your inputs are not right",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    //
+                    // $("#notificationsWrapper").notify(
+                    //     "Your inputs are not right",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("You input is not right.");
                     //alert("Your inputs are not right");
                 }
                 else
@@ -418,13 +436,14 @@ $(function()
                     }
                     else {
                         //alert("The timezone input is not right");
-                        $("#notificationsWrapper").notify(
-                            "The timezone input is not right",
-                            {
-                                className: 'warning',
-                                position: 'bottom center'
-                            }
-                        );
+                        // $("#notificationsWrapper").notify(
+                        //     "The timezone input is not right",
+                        //     {
+                        //         className: 'warning',
+                        //         position: 'bottom center'
+                        //     }
+                        // );
+                        alertWarning("The timezone code is invalid.");
                         //window.location.replace('#');
                     }
                 }
