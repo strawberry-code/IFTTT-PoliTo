@@ -2421,9 +2421,10 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=6 : some errors
                             if(response == 6)
                             {
-                                alertVariable = "Sorry there is a error, " +
+                                //alertVariable = "Sorry there is a error, " +
                                     "try again mybe with some parameters or waiting some mitues and reload the site";
-                                alertFunction();
+                                //alertFunction();
+                                alertError("Sorry, some error occurred. Please, wait a minute and try again.");
 
                             }
 
