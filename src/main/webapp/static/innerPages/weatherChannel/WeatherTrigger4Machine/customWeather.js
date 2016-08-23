@@ -466,13 +466,14 @@ $(function(){
             }
             if(flagThmaxCheck==false)
                 //alert("The range of the max temperature is -70/70");
-            $("#notificationsWrapper").notify(
-                "The range of the max temperature is -70/70",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "The range of the max temperature is -70/70",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("The range of the max temperature is -70/70");
 
 
         }
