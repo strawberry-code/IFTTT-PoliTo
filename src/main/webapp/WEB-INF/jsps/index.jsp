@@ -23,6 +23,7 @@
     <script src="./static/scripts/jqueryspin.js"></script>
     <script src="./static/scripts/jstz.js"></script>
       <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="./static/bower_components/moment/moment.js"></script>
 
 
 
