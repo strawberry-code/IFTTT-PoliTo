@@ -2,35 +2,27 @@ package it.polito.ai.ifttt.progetto.models;
 
 public class Types {
 	
-	String triggerType;
-	String actionType;
-	Integer IngredientCode;
-	
-	public String getTriggerType() {
-		return triggerType;
+	Integer triggerIngredientCode;
+	Integer actionIngredientCode;
+	public Integer getTriggerIngredientCode() {
+		return triggerIngredientCode;
 	}
-	public void setTriggerType(String triggerType) {
-		this.triggerType = triggerType;
+	public void setTriggerIngredientCode(Integer triggerIngredientCode) {
+		this.triggerIngredientCode = triggerIngredientCode;
 	}
-	public String getActionType() {
-		return actionType;
+	public Integer getActionIngredientCode() {
+		return actionIngredientCode;
 	}
-	public void setActionType(String actionType) {
-		this.actionType = actionType;
-	}	
-	public Integer getIngredientCode() {
-		return IngredientCode;
-	}
-	public void setIngredientCode(Integer ingredientCode) {
-		IngredientCode = ingredientCode;
+	public void setActionIngredientCode(Integer actionIngredientCode) {
+		this.actionIngredientCode = actionIngredientCode;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((actionType == null) ? 0 : actionType.hashCode());
-		result = prime * result + ((triggerType == null) ? 0 : triggerType.hashCode());
+		result = prime * result + ((actionIngredientCode == null) ? 0 : actionIngredientCode.hashCode());
+		result = prime * result + ((triggerIngredientCode == null) ? 0 : triggerIngredientCode.hashCode());
 		return result;
 	}
 	@Override
@@ -42,17 +34,17 @@ public class Types {
 		if (getClass() != obj.getClass())
 			return false;
 		Types other = (Types) obj;
-		if (actionType == null) {
-			if (other.actionType != null)
+		if (actionIngredientCode == null) {
+			if (other.actionIngredientCode != null)
 				return false;
-		} else if (!actionType.equals(other.actionType))
+		} else if (!actionIngredientCode.equals(other.actionIngredientCode))
 			return false;
-		if (triggerType == null) {
-			if (other.triggerType != null)
+		if (triggerIngredientCode == null) {
+			if (other.triggerIngredientCode != null)
 				return false;
-		} else if (!triggerType.equals(other.triggerType))
+		} else if (!triggerIngredientCode.equals(other.triggerIngredientCode))
 			return false;
 		return true;
-	} 
+	}	
 
 }
