@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.polito.ai.ifttt.progetto.models.Recipes;
+import it.polito.ai.ifttt.progetto.models.Types;
 import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
@@ -288,11 +289,17 @@ public class DataRestController {
 	
 	@RequestMapping(value = "publish/userRecipes", method = RequestMethod.GET)
 	List<recipeJsonClass> getPublishRecipe() {
-		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		Users user = loginManager.findUserByUsername(username);
-		List<Recipes> recipes = user.getRecipes();
+	//	String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+	//	Users user = loginManager.findUserByUsername(username);
+	//	List<Recipes> recipes = user.getRecipes();
+		
+		// devo prendere TUTTE le ricette presenti nel db
+		List<Recipes> recipes = recipesManager.findAllRecipes();
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+		//List<Types> handleDup = new ArrayList<Types>();
 		for (Recipes r : recipes) {
+			
+			// controllo se sono state pubblicate
 			if(r.getPublish()) {
 				recipeJsonClass ricettaJson = new recipeJsonClass();
 				ricettaJson.setId(r.getRid());
