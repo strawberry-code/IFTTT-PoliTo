@@ -2652,8 +2652,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                             error: function ()
                             {
                                 setSpinner(false);
-                                alertVariable = "some error occurred";
-                                alertFunction();
+                                //alertVariable = "some error occurred";
+                                //alertFunction();
+                                alertError("Some error occurred.");
 
                             }
                         });
