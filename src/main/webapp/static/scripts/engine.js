@@ -144,6 +144,11 @@ var rootingAutenticationTriggerAction = "";
 var flag_registration_success = false;
 
 
+var importFlag = true;
+var triggerImportRoute = "";
+var actionImportRoute = "";
+
+
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
 
