@@ -4723,7 +4723,7 @@ iftttApp.filter('describe', function(){
             case 12:
                 return 'IF a new calendar event is created...';
             case 13:
-                return 'IF an email is comes...';
+                return 'IF an email comes...';
             case 14:
                 return 'IF tomorrow...';
             case 15:
