@@ -4900,11 +4900,11 @@ iftttApp.filter('describe', function(){
             case 14:
                 return 'IF tomorrow...';
             case 15:
-                return 'IF...2?';
+                return 'IF the weather condition...';
             case 16:
-                return 'IF...3?';
+                return 'IF sunrise or sunset...';
             case 17:
-                return 'IF...4?';
+                return 'IF the temperature changes...';
             case 18:
                 return 'IF a new tweet comes...';
             case 19:
