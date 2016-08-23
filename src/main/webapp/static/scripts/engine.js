@@ -1192,8 +1192,9 @@ iftttApp.controller('SuccessController', ['$scope', '$routeParams',
 
             if (flagTriggerDone == true) {
                     //alert("Warning you must compile before the action form");
-                    alertVariable = "Warning you must compile before the action form";
-                    alertFunction();
+                    //alertVariable = "Warning you must compile before the action form";
+                    //alertFunction();
+                    alertWarning("you must compile before the action form");
                     var url = "#createRecipeAction";
                     window.location.replace(url);
                 }
@@ -1344,8 +1345,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     (
                         function success(response) {
                             if (response == null) {
-                                alertVariable = "Error: there is a error!!!";
-                                alertFunction();
+                                //alertVariable = "Error: there is a error!!!";
+                                //alertFunction();
+                                alertError("An unknown error occurred. (code: 142");
 
                             }
                             else {
@@ -1363,8 +1365,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                         },
                         function error(response) {
-                            alertVariable = "Error: there is a error!!!";
-                            alertFunction();
+                            //alertVariable = "Error: there is a error!!!";
+                            //alertFunction();
+                            alertError("An unknown error occurred. (code: 136");
 
                         }
                     );
@@ -1378,8 +1381,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             //if (consoleLogs) console.log($scope.iftttLogged);
 
             //Print a error
-            alertVariable = "Error: there is a error!!!";
-            alertFunction();
+            //alertVariable = "Error: there is a error!!!";
+            //alertFunction();
+            alertError("An unknown error occurred. (code: 121");
 
         });
 
@@ -1408,22 +1412,25 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     url: 'http://localhost:8080/progetto/api/userRecipes/' + id
                 }
             ).error(function () {
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 338");
                     //alert("error");
             })
                 .success(function (response) {
                     if(response == 0)
                     {
-                        alertVariable = "SUCCESS!!!";
-                        alertFunction();
+                        //alertVariable = "SUCCESS!!!";
+                        //alertFunction();
+                        alertSuccess("The recipe was removed");
 
                         $scope.userRecipes.splice(index, 1);
                     }
                     else
                     {
-                        alertVariable = "Warning: there are been some errors";
-                        alertFunction();
+                        //alertVariable = "Warning: there are been some errors";
+                        //alertFunction();
+                        alertError("An unknown error occurred. (code: 632)");
                     }
 
 
@@ -1457,15 +1464,17 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     setSpinner(false);
                 // Error code here
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 114");
                 //alert("error");
             })
                 .success(function () {
                     setSpinner(false);
                         $scope.userRecipes[index].publish = true;
-                    alertVariable = "Success: now your repice is public";
-                    alertFunction();
+                    //alertVariable = "Success: now your repice is public";
+                    //alertFunction();
+                    alertSuccess("You recipe was successfully published!");
                         //alert("o.k. true");
                     }
                 );
@@ -1499,16 +1508,18 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     setSpinner(false);
                 // Error code here
-                    alertVariable = "Warning: sorry there have been some mistake!";
-                    alertFunction();
-                alert("error");
+                    //alertVariable = "Warning: sorry there have been some mistake!";
+                    //alertFunction();
+                alertError("An unknown error occurred. (code: 837)");
+                //alert("error");
             })
                 .success(function () {
                     setSpinner(false);
                     $scope.userRecipes[index].publish = false;
                     //alert("o.k. false");
-                    alertVariable = "Success: your recpice is now private";
-                    alertFunction();
+                    //alertVariable = "Success: your recpice is now private";
+                    //alertFunction();
+                    alertSuccess("You recipe is now private.");
                 });
 
         };
@@ -2278,8 +2289,9 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                 },
                 function error(response) {
-                    alertVariable = "Warning: there are been some errors";
-                    alertFunction();
+                    //alertVariable = "Warning: there are been some errors";
+                    //alertFunction();
+                    alertError("An unknown error occurred. (code: 514)");
                     // Error code here
                     //alert("error");
                 }
@@ -2367,46 +2379,52 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=1 : user already exist
                             if(response == 1)
                             {
-                                alertVariable = "Warning: user already exist";
-                                alertFunction();
+                                //alertVariable = "Warning: user already exist";
+                                //alertFunction();
+                                alertWarning("This username already exists.");
 
                             }
                             // i=2 : email already exist
                             if(response == 2)
                             {
-                                alertVariable = "Warning: email already exist";
-                                alertFunction();
+                                //alertVariable = "Warning: email already exist";
+                                //alertFunction();
+                                alertWarning("This username already exists.");
 
 
                             }
                             // i=3 : email not valid
                             if(response == 3)
                             {
-                                alertVariable = "Warning: email is not valid";
-                                alertFunction();
+                                //alertVariable = "Warning: email is not valid";
+                                //alertFunction();
+                                alertInfo("Sorry, this email is not valid.");
 
 
                             }
                             // i=4 : password too short
                             if(response == 4)
                             {
-                                alertVariable = "Warning: the password is too short";
-                                alertFunction();
+                                //alertVariable = "Warning: the password is too short";
+                                //alertFunction();
+                                alertWarning("This password is too short. Please write a longer one: it must be at least 8 characters lenght.");
 
                             }
                             // i=5 : username too short
                             if(response == 5)
                             {
-                                alertVariable = "Warning: username too short";
-                                alertFunction();
+                                //alertVariable = "Warning: username too short";
+                                //alertFunction();
+                                alertWarning("This password is too short. Please write a longer one: it must be at least 4 characters lenght.");
 
                             }
                             // i=6 : some errors
                             if(response == 6)
                             {
-                                alertVariable = "Sorry there is a error, " +
+                                //alertVariable = "Sorry there is a error, " +
                                     "try again mybe with some parameters or waiting some mitues and reload the site";
-                                alertFunction();
+                                //alertFunction();
+                                alertError("Sorry, some error occurred. Please, wait a minute and try again.");
 
                             }
 
@@ -2419,8 +2437,9 @@ iftttApp.controller('createAccountController', ['$scope',
                         error: function () {
                             setSpinner(false);
                             //alert("some error occurred");
-                            alertVariable = "some error occurred";
-                            alertFunction();
+                            //alertVariable = "some error occurred";
+                            //alertFunction();
+                            alertError("Sorry, some error occurred. (code 634)");
 
                         }
                     });
@@ -2430,23 +2449,26 @@ iftttApp.controller('createAccountController', ['$scope',
                 {
                     if (pws1.localeCompare(pws2) != 0)
                     {
-                        alertVariable = "Warning: the two password is not egual";
-                        alertFunction();
+                        //alertVariable = "Warning: the two password is not egual";
+                        //alertFunction();
+                        alertWarning("The two passwords must be equals");
 
                     }
                     else
                     {
                         if(pws1.length < 8)
                         {
-                            alertVariable = "Warning: the password  is too short!";
-                            alertFunction();
+                            //alertVariable = "Warning: the password  is too short!";
+                            //alertFunction();
+                            alertWarning("The password is too short, 8 lenght is the minimum accepted.");
 
                         }
                         else
                         if(pws2.length < 8)
                         {
-                            alertVariable = "Warning: the password  is too short!";
-                            alertFunction();
+                            //alertVariable = "Warning: the password  is too short!";
+                            //alertFunction();
+                            alertWarning("The password is too short, 8 lenght is the minimum accepted.");
                         }
 
                     }
@@ -2454,7 +2476,7 @@ iftttApp.controller('createAccountController', ['$scope',
             }
 
 
-        }
+        };
 
         /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
 
@@ -2559,8 +2581,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                 {
                     if (pws1.length < 8 || pws2.length < 8)
                     {
-                        alertVariable = "Warning: the password  is too short!";
-                        alertFunction();
+                        //alertVariable = "Warning: the password  is too short!";
+                        //alertFunction();
+                        alertWarning("The password is too short, 8 lenght is the minimum accepted.");
                     }
                     else
                     {
@@ -2592,9 +2615,10 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                 //alert("La password è stata modificata con successo");
                                 if (response == 0)
                                 {
-                                    alertVariable = "Success: the password is changed";
-                                    alertFunction();
-                                    window.location.replace('#myRecipes');
+                                    //alertVariable = "Success: the password is changed";
+                                    //alertFunction();
+                                    alertPasswordChangedSuccess();
+
 
                                 }
                                 else
@@ -2602,15 +2626,17 @@ iftttApp.controller('passwordChangeController', ['$scope',
 
                                     if (response == -1)
                                     {
-                                        alertVariable = "Error: there has been a error . . .";
-                                        alertFunction();
+                                        //alertVariable = "Error: there has been a error . . .";
+                                        alertWarning("Some unknown error occurred. (code 342).");
+                                        //alertFunction();
 
                                     }
                                     else
                                         if (response == -2)
                                         {
-                                            alertVariable = "Error: the pasword is too much short";
-                                            alertFunction();
+                                            //alertVariable = "Error: the pasword is too much short";
+                                            //alertFunction();
+                                            alertWarning("The password must be 8 character lenght minimum.");
                                             //window.location.replace('#myRecipes');
 
 
@@ -2626,8 +2652,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                             error: function ()
                             {
                                 setSpinner(false);
-                                alertVariable = "some error occurred";
-                                alertFunction();
+                                //alertVariable = "some error occurred";
+                                //alertFunction();
+                                alertError("Some error occurred.");
 
                             }
                         });
@@ -2637,15 +2664,17 @@ iftttApp.controller('passwordChangeController', ['$scope',
                 }
                 else {
                     //alert("Input password error.");
-                    alertVariable = "Warning: the two password is not egual!";
-                    alertFunction();
+                    //alertVariable = "Warning: the two password is not egual!";
+                    //alertFunction();
+                    alertWarning("The two passord are not equals.");
                 }
 
             }
             else
             {
-                alertVariable = "Warning: the password is empty";
-                alertFunction();
+                //alertVariable = "Warning: the password is empty";
+                //alertFunction();
+                alertWarning("The password field is empty.");
 
             }
 
@@ -2838,8 +2867,9 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                         else {
                             flag = false;
                             //alert("Your e.mail is not right . . .");
-                            alertVariable = "Your e.mail is not right . . .";
-                            alertFunction();
+                            //alertVariable = "Your e.mail is not right . . .";
+                            //alertFunction();
+                            alertWarning("Your email is invalid.");
 
                         }
                     }
@@ -2847,8 +2877,9 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                         receiver = "";
                         flag = false;
                         //alert("Your e.mail is not right . . .");
-                        alertVariable = "Your e.mail is not right . . .";
-                        alertFunction();
+                        //alertVariable = "Your e.mail is not right . . .";
+                        //alertFunction();
+                        alertWarning("Your email is invalid.");
 
                     }
                 }
@@ -2856,8 +2887,9 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                     receiver = "";
                     flag = false;
                     //alert("Your e.mail is not right . . .");
-                    alertVariable = "Your e.mail is not right . . .";
-                    alertFunction();
+                    //alertVariable = "Your e.mail is not right . . .";
+                    //alertFunction();
+                    alertWarning("Your email is invalid.");
                 }
 
 
@@ -2956,8 +2988,9 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
             }
             else {
                 //alert("You are not logged in google");
-                alertVariable = "You are not logged in google";
-                alertFunction();
+                //alertVariable = "You are not logged in google";
+                //alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#createDO";
                 window.location.replace(url);
             }
@@ -3419,8 +3452,9 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
             }
             else {
                 //alert("You are sloged from google please relog and redo it");
-                alertVariable = "You are sloged from google please relog and redo it";
-                alertFunction();
+                //alertVariable = "You are sloged from google please relog and redo it";
+                //alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#allTriggers";
                 window.location.replace(url);
 
@@ -3552,8 +3586,9 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
             }
             else {
                 //alert("You are non logged google please relog it and redo it");
-                alertVariable = "You are non logged google please relog it and redo it";
-                alertFunction();
+                //alertVariable = "You are non logged google please relog it and redo it";
+                //alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#allTriggers";
                 window.location.replace(url);
             }
@@ -3870,8 +3905,9 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             }
             else {
                 //alert("You are not logged in google");
-                alertVariable = "You are not logged in google";
-                alertFunction();
+                // alertVariable = "You are not logged in google";
+                // alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#createDO";
                 window.location.replace(url);
             }
@@ -4218,8 +4254,9 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
             }
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged in Twitter.");
                 url = "#allTriggers";
                 window.location.replace(url);
             }
@@ -4319,8 +4356,9 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
 
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged on Twitter.");
                 url = "#allTriggers";
                 window.location.replace(url);
             }
@@ -4403,8 +4441,9 @@ iftttApp.controller('action1TwitterController', ['$scope',
 
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged on Twitter.");
                 url = "#createDO";
                 window.location.replace(url);
             }
@@ -4508,16 +4547,18 @@ iftttApp.controller('action2TwitterController', ['$scope',
                 }
                 else {
                     //alert ("You must insert the destination e.mail");
-                    alertVariable = "You must insert the destination e.mail";
-                    alertFunction();
+                    //alertVariable = "You must insert the destination e.mail";
+                    //alertFunction();
+                    alertInfo("The email of the receiver must be specified.");
                 }
 
 
             }
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged on Twitter.");
 
                 url = "#createDO";
                 window.location.replace(url);
@@ -4850,8 +4891,9 @@ function sedingServerAllRun(loginDataSend) {
             setSpinner(false);
             if(response == -1)
             {
-                alertVariable="Warning: the recipe is not memorised by server try again or go home";
-                alertFunction ();
+                //alertVariable="Warning: the recipe is not memorised by server try again or go home";
+                //alertFunction ();
+                alertWarning("The recipe is not stored on our server. Please, try again.");
             }
             else
             {
@@ -4867,8 +4909,9 @@ function sedingServerAllRun(loginDataSend) {
         error: function (response)
         {
             setSpinner(false);
-            alertVariable="Warning: the recipe is not memorised by server try again or go home";
-            alertFunction ();
+            //alertVariable="Warning: the recipe is not memorised by server try again or go home";
+            //alertFunction ();
+            alertWarning("The recipe is not stored on our server. Please, try again.");
 
         }
     });
@@ -4940,8 +4983,9 @@ function sedingServerAllRunput(loginDataSend) {
             }
             else
             {
-                alertVariable="Warning: the recipe is not update try again or go home";
-                alertFunction ();
+                //alertVariable="Warning: the recipe is not update try again or go home";
+                //alertFunction ();
+                alertWarning("The recipe is not update try again.");
 
             }
 
@@ -4949,8 +4993,9 @@ function sedingServerAllRunput(loginDataSend) {
         error: function ()
         {
             setSpinner(false);
-            alertVariable="Warning: the recipe is not update try again or go home";
-            alertFunction ();
+            //alertVariable="Warning: the recipe is not update try again or go home";
+            //alertFunction ();
+            alertWarning("The recipe is not update try again.");
 
         }
     });
@@ -5069,6 +5114,67 @@ function loginInactiveUser() {
         //confirmButtonText: "Yes, delete it!",
         //closeOnConfirm: true
     }, function () {
+    });
+}
+
+function alertWarning(message) {
+    swal({
+        title: "Hey!",
+        text: message,
+        type: "warning"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertError(message) {
+    swal({
+        title: "Sorry...",
+        text: message,
+        type: "error"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertSuccess(message) {
+    swal({
+        title: "Success!",
+        text: message,
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertInfo(message) {
+    swal({
+        title: "Success!",
+        text: message,
+        type: "info"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+    });
+}
+
+function alertPasswordChangedSuccess() {
+    swal({
+        title: "Success!",
+        text: "Your passowrd has been changed.",
+        type: "success"
+        //confirmButtonColor: "#DD6B55",
+        //confirmButtonText: "Yes, delete it!",
+        //closeOnConfirm: true
+    }, function () {
+        window.location.replace('#myRecipes');
     });
 }
 

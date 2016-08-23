@@ -335,13 +335,14 @@ $(function(){
         {
             //$scope.errorButton= "Almost a field must be completed";
            // alert("You have not found you ciry");
-            $("#notificationsWrapper").notify(
-                "You have not found you ciry",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+           //  $("#notificationsWrapper").notify(
+           //      "You have not found you ciry",
+           //      {
+           //          className: 'warning',
+           //          position: 'bottom center'
+           //      }
+           //  );
+            alertWarning("We have not found your city");
 
         }
         else
@@ -433,13 +434,14 @@ $(function(){
             else
                 {
                     //alert("Please chose tmax or/and tmin");
-                    $("#notificationsWrapper").notify(
-                        "Please chose tmax or/and tmin",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // $("#notificationsWrapper").notify(
+                    //     "Please chose tmax or/and tmin",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("Please, choose max temperature and / or min temperature.");
 
                 }
 
@@ -464,13 +466,14 @@ $(function(){
             }
             if(flagThmaxCheck==false)
                 //alert("The range of the max temperature is -70/70");
-            $("#notificationsWrapper").notify(
-                "The range of the max temperature is -70/70",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "The range of the max temperature is -70/70",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("The range of the max temperature is -70/70");
 
 
         }
@@ -493,13 +496,14 @@ $(function(){
             }
             if(flagThminCheck==false)
                 //alert("The range of the min temperature is -70/70");
-            $("#notificationsWrapper").notify(
-                "The range of the min temperature is -70/70",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "The range of the min temperature is -70/70",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("The range of the min temperature is -70/70");
 
 
         }
@@ -521,13 +525,14 @@ $(function(){
             }
             if(flagPeriodCheck==false)
                 //alert("The range of the min temperature is 0/700");
-                $("#notificationsWrapper").notify(
-                    "The range of the min temperature is 0/700",
-                    {
-                        className: 'warning',
-                        position: 'bottom center'
-                    }
-                );
+                // $("#notificationsWrapper").notify(
+                //     "The range of the min temperature is 0/700",
+                //     {
+                //         className: 'warning',
+                //         position: 'bottom center'
+                //     }
+                // );
+            alertWarning("The range of the min temperature is 0/700");
 
 
         }
@@ -551,13 +556,15 @@ $(function(){
             if(flagTimeZoneCheck==false)
                 //alert("The range of the time zone is -12/12");
 
-            $("#notificationsWrapper").notify(
-                "The range of the time zone is -12/12",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "The range of the time zone is -12/12",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("The range of the time zone is -12/12");
+
 
 
         }

@@ -321,13 +321,14 @@ $(function(){
         {
             //$scope.errorButton= "Almost a field must be completed";
             //alert("You have not found you ciry");
-            $("#notificationsWrapper").notify(
-                "You have not found you ciry",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "You have not found you ciry",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("We have not found your city.");
         }
         else
         {
@@ -390,25 +391,28 @@ $(function(){
                 }
                 else {
                     //alert("The input of the time zone is not right");
-                    $("#notificationsWrapper").notify(
-                        "The input of the time zone is not right",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // $("#notificationsWrapper").notify(
+                    //     "The input of the time zone is not right",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+                    alertWarning("The timezone code is invalid");
                 }
             }
             else
                 {
-                    //alert("The input of the time zone is not right");
-                    $("#notificationsWrapper").notify(
-                        "At least one between sunrise and sunset must be chosen",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // //alert("The input of the time zone is not right");
+                    // $("#notificationsWrapper").notify(
+                    //     "At least one between sunrise and sunset must be chosen",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+
+                    alertWarning("At least one between sunrise and sunset must be chosen.");
 
                 }
 
