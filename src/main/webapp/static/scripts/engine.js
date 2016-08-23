@@ -1857,9 +1857,11 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                     triggerImportRoute = getRoute(triggerCode); //Se triggerCode è "14" allora ti ritorna "/WeatherTrigger1" cmq puoi fare degli alert per testare
                     actionImportRoute = getRoute(actionCode);
 
+                    /*
                     alert("implementare qui le funzioni che permettono di continuare l'importazione della ricetta (engine.js riga 1864 xxx)");
                     alert("devo andare nel trigger form :" + triggerCode);
                     alert("e POI devo andare nell'action form :" + actionCode);
+                    */
 
                 } else {
                     window.location.replace('#publicRecipes');
