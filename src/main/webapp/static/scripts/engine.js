@@ -1934,7 +1934,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
         (
             {
                 url: 'http://localhost:8080/progetto/api/publish/userRecipes',
-                method: "POST",
+                method: "GET",
                 dataType: 'application/json',
             }
         )
