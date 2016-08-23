@@ -1859,7 +1859,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 */
 
 
-        $scope.ngImportRecipeAlert = function() {
+        $scope.ngImportRecipeAlert = function(triggerCode, actionCode) {
             swal({
                 title: "Do you like this recipe?",
                 text: "Good! You have to customize it to continue.",
@@ -1871,6 +1871,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                 if(isConfirm){
 
                     alert("implementare qui le funzioni che permettono di continuare l'importazione della ricetta (engine.js riga 1864 xxx)");
+                    alert("devo andare nel trigger form :" + triggerCode);
+                    alert("e POI devo andare nell'action form :" + actionCode);
 
                 } else {
                     window.location.replace('#publicRecipes');
