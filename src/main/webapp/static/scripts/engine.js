@@ -3004,6 +3004,13 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
         }
 
 
+        $scope.backfunctionActionPuclicRecipe = function ()
+        {
+            url = "#" + triggerImportRoute;
+            window.location.replace(url);
+
+        },
+
         /**
          * Description
          * @method validateEmail
@@ -4164,6 +4171,15 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.timeZoneCheck = false;
 
 
+        $scope.backfunctionActionPuclicRecipe = function ()
+        {
+            url = "#" + triggerImportRoute;
+            window.location.replace(url);
+
+        }
+
+
+
 //action1GcalendarController
 
     }]);
@@ -4471,6 +4487,13 @@ iftttApp.controller('action1TwitterController', ['$scope',
         $scope.checkedplace = false;
 
 
+        $scope.backfunctionActionPuclicRecipe = function ()
+        {
+            url = "#" + triggerImportRoute;
+            window.location.replace(url);
+
+        }
+
     }]);
 
 //action2TwitterController
@@ -4578,6 +4601,13 @@ iftttApp.controller('action2TwitterController', ['$scope',
 
         };
 
+
+        $scope.backfunctionActionPuclicRecipe = function ()
+        {
+            url = "#" + triggerImportRoute;
+            window.location.replace(url);
+
+        }
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;

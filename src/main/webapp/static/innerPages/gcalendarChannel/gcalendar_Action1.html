@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
+
 <body>
 <div>
     <div class="row" style="padding-top: 6%">
@@ -200,12 +202,16 @@
                 <div>
                     <!-- ng-disabled="!checkedtitle && !checkedSubject && !checkdata && !checkedplace" -->
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#allActions"
-                       ng-if="!modifyButton"
+                       ng-if="!modifyButton && importFlag"
                     >Cancel</a>
 
 
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#choseModify"
-                       ng-if="modifyButton"
+                       ng-if="modifyButton && importFlag"
+                    >Cancel</a>
+
+                    <a type="submit" class="btn btn-danger pull-left  animate-if"   ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importFlag"
                     >Cancel</a>
 
 
