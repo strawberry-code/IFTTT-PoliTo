@@ -5299,7 +5299,7 @@ function alertSuccess(message) {
 
 function alertInfo(message) {
     swal({
-        title: "Success!",
+        title: "Mmmm...",
         text: message,
         type: "info"
         //confirmButtonColor: "#DD6B55",
