@@ -403,14 +403,16 @@ $(function(){
             }
             else
                 {
-                    //alert("The input of the time zone is not right");
-                    $("#notificationsWrapper").notify(
-                        "At least one between sunrise and sunset must be chosen",
-                        {
-                            className: 'warning',
-                            position: 'bottom center'
-                        }
-                    );
+                    // //alert("The input of the time zone is not right");
+                    // $("#notificationsWrapper").notify(
+                    //     "At least one between sunrise and sunset must be chosen",
+                    //     {
+                    //         className: 'warning',
+                    //         position: 'bottom center'
+                    //     }
+                    // );
+
+                    alertWarning("At least one between sunrise and sunset must be chosen.");
 
                 }
 
