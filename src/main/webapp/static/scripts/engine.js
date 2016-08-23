@@ -2664,8 +2664,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                 }
                 else {
                     //alert("Input password error.");
-                    alertVariable = "Warning: the two password is not egual!";
-                    alertFunction();
+                    //alertVariable = "Warning: the two password is not egual!";
+                    //alertFunction();
+                    alertWarning("The two passord are not equals.");
                 }
 
             }
