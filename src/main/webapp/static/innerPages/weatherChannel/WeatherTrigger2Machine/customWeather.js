@@ -328,13 +328,14 @@ $(function(){
             //$scope.errorButton= "Almost a field must be completed";
             //alert("You have not found you ciry");
 
-            $("#notificationsWrapper").notify(
-                "You have not found you ciry",
-                {
-                    className: 'warning',
-                    position: 'bottom center'
-                }
-            );
+            // $("#notificationsWrapper").notify(
+            //     "You have not found you ciry",
+            //     {
+            //         className: 'warning',
+            //         position: 'bottom center'
+            //     }
+            // );
+            alertWarning("We have not found your city.");
         }
         else
         {
