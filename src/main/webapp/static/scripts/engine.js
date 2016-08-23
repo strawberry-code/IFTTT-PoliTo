@@ -1977,7 +1977,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                         descriptionRecipeGlobal = $scope.userRecipes[index].description;
                         idRecipe = $scope.userRecipes[index].id;
-                        triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
+                        triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType; // ERRORE NON VIENE DISTINTO IL CASO IN CUI SI ARRIVI DA NON LOGGATO BISOGNA FARLO
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
                         publishRecipeGlobal = $scope.userRecipes[index].publish;
 
