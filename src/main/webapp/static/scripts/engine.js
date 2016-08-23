@@ -4547,8 +4547,9 @@ iftttApp.controller('action2TwitterController', ['$scope',
                 }
                 else {
                     //alert ("You must insert the destination e.mail");
-                    alertVariable = "You must insert the destination e.mail";
-                    alertFunction();
+                    //alertVariable = "You must insert the destination e.mail";
+                    //alertFunction();
+                    alertInfo("The email of the receiver must be specified.");
                 }
 
 
