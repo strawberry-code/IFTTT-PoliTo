@@ -158,8 +158,9 @@
   <!-- DEBUG AREA
   <button id="qwe1">Spin = ON</button>
   <button id="qwe2">Spin = OFF</button>
-  -->
-  current url: <span ng-bind="$location.path()"></span>
+-->
+
+  <span hidden ng-bind="$location.path()"></span>
 
 
   <!-- INNER PAGES BEGIN -->
