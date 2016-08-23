@@ -4556,8 +4556,9 @@ iftttApp.controller('action2TwitterController', ['$scope',
             }
             if (twitterLogin == false) {
                 //alert("You are not logged in twitter");
-                alertVariable = "You are not logged in twitter";
-                alertFunction();
+                //alertVariable = "You are not logged in twitter";
+                //alertFunction();
+                alertWarning("You are not logged on Twitter.");
 
                 url = "#createDO";
                 window.location.replace(url);
