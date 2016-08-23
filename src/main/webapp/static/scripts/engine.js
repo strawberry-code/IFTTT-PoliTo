@@ -1841,29 +1841,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
-        /*
-        //METTO UN CONTROLLO PER SAPERE SE L'UTENTE E' AUTENTICATO
-        $http({
-            url: 'http://localhost:8080/progetto/api/prova', //[renna] da cambiare la url per il server
-            method: "POST",
-            dataType: 'application/json'
-        }).then(function success(response) {
-            if (consoleLogs) console.log(response);
-            if (consoleLogs) console.log(JSON.stringify(response.data.authenticated) + "locale" + response.data.authenticated.localeCompare("true"));
-            if (response.data.authenticated.localeCompare("true") == 0) {
-                $scope.iftttLogged = true;
-                iftttLogin = true;
-            }
-            if (consoleLogs) console.log($scope.iftttLogged);
-        }, function error() {
-            $scope.iftttLogged = false;
-            iftttLogin = false;
-            if (consoleLogs) console.log($scope.iftttLogged);
-        });
-
-*/
-
-
         $scope.ngImportRecipeAlert = function(triggerCode, actionCode) {
             swal({
                 title: "Do you like this recipe?",
