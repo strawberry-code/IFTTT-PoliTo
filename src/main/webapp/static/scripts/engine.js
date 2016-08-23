@@ -1517,8 +1517,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     setSpinner(false);
                     $scope.userRecipes[index].publish = false;
                     //alert("o.k. false");
-                    alertVariable = "Success: your recpice is now private";
-                    alertFunction();
+                    //alertVariable = "Success: your recpice is now private";
+                    //alertFunction();
+                    alertSuccess("You recipe is now private.");
                 });
 
         };
