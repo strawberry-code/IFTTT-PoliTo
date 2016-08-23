@@ -1940,6 +1940,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
             .then
             (
                 function success(response) {
+                	console.log(response.data);
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
