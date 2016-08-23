@@ -4983,8 +4983,9 @@ function sedingServerAllRunput(loginDataSend) {
             }
             else
             {
-                alertVariable="Warning: the recipe is not update try again or go home";
-                alertFunction ();
+                //alertVariable="Warning: the recipe is not update try again or go home";
+                //alertFunction ();
+                alertWarning("The recipe is not update try again.");
 
             }
 
