@@ -1192,8 +1192,9 @@ iftttApp.controller('SuccessController', ['$scope', '$routeParams',
 
             if (flagTriggerDone == true) {
                     //alert("Warning you must compile before the action form");
-                    alertVariable = "Warning you must compile before the action form";
-                    alertFunction();
+                    //alertVariable = "Warning you must compile before the action form";
+                    //alertFunction();
+                    alertWarning("you must compile before the action form");
                     var url = "#createRecipeAction";
                     window.location.replace(url);
                 }
