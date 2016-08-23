@@ -420,13 +420,14 @@ $(function()
                     }
                     else {
                         //alert("The timezone input is not right");
-                        $("#notificationsWrapper").notify(
-                            "The timezone input is not right",
-                            {
-                                className: 'warning',
-                                position: 'bottom center'
-                            }
-                        );
+                        // $("#notificationsWrapper").notify(
+                        //     "The timezone input is not right",
+                        //     {
+                        //         className: 'warning',
+                        //         position: 'bottom center'
+                        //     }
+                        // );
+                        alertWarning("The timezone code is invalid.");
                         //window.location.replace('#');
                     }
                 }
