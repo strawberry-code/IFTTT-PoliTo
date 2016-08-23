@@ -923,7 +923,7 @@ public class ThreadFunction extends Thread {
 				event.setLocation(ca.getLocation());
 			}
 
-			try {
+	//		try {
 				DateTime startDateTime = null;
 				if (ca.getStartDate() != null) {
 					startDateTime = new DateTime(ca.getStartDate());
@@ -940,11 +940,11 @@ public class ThreadFunction extends Thread {
 				event.setEnd(end);
 
 				event = clientCal.events().insert("primary", event).execute();
-			}
-			catch(Exception e) {
-				//try-catch to handle incorrect date
-				//TODO: handle the exception: ad esempio mettendo la data corrente
-			}
+//			}
+//			catch(Exception e) {
+//				//try-catch to handle incorrect date
+//				//TODO: handle the exception: ad esempio mettendo la data corrente
+//			}
 			
 
 		} else if (atype.compareTo("twitter") == 0 && twitter != null) {
