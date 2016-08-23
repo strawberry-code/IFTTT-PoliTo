@@ -3905,8 +3905,9 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             }
             else {
                 //alert("You are not logged in google");
-                alertVariable = "You are not logged in google";
-                alertFunction();
+                // alertVariable = "You are not logged in google";
+                // alertFunction();
+                alertWarning("You are not logged in Google.");
                 url = "#createDO";
                 window.location.replace(url);
             }
