@@ -2449,8 +2449,9 @@ iftttApp.controller('createAccountController', ['$scope',
                 {
                     if (pws1.localeCompare(pws2) != 0)
                     {
-                        alertVariable = "Warning: the two password is not egual";
-                        alertFunction();
+                        //alertVariable = "Warning: the two password is not egual";
+                        //alertFunction();
+                        alertWarning("The two passwords must be equals");
 
                     }
                     else
