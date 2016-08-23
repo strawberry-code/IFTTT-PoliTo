@@ -2413,8 +2413,9 @@ iftttApp.controller('createAccountController', ['$scope',
                             // i=5 : username too short
                             if(response == 5)
                             {
-                                alertVariable = "Warning: username too short";
-                                alertFunction();
+                                //alertVariable = "Warning: username too short";
+                                //alertFunction();
+                                alertWarning("This password is too short. Please write a longer one: it must be at least 4 characters lenght.");
 
                             }
                             // i=6 : some errors
