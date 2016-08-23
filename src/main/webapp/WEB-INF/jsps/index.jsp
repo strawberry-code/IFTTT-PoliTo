@@ -209,6 +209,7 @@
                           </div>
                       </div>
                       <div class="form-group">
+
                           <div class="col-sm-offset-3 col-sm-9">
 
                               <!-- Login button -->
