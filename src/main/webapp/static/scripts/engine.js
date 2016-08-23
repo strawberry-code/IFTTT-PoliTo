@@ -2634,8 +2634,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                     else
                                         if (response == -2)
                                         {
-                                            alertVariable = "Error: the pasword is too much short";
-                                            alertFunction();
+                                            //alertVariable = "Error: the pasword is too much short";
+                                            //alertFunction();
+                                            alertWarning("The password must be 8 character lenght minimum.");
                                             //window.location.replace('#myRecipes');
 
 
