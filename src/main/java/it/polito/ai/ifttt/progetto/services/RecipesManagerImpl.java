@@ -562,6 +562,9 @@ public class RecipesManagerImpl implements RecipesManager {
 		Integer flag = 0;
 
 		Recipes recipe = this.findRecipesById(id);
+		if(recipe==null) {
+			return -1;
+		}
 		String triggerType = recipe.getTriggerType();
 		String actionType = recipe.getActionType();
 		Integer triggerid = recipe.getTriggerid();
