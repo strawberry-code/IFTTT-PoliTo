@@ -1762,7 +1762,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                     + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
                     + ":" + minuteStart_action1GcalendarController + ":00";
 
-                var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 10000);
+                var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
 
                 modulinoj2 =
                 {
@@ -2206,7 +2206,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                                 + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
                                 + ":" + minuteStart_action1GcalendarController + ":00";
 
-                            var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 10000);
+                            var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
 
                             modulinoj2 =
                             {
@@ -3075,7 +3075,6 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
             $scope.modifyButton = true;
         }
 
-
     }]);
 
 iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
@@ -3828,7 +3827,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
                     + ":" + minuteStart_action1GcalendarController + ":00";
 
-                var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 10000);
+                var dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
 
                 modulinoj2 =
                 {
