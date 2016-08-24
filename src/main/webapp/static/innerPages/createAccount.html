@@ -22,8 +22,9 @@
                         <label for="inputUser">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Username
                         </label>
-                        <input autofocus type="text" class="form-control" ng-model="user" id="inputUser" placeholder="insert your username"
-                            name="user"  required
+                        <input autofocus type="text" class="form-control" ng-model="user" id="inputUser"
+                               placeholder="insert your username"
+                               name="user" required
                         />
                         <span style="color: #cd0a0a" class="help-inline"
                               ng-show="submitted && form.user.$error.required">Required
@@ -34,24 +35,20 @@
                 </div>
                 <div class="form-group">
                     <div class="controls">
-                                 <label for="inputEmail">
+                        <label for="inputEmail">
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true">
                             </span> Email address
                         </label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="insert your email"
-                            name="email" required ng-model="email"
-                            />
+                        <input type="email" class="form-control" id="inputEmail" placeholder="insert your email"
+                               name="email" required ng-model="email"
+                        />
 
                         <span style="color: #cd0a0a"
-                          class="help-inline" ng-show="submitted && form.email.$error.required">Required</span>
+                              class="help-inline" ng-show="submitted && form.email.$error.required">Required</span>
                         <span style="color: #cd0a0a"
                               class="help-inline" ng-show="submitted && form.email.$error.email">Invalid email</span>
                     </div>
                 </div>
-
-
-
-
 
 
                 <div class="form-group">
@@ -61,38 +58,42 @@
                     </label>
                     <div class="controls">
                         <input type="password" class="form-control" id="inputPassword" ng-model="pws1"
-                            name="pws1"
-                            placeholder="insert your password" required />
-                                <div role="alert">
-                                    <span  style="color: #cd0a0a" class="error" ng-show="submitted && form.pws1.$error.required">
+                               name="pws1"
+                               placeholder="insert your password" required/>
+                        <div role="alert">
+                                    <span style="color: #cd0a0a" class="error"
+                                          ng-show="submitted && form.pws1.$error.required">
                                         Required!
                                     </span>
-                                </div>
+                        </div>
                     </div>
 
-                    <div class="controls">
+                    <div class="controls" style="padding-top: 2%">
                         <input type="password" class="form-control" ng-model="pws2"
-                           name="pws2"
-                           placeholder="retype password" required/>
+                               name="pws2"
+                               placeholder="retype password" required/>
 
-                             <div role="alert">
-                                <span  style="color: #cd0a0a" class="error" ng-show="submitted && form.pws2.$error.required">
+                        <div role="alert">
+                                <span style="color: #cd0a0a" class="error"
+                                      ng-show="submitted && form.pws2.$error.required">
                                     Required!
                                 </span>
-                            </div>
+                        </div>
 
                     </div>
                 </div>
-                <span style="color: #cd0a0a" ng-if="pws1 != pws2 && submitted">The two password are non equal!!! :(</span>
+                <span style="color: #cd0a0a"
+                      ng-if="pws1 != pws2 && submitted">The two password are non equal!!! :(</span>
 
 
                 <hr>
 
-                <button type="submit" class="btn btn-danger pull-left"  onclick="location.href='#'">
+                <button type="submit" class="btn btn-danger pull-left" onclick="location.href='#'">
                     Cancel
                 </button>
 
-                <button type="submit" class="btn btn-primary pull-right"   ng-click="submitted=true; createAccountFunc(user, email, pws1,pws2 )">
+                <button type="submit" class="btn btn-primary pull-right"
+                        ng-click="submitted=true; createAccountFunc(user, email, pws1,pws2 )">
                     Submit
                 </button>
             </form>

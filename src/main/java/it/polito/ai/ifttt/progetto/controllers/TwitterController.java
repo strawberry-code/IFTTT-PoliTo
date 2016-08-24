@@ -101,6 +101,24 @@ public class TwitterController {
 		System.out.println(path);
 		return new RedirectView(path);
 	}
+	
+	@RequestMapping(value = "/tw.token", method = RequestMethod.GET, params = { "denied" })
+	public RedirectView oauth2CallbackDenied(@RequestParam(value = "denied") String denied) {
+
+		//Ricavo il path precedente dal nextPath che il client mi passa
+		String path = "";
+		if(this.nextPath.startsWith("Trigger")==true) {
+			path = "http://localhost:8080/progetto/#/allTriggers";
+		} else if(this.nextPath.startsWith("Action")==true) {
+			path = "http://localhost:8080/progetto/#/createDO";
+		} else {
+			path = "http://localhost:8080/progetto/#/index/myRecipes";
+		}
+		System.out.println(path);
+		return new RedirectView(path);
+	}
+
+
 
 	@RequestMapping(value = "requestTwitter", method = RequestMethod.POST)
 	@ResponseBody returnClass checkGoogleConnection(@RequestBody requestClass data) {

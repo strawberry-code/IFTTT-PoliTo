@@ -304,6 +304,9 @@ public class DataRestController {
 		
 		// devo prendere TUTTE le ricette presenti nel db
 		List<Recipes> recipes = recipesManager.findAllRecipes();
+		if(recipes==null) {
+			return null;
+		}
 	//	List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		Set<Types> handleDup = new HashSet<Types>();
 		for (Recipes r : recipes) {

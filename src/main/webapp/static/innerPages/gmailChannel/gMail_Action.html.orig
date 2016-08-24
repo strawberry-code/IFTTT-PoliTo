@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="GmailActionController">
+<div ng-init="gmailActionvar.sender = false">
+
+
+    <div class="row" style="padding-top: 6%">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> GMail action
+                <small>Step 5/6</small>
+            </h1>
+            <form id="gmail-form" role="form" name="form" novalidate>
+
+                <div class="form-group">
+                    <label> <img src="/progetto/static/images/gmailChannel/email-address.png" height="30" width="30"/>
+                        Email address or receiver</label> <br>
+                    <div>
+                        <input type="title" class="form-control" id="email" placeholder="insert your email"
+                               ng-model="gmailActionvar.email"
+                               required="" name="uEmail"
+                               maxlength="100"
+                               ng-trim="false"
+                        >
+
+                    </div>
+                </div>
+
+
+                <label> <img src="/progetto/static/images/gmailChannel/email-sender.png" height="30" width="30"/> Send
+                    email from:</label><br>
+                <form class="form-group">
+                    <input type="radio" name="emailSending" value="false" ng-model="gmailActionvar.sender"
+                           ng-checked="true"> us (ifttt.ai2016@gmail.com) <br>
+                    <input type="radio" name="emailSending" value="true" ng-model="gmailActionvar.sender"> your IFTTT
+                    Polito email <br>
+                </form>
+
+
+                <div class="form-group">
+                    <label>
+                        <input
+                                id="checkedSubjectId"
+                                type="checkbox"
+                                ng-model="checkedSubject"
+
+                        > <img src="/progetto/static/images/gmailChannel/email-subject.png" height="30" width="30"/>
+                        Email subject
+                    </label><br/>
+                    <!--  ng-change="checkedSubjectfunc()" -->
+                    <div ng-if="checkedSubject" class="animate-if">
+
+                            <textarea class="form-control" rows="5" id="subjectReceive"
+                                      placeholder="Insert here the email subject"
+                                      ng-model="gmailActionvar.subjectReceive" name="subjectReceive"
+                                      ng-disabled="!checkedSubject"
+                                      maxlength="500" ng-trim="false"
+                            ></textarea>
+                        <span>{{500 - gmailActionvar.subjectReceive.length}} left </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label>
+                        <input
+                                id="checkedBodyId"
+                                type="checkbox"
+                                ng-model="checkedBody"
+
+                        > <img src="/progetto/static/images/gmailChannel/email-content.png" height="30" width="30"/>
+                        Email content
+                    </label><br/>
+                    <!--  ng-change="checkedSubjectfunc()" -->
+                    <div ng-if="checkedBody" class="animate-if">
+
+                            <textarea class="form-control" rows="5" id="checkedBody"
+                                      placeholder="Inert here the email content"
+                                      ng-model="gmailActionvar.checkedBody" name="checkedBody"
+                                      ng-disabled="!checkedBody"
+                                      maxlength="500" ng-trim="false"
+                            ></textarea>
+                        <span>{{500 - gmailActionvar.checkedBody.length}} left </span>
+                    </div>
+                </div>
+                <hr>
+
+
+                <div>
+                    <a type="submit" class="btn btn-danger pull-left animate-if" href="#allActions"
+                       ng-if="!modifyButton && !importRecipe"
+                    >Cancel</a>
+
+
+                    <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+                       ng-if="modifyButton && !importRecipe"
+                    >Cancel</a>
+
+<<<<<<< HEAD
+                    <a type="submit" class="btn btn-danger pull-left animate-if"
+                       ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importFlag"
+=======
+                    <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importRecipe && !modifyButton"
+>>>>>>> origin/client
+                    >Cancel</a>
+
+
+                    <a type="submit"
+                       class="btn btn-primary pull-right btn_next6 animate-if" ng-click="actionGmail(gmailActionvar)"
+                       ng-if="!modifyButton"
+                    >Submit</a>
+
+
+                    <a type="submit"
+                       class="btn btn-primary pull-right btn_next6 animate-if" ng-click="actionGmail(gmailActionvar)"
+                       ng-if="modifyButton"
+                    >Submit</a>
+
+
+                    <!--  data-toggle="modal" data-target="#recipedDescriptionModal" -->
+                </div>
+
+                <!--
+                       http://localhost:8080/index.jsp#/SubGMail
+                       <a  type="submit" class="btn btn-primary" href="#logged_in" >Home</a>
+                       <a  type="submit" class="btn btn-primary"  href="#SubGMailAction" ng-click="triggerGmail(gmailActionvar)">Next</a>
+                       -->
+
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+
+
+</div>
+
+
+<!--href="#SubGMailAction" -->
+
+
+</body>
+<!--
+Example code
+<label>Click me to toggle: <input type="checkbox" ng-model="checked"></label><br/>
+<button ng-model="button" ng-disabled="checked">Button</button>
+-->
+
+<script>
+    if (importFlag == true) {
+        if (iftttLogin == false) {
+            url = "#home";
+            window.location.replace(url);
+        }
+
+    }
+    else {
+        if (setChooseAx == 5) {
+            if (iftttLogin == false) {
+                url = "#home";
+                window.location.replace(url);
+            }
+
+        }
+        else {
+
+            if (modifyVar == 1) {
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    modifyCountVar = 0;
+                }
+                else {
+                    if (googleLogin == "1") {
+                        if (modifyCountVar == 2) {
+                            modifyCountVar++;
+                        }
+                        else {
+                            if (modifyCountVar < 2) {
+                                url = "#/index/myRecipes";
+                                window.location.replace(url);
+                            }
+
+                        }
+
+
+                    }
+                    else {
+                        url = "#home";
+                        window.location.replace(url);
+                        alert("Non sei loggato a google");
+                    }
+                }
+            }
+            else {
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    count = 0;
+                    flagTriggerDone = "0";
+                }
+                else {
+                    if (googleLogin == "1") {
+                        if (flagTriggerDone == "0") {
+                            alert("Warning you must compile before the trigger form");
+                            url = "#allTriggers";
+                            window.location.replace(url);
+                        }
+
+                        if (count == 5) {
+                            count++;
+                        }
+                        else {
+                            if (count < 5) {
+                                url = "#createDO";
+                                window.location.replace(url);
+                            }
+
+                        }
+                    }
+                    else {
+                        url = "#createDO";
+                        window.location.replace(url);
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+</html>
+
+

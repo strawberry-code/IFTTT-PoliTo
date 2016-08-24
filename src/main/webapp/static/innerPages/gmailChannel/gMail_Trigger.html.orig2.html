@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row" style="padding-top: 6%">
+
+    <div class="col-md-4"></div>
+
+
+    <div class="col-md-4">
+        <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> GMail trigger
+            <small>Step 3/6</small>
+        </h1>
+        <form id="gmail-form" role="form" name="form" ng-controller="GmailTriggerController" novalidate>
+
+            <div class="form-group">
+                <label>
+                    <input
+                            type="checkbox"
+                            ng-model="checkedEmail"
+
+                    >
+                    <img src="/progetto/static/innerPages/gmailChannel/user-question-mark.png" height="30" width="30"/>
+                    Sender
+                </label><br/>
+                <div ng-if="checkedEmail" class="animate-if">
+                    <input class="form-control"
+                           type="title" ng-disabled="!checkedEmail"
+                           id="email" placeholder="Insert here the email of the sender that you want to watch"
+                           ng-model="gmailinput.email"
+                           required="" name="uEmail"
+                           maxlength="100"
+                           ng-trim="false"
+                    >
+                    <span style="color: #0f0f0f">{{"email is: "+ flagEmail}}</span>
+                </div>
+
+            </div>
+
+
+            <!--Subject e.mail -->
+            <div class="form-group">
+                <label>
+                    <input
+                            type="checkbox"
+                            ng-model="checkedSubject"
+
+                    >
+                    <!--  ng-change="checkedSubjectfunc(checkedSubjectvar)" -->
+                    <img src="/progetto/static/innerPages/gmailChannel/email-text-search.png" height="30" width="30"/>
+                    Email subject:
+                </label><br/>
+                <div ng-if="checkedSubject" class="animate-if">
+                            <textarea ng-if="checkedSubject" class="form-control  animate-if" rows="3"
+                                      id="subjectReceive" placeholder="Insert here some text to filter the emails"
+                                      ng-model="gmailinput.subjectReceive" name="subjectReceive"
+                                      ng-disabled="!checkedSubject"
+                                      maxlength="500" ng-trim="false"
+                            ></textarea>
+                    <span>{{500 - gmailinput.subjectReceive.length}} left </span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div>
+                <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+                   ng-if="!modifyButton && importFlag"
+                >Cancel</a>
+                <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+                   ng-if="modifyButton && importFlag"
+                >Cancel</a>
+
+                <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+                   ng-if="!importFlag"
+                >Cancel</a>
+
+
+                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+                   ng-if="!modifyButton"
+                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Next</a>
+                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+                   ng-if="modifyButton"
+                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Submit</a>
+
+
+            </div>
+            <div class="col-md-row" style="padding-top: 7%">
+                <hr>
+                <label style="color: #cd0a0a" ng-if="!checkedSubject && !checkedEmail" class="animate-if">
+                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice
+                    to use this trigger
+                </label>
+            </div>
+
+
+        </form>
+    </div>
+
+
+</div>
+
+
+<script>
+    alert(importFlag + " " + modifyButton );
+    if (importFlag == true) {
+        if (iftttLogin == false) {
+            url = "#home";
+            window.location.replace(url);
+        }
+
+    }
+    else {
+        if (setChooseAx == 4) {
+            if (iftttLogin == false) {
+                url = "#home";
+                window.location.replace(url);
+            }
+
+        }
+        else {
+            if (modifyVar == 1) {
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    modifyCountVar = 0;
+                }
+                else {
+                    if (googleLogin == "1") {
+                        if (modifyCountVar == 2) {
+                            modifyCountVar++;
+                        }
+                        else {
+                            if (modifyCountVar < 2) {
+                                url = "#/index/myRecipes";
+                                window.location.replace(url);
+                            }
+
+                        }
+
+
+                    }
+                    else {
+                        url = "#home";
+                        window.location.replace(url);
+                        alert("Non sei loggato a google");
+                    }
+                }
+            }
+
+            else {
+
+
+                if (iftttLogin == false) {
+                    url = "#home";
+                    window.location.replace(url);
+                    count = 0;
+                    flagTriggerDone = "0";
+                }
+                else {
+                    if (googleLogin == "1") {
+
+
+                        if (count == 2) {
+                            count++;
+                            url1back = "#gMailTrigger";
+                        }
+                        else {
+                            if (count < 2) {
+                                url = "#allTriggers";
+                                window.location.replace(url);
+                            }
+
+                        }
+                    }
+                    else {
+                        url = "#allTriggers";
+                        window.location.replace(url);
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>
+
+

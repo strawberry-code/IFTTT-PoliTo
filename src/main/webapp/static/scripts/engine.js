@@ -1777,12 +1777,20 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
                 durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                 urlActionGlobalVariable = "action1Gcalendar";
-                
-                var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-                +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-                +":"+minuteStart_action1GcalendarController+":00";
-                
-                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+
+                var startDate = null;
+                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                   dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
+                    startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
+                    + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
+                    + ":" + minuteStart_action1GcalendarController + ":00";
+                }
+
+                var dur = null;
+                if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
+                	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
+                }                            
+
 
                 modulinoj2 =
                 {
@@ -2228,11 +2236,18 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                             urlActionGlobalVariable = "action1Gcalendar";
                             
-                          var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-                          +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-                          +":"+minuteStart_action1GcalendarController+":00";
-                            
-                            var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+                            var startDate = null;
+                            if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                               dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
+                                startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
+                                + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
+                                + ":" + minuteStart_action1GcalendarController + ":00";
+                            }
+
+                            var dur = null;
+                            if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
+                            	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
+                            }                            
 
                             modulinoj2 =
                             {
@@ -2330,7 +2345,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                 function error(response) {
                     //alertVariable = "Warning: there are been some errors";
                     //alertFunction();
-                    alertError("An unknown error occurred. (code: 514)");
+                    alertInfo("Sorry, in this moment there is not public recipes.");
                     // Error code here
                     //alert("error");
                 }
@@ -2854,6 +2869,10 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
         $scope.checkedEmail = false;
         $scope.checkedSubject = false;
 
@@ -3076,6 +3095,13 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
 
         },
 
+
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
         /**
          * Description
          * @method validateEmail
@@ -3134,7 +3160,6 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
-
 
     }]);
 
@@ -3271,6 +3296,14 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
         }
 
 
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
     }]);
 
 
@@ -3331,6 +3364,15 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+
+
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
 
 
     }]);
@@ -3396,6 +3438,15 @@ iftttApp.controller('loginPageController', ['$scope',
                 });
             }
         }
+
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
 
     }]);
 
@@ -3534,6 +3585,13 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
         else {
             $scope.modifyButton = false;
         }
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
         $scope.checkedplace = false;
@@ -3715,6 +3773,16 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
             });
         };
 
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
         $scope.checkedplace = false;
@@ -3894,12 +3962,20 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 durationHour_action1GcalendarController = durationHour;
                 durationMinute_action1GcalendarController = durationMinute;
                 timeZone_action1GcalendarController = timeZone;
-                
-              var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-              +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-              +":"+minuteStart_action1GcalendarController+":00";
-                
-                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+
+                var startDate = null;
+                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                   dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
+                    startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
+                    + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
+                    + ":" + minuteStart_action1GcalendarController + ":00";
+                }
+
+                var dur = null;
+                if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
+                	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
+                }                            
+
 
                 modulinoj2 =
                 {
@@ -4108,10 +4184,10 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
         };
 
-
         $scope.hourVector =
         {
             availableOptions: [
+                {id: '00', hour: '00'},               
                 {id: '01', hour: '01'},
                 {id: '02', hour: '02'},
                 {id: '03', hour: '03'},
@@ -4214,7 +4290,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '59', minute: '59'}
             ],
             selectedOption: {id: '00', minute: '00'}
-
         };
 
 
@@ -4265,7 +4340,13 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
 
 
@@ -4383,6 +4464,12 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
             $scope.modifyButton = true;
         }
 
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
 
     }]);
 
@@ -4485,12 +4572,21 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
             }
 
 
-            Trigger1GcalendarController
+
         };
         $scope.modifyButton = false;
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
+        }
+
+
+
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
@@ -4584,7 +4680,14 @@ iftttApp.controller('action1TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
     }]);
 
@@ -4701,6 +4804,10 @@ iftttApp.controller('action2TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
 
         $scope.checkedtitle = false;
@@ -4870,6 +4977,14 @@ iftttApp.filter('skeumorphize', function(){
                     return "GMT" + input;
                 }
 
+            case 'duration': {
+                var d = moment.duration(parseInt(input), 'milliseconds');
+                var hours = Math.floor(d.asHours());
+                var mins = Math.floor(d.asMinutes()) - hours * 60;
+                console.log("hours:" + hours + " mins:" + mins);
+                return hours + " h and " + mins + " m";
+            }
+
             case 'sender':
             {
                 switch (input) {
@@ -4899,11 +5014,11 @@ iftttApp.filter('describe', function(){
             case 14:
                 return 'IF tomorrow...';
             case 15:
-                return 'IF...2?';
+                return 'IF the weather condition...';
             case 16:
-                return 'IF...3?';
+                return 'IF sunrise or sunset...';
             case 17:
-                return 'IF...4?';
+                return 'IF the temperature changes...';
             case 18:
                 return 'IF a new tweet comes...';
             case 19:
@@ -5290,7 +5405,7 @@ function alertSuccess(message) {
 
 function alertInfo(message) {
     swal({
-        title: "Success!",
+        title: "Mmmm...",
         text: message,
         type: "info"
         //confirmButtonColor: "#DD6B55",
@@ -5344,3 +5459,29 @@ function getRoute(ingredientCodeInput){
             return '/Action2Twitter';
     }
 }
+<<<<<<< HEAD
+
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+=======
+>>>>>>> master
