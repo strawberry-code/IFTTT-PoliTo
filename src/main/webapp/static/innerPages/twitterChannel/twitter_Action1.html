@@ -41,16 +41,16 @@
 
             <div>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#allActions"
-                   ng-if="!modifyButton && importFlag"
+                   ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                   ng-if="modifyButton && importFlag"
+                   ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
-                   ng-if="!importFlag"
+                   ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 

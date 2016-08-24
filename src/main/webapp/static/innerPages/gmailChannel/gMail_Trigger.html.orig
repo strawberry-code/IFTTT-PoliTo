@@ -114,11 +114,14 @@
     if (importFlag == true) {
         if (iftttLogin == false) {
 
+<<<<<<< HEAD
+=======
 <script>
     if(importFlag==true)
     {
         if (iftttLogin == false)
         {
+>>>>>>> origin/client
             url = "#home";
             window.location.replace(url);
         }

@@ -3078,7 +3078,14 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
         /**
          * Description
@@ -4313,7 +4320,13 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
 
 
@@ -4647,7 +4660,14 @@ iftttApp.controller('action1TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+
+
+        $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
+
 
     }]);
 
@@ -4764,6 +4784,10 @@ iftttApp.controller('action2TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
+        },
+            $scope.importRecipe = false;
+        if (importFlag == 1) {
+            $scope.importRecipe = true;
         }
 
         $scope.checkedtitle = false;
