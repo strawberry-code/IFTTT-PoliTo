@@ -176,6 +176,12 @@
                 };
             }]);
 
+    count=getCookie("count");
+    setChooseAx=getCookie("setChooseAx");
+    modifyVar=getCookie("modifyVar");
+    modifyCountVar=getCookie("modifyCountVar");
+    flagTriggerDone =getCookie("modifyCountVar");
+    importFlag = getCookie("importFlag");
 
     if(importFlag==true)
     {
@@ -241,6 +247,13 @@
             }
         }
     }
+
+    setCookie("count", count, 1);
+    setCookie("setChooseAx", setChooseAx, 1);
+    setCookie("modifyVar", modifyVar, 1);
+    setCookie("modifyCountVar", modifyCountVar, 1);
+    setCookie("flagTriggerDone", flagTriggerDone, 1);
+    setCookie("importFlag", importFlag, 1);
 </script>
 
 
