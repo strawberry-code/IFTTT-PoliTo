@@ -4059,7 +4059,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
         };
 
-
         $scope.hourVector =
         {
             availableOptions: [
@@ -4166,7 +4165,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '59', minute: '59'}
             ],
             selectedOption: {id: '00', minute: '00'}
-
         };
 
 
