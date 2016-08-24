@@ -3,6 +3,8 @@ package it.polito.ai.ifttt.progetto.controllers;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,7 @@ public class GoogleConnectController {
 	
 	String nextPath = null;
 	Integer count;
+	Object trigger;
 
 	@Autowired
 	LoginManager loginManager;
@@ -80,7 +83,7 @@ public class GoogleConnectController {
 	// accetta),
 	// viene chiamato questo metodo nella cui url c'è proprio questo codice
 	@RequestMapping(value = "/google.do", method = RequestMethod.GET, params = "code")
-	public RedirectView oauth2Callback(@RequestParam(value = "code") String code) {
+	public RedirectView oauth2Callback(@RequestParam(value = "code") String code, HttpServletRequest request) {
 		Users user = null;
 		try {
 			// quindi viene creato un token con una certa scadenza,
@@ -105,9 +108,16 @@ public class GoogleConnectController {
 		// validate google recipes
 		if(user != null) {
 			recipesManager.validateGoogleRecipes(user);	
-		}
+		}		
 		
-		String path = "/progetto/#"+this.nextPath+"?count="+this.count;
+//		String path = "";
+//		if(this.trigger.toString().compareTo("")!=0) {
+//			System.out.println("Trigger: "+this.trigger);
+//			path = "/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+this.trigger;
+//		}
+//		else {
+			String path = "/progetto/#"+this.nextPath+"?count="+this.count;
+//		}
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -152,6 +162,7 @@ public class GoogleConnectController {
 		
 		this.nextPath = data.getUrlNext(); 
 		this.count = data.getCount();
+//		this.trigger = data.getTrigger();
 				
 		String ret = null;
 		

@@ -677,11 +677,21 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 //            };
 //
 //            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
+           
+//            var encrypted = "";
+//            if(modulinoj1.length === undefined) {
+//            	console.log("modulinoj1 non vuoto");
+//            	encrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+//            }
+//            console.log("encrypted: "+encrypted.toString());
+//            console.log(CryptoJS.AES.decrypt(encrypted.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+//            alert();
+            
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count/*, "trigger": encrypted.toString()*/}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -3789,7 +3799,6 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
 
 iftttApp.controller('action1GcalendarController', ['$scope',
     function ($scope) {
-
 
         $scope.gcalendarinput = [];
         //gcalendarinput,  yearVector, monthVector, dayVector

@@ -26,6 +26,9 @@
     <script src="./static/scripts/jstz.js"></script>
     <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./static/bower_components/moment/moment.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
 
 
     <!-- Cascade Style Sheets -->
