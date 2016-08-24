@@ -37,6 +37,7 @@ public class TwitterController {
 	Authentication auth = null;
 	
 	String nextPath = null;
+	Integer count;
 
 	@Autowired
 	LoginManager loginManager;
@@ -97,7 +98,7 @@ public class TwitterController {
 			recipesManager.validateTwitterRecipes(this.user);
 		}
 
-		String path = "http://localhost:8080/progetto/#/" + this.nextPath;
+		String path = "http://localhost:8080/progetto/#" + this.nextPath+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -114,6 +115,7 @@ public class TwitterController {
 		} else {
 			path = "http://localhost:8080/progetto/#/index/myRecipes";
 		}
+		path = path+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -126,6 +128,7 @@ public class TwitterController {
 		System.out.println(data.getUrlNext());
 
 		this.nextPath = data.getUrlNext();
+		this.count = data.getCount();
 
 		String ret = null;
 

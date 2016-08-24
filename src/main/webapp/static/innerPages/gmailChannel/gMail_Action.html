@@ -102,7 +102,7 @@
                     >Cancel</a>
 
                     <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
-                       ng-if="!importRecipe && !modifyButton"
+                       ng-if="importRecipe && !modifyButton"
                     >Cancel</a>
 
 
@@ -148,6 +148,11 @@ Example code
 -->
 
 <script>
+	
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+
     if (importFlag == true) {
         if (iftttLogin == false) {
             url = "#home";

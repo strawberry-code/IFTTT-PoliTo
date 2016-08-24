@@ -46,6 +46,7 @@ public class GoogleConnectController {
 	Credential credential;
 	
 	String nextPath = null;
+	Integer count;
 
 	@Autowired
 	LoginManager loginManager;
@@ -106,7 +107,7 @@ public class GoogleConnectController {
 			recipesManager.validateGoogleRecipes(user);	
 		}
 		
-		String path = "/progetto/#/"+this.nextPath;
+		String path = "/progetto/#"+this.nextPath+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -150,6 +151,7 @@ public class GoogleConnectController {
 		System.out.println(data.getUrlNext());		
 		
 		this.nextPath = data.getUrlNext(); 
+		this.count = data.getCount();
 				
 		String ret = null;
 		

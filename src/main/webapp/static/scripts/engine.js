@@ -323,7 +323,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.when('/allActions', {
-        templateUrl: './static/innerPages/actions.html'
+        templateUrl: './static/innerPages/actions.html',
+        controller: 'ifCreatorActionController'
     });
 
     $routeProvider.when('/createRecipeAction', {
@@ -681,7 +682,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -704,7 +705,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     if (modifyVar == 1) {
                         url = "#" + rootingAutenticationTriggerAction; //<--------------------------------------------------------*
                     }
-                    window.location.replace(url);
+                 //   window.location.replace(url+"?count="+count);
                     //end
                 } else {
                     // Se non è connesso...
@@ -800,15 +801,11 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
             }
 
-
-
-
-
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath}),
+                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "count": count}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -831,7 +828,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     if (modifyVar == 1) {
                         url = "#" + rootingAutenticationTriggerAction; //<--------------------------------------------------------*
                     }
-                    window.location.replace(url);
+                 //   window.location.replace(url);
                     //end
                 } else {
                     // Se non è connesso...
@@ -1245,6 +1242,20 @@ iftttApp.controller('createRecipeController', ['$scope', '$routeParams',
         $scope.loadHome = function () {
             if (consoleLogs) console.log("createRecipeController: loaded");
         }
+
+    }]);
+
+
+iftttApp.controller('ifCreatorActionController', ['$scope', '$routeParams', '$window',
+    function ($scope, $rootscope, $window) {
+
+        $scope.NGgoogleLogged = false;
+        $scope.modifyButton = false;
+
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
 
     }]);
 
@@ -5458,4 +5469,29 @@ function getRoute(ingredientCodeInput){
         case 24:
             return '/Action2Twitter';
     }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    var ix = false;
+    if(cname.localeCompare("importFlag")==0);
+    else ix= true;
+    return ix;
 }
