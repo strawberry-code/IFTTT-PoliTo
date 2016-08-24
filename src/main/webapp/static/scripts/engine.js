@@ -3,7 +3,7 @@
  */
 
 
-var iftttApp = angular.module('iftttApp', ['ngRoute']);
+var iftttApp = angular.module('iftttApp', ['ngRoute', 'ngStorage']);
 //Secure controll
 var triggerChose = 0;
 var actionChose = 0;
@@ -368,8 +368,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope',
-    function ($scope, $location, $routeParams, $window, $http, $rootScope) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope', '$localStorage',
+    function ($scope, $location, $routeParams, $window, $http, $rootScope, $localStorage) {
 
         importFlag = false;
 
@@ -425,7 +425,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
      */
 
         $scope.parallax = true;
-
+        $scope.nekobasu={};
         $scope.$location = {};
         $scope.$location.path = function () {
             var result = $location.path();
@@ -466,6 +466,17 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
         };
 
 
+        $scope.nekobasu = $localStorage.nekobasu;
+
+        count = $scope.nekobasu.count;
+        setChooseAx = $scope.nekobasu.setChooseAx;
+        modifyVar = $scope.nekobasu.modifyVar;
+        modifyCountVar = $scope.nekobasu.modifyCountVar;
+        flagTriggerDone = $scope.nekobasu.flagTriggerDone;
+        importFlag = $scope.nekobasu.importFlag;
+
+
+        alert(JSON.stringify($scope.nekobasu));
 
 
 
@@ -647,6 +658,21 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          */
         $scope.requestGoogleAuth = function ()
         {
+
+            // Salvataggio in locale delle variabili di stato del routing delle pagine e altro
+            // Vengono salvate in formato JSON!
+            $localStorage.nekobasu = {
+                count: count,
+                setChooseAx: setChooseAx,
+                modifyVar: modifyVar,
+                modifyCountVar: modifyCountVar,
+                flagTriggerDone: flagTriggerDone,
+                importFlag: importFlag
+            };
+
+            alert(JSON.stringify($scope.nekobasu));
+
+
             if(iftttLogin == false &&  googleLogin == false)
             {
                 $('#loginGoogleModal').modal('hide');
@@ -662,6 +688,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 //
 //            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
             setSpinner(true);
+
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
@@ -4890,7 +4917,7 @@ iftttApp.filter('reformat', function () {
                 return 'Ingredient description';
         }
 
-
+        
         return x;
     };
 });
