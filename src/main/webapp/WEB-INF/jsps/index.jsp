@@ -20,6 +20,7 @@
     <script src="./static/bower_components/notifyjs/dist/notify.js"></script>
     <script src="./static/scripts/engine.js"></script>
     <script src="./static/scripts/spin.js"></script>
+    <script src="./static/bower_components/ngstorage/ngStorage.js"></script>
      
     <script src="./static/scripts/jqueryspin.js"></script>
      
