@@ -1197,6 +1197,7 @@ iftttApp.controller('SuccessController', ['$scope', '$routeParams',
 
 
             if (modifyVar == 1) {
+                flagTriggerDone=getCookie("flagTriggerDone");
 
             if (flagTriggerDone == true) {
                     //alert("Warning you must compile before the action form");
@@ -2823,6 +2824,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
 
                 if (flag == true) {
                     flagTriggerDone = true;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
                     sender_GmailTriggerController = sender;
                     subject_GmailTriggerController = subject;
 
@@ -2835,6 +2837,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                         "subject": subject_GmailTriggerController
 
                     };
+                    setCookie("modulinoj1", modulinoj1, 1);
 
                     if (modifyVar == true) {
                         sendingToServerAllput();
@@ -3036,6 +3039,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
 
                     flagTriggerDone = false;
                     count = 7;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
 
 
                     receiver_GmailActionController = receiver;
@@ -3053,6 +3057,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                         "subject": subject_GmailActionController
                     };
 
+                    setCookie("modulinoj2", modulinoj2, 1);
 
                     if (modifyVar == 0) {
                         $('#recipedDescriptionModal').modal('show');
@@ -3555,9 +3560,11 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
                         "description": description_Trigger1GcalendarController,
                         "location": place_Trigger1GcalendarController
                     };
+                    setCookie("modulinoj1", modulinoj1, 1);
 
 
                     flagTriggerDone = true;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
                     if (modifyVar == true) {
                         sendingToServerAllput();
                     }
@@ -3691,6 +3698,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                     }
 
                     flagTriggerDone = true;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
                     title_Trigger2GcalendarController = title;
                     description_Trigger2GcalendarController = subject;
                     place_Trigger2GcalendarController = place;
@@ -3705,6 +3713,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                         "description": description_Trigger2GcalendarController,
                         "location": place_Trigger2GcalendarController
                     };
+                    setCookie("modulinoj1", modulinoj1, 1);
 
                     if (modifyVar == true) {
                         sendingToServerAllput();
@@ -4005,6 +4014,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     "duration":  dur
 
                 };
+                setCookie("modulinoj2", modulinoj2, 1);
 
 
                 if (flag == true) {
@@ -4069,6 +4079,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
                 if (flag != "3") {
                     flagTriggerDone = false;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
                     count = 7;
 
                     if (modifyVar == 0) {
@@ -4424,6 +4435,7 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
                 }
 
                 flagTriggerDone = true;
+                setCookie("flagTriggerDone", flagTriggerDone, 1);
 
                 username_sender_trigger1TwitterController = title;
                 hashtag_text_trigger1TwitterController = subject;
@@ -4437,6 +4449,7 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
                     "username_sender": username_sender_trigger1TwitterController
                 };
 
+                setCookie("modulinoj1", modulinoj1, 1);
 
                 if (modifyVar == true) {
                     sendingToServerAllput();
@@ -4541,6 +4554,7 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
                 }
 
                 flagTriggerDone = true;
+                setCookie("flagTriggerDone", flagTriggerDone, 1);
                 username_sender_trigger2TwitterController = title;
                 hashtag_text_trigger2TwitterController = subject;
 
@@ -4552,6 +4566,7 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
                     "hashtag_text": hashtag_text_trigger2TwitterController,
                     "username_sender": username_sender_trigger2TwitterController
                 };
+                setCookie("modulinoj1", modulinoj1, 1);
 
                 if (modifyVar == true) {
                     sendingToServerAllput();
@@ -4643,6 +4658,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
                 }
 
                 flagTriggerDone = false;
+                setCookie("flagTriggerDone", flagTriggerDone, 1);
                 count = 7;
 
                 subject_action1TwitterController = subject;
@@ -4656,6 +4672,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
                     "destination": null
 
                 };
+                setCookie("modulinoj2", modulinoj2, 1);
 
                 if (modifyVar == 0) {
                     $('#recipedDescriptionModal').modal('show');
@@ -4774,6 +4791,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
                     "body": subjec_action2TwitterController
 
                 };
+                setCookie("modulinoj2", modulinoj2, 1);
                 if (flag == 1) {
 
                     if (modifyVar == 0) {
@@ -4783,6 +4801,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
                     //sendingToServerAll();
                     flagTriggerDone = false;
                     count = 7;
+                    setCookie("flagTriggerDone", flagTriggerDone, 1);
                     // href="#SuccessTwitter"
                     //url = "#SuccessTwitter";
                     //window.location.replace(url);
@@ -5088,7 +5107,9 @@ iftttApp.controller('hiddenPageConfirmationController',['$scope', '$rootScope', 
  * @return 
  */
 function sendingToServerAll() {
+    modulinoj1=getCookie("modulinoj1");
     modulinoj1.lastChecked = null;
+    modulinoj2=getCookie("modulinoj2");
     sendDataToServer =
     {
         id: null,
@@ -5185,7 +5206,9 @@ function sedingServerAllRun(loginDataSend) {
  * @return 
  */
 function sendingToServerAllput() {
+    modulinoj1=getCookie("modulinoj1");
     modulinoj1.lastChecked = null;
+    modulinoj2=getCookie("modulinoj2");
     sendDataToServer =
     {
         id: idRecipe,
