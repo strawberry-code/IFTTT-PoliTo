@@ -5,6 +5,7 @@ public class requestClass {
 	String requestGoogleAuth;
 	String urlNext;
 	String newpassword;
+	Integer count;
 	
 	public String getRequestGoogleAuth() {
 		return requestGoogleAuth;
@@ -23,5 +24,11 @@ public class requestClass {
 	}
 	public void setNewpassword(String newpassword) {
 		this.newpassword = newpassword;
+	}
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 }
