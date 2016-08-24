@@ -101,8 +101,14 @@
                        ng-if="modifyButton && !importRecipe"
                     >Cancel</a>
 
+<<<<<<< HEAD
+                    <a type="submit" class="btn btn-danger pull-left animate-if"
+                       ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importFlag"
+=======
                     <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
                        ng-if="!importRecipe && !modifyButton"
+>>>>>>> origin/client
                     >Cancel</a>
 
 
