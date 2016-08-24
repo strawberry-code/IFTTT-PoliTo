@@ -101,11 +101,10 @@
                        ng-if="modifyButton && importFlag"
                     >Cancel</a>
 
-                    <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
+                    <a type="submit" class="btn btn-danger pull-left animate-if"
+                       ng-click="backfunctionActionPuclicRecipe()"
                        ng-if="!importFlag"
                     >Cancel</a>
-
-
 
 
                     <a type="submit"
@@ -150,10 +149,8 @@ Example code
 -->
 
 <script>
-    if(importFlag==true)
-    {
-        if (iftttLogin == false)
-        {
+    if (importFlag == true) {
+        if (iftttLogin == false) {
             url = "#home";
             window.location.replace(url);
         }
