@@ -132,6 +132,11 @@
 </body>
 
 <script>
+
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+
     importFlag = false;
     // Commento aggiunto per poter fare il commit iniziale del branch 'client'
     $(document).ready(function () {

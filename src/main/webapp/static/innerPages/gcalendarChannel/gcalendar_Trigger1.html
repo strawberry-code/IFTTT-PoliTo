@@ -120,6 +120,11 @@
 </body>
 
 <script>
+	
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+
     if(importFlag==true)
     {
         if (iftttLogin == false)

@@ -682,7 +682,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -705,7 +705,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     if (modifyVar == 1) {
                         url = "#" + rootingAutenticationTriggerAction; //<--------------------------------------------------------*
                     }
-                    window.location.replace(url);
+                 //   window.location.replace(url+"?count="+count);
                     //end
                 } else {
                     // Se non è connesso...
@@ -801,15 +801,11 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
             }
 
-
-
-
-
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath}),
+                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "count": count}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -832,7 +828,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     if (modifyVar == 1) {
                         url = "#" + rootingAutenticationTriggerAction; //<--------------------------------------------------------*
                     }
-                    window.location.replace(url);
+                 //   window.location.replace(url);
                     //end
                 } else {
                     // Se non è connesso...
