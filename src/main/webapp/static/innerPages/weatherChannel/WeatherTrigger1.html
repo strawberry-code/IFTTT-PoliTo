@@ -114,15 +114,15 @@
 
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#allTriggers"
-                    ng-if="!modifyButton && importFlag"
+                    ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#choseModify"
-                    ng-if="modifyButton && importFlag"
+                    ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#publicRecipes"
-                    ng-if="!importFlag"
+                    ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 

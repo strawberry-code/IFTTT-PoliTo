@@ -139,14 +139,14 @@
                     <select name="mySelect" id="selectHourStart"
                             ng-disabled="!checkdata"
                             ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
-                            ng-model="hourVector.selectedOption"></select>
+                            ng-model="hourStart.selectedOption"></select>
 
                     <label for="selectMinuteStart">Minute:</label>
 
                     <select name="mySelect" id="selectMinuteStart"
                             ng-disabled="!checkdata"
                             ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
-                            ng-model="minuteVector.selectedOption"></select>
+                            ng-model="minuteStart.selectedOption"></select>
 
                 </div>
 
@@ -230,9 +230,14 @@
                        ng-if="modifyButton && !importRecipe"
                     >Cancel</a>
 
+<<<<<<< HEAD
                     <a type="submit" class="btn btn-danger pull-left  animate-if"
                        ng-click="backfunctionActionPuclicRecipe()"
+                       ng-if="!importFlag"
+=======
+                    <a type="submit" class="btn btn-danger pull-left  animate-if"   ng-click="backfunctionActionPuclicRecipe()"
                        ng-if="importRecipe && !modifyButton"
+>>>>>>> origin/client
                     >Cancel</a>
 
 
@@ -291,8 +296,16 @@ Example code
 
 
 <script>
+<<<<<<< HEAD
+    alert("1");
     if (importFlag == true) {
         if (iftttLogin == false) {
+=======
+    if(importFlag==true)
+    {
+        if (iftttLogin == false)
+        {
+>>>>>>> origin/client
             url = "#home";
             window.location.replace(url);
         }

@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h4><!-- data-content="{{f.desc}}" -->
-                                <span class="glyphicon glyphicon-file" data-placement="bottom"
+                                <span class="glyphicon glyphicon-file"   data-placement="bottom"
                                       data-toggle="popover" data-trigger="hover"></span>
                                 <b>Recipe description:</b>
                             </h4>
@@ -30,52 +30,41 @@
 
 
                         <div class="col-md-4">
-                            <button title="Delete this recipe"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    bs-tooltip
-                                    style="margin-left: 3px"
-                                    class="btn btn-danger pull-right"
-                                    data-ng-click="removeRecipe($index, f.id)">
-                                <span class="glyphicon glyphicon-trash"></span>
+                            <button title="Delete this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px" class="btn btn-danger pull-right">
+                                <span class="glyphicon glyphicon-trash"
+                                      data-ng-click="removeRecipe(f.index, f.id)"></span>
+                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
-                            <button title="Share this recipe"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    bs-tooltip
-                                    style="margin-left: 3px"
-                                    class="btn btn-primary pull-right animate-if"
-                                    ng-if="!f.publish"
-                                    data-ng-click="shareRecipe($index, f.id)">
-                                <span class="glyphicon glyphicon-share"></span>
+                            <button title="Share this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px" class="btn btn-primary pull-right animate-if"
+                                    ng-if="!f.publish">
+                                <span class="glyphicon glyphicon-share"
+                                      data-ng-click="shareRecipe(f.index, f.id)"></span>
+                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
-                            <button title="Unshare this recipe"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    bs-tooltip
+                            <button title="Unshare this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn btn-danger pull-right animate-if"
-                                    ng-if="f.publish"
-                                    data-ng-click="DoNotshareRecipe($index, f.id)">
-                                <span class="glyphicon glyphicon-share-alt"></span>
+                                    ng-if="f.publish">
+                                <span class="glyphicon glyphicon-share-alt"
+                                      data-ng-click="DoNotshareRecipe(f.index, f.id)"></span>
+                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
                             <button title="Modify this recipe"
                                     data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    bs-tooltip
+                                    data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px"
-                                    class="btn btn-success pull-right"
-                                    data-ng-click="modifyRecipe($index)">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                    class="btn btn-success pull-right">
+                                <span class="glyphicon glyphicon-edit"
+                                      data-ng-click="modifyRecipe(f.index)"></span>
+                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
-                            <button title="Show details" data-toggle="tooltip"
-                                    data-placement="bottom"
-                                    bs-tooltip
-                                    style="margin-left: 3px"
-                                    class="btn btn-info pull-right"
+                            <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px" class="btn btn-info pull-right"
                                     ng-click="f.isCollapsed = !f.isCollapsed">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </button>
