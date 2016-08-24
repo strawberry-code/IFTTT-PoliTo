@@ -14,50 +14,51 @@
         <div class="col-md-4">
             <p>
             <h1><img src="/progetto/static/images/gcalendarChannel/new-event.png"
-                     style="width:42px;height:42px;border:0;"/> Create new GCalendar event</h1></p>
+                     style="width:42px;height:42px;border:0;"/> Create new GCalendar event</h1>
+            </p>
             <hr>
-            <form id="gmail-form" role="form" name="form" ng-controller="action1GcalendarController" novalidate>
+            <form id="gmail-form" role="form" name="form" data-ng-controller="action1GcalendarController" novalidate>
 
                 <div class="form-group">
                     <label>
                         <input
                                 type="checkbox"
-                                ng-model="checkedtitle"
+                                data-ng-model="checkedtitle"
                                 id="idcheckedtitle"
 
                         > <img src="/progetto/static/images/gcalendarChannel/event-name.png" height="30" width="30"/>
                         Event name</label>
 
                     <br/>
-                    <div ng-if="checkedtitle" class="animate-if">
-                        <input type="title" ng-disabled="!checkedtitle" class="form-control" id="title"
+                    <div data-ng-show="checkedtitle" class="animate-if">
+                        <input type="text" data-ng-disabled="!checkedtitle" class="form-control" id="title"
                                placeholder="insert your title"
-                               ng-model="gcalendarinput.title"
+                               data-ng-model="gcalendarinput.title"
                                required="" name="utitle"
                                maxlength="100"
-                               ng-trim="false"
+                               data-ng-trim="false"
                         >
                         <span>{{100 - gcalendarinput.title.length}} left </span>
                     </div>
                 </div>
 
 
-                <!--Subject e.mail -->
+<!--EVENT DESCRIPTION -->
                 <div class="form-group">
                     <label>
                         <input
                                 type="checkbox"
-                                ng-model="checkedSubject"
+                                data-ng-model="checkedSubject"
                                 id="idcheckedSubject"
 
                         > <img src="/progetto/static/images/gcalendarChannel/event-description.png" height="30"
                                width="30"/> Event description</label>
                     <br>
-                    <div ng-if="checkedSubject" class="animate-if">
+                    <div data-ng-show="checkedSubject" class="animate-if">
                             <textarea class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
-                                      ng-model="gcalendarinput.subjectReceive" name="subjectReceive"
-                                      ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
+                                      data-ng-model="gcalendarinput.subjectReceive" name="subjectReceive"
+                                      data-ng-disabled="!checkedSubject"
+                                      maxlength="500" data-ng-trim="false"
                             ></textarea>
                         <span>{{500 - gcalendarinput.subjectReceive.length}} left </span>
                     </div>
@@ -69,23 +70,23 @@
                     <label>
                         <input
                                 type="checkbox"
-                                ng-model="checkedplace"
+                                data-ng-model="checkedplace"
                                 id="idcheckedplace"
 
                         > <img src="/progetto/static/images/gcalendarChannel/event-location.png" height="30"
                                width="30"/> Event location</label>
                     <br>
-                    <div ng-if="checkedplace" class="animate-if">
-                        <input type="place" ng-disabled="!checkedplace" class="form-control" id="place"
+                    <div data-ng-show="checkedplace" class="animate-if">
+                        <input type="text" data-ng-disabled="!checkedplace" class="form-control" id="place"
                                placeholder="insert your place"
-                               ng-model="gcalendarinput.place"
+                               data-ng-model="gcalendarinput.place"
                                required="" name="uplace"
                                maxlength="100"
-                               ng-trim="false"
+                               data-ng-trim="false"
                         >
                         <span>{{100 - gcalendarinput.place.length}} left </span>
-                        <div ng-show="form.$submitted || form.uplace.$touched">
-                            <span ng-show="form.uplace.$error.place"
+                        <div data-ng-show="form.$submitted || form.uplace.$touched">
+                            <span data-ng-show="form.uplace.$error.place"
                                   style="color: #b81900">This is not a valid place</span>
                         </div>
                     </div>
@@ -94,59 +95,61 @@
                 <!---       ---------------------------------------------------------------------     -->
 
 
-                <!-- EVENT DATE -->
+<!-- EVENT DATE -->
                 <label>
                     <input
                             id="weatheridcheckbox"
                             type="checkbox"
-                            ng-model="checkdata"
+                            data-ng-model="checkdata"
                             name="checkdataname"
 
                     > <b> <img src="/progetto/static/images/gcalendarChannel/event-date.png" height="30" width="30"/>
                     Event date</b></label>
 
-                <!--
-                <input id="weatheridinput" ng-disabled="!checkmodelcheckweather" type="search" name="input" ng-model="trigger1input.value2"
-                       required>
-                       -->
                 <br>
-                <div ng-if="checkdata" class="animate-if">
+                <div data-ng-show="checkdata" class="animate-if">
                     <h5>Event begins at...</h5>
 
                     <label for="selectYear">Year:</label>
                     <select name="mySelect" id="selectYear"
-                            ng-disabled="!checkdata"
-                            ng-options="option.year  for option in yearVector.availableOptions track by option.id"
-                            ng-model="yearVector.selectedOption"></select>
+                            data-ng-disabled="!checkdata"
+                            data-ng-options="option.year  for option in yearVector.availableOptions track by option.id"
+                            data-ng-model="yearVector.selectedOption"></select>
                     <br>
 
                     <label for="selectMonth">Month:</label>
                     <select name="mySelect" id="selectMonth"
-                            ng-disabled="!checkdata"
-                            ng-options="option.month  for option in monthVector.availableOptions track by option.id"
-                            ng-model="monthVector.selectedOption"></select>
+                            data-ng-disabled="!checkdata"
+                            data-ng-options="option.month  for option in monthVector.availableOptions track by option.id"
+                            data-ng-model="monthVector.selectedOption"></select>
                     <br>
 
                     <label for="selectDay">Day:</label>
                     <select name="mySelect" id="selectDay"
-                            ng-disabled="!checkdata"
-                            ng-options="option.day  for option in dayVector.availableOptions track by option.id"
-                            ng-model="dayVector.selectedOption"></select>
+                            data-ng-disabled="!checkdata"
+                            data-ng-options="option.day  for option in dayVector.availableOptions track by option.id"
+                            data-ng-model="dayVector.selectedOption"></select>
 
                     <br>
 
                     <label for="selectHourStart">Hour:</label>
+
                     <select name="mySelect" id="selectHourStart"
-                            ng-disabled="!checkdata"
-                            ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
-                            ng-model="hourVector.selectedOption"></select>
+                            data-ng-disabled="!checkdata"
+                            data-ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
+                            data-ng-model="hourVector.selectedOption">
+
+                    </select>
 
                     <label for="selectMinuteStart">Minute:</label>
 
                     <select name="mySelect" id="selectMinuteStart"
-                            ng-disabled="!checkdata"
-                            ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
-                            ng-model="minuteVector.selectedOption"></select>
+                            data-ng-disabled="!checkdata"
+                            data-ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
+                            data-ng-model="minuteVector.selectedOption">
+
+                    </select>
+
                 </div>
 
 
@@ -156,36 +159,55 @@
                 <br>
 
 
-                <!-- EVENT DURATION -->
+<!-- EVENT DURATION -->
                 <label>
                     <input
                             id="durationEvent"
                             type="checkbox"
-                            ng-model="durationEventCheck"
+                            data-ng-model="durationEventCheck"
                             name="durationEventName"
 
                     > <img src="/progetto/static/images/gcalendarChannel/event-duration.png" height="30" width="30"/>
                     <b>Event duration</b></label>
 
-                <!--
-                <input id="weatheridinput" ng-disabled="!checkmodelcheckweather" type="search" name="input" ng-model="trigger1input.value2"
-                       required>
-                       -->
-                <br>
-                <div ng-if="durationEventCheck" class="animate-if">
 
-                    <label for="selectHourDuration">Hour:</label>
+                <br>
+                <div data-ng-show="durationEventCheck" class="animate-if">
+
+                    <label for="selectHourStart">Hour:</label>
+
                     <select name="mySelect" id="selectHourDuration"
-                            ng-disabled="!durationEventCheck"
-                            ng-options="option.hour  for option in hourVectorDuration.availableOptions track by option.id"
-                            ng-model="hourVectorDuration.selectedOption"></select>
+                            data-ng-disabled="!durationEventCheck"
+                            data-ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
+                            data-ng-model="hourVector.selectedOptionDuration">
+                    </select>
+
+                    <label for="selectMinuteStart">Minute:</label>
+
+                    <select name="mySelect" id="selectMinuteDuration"
+                            data-ng-disabled="!durationEventCheck"
+                            data-ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
+                            data-ng-model="minuteVector.selectedOptionDuration">
+                    </select>
+
+                    <!--
+                    <label for="selectHourDuration">Hour:</label>
+
+                    <select name="mySelect" id="selectHourDuration"
+                            data-ng-disabled="!durationEventCheck"
+                            data-ng-options="option.hour  for option in hourVectorDuration.availableOptions track by option.id"
+                            data-ng-model="hourVectorDuration.selectedOption">
+
+                    </select>
 
                     <label for="selectMinuteDuration">Minutes:</label>
+
                     <select name="mySelect" id="selectMinuteDuration"
-                            ng-disabled="!durationEventCheck"
-                            ng-options="option.minute  for option in minuteVectorDuration.availableOptions track by option.id"
-                            ng-model="minuteVectorDuration.selectedOption">
+                            data-ng-disabled="!durationEventCheck"
+                            data-ng-options="option.minute  for option in minuteVectorDuration.availableOptions track by option.id"
+                            data-ng-model="minuteVectorDuration.selectedOption">
                     </select>
+                    -->
 
 
                 </div>
@@ -193,12 +215,12 @@
 
 
 
-                <!--- time zone  -->
+<!--- TIMEZONE  -->
                 <label>
                     <input
                             id="timeZone"
                             type="checkbox"
-                            ng-model="timeZoneCheck"
+                            data-ng-model="timeZoneCheck"
                             name="durationEventName"
 
                     > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom
@@ -209,13 +231,13 @@
                        required>
                        -->
                 <br>
-                <div ng-if="timeZoneCheck" class="animate-if">
+                <div data-ng-show="timeZoneCheck" class="animate-if">
 
                     <label for="selecttimezone">Time zone:</label>
                     <select name="mySelect" id="selecttimezone"
-                            ng-disabled="!timeZoneCheck"
-                            ng-options="option.zone  for option in timezoneVector.availableOptions track by option.id"
-                            ng-model="timezoneVector.selectedOption"></select>
+                            data-ng-disabled="!timeZoneCheck"
+                            data-ng-options="option.zone  for option in timezoneVector.availableOptions track by option.id"
+                            data-ng-model="timezoneVector.selectedOption"></select>
 
                 </div>
 
@@ -226,17 +248,17 @@
                 <div>
                     <!-- ng-disabled="!checkedtitle && !checkedSubject && !checkdata && !checkedplace" -->
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#allActions"
-                       ng-if="!modifyButton && !importRecipe"
+                       data-ng-show="!modifyButton && !importRecipe"
                     >Cancel</a>
 
 
                     <a type="submit" class="btn btn-danger pull-left  animate-if" href="#choseModify"
-                       ng-if="modifyButton && !importRecipe"
+                       data-ng-show="modifyButton && !importRecipe"
                     >Cancel</a>
 
                     <a type="submit" class="btn btn-danger pull-left  animate-if"
-                       ng-click="backfunctionActionPuclicRecipe()"
-                       ng-if="importRecipe && !modifyButton"
+                       data-ng-click="backfunctionActionPuclicRecipe()"
+                       data-ng-show="importRecipe && !modifyButton"
                     >Cancel</a>
 
 
@@ -244,15 +266,15 @@
 
                     <a type="submit"
                        class="btn btn-primary pull-right btn_next6  animate-if"
-                       ng-click="actiongcalendar(gcalendarinput,  yearVector, monthVector, dayVector)"
-                       ng-if="!modifyButton"
+                       data-ng-click="actiongcalendar(gcalendarinput,  yearVector, monthVector, dayVector)"
+                       data-ng-show="!modifyButton"
                     >Submit</a>
 
 
                     <a type="submit"
                        class="btn btn-primary pull-right btn_next6  animate-if"
-                       ng-click="actiongcalendar(gcalendarinput,  yearVector, monthVector, dayVector)"
-                       ng-if="modifyButton"
+                       data-ng-click="actiongcalendar(gcalendarinput,  yearVector, monthVector, dayVector)"
+                       data-ng-show="modifyButton"
                     >Submit</a>
 
 
@@ -388,3 +410,14 @@ Example code
 </html>
 
 
+
+<!--
+<input id="weatheridinput" ng-disabled="!checkmodelcheckweather" type="search" name="input" ng-model="trigger1input.value2"
+       required>
+       -->
+
+
+<!--
+<input id="weatheridinput" ng-disabled="!checkmodelcheckweather" type="search" name="input" ng-model="trigger1input.value2"
+       required>
+       -->
