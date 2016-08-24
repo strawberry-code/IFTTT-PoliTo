@@ -923,6 +923,7 @@ public class ThreadFunction extends Thread {
 				event.setLocation(ca.getLocation());
 			}
 
+			//TODO: gestire il timezone!!!
 	//		try {
 				DateTime startDateTime = null;
 				if (ca.getStartDate() != null) {
