@@ -102,12 +102,18 @@
 
 <script>
 
+<<<<<<< HEAD
     count=getCookie("count");
     setChooseAx=getCookie("setChooseAx");
     modifyVar=getCookie("modifyVar");
     modifyCountVar=getCookie("modifyCountVar");
     flagTriggerDone =getCookie("modifyCountVar");
     importFlag = getCookie("importFlag");
+=======
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+>>>>>>> client
 
     if(importFlag==true)
     {

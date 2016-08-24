@@ -7,31 +7,29 @@
 <body>
 <div>
 
-
-            <div class="row" style="padding-top: 6%">
+    <div class="row" style="padding-top: 6%">
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <p><h1><img src="/progetto/static/images/twitterChannel/private-msg.png" style="width:42px;height:42px;border:0;"> Tweet direct message trigger</h1></p>
+                    <p><h1><img src="/progetto/static/images/gcalendarChannel/event-start.png" style="width:42px;height:42px;border:0;"/> GCalendar triggered when an event approaches</h1></p>
                     <hr>
-                    <form id="gmail-form" role="form" name="form" ng-controller="trigger2TwitterController" novalidate>
+                    <form id="gmail-form" role="form" name="form" ng-controller="Trigger1GcalendarController" novalidate>
 
                         <div class="form-group">
                             <label>
-                                <input
-                                        type="checkbox"
-                                        ng-model="checkedtitle"
+                            <input
+                                    type="checkbox"
+                                    ng-model="checkedtitle"
 
-                                > <img src="/progetto/static/images/trigger-icons/twitteruser.png" height="30" width="30"/> <b>From twitter user</b>
-                            </label>
+                            > <img src="/progetto/static/images/gcalendarChannel/event-name.png" height="30" width="30"/> <b>Event name</b></label> <br>
                             <div  ng-if="checkedtitle" class="animate-if">
-                            <input type="title"  ng-disabled="!checkedtitle" class="form-control" id="title" placeholder="insert your title"
-                                   ng-model="trigger2TwitterInput.title"
+                            <input type="title"  ng-disabled="!checkedtitle" class="form-control" id="title" placeholder="Insert the event name to watch"
+                                   ng-model="trigger1GcalendarVar.title"
                                    required="" name="utitle"
                                    maxlength="100"
                                    ng-trim="false"
                             >
-                            <span>{{100 - trigger2TwitterInput.title.length}} left </span>
+                            <span>{{100 - trigger1GcalendarVar.title.length}} left </span>
                                 </div>
                         </div>
 
@@ -39,28 +37,52 @@
                         <!--Subject e.mail -->
                         <div class="form-group">
                             <label>
-                                <input
-                                        type="checkbox"
-                                        ng-model="checkedSubject"
+                            <input
+                                    type="checkbox"
+                                    ng-model="checkedSubject"
 
-                                > <img src="/progetto/static/innerPages/gmailChannel/email-text-search.png" height="30" width="30"/><b>Message content</b>
-                            </label>
+                            > <img src="/progetto/static/images/gcalendarChannel/event-description.png" height="30" width="30"/> <b>Event description</b></label>
+
                             <div  ng-if="checkedSubject" class="animate-if">
-                            <textarea class="form-control" rows="5" id="subjectReceive"  placeholder="insert the subject"
-                                      ng-model="trigger2TwitterInput.subjectReceive"  name="subjectReceive"  ng-disabled="!checkedSubject"
+                            <textarea class="form-control" rows="5" id="subjectReceive"  placeholder="Insert the event description to watch"
+                                      ng-model="trigger1GcalendarVar.subjectReceive"  name="subjectReceive"  ng-disabled="!checkedSubject"
                                       maxlength="500" ng-trim="false"
                             ></textarea>
-                            <span>{{500 - trigger2TwitterInput.subjectReceive.length}} left </span>
+                            <span>{{500 - trigger1GcalendarVar.subjectReceive.length}} left </span>
                                 </div>
                         </div>
 
-                        <hr>
 
+                        <!-- place -->
+                        <div class="form-group">
+                            <label>
+                            <input
+                                    type="checkbox"
+                                    ng-model="checkedplace"
+
+                            > <img src="/progetto/static/images/gcalendarChannel/event-location.png" height="30" width="30"/> Location</label> <br>
+
+                            <div  ng-if="checkedplace" class="animate-if">
+
+                            <input type="text"  ng-disabled="!checkedplace" class="form-control" id="place" placeholder="Insert the evnet location to watch"
+                                   ng-model="trigger1GcalendarVar.place"
+                                   required="" name="uplace"
+                                   maxlength="100"
+                                   ng-trim="false"
+                            >
+                            <span>{{100 - trigger1GcalendarVar.place.length}} left </span>
+                            <div ng-show="form.$submitted || form.uplace.$touched">
+                                <span ng-show="form.uplace.$error.place"   style="color: #b81900">This is not a valid place</span>
+                            </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div>
+
+
                             <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
                                 ng-if="!modifyButton && !importRecipe"
                             >Cancel</a>
-
                             <a  type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
                                 ng-if="modifyButton && !importRecipe"
                             >Cancel</a>
@@ -71,45 +93,33 @@
 
 
 
+                            <a   ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
+                                  ng-if="!modifyButton"
+                                class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger1Gcalendar()"  >Next</a>
 
-                            <a   ng-disabled="!checkedtitle && !checkedSubject" type="submit"
-                                 ng-if="!modifyButton"
-                                class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger2Twitterfunc()" >Next</a>
-
-                            <a   ng-disabled="!checkedtitle && !checkedSubject" type="submit"
+                            <a   ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
                                  ng-if="modifyButton"
-                                 class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger2Twitterfunc()" >Submit</a>
-
-
+                                 class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger1Gcalendar()" >Submit</a>
 
                         </div>
-                        <br>
-                        <br>
-                        <hr>
-                        <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject" class="animate-if" >
-                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice to use this trigger
-                        </label>
-
-                        <!--
-                        href="#actionGcalendar"
-                               http://localhost:8080/index.jsp#/SubGMail
-                               <a  type="submit" class="btn btn-primary" href="#logged_in" >Home</a>
-                               <a  type="submit" class="btn btn-primary"  href="#SubGMailAction" ng-click="triggerGmail(gmailinput)">Next</a>
-                               -->
+                        <div class="col-md-row" style="padding-top: 7%">
+                            <hr>
+                            <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject && !checkedplace" class="animate-if" >
+                                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice to use this trigger
+                            </label>
+                            </div>
 
                     </form>
                 </div>
                 <div class="col-md-4">
                 </div>
-            </div>
-        </div>
+    </div>
 
 </div>
 
 </body>
 
 <script>
-
 <<<<<<< HEAD
     count=getCookie("count");
     setChooseAx=getCookie("setChooseAx");
@@ -118,6 +128,7 @@
     flagTriggerDone =getCookie("modifyCountVar");
     importFlag = getCookie("importFlag");
 =======
+	
 	var param = (window.location.hash).split("?");
 	if(param[1]!=null)
 		count = param[1].split("=")[1];
@@ -148,7 +159,7 @@
                     modifyCountVar = 0;
                 }
                 else {
-                    if (twitterLogin == "1") {
+                    if (googleLogin == true) {
                         if (modifyCountVar == 2) {
                             modifyCountVar++;
                         }
@@ -170,10 +181,7 @@
                 }
             }
 
-
             else {
-
-
                 if (iftttLogin == false) {
                     url = "#home";
                     window.location.replace(url);
@@ -181,11 +189,10 @@
                     flagTriggerDone = "0";
                 }
                 else {
-
-                    if (twitterLogin == "1") {
+                    if (googleLogin == true) {
                         if (count == 2) {
                             count++;
-                            url1back = "#Trigger2Twitter";
+                            url1back = "#Trigger1Gcalendar";
                         }
                         else {
                             if (count < 2) {
@@ -199,27 +206,19 @@
                         url = "#allTriggers";
                         window.location.replace(url);
                     }
-
                 }
             }
         }
     }
+
     setCookie("count", count, 1);
     setCookie("setChooseAx", setChooseAx, 1);
     setCookie("modifyVar", modifyVar, 1);
     setCookie("modifyCountVar", modifyCountVar, 1);
     setCookie("flagTriggerDone", flagTriggerDone, 1);
     setCookie("importFlag", importFlag, 1);
+
 </script>
-
-<!--href="#SubGMailAction" -->
-
-
-<!--
-Example code
-<label>Click me to toggle: <input type="checkbox" ng-model="checked"></label><br/>
-<button ng-model="button" ng-disabled="checked">Button</button>
--->
 </html>
 
 

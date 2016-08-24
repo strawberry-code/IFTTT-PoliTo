@@ -149,6 +149,11 @@
 <!-- Script di page -->
 
 <script>
+
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+
     angular.module('numberExample', [])
             .controller('ExampleController', ['$scope', function($scope) {
                 $scope.example = {
