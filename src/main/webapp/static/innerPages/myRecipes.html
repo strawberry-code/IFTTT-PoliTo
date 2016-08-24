@@ -32,7 +32,7 @@
                             <button title="Delete this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn btn-danger pull-right">
                                 <span class="glyphicon glyphicon-trash"
-                                      data-ng-click="removeRecipe(f.index, f.id)"></span>
+                                      data-ng-click="removeRecipe($index, f.id)"></span>
                                 <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
@@ -40,7 +40,7 @@
                                     style="margin-left: 3px" class="btn btn-primary pull-right animate-if"
                                     ng-if="!f.publish">
                                 <span class="glyphicon glyphicon-share"
-                                      data-ng-click="shareRecipe(f.index, f.id)"></span>
+                                      data-ng-click="shareRecipe($index, f.id)"></span>
                                 <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
@@ -48,7 +48,7 @@
                                     style="margin-left: 3px" class="btn btn-danger pull-right animate-if"
                                     ng-if="f.publish">
                                 <span class="glyphicon glyphicon-share-alt"
-                                      data-ng-click="DoNotshareRecipe(f.index, f.id)"></span>
+                                      data-ng-click="DoNotshareRecipe($index, f.id)"></span>
                                 <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
@@ -58,7 +58,7 @@
                                     style="margin-left: 3px"
                                     class="btn btn-success pull-right">
                                 <span class="glyphicon glyphicon-edit"
-                                      data-ng-click="modifyRecipe(f.index)"></span>
+                                      data-ng-click="modifyRecipe($index)"></span>
                                 <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
