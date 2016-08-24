@@ -323,7 +323,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.when('/allActions', {
-        templateUrl: './static/innerPages/actions.html'
+        templateUrl: './static/innerPages/actions.html',
+        controller: 'ifCreatorActionController'
     });
 
     $routeProvider.when('/createRecipeAction', {
@@ -1245,6 +1246,20 @@ iftttApp.controller('createRecipeController', ['$scope', '$routeParams',
         $scope.loadHome = function () {
             if (consoleLogs) console.log("createRecipeController: loaded");
         }
+
+    }]);
+
+
+iftttApp.controller('ifCreatorActionController', ['$scope', '$routeParams', '$window',
+    function ($scope, $rootscope, $window) {
+
+        $scope.NGgoogleLogged = false;
+        $scope.modifyButton = false;
+
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
 
     }]);
 
