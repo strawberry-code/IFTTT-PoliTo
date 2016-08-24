@@ -1778,6 +1778,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
                 urlActionGlobalVariable = "action1Gcalendar";
 <<<<<<< HEAD
+                
+                var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+                +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+                +":"+minuteStart_action1GcalendarController+":00";
+                
+                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+=======
 
                 var startDate = null;
                 if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
@@ -1792,14 +1799,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
                 }                            
 
-=======
-                
-                var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-                +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-                +":"+minuteStart_action1GcalendarController+":00";
-                
-                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
->>>>>>> client
+>>>>>>> master
 
                 modulinoj2 =
                 {
@@ -2246,6 +2246,12 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             urlActionGlobalVariable = "action1Gcalendar";
                             
 <<<<<<< HEAD
+                          var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+                          +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+                          +":"+minuteStart_action1GcalendarController+":00";
+                            
+                            var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+=======
                             var startDate = null;
                             if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
                                dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
@@ -2258,13 +2264,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
                             	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
                             }                            
-=======
-                          var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-                          +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-                          +":"+minuteStart_action1GcalendarController+":00";
-                            
-                            var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
->>>>>>> client
+>>>>>>> master
 
                             modulinoj2 =
                             {
@@ -3980,6 +3980,13 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 durationMinute_action1GcalendarController = durationMinute;
                 timeZone_action1GcalendarController = timeZone;
 <<<<<<< HEAD
+                
+              var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
+              +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
+              +":"+minuteStart_action1GcalendarController+":00";
+                
+                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
+=======
 
                 var startDate = null;
                 if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
@@ -3994,14 +4001,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
                 }                            
 
-=======
-                
-              var startDate = yearVector_action1GcalendarController+"-"+monthVector_action1GcalendarController
-              +"-"+dayVector_action1GcalendarController+"T"+hourStart_action1GcalendarController
-              +":"+minuteStart_action1GcalendarController+":00";
-                
-                var dur = (durationHour_action1GcalendarController*60*60*1000)+(durationMinute_action1GcalendarController*60*10000);
->>>>>>> client
+>>>>>>> master
 
                 modulinoj2 =
                 {
