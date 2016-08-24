@@ -521,13 +521,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             //if(consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $('#loginIFTTTModal').modal('hide');
-            $("#notificationsWrapper").notify(
-                "Server error, retry",
-                {
-                    className: 'error',
-                    position: 'bottom right'
-                }
-            );
+            alertError("Some server error occurred. (code 987)");
+
             $scope.iftttLogged = false;
             iftttLogin = false;
             if (consoleLogs) console.log($scope.iftttLogged);
@@ -622,13 +617,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 $scope.twitterLogged = false;
                 twitterLogin = false;
                 setSpinner(false);
-                $("#notificationsWrapper").notify(
-                    "Logged out from IFTTT Polito",
-                    {
-                        className: 'warning',
-                        position: 'bottom right'
-                    }
-                );
+                alertSuccess("You are disconnected from IFTTT Polito.\n Hope to see you soon, goodbye!");
                 window.location.replace('#');
                 /*      } else {
                  $('#serverSpinner').spin(false);
@@ -645,13 +634,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginIFTTTModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Disconnect to IFTTT Polito failed",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some problem occurred. (code 757)");
                 if (consoleLogs) console.log($scope.iftttLogged);
             });
 
@@ -693,13 +676,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     $scope.googleLogged = true;
                     googleLogin = true;
                     $('#loginGoogleModal').modal('hide');
-                    $("#notificationsWrapper").notify(
-                        "Logged with Google",
-                        {
-                            className: 'success',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("Now you are connected with Google!");
+
                     //FXR
                     var url = "#" + nextPath;
                     if (modifyVar == 1) {
@@ -718,13 +696,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginGoogleModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Server error, retry",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some server problem occurred. (code 889)")
+
                 $scope.googleLogged = false;
                 googleLogin = false;
                 if (consoleLogs) console.log($scope.googleLogged);
@@ -753,14 +726,18 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.googleLogged = false;
                     googleLogin = false;
+                    alertSuccess("You are disconnected from Google now");
+                    /*
                     $("#notificationsWrapper").notify(
                         "Logged out from Google",
                         {
                             className: 'warning',
                             position: 'bottom right'
                         }
-                    );
+                    );*/
                 } else {
+                    alertError("An unknown problem occurred. (code: 192)");
+                    /*
                     $("#notificationsWrapper").notify(
                         "Some problem occurred, please retry",
                         {
@@ -768,19 +745,23 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                             position: 'bottom right'
                         }
                     );
+                    */
                 }
 
                 if (consoleLogs) console.log($scope.googleLogged);
             }, function error() {
                 setSpinner(false);
                 $('#loginGoogleModal').modal('hide');
-                $("#notificationsWrapper").notify(
+                alertError("Can't disccent from Google, an unknown problem occurred. (code: 192)");
+
+                /*$("#notificationsWrapper").notify(
                     "Disconnect to Google failed",
                     {
                         className: 'error',
                         position: 'bottom right'
                     }
-                );
+                );*/
+
                 if (consoleLogs) console.log($scope.googleLogged);
             });
 
@@ -816,13 +797,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 	$scope.twitterLogged = true;
                 	twitterLogin = true;
                 	$('#loginTwitterModal').modal('hide');
-                    $("#notificationsWrapper").notify(
-                        "Logged with Google",
-                        {
-                            className: 'success',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("Logged with Google.")
+
                     //FXR
                     var url = "#" + nextPath;
                     if (modifyVar == 1) {
@@ -841,13 +817,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginTwitterModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Server error, retry",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some problems with server occurred. (code: 233)");
                 $scope.twitterLogged = false;
                 twitterLogin = false;
                 if (consoleLogs) console.log($scope.twitterLogged);
@@ -881,34 +851,18 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
-                    $("#notificationsWrapper").notify(
-                        "Logged out from Twitter",
-                        {
-                            className: 'warning',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("You are connected to Twitter!");
+
                 } else {
-                    $("#notificationsWrapper").notify(
-                        "Some problem occurred, please retry",
-                        {
-                            className: 'error',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertError("Some problem occurred, please retry");
                 }
 
                 if (consoleLogs) console.log($scope.twitterLogged);
             }, function error() {
                 setSpinner(false);
                 $('#loginTwitterModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Disconnect to Twitter failed",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Failed to disconnet from Twitter. (code 234)");
+
                 if (consoleLogs) console.log($scope.twitterLogged);
             });
 
@@ -1963,13 +1917,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
          //if(consoleLogs) console.log($scope.iftttLogged);
          }, function error() {
          $('#loginIFTTTModal').modal('hide');
-         $("#notificationsWrapper").notify(
-         "Server error, retry",
-         {
-         className: 'error',
-         position: 'bottom right'
-         }
-         );
+             alertError("Some server error occurred. (code 567)");
+
          $scope.iftttLogged = false;
          iftttLogin = false;
          if (consoleLogs) console.log($scope.iftttLogged);
@@ -2773,7 +2722,6 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
             sender_GmailTriggerController = "";
             subject_GmailTriggerController = "";
 
-            if ($scope.checkedEmail == true || $scope.checkedSubject == true) {
                 //Firt variable
                 if ($scope.checkedEmail == true) {
                     if (angular.isDefined($scope.gmailinput)) {
@@ -2851,12 +2799,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                         }
                     }
                 }
-            }
-            else {
-                //url = "#gMailTrigger";
-                //window.location.replace(url);
 
-            }
             //Test done o.k.
             /*
              var loginDataSend =
@@ -3713,7 +3656,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                         if(importFlag==true)
                         {
                             url = "#" + actionImportRoute;
-                            alert("1x1" + url);
+                            //alert("1x1" + url);
                             window.location.replace(url);
                         }
                         else
