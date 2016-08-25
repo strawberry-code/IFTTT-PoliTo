@@ -33,16 +33,16 @@
                             <button title="Delete this recipe"
                                     data-toggle="tooltip"
                                     data-placement="bottom" bs-tooltip
-                                    style="margin-left: 3px" class="btn btn-danger pull-right">
-                                <span class="glyphicon glyphicon-trash"
-                                      data-ng-click="removeRecipe($index, f.id)"></span>
+                                    style="margin-left: 3px" class="btn btn-danger pull-right"
+                                    data-ng-click="removeRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-trash"></span>
                             </button>
 
-                            <!-- Share buttons -->
+                <!-- Share buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.publish && !f.valid"
-                                    title="Share this recipe"
+                                    title="To share this recipe you have to logged in the relative service channel (for example Google)"
                                     data-toggle="tooltip"
                                     data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn pull-right animate-if">
@@ -54,12 +54,13 @@
                                     title="Share this recipe"
                                     data-toggle="tooltip"
                                     data-placement="bottom" bs-tooltip
-                                    style="margin-left: 3px" class="btn btn-primary pull-right animate-if">
-                                <span class="glyphicon glyphicon-share"
-                                      data-ng-click="shareRecipe($index, f.id)"></span>
+                                    style="margin-left: 3px"
+                                    class="btn btn-primary pull-right animate-if"
+                                    data-ng-click="shareRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-share"></span>
                             </button>
 
-                            <!-- Unshare buttons -->
+                <!-- Unshare buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.valid && f.publish"
@@ -77,12 +78,12 @@
                                     data-toggle="tooltip"
                                     data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px"
-                                    class="btn btn-danger pull-right animate-if">
-                                <span class="glyphicon glyphicon-share-alt"
-                                      data-ng-click="DoNotshareRecipe($index, f.id)"></span>
+                                    class="btn btn-danger pull-right animate-if"
+                                    data-ng-click="DoNotshareRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-share-alt"></span>
                             </button>
 
-                            <!-- Modify Buttons -->
+                <!-- Modify Buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.valid"
@@ -105,7 +106,7 @@
                                       data-ng-click="modifyRecipe($index)"></span>
                             </button>
 
-                            <!-- Ingredient description button -->
+                <!-- Ingredient description button -->
 
                             <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn btn-info pull-right"
