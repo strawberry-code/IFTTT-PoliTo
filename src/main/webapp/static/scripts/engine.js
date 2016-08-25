@@ -3853,7 +3853,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             var dayVector = "";
             var hourStart = "";
             var minuteStart = "";
-            var flag = true;
+            var flag = 1;
             var timeZone = "";
             var durationHour = "";
             var durationMinute = "";
@@ -3928,6 +3928,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         monthVector = $('#selectMonth').val();
                         hourStart = $('#selectHourStart').val();
                         minuteStart = $('#selectMinuteStart').val();
+                        flag = 1;
+
                     }
 
                     else {
@@ -4038,30 +4040,83 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 };
 
 
-                if (flag == true) {
-                    if (monthVector === "1" ||
-                        monthVector === "3" ||
-                        monthVector === "5" ||
-                        monthVector === "7" ||
-                        monthVector === "8" ||
-                        monthVector === "10" ||
-                        monthVector === "12") {
-                        if (dayVector > "0" && dayVector < "32");
+
+                if (flag == 1) {
+                   var monthNumber = 0;
+                    var daynumber = 0;
+                        if(monthVector.localeCompare("01")==0) monthNumber = 1;
+                    else if(monthVector.localeCompare("02")==0) monthNumber = 2;
+                    else if(monthVector.localeCompare("03")==0) monthNumber = 3;
+                    else if(monthVector.localeCompare("04")==0) monthNumber = 4;
+                    else if(monthVector.localeCompare("05")==0) monthNumber = 5;
+                    else if(monthVector.localeCompare("06")==0) monthNumber = 6;
+                    else if(monthVector.localeCompare("07")==0) monthNumber = 7;
+                    else if(monthVector.localeCompare("08")==0) monthNumber = 8;
+                    else if(monthVector.localeCompare("09")==0) monthNumber = 9;
+                    else if(monthVector.localeCompare("10")==0) monthNumber = 10;
+                    else if(monthVector.localeCompare("11")==0) monthNumber = 11;
+                    else if(monthVector.localeCompare("12")==0) monthNumber = 12;
+
+                    if(dayVector.localeCompare("01")==0) daynumber = 1;
+                    else  if(dayVector.localeCompare("02")==0) daynumber = 2;
+                    else  if(dayVector.localeCompare("03")==0) daynumber = 3;
+                    else  if(dayVector.localeCompare("04")==0) daynumber = 4;
+                    else  if(dayVector.localeCompare("05")==0) daynumber = 5;
+                    else  if(dayVector.localeCompare("06")==0) daynumber = 6;
+                    else  if(dayVector.localeCompare("07")==0) daynumber = 7;
+                    else  if(dayVector.localeCompare("08")==0) daynumber = 8;
+                    else  if(dayVector.localeCompare("09")==0) daynumber = 9;
+                    else  if(dayVector.localeCompare("10")==0) daynumber = 10;
+                    else  if(dayVector.localeCompare("11")==0) daynumber = 11;
+                    else  if(dayVector.localeCompare("12")==0) daynumber = 12;
+                    else  if(dayVector.localeCompare("13")==0) daynumber = 13;
+                    else  if(dayVector.localeCompare("14")==0) daynumber = 14;
+                    else  if(dayVector.localeCompare("15")==0) daynumber = 15;
+                    else  if(dayVector.localeCompare("16")==0) daynumber = 16;
+                    else  if(dayVector.localeCompare("17")==0) daynumber = 17;
+                    else  if(dayVector.localeCompare("18")==0) daynumber = 18;
+                    else  if(dayVector.localeCompare("19")==0) daynumber = 19;
+                    else  if(dayVector.localeCompare("20")==0) daynumber = 20;
+                    else  if(dayVector.localeCompare("21")==0) daynumber = 21;
+                    else  if(dayVector.localeCompare("22")==0) daynumber = 22;
+                    else  if(dayVector.localeCompare("23")==0) daynumber = 23;
+                    else  if(dayVector.localeCompare("24")==0) daynumber = 24;
+                    else  if(dayVector.localeCompare("25")==0) daynumber = 25;
+                    else  if(dayVector.localeCompare("26")==0) daynumber = 26;
+                    else  if(dayVector.localeCompare("27")==0) daynumber = 27;
+                    else  if(dayVector.localeCompare("28")==0) daynumber = 28;
+                    else  if(dayVector.localeCompare("29")==0) daynumber = 29;
+                    else  if(dayVector.localeCompare("30")==0) daynumber = 30;
+                    else  if(dayVector.localeCompare("31")==0) daynumber = 31;
+
+
+                    //alert(" day " + daynumber + "  month  " + monthNumber );
+
+
+
+                    if ( monthNumber == 1||
+                        monthNumber == 3  ||
+                        monthNumber ==  5 ||
+                        monthNumber == 7  ||
+                        monthNumber == 8  ||
+                        monthNumber == 10  ||
+                        monthNumber == 12 ) {
+                        if (daynumber > 0 && daynumber < 32);
                         else {
-                            flag = "3";
+                            flag = 3;
                             //if(consoleLogs) console.log("Your date is not right plase verify the day");
                             alertVariable = "Your date is not right plase verify the day";
                             alertFunction();
                         }
                     }
-                    if (monthVector === "2" ||
-                        monthVector === "4" ||
-                        monthVector === "6" ||
-                        monthVector === "9" ||
-                        monthVector === "11") {
-                        if (dayVector > "0" && dayVector < "31");
+                    if (monthNumber == 2 ||
+                        monthNumber == 4 ||
+                        monthNumber == 6 ||
+                        monthNumber == 9 ||
+                        monthNumber == 11) {
+                        if (daynumber > 0 && daynumber < 31);
                         else {
-                            flag = "3";
+                            flag = 3;
                             //if(consoleLogs) console.log("Your date is not right plase verify the day");
                             alertVariable = "Your date is not right plase verify the day";
                             alertFunction();
@@ -4069,18 +4124,18 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
                     }
                     //Anni bisestili
-                    if (yearVector === "2016" ||
-                        yearVector === "2020" ||
-                        yearVector === "2024" ||
-                        yearVector === "2028" ||
-                        yearVector === "2032" ||
-                        yearVector === "2036" ||
-                        yearVector === "2040" ||
-                        yearVector === "2044"
+                    if (yearVector.localeCompare("2016") == 0 ||
+                        yearVector.localeCompare("2020") == 0 ||
+                        yearVector.localeCompare("2024") == 0 ||
+                        yearVector.localeCompare("2028") == 0 ||
+                        yearVector.localeCompare("2032") == 0 ||
+                        yearVector.localeCompare("2036") == 0 ||
+                        yearVector.localeCompare("2040") == 0 ||
+                        yearVector.localeCompare("2044") == 0
                     ) {
-                        if (monthVector === "2")
-                            if (dayVector > 28) {
-                                flag = "3";
+                        if (monthNumber === 2)
+                            if (daynumber > 28) {
+                                flag = 3;
                                 //if(consoleLogs) console.log("Thi is a leap year");
                                 alertVariable = "Thi is a leap year";
                                 alertFunction();
@@ -4089,16 +4144,16 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
                     }
 
-                    if (monthVector == "2" && dayVector > 29 && flag != "3") {
+                    if (monthNumber == 2 && daynumber > 29 && flag != 3) {
                         //if(consoleLogs) console.log("Febrary has not " + dayVector + " days, please check" );
                         alertVariable = "Febrary has not " + dayVector + " days, please check";
                         alertFunction();
-                        flag = "3";
+                        flag = 3;
                     }
 
                 }
 
-                if (flag != "3") {
+                if (flag != 3) {
                     flagTriggerDone = false;
                     count = 7;
 
@@ -4124,6 +4179,9 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
 
         };
+
+
+
 
 
         $scope.yearVector =
