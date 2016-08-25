@@ -915,7 +915,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
-                    alertSuccess("You are connected to Twitter!");
+                    alertSuccess("You are disconnected from Twitter!");
 
                 } else {
                     alertError("Some problem occurred, please retry");
