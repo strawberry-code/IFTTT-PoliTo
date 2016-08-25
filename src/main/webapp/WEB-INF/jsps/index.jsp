@@ -26,9 +26,8 @@
     <script src="./static/scripts/jstz.js"></script>
     <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./static/bower_components/moment/moment.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
 
     <!-- Cascade Style Sheets -->
@@ -63,52 +62,80 @@
             <ul class="nav navbar-nav">
 
                 <li>
-                    <a type="submit" href="" ng-if="!iftttLogged" data-toggle="modal" data-target="#loginIFTTTModal"
+                    <a type="submit"
+                       href="" ng-if="!iftttLogged"
+                       data-toggle="modal"
+                       data-target="#loginIFTTTModal"
                        ng-click="routeListener('createRecipe')">Create a recipe
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                     </a>
                 </li>
 
                 <li>
-                    <a type="submit" href="#createRecipe" ng-if="iftttLogged" data-target="#loginIFTTTModal">
+                    <a type="submit"
+                       href="#createRecipe"
+                       ng-if="iftttLogged"
+                       data-target="#loginIFTTTModal">
                         <span aria-hidden="true">Create a recipe</span>
                     </a>
                 </li>
 
                 <li>
                     <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
-                    <a type="submit" href="#index/myRecipes" ng-if="iftttLogged" data-target="#loginIFTTTModal">
+                    <a type="submit"
+                       href="#index/myRecipes"
+                       ng-if="iftttLogged"
+                       data-target="#loginIFTTTModal">
                         <span aria-hidden="true">My recipes</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#passwordChange" ng-if="iftttLogged">
+                    <a href="#passwordChange"
+                       ng-if="iftttLogged">
                         <span aria-hidden="true">Change password</span>
                     </a>
                 </li>
 
                 <li>
-                    <a ng-if="!iftttLogged" href="#publicRecipes"> Public recipes <span
-                            class="glyphicon glyphicon-share" aria-hidden="true"></span></a>
-                    <a ng-if="iftttLogged" href="#publicRecipes"> Public recipes </a>
+
+                    <a ng-if="!iftttLogged"
+                       href="#publicRecipes"> Public recipes
+                        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                    </a>
+
+                    <a ng-if="iftttLogged"
+                       href="#publicRecipes"> Public recipes
+                    </a>
+
                 </li>
 
             </ul>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
 
-                    <a href="" ng-click="logoutIFTTT()"><img id="IFTTTLogoON" ng-if="iftttLogged"
-                                                             src="./static/images/logos/polito-logged-in.png"
-                                                             height="30" width="30"/></a>
+                    <a href=""
+                       ng-click="logoutIFTTT()">
+                        <img id="IFTTTLogoON" ng-if="iftttLogged"
+                             src="./static/images/logos/polito-logged-in.png"
+                             height="30" width="30"/>
+                    </a>
 
-                    <img id="iftttLogoOFF" ng-if="!iftttLogged" data-toggle="popover" data-placement="bottom"
-                         data-trigger="hover" data-content="Not logged in IFTTT Polito"
-                         src="./static/images/logos/polito-logged-out.png" height="30" width="30"/>
+                    <img id="iftttLogoOFF"
+                         ng-if="!iftttLogged"
+                         data-toggle="popover"
+                         data-placement="bottom"
+                         data-trigger="hover"
+                         data-content="Not logged in IFTTT Polito"
+                         src="./static/images/logos/polito-logged-out.png"
+                         height="30" width="30"/>
 
-                    <a href="" ng-click="logoutTwitter()"><img id="twitterLogoON" ng-if="twitterLogged"
-                                                               src="./static/images/logos/twitter-logged-in.png"
-                                                               height="34" width="34"/></a>
+                    <a href="" ng-click="logoutTwitter()">
+                        <img id="twitterLogoON"
+                             ng-if="twitterLogged"
+                             src="./static/images/logos/twitter-logged-in.png"
+                             height="34" width="34"/>
+                    </a>
 
                     <span data-toggle="modal"
                           ng-show="!twitterLogged"
@@ -122,9 +149,12 @@
                              src="./static/images/logos/twitter-logged-out.png" height="34" width="34"/>
                 </span>
 
-                    <a ng-click="logoutGoogle()"><img id="googleLogoON" ng-if="googleLogged"
-                                                      src="./static/images/logos/google-logged-in.png" height="30"
-                                                      width="30"/></a>
+                    <a ng-click="logoutGoogle()">
+                        <img id="googleLogoON"
+                             ng-if="googleLogged"
+                             src="./static/images/logos/google-logged-in.png" height="30"
+                             width="30"/>
+                    </a>
 
                     <span data-toggle="modal"
                           ng-show="!googleLogged"
@@ -140,25 +170,39 @@
                 </span>
 
                 </div>
+
                 <button
                         type="submit"
-                        class="btn btn-default" ng-if="!iftttLogged" style="margin-left: 6px" data-toggle="modal"
-                        data-target="#loginIFTTTModal" ng-click="routeListener('index/myRecipes')"><span
-                        class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login
+                        class="btn btn-default"
+                        ng-if="!iftttLogged"
+                        style="margin-left: 6px"
+                        data-toggle="modal"
+                        data-target="#loginIFTTTModal"
+                        ng-click="routeListener('index/myRecipes')">
+                    <span class="glyphicon glyphicon-log-in"
+                          aria-hidden="true"></span> Login
                 </button>
 
                 <a href="#index/createAccount">
-                    <button type="submit" class="btn btn-default" style=" margin-left: 6px" ng-if="!iftttLogged"><span
-                            class="glyphicon glyphicon-user" aria-hidden="true"></span> Create account
+                    <button type="submit"
+                            class="btn btn-default"
+                            style=" margin-left: 6px"
+                            ng-if="!iftttLogged">
+                        <span class="glyphicon glyphicon-user"
+                              aria-hidden="true"></span> Create account
                     </button>
                 </a>
 
-                <button type="submit" class="btn btn-default" ng-if="iftttLogged" ng-click="logoutIFTTT()">Logout <span
-                        class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                <button type="submit"
+                        class="btn btn-default"
+                        ng-if="iftttLogged"
+                        ng-click="logoutIFTTT()">Logout
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                 </button>
-            </form>
-        </div><!-- /.navbar-collapse -->
 
+            </form>
+
+        </div><!-- /.navbar-collapse -->
 
         <!-- NOTIFICATIONS WRAPPER BEGIN -->
         <div id="notificationsWrapper" style="margin: auto; padding-top: 5px"></div>
