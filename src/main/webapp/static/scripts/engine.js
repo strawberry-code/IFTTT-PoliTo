@@ -4888,6 +4888,8 @@ iftttApp.filter('reformat', function () {
                 return 'Name of the city';
             case 'ingredientCode':
                 return 'Ingredient description';
+            case 'startDate':
+                return 'Start date';
         }
 
 
@@ -4941,6 +4943,9 @@ iftttApp.filter('skeumorphize', function(){
                 return hours + " h and " + mins + " m";
             }
 
+            case 'startDate': {
+                return moment(input).format("dddd, MMMM Do YYYY");
+            }
             case 'sender':
             {
                 switch (input) {
