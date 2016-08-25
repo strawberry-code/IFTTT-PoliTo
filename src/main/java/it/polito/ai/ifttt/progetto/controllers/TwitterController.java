@@ -39,9 +39,9 @@ public class TwitterController {
 	Twitter twitter = null;
 	Users user = null;
 	Authentication auth = null;
-	
+
 	String nextPath = null;
-	Integer count;
+	Object varencr;
 	Object trigger;
 
 	@Autowired
@@ -97,70 +97,72 @@ public class TwitterController {
 			loginManager.setTwitterCredentials(user, accessToken.getToken(), accessToken.getTokenSecret());
 
 		}
-		
+
 		// validate twitter recipes
-		if(this.user != null) {
+		if (this.user != null) {
 			recipesManager.validateTwitterRecipes(this.user);
 		}
-		
+
 		String path = "";
-		if(this.trigger.toString().compareTo("")!=0) {
-			System.out.println("Trigger: "+this.trigger);
-			try {
-				path = "http://localhost:8080/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			if (this.trigger.toString().compareTo("") != 0) {
+				System.out.println("Trigger: " + this.trigger);
+
+				path = "http://localhost:8080/progetto/#" + this.nextPath + "?varencr="
+						+ URLEncoder.encode(this.varencr.toString(), "UTF-8") + "&trigger="
+						+ URLEncoder.encode(this.trigger.toString(), "UTF-8");
+			} else {
+				path = "http://localhost:8080/progetto/#" + this.nextPath + "?varencr="
+						+ URLEncoder.encode(this.varencr.toString(), "UTF-8");
 			}
-		}
-		else {
-			path = "http://localhost:8080/progetto/#"+this.nextPath+"?count="+this.count;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-//		String path = "http://localhost:8080/progetto/#" + this.nextPath+"?count="+this.count;
+		// String path = "http://localhost:8080/progetto/#" +
+		// this.nextPath+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
-	
+
 	@RequestMapping(value = "/tw.token", method = RequestMethod.GET, params = { "denied" })
 	public RedirectView oauth2CallbackDenied(@RequestParam(value = "denied") String denied) {
 
-		//Ricavo il path precedente dal nextPath che il client mi passa
+		// Ricavo il path precedente dal nextPath che il client mi passa
 		String path = "";
-		if(this.nextPath.startsWith("Trigger")==true) {
+		if (this.nextPath.startsWith("Trigger") == true) {
 			path = "http://localhost:8080/progetto/#/allTriggers";
-		} else if(this.nextPath.startsWith("Action")==true) {
+		} else if (this.nextPath.startsWith("Action") == true) {
 			path = "http://localhost:8080/progetto/#/createDO";
 		} else {
 			path = "http://localhost:8080/progetto/#/index/myRecipes";
 		}
-		
-		path = path+"?count="+this.count;
-		
-		if(this.trigger.toString().compareTo("")!=0) {
-			System.out.println("Trigger: "+this.trigger);
+
+		if (this.trigger.toString().compareTo("") != 0) {
+			System.out.println("Trigger: " + this.trigger);
 			try {
-				path = path+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
+				path = path + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
+				path = path + "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 		System.out.println(path);
 		return new RedirectView(path);
 	}
 
-
-
 	@RequestMapping(value = "requestTwitter", method = RequestMethod.POST)
-	@ResponseBody returnClass checkGoogleConnection(@RequestBody requestClass data) {
+	@ResponseBody
+	returnClass checkGoogleConnection(@RequestBody requestClass data) {
 
 		System.out.println(data.getUrlNext());
 
 		this.nextPath = data.getUrlNext();
-		this.count = data.getCount();
 		try {
+			this.varencr = URLDecoder.decode(data.getVarencr().toString(), "UTF-8");
 			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
