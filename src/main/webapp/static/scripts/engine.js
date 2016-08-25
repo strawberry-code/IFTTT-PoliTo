@@ -778,7 +778,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
                     alertSuccess("You are disconnected from Google now");
 
-                    setTimeout(function(){ $window.location.reload(); }, 2300);
+                    setTimeout(function(){ $window.location.reload(); }, 1500);
 
                     /*
                     $("#notificationsWrapper").notify(
@@ -943,6 +943,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     $scope.twitterLogged = false;
                     twitterLogin = false;
                     alertSuccess("You are disconnected from Twitter!");
+                    setTimeout(function(){ $window.location.reload(); }, 1500);
 
                 } else {
                     alertError("Some problem occurred, please retry");
