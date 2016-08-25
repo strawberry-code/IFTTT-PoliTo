@@ -459,7 +459,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     	loginInactiveUser();
                         break;
                     default:
-                        console.log("url loading failure");
+                        //console.log("url loading failure");
                 }
             }
             return angular.isObject(result) ? angular.toJson(result) : result;
@@ -4900,7 +4900,7 @@ iftttApp.filter('reformat', function () {
 iftttApp.filter('skeumorphize', function(){
     return function (input, watchKey) {
 
-        console.log('input: '+input+"\nwatchKey: "+watchKey);
+        //console.log('input: '+input+"\nwatchKey: "+watchKey);
 
         /*
 
