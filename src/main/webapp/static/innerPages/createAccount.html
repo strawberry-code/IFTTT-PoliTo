@@ -7,7 +7,7 @@
 <body ng-controller="createAccountController">
 
 
-<div class="container" style="padding-top: 6%">
+<div id="createAccountKeyup" class="container" style="padding-top: 6%">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
@@ -88,11 +88,12 @@
 
                 <hr>
 
-                <button type="submit" class="btn btn-danger pull-left" onclick="location.href='#'">
-                    Cancel
-                </button>
 
-                <button type="submit" class="btn btn-primary pull-right"
+                <a class="btn btn-danger pull-left" href="#">
+                    Cancel
+                </a>
+
+                <button id="createAccountSubmit" type="submit" class="btn btn-primary pull-right"
                         ng-click="submitted=true; createAccountFunc(user, email, pws1,pws2 )">
                     Submit
                 </button>
@@ -102,4 +103,13 @@
 </div>
 
 </body>
+
+<script>
+    $("#createAccountKeyup").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#createAccountSubmit").click();
+        }
+    });
+</script>
+
 </html>
