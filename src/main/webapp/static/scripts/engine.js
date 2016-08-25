@@ -1036,7 +1036,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     setSpinner(true);
                     $http({
                         method: 'POST',
-                        url: 'http://localhost:8080/progetto/api/prova',
+                        url: 'http://localhost:8080/progetto/api/deleteAccount',
                         contentType: "application/json",
                         data: {deleteAccount: true}
                     }).then(function success(response) {
