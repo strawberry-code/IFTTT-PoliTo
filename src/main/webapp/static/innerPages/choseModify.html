@@ -32,23 +32,23 @@
                     </p>
                     <!-- google autenticate -->
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged && activeGoogleAutentication" data-toggle="modal" data-ng-click="changePage(1); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutentication" data-toggle="modal" data-ng-click="changePage(1); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#{{urlTriggerUser}}" ng-if="googleLogged && activeGoogleAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="googleLoggedHtml && activeGoogleAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Twitter autenticate -->
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged && activeTwitterAutentication" data-toggle="modal" data-ng-click="changePage(2); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutentication" data-toggle="modal" data-ng-click="changePage(2); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#{{urlTriggerUser}}" ng-if="twitterLogged && activeTwitterAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="twitterLoggedHtml && activeTwitterAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Weather -->
                     <p>
-                        <a class="btn btn_next2" href="#{{urlTriggerUser}}" ng-if="activeWeatherAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="activeWeatherAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                 </div>
@@ -63,18 +63,18 @@
 
                     <!-- google autenticate --> <!-- data-target="#loginGoogleModal" -->
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged && activeGoogleAutenticationAction" data-toggle="modal" data-ng-click="changePage(1); routeListener(1)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutenticationAction" data-toggle="modal" data-ng-click="changePage(1); routeListener(1)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#{{urlActionUser}}" ng-if="googleLogged && activeGoogleAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}" ng-if="googleLoggedHtml && activeGoogleAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Twitter autenticate -->
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged && activeTwitterAutenticationAction" data-toggle="modal" data-ng-click="changePage(2); routeListener(1)"> Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutenticationAction" data-toggle="modal" data-ng-click="changePage(2); routeListener(1)"> Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#{{urlActionUser}}" ng-if="twitterLogged && activeTwitterAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}" ng-if="twitterLoggedHtml && activeTwitterAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                 </div>
