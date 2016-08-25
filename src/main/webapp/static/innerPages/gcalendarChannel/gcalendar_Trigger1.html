@@ -87,7 +87,7 @@
                                 ng-if="modifyButton && !importRecipe"
                             >Cancel</a>
 
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
                                 ng-if="importRecipe && !modifyButton"
                             >Cancel</a>
 
@@ -120,11 +120,12 @@
 </body>
 
 <script>
-	
-	var param = (window.location.hash).split("?");
-	if(param[1]!=null)
-		count = param[1].split("=")[1];
-
+    count=getCookie("count");
+    setChooseAx=getCookie("setChooseAx");
+    modifyVar=getCookie("modifyVar");
+    modifyCountVar=getCookie("modifyCountVar");
+    flagTriggerDone =getCookie("modifyCountVar");
+    importFlag = getCookie("importFlag");
     if(importFlag==true)
     {
         if (iftttLogin == false)
@@ -167,7 +168,7 @@
                     else {
                         url = "#home";
                         window.location.replace(url);
-                        alertWarning("Non sei loggato a Google");
+                        alert("Non sei loggato a google");
                     }
                 }
             }
@@ -201,6 +202,13 @@
             }
         }
     }
+
+    setCookie("count", count, 1);
+    setCookie("setChooseAx", setChooseAx, 1);
+    setCookie("modifyVar", modifyVar, 1);
+    setCookie("modifyCountVar", modifyCountVar, 1);
+    setCookie("flagTriggerDone", flagTriggerDone, 1);
+    setCookie("importFlag", importFlag, 1);
 
 </script>
 </html>

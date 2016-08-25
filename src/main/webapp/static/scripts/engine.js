@@ -153,6 +153,10 @@ var importFlag = false;
 var triggerImportRoute = "";
 var actionImportRoute = "";
 
+/* Variabile per far tornare indietro createRecipeAction sul giusto trigger*/
+var  backPageVariabile = "";
+
+
 
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
@@ -328,7 +332,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.when('/createRecipeAction', {
-        templateUrl: './static/innerPages/createRecipeAction.html'
+        templateUrl: './static/innerPages/createRecipeAction.html',
+        controller: 'createRecipeActionController'
     });
 
 
@@ -459,7 +464,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     	loginInactiveUser();
                         break;
                     default:
-                        console.log("url loading failure");
+                        //console.log("url loading failure");
                 }
             }
             return angular.isObject(result) ? angular.toJson(result) : result;
@@ -1192,6 +1197,11 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
     }]);
 
+
+
+
+
+
 iftttApp.controller('SuccessControllerRegistration', ['$scope', '$routeParams',
     function () {
 
@@ -1895,6 +1905,20 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             window.location.replace(url);
 
         };
+
+
+    }]);
+
+
+iftttApp.controller('createRecipeActionController', ['$scope', '$routeParams', '$window', '$http',
+    function ($scope, $routeParams, $window, $http)
+    {
+        $scope.backPersonalTrigger  = function ()
+        {
+
+            window.location.replace(backPageVariabile);
+
+        }
 
 
     }]);
@@ -2756,6 +2780,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
 iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
     function ($scope) {
 
+        backPageVariabile="#gMailTrigger";
         //Bug stringa null
 
         $scope.flagEmail = "email is empty";
@@ -3133,6 +3158,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
             value3: 0
         };
 
+        backPageVariabile="#WeatherTrigger1";
 
         $scope.errorButton = 'cia';
         $scope.checkadvisetimevar = 'NO';
@@ -3172,6 +3198,9 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
 
 iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
     function ($scope) {
+
+        backPageVariabile="#WeatherTrigger2";
+
         $scope.trigger1input = {
             value1: 0,
             value2: 0,
@@ -3316,6 +3345,9 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
 
 iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
     function ($scope) {
+
+
+        backPageVariabile="#WeatherTrigger3";
         $scope.trigger1input = {
             value3: 0
         };
@@ -3387,6 +3419,8 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
 
 iftttApp.controller('customWeatherActionControllerTrigger4', ['$scope',
     function ($scope) {
+
+        backPageVariabile="#WeatherTrigger4";
         $scope.checkmodelcheckthmax = false;
         $scope.checkmodelcheckthmin = false;
 
@@ -3461,6 +3495,8 @@ iftttApp.controller('loginPageController', ['$scope',
 //Update
 iftttApp.controller('Trigger1GcalendarController', ['$scope',
     function ($scope) {
+
+        backPageVariabile = "#Trigger1Gcalendar";
 
         $scope.trigger1GcalendarVar = [];
         /**
@@ -3610,6 +3646,7 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
 iftttApp.controller('Trigger2GcalendarController', ['$scope',
     function ($scope) {
 
+        backPageVariabile = "#Trigger2Gcalendar";
         $scope.trigger2GcalendarVar = [];
         /**
          * Description
@@ -4366,6 +4403,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 iftttApp.controller('trigger1TwitterController', ['$scope',
     function ($scope) {
 
+        backPageVariabile=  "#Trigger1Twitter";
+
         $scope.trigger1TwitterInput = [];
         $scope.iftttLoginP = iftttLogin;
 
@@ -4485,6 +4524,8 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
 iftttApp.controller('trigger2TwitterController', ['$scope',
     function ($scope) {
         $scope.trigger2TwitterInput = [];
+
+        backPageVariabile=  "#Trigger2Twitter";
 
         /**
          * Description
@@ -4940,6 +4981,8 @@ iftttApp.filter('reformat', function () {
                 return 'Name of the city';
             case 'ingredientCode':
                 return 'Ingredient description';
+            case 'startDate':
+                return 'Start date';
         }
 
 
@@ -4950,7 +4993,7 @@ iftttApp.filter('reformat', function () {
 iftttApp.filter('skeumorphize', function(){
     return function (input, watchKey) {
 
-        console.log('input: '+input+"\nwatchKey: "+watchKey);
+        //console.log('input: '+input+"\nwatchKey: "+watchKey);
 
         /*
 
@@ -4993,6 +5036,9 @@ iftttApp.filter('skeumorphize', function(){
                 return hours + " h and " + mins + " m";
             }
 
+            case 'startDate': {
+                return moment(input).format("dddd, MMMM Do YYYY");
+            }
             case 'sender':
             {
                 switch (input) {
