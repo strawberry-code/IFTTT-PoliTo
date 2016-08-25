@@ -109,6 +109,7 @@
 		importFlag = vardec.importFlag;
 		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
 		idRecipe = vardec.idRecipe;
+		iftttLogin = vardec.iftttLogin;
 		if(tokens[1]!=null) {
 			trig = tokens[1].split("trigger=")[1];			
 			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);

@@ -676,7 +676,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	"flagTriggerDone": flagTriggerDone,
             	"importFlag": importFlag,
             	"descriptionRecipeGlobal": descriptionRecipeGlobal,
-            	"idRecipe": idRecipe
+            	"idRecipe": idRecipe,
+            	"iftttLogin": iftttLogin
             };
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
@@ -844,7 +845,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	"flagTriggerDone": flagTriggerDone,
             	"importFlag": importFlag,
             	"descriptionRecipeGlobal": descriptionRecipeGlobal,
-            	"idRecipe": idRecipe
+            	"idRecipe": idRecipe,
+            	"iftttLogin": iftttLogin
             };
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
@@ -968,18 +970,33 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          */
         $scope.routeListener = function (nextRoute) {
             //cc>
-            if(nextRoute.localeCompare('currentUrl') == 0){
-                console.log('next url: '+ $location.url());
-                nextPath = $location.url();
-                rootingAutenticationTriggerAction = $location.url();
-            } else {
-                nextPath = nextRoute;
-                rootingAutenticationTriggerAction = nextRoute;
+            //alert(nextRoute + " X");
+            if(nextRoute.localeCompare("0")==0)
+            {
+                nextPath = ulrTriggreGlobalVariable;
+              //  alert(nextPath);
             }
-             //<cc
+            else
+            {
+                if(nextRoute.localeCompare("1")==0)
+                {
+                    nextPath = urlActionGlobalVariable;
+                }
+            else {
+                    if (nextRoute.localeCompare('currentUrl') == 0) {
+                        console.log('next url: ' + $location.url());
+                        nextPath = $location.url();
+                        rootingAutenticationTriggerAction = $location.url();
+                    } else {
+                        nextPath = nextRoute;
+                        rootingAutenticationTriggerAction = nextRoute;
+                    }
+                }
+            }
+
+            //<cc
             //if(consoleLogs) console.log("routeListener(nextRoute): "+nextPath);
         };
-
 
         /*   Funzione deprecata non più usata */
 
