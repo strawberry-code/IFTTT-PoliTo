@@ -4767,10 +4767,18 @@ iftttApp.controller('action1TwitterController', ['$scope',
         },
 
 
+
+            $scope.modifyButton = false;
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
         $scope.importRecipe = false;
         if (importFlag == 1) {
             $scope.importRecipe = true;
         }
+
+
 
 
     }]);
@@ -4889,10 +4897,17 @@ iftttApp.controller('action2TwitterController', ['$scope',
             window.location.replace(url);
 
         },
-            $scope.importRecipe = false;
+
+            $scope.modifyButton = false;
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
+        $scope.importRecipe = false;
         if (importFlag == 1) {
             $scope.importRecipe = true;
         }
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
