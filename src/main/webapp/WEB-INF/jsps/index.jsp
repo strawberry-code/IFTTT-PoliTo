@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html ng-app="iftttApp">
+<html data-ng-app="iftttApp">
 <head>
     <title>IFTTT Polito</title>
 
@@ -26,9 +26,9 @@
     <script src="./static/scripts/jstz.js"></script>
     <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./static/bower_components/moment/moment.js"></script>
+    <script src="./static/bower_components/angular-sweetalert/dist/ngSweetAlert.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-
 
     <!-- Cascade Style Sheets -->
     <link rel="stylesheet" href="./static/bower_components/bootstrap/dist/css/bootstrap.css">
@@ -40,7 +40,7 @@
 
 
 </head>
-<body ng-controller="indexController">
+<body data-ng-controller="indexController">
 
 <!-- TOP NAVBAR BEGIN -->
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
@@ -63,10 +63,10 @@
 
                 <li>
                     <a type="submit"
-                       href="" ng-if="!iftttLogged"
+                       href="" data-ng-if="!iftttLogged"
                        data-toggle="modal"
                        data-target="#loginIFTTTModal"
-                       ng-click="routeListener('createRecipe')">Create a recipe
+                       data-ng-click="routeListener('createRecipe')">Create a recipe
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                     </a>
                 </li>
@@ -74,17 +74,16 @@
                 <li>
                     <a type="submit"
                        href="#createRecipe"
-                       ng-if="iftttLogged"
+                       data-ng-if="iftttLogged"
                        data-target="#loginIFTTTModal">
                         <span aria-hidden="true">Create a recipe</span>
                     </a>
                 </li>
 
                 <li>
-                    <!-- href="#index/myRecipes"  data-ng-click="loadRecipesAndSeeThem()" -->
                     <a type="submit"
                        href="#index/myRecipes"
-                       ng-if="iftttLogged"
+                       data-ng-if="iftttLogged"
                        data-target="#loginIFTTTModal">
                         <span aria-hidden="true">My recipes</span>
                     </a>
@@ -92,19 +91,19 @@
 
                 <li>
                     <a href="#passwordChange"
-                       ng-if="iftttLogged">
+                       data-ng-if="iftttLogged">
                         <span aria-hidden="true">Change password</span>
                     </a>
                 </li>
 
                 <li>
 
-                    <a ng-if="!iftttLogged"
+                    <a data-ng-if="!iftttLogged"
                        href="#publicRecipes"> Public recipes
                         <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                     </a>
 
-                    <a ng-if="iftttLogged"
+                    <a data-ng-if="iftttLogged"
                        href="#publicRecipes"> Public recipes
                     </a>
 
@@ -115,14 +114,14 @@
                 <div class="form-group">
 
                     <a href=""
-                       ng-click="logoutIFTTT()">
-                        <img id="IFTTTLogoON" ng-if="iftttLogged"
+                       data-ng-click="logoutIFTTT()">
+                        <img id="IFTTTLogoON" data-ng-if="iftttLogged"
                              src="./static/images/logos/polito-logged-in.png"
                              height="30" width="30"/>
                     </a>
 
                     <img id="iftttLogoOFF"
-                         ng-if="!iftttLogged"
+                         data-ng-if="!iftttLogged"
                          data-toggle="popover"
                          data-placement="bottom"
                          data-trigger="hover"
@@ -130,17 +129,17 @@
                          src="./static/images/logos/polito-logged-out.png"
                          height="30" width="30"/>
 
-                    <a href="" ng-click="logoutTwitter()">
+                    <a href="" data-ng-click="logoutTwitter()">
                         <img id="twitterLogoON"
-                             ng-if="twitterLogged"
+                             data-ng-if="twitterLogged"
                              src="./static/images/logos/twitter-logged-in.png"
                              height="34" width="34"/>
                     </a>
 
                     <span data-toggle="modal"
-                          ng-show="!twitterLogged"
+                          data-ng-show="!twitterLogged"
                           data-target="#loginTwitterModal"
-                          ng-click="routeListener('currentUrl')">
+                          data-ng-click="routeListener('currentUrl')">
                         <img id="twitterLogoOFF"
                              data-toggle="popover"
                              data-placement="bottom"
@@ -149,17 +148,17 @@
                              src="./static/images/logos/twitter-logged-out.png" height="34" width="34"/>
                 </span>
 
-                    <a ng-click="logoutGoogle()">
+                    <a data-ng-click="logoutGoogle()">
                         <img id="googleLogoON"
-                             ng-if="googleLogged"
+                             data-ng-if="googleLogged"
                              src="./static/images/logos/google-logged-in.png" height="30"
                              width="30"/>
                     </a>
 
                     <span data-toggle="modal"
-                          ng-show="!googleLogged"
+                          data-ng-show="!googleLogged"
                           data-target="#loginGoogleModal"
-                          ng-click="routeListener('currentUrl')">
+                          data-ng-click="routeListener('currentUrl')">
                         <img id="googleLogoOFF"
                              style="margin-left: 3px"
                              data-toggle="popover"
@@ -171,32 +170,38 @@
 
                 </div>
 
-                <button
-                        type="submit"
+                <button type="submit"
                         class="btn btn-default"
-                        ng-if="!iftttLogged"
+                        data-ng-show="!iftttLogged"
                         style="margin-left: 6px"
                         data-toggle="modal"
                         data-target="#loginIFTTTModal"
-                        ng-click="routeListener('index/myRecipes')">
+                        data-ng-click="routeListener('index/myRecipes')">
                     <span class="glyphicon glyphicon-log-in"
                           aria-hidden="true"></span> Login
                 </button>
 
-                <a href="#index/createAccount">
-                    <button type="submit"
-                            class="btn btn-default"
-                            style=" margin-left: 6px"
-                            ng-if="!iftttLogged">
+                <a href="#index/createAccount"
+                    class="btn btn-default"
+                    style=" margin-left: 6px"
+                    data-ng-show="!iftttLogged">
                         <span class="glyphicon glyphicon-user"
                               aria-hidden="true"></span> Create account
-                    </button>
+                </a>
+
+                <a href="#index/createAccount"
+                   class="btn btn-default"
+                   style="margin-left: 6px"
+                   data-ng-show="!iftttLogged"
+                   data-ng-click="deleteAccount()">
+                    <span style="color: #761c19" class="glyphicon glyphicon-trash"
+                          aria-hidden="true"></span> Delete account
                 </a>
 
                 <button type="submit"
                         class="btn btn-default"
-                        ng-if="iftttLogged"
-                        ng-click="logoutIFTTT()">Logout
+                        data-ng-if="iftttLogged"
+                        data-ng-click="logoutIFTTT()">Logout
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                 </button>
 
@@ -231,7 +236,7 @@
 <button id="qwe2">Spin = OFF</button>
 -->
 
-<span hidden ng-bind="$location.path()"></span>
+<span hidden data-ng-bind="$location.path()"></span>
 
 
 <!-- INNER PAGES BEGIN -->
@@ -282,7 +287,7 @@
 
                             <!-- Create new account link -->
                             <div class="col-md-5">
-                                <a href="#index/createAccount" ng-click="closeModal()">Create an account</a>
+                                <a href="#index/createAccount" data-ng-click="closeModal()">Create an account</a>
                             </div>
 
                         </div>
@@ -311,7 +316,7 @@
                 </div>
             </div>
             <div class="modal-body text-center">
-                <a id="google-auth-btn" type="submit" class="btn btn-default" ng-click="requestGoogleAuth()">
+                <a id="google-auth-btn" type="submit" class="btn btn-default" data-ng-click="requestGoogleAuth()">
                     Connect
                 </a>
             </div>
@@ -337,7 +342,7 @@
                 </div>
             </div>
             <div class="modal-body text-center">
-                <a id="twitter-auth-btn" type="submit" class="btn btn-default" ng-click="requestTwitterAuth()">
+                <a id="twitter-auth-btn" type="submit" class="btn btn-default" data-ng-click="requestTwitterAuth()">
                     Connect
                 </a>
             </div>
@@ -366,9 +371,9 @@
                 <div class="form-group">
                     <label for="recipedDescriptionInput">Please give a description for this recipe:</label>
                     <textarea class="form-control" rows="5" id="recipedDescriptionInput"
-                              ng-model="recipedDescriptionInput"></textarea>
+                              data-ng-model="recipedDescriptionInput"></textarea>
                     <div class="row text-center" style="padding-top: 25px;">
-                        <button type="submit" class="btn btn-primary" ng-click="saveRecipeDescription()">Submit
+                        <button type="submit" class="btn btn-primary" data-ng-click="saveRecipeDescription()">Submit
                         </button>
                     </div>
                 </div>
