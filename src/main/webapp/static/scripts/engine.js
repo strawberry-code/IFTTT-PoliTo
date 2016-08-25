@@ -5428,22 +5428,6 @@ function alertPasswordChangedSuccess() {
     });
 }
 
-function confirmDeleteAccount() {
-    return swal({
-        title: "Delete your account?",
-        text: "You will not be able to recover your account in future!",
-        type: "error",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, I changed idea",
-        closeOnConfirm: true,
-        closeOnCancel: true
-    }, function (isConfirm) {
-        return isConfirm;
-    });
-}
-
 
 
 function getRoute(ingredientCodeInput){
