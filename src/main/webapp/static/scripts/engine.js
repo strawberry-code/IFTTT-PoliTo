@@ -1086,9 +1086,9 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         data: {deleteAccount: true}
                     }).then(function success(response) {
                         //console.log(JSON.stringify(response.data));
-                        console.log(JSON.stringify(response.data.iftttLogged));
+                        console.log(JSON.stringify(response.data.disconnected));
 
-                        if(response.data.iftttLogged){
+                        if(response.data.disconnected){
                             $scope.iftttLogged = false;
                             iftttLogin = false;
                             $scope.googleLogged = false;
@@ -4870,14 +4870,18 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
 
 
         modifyVar = 1;
-        if (triggreGlobalVariable == "gmail" || triggreGlobalVariable == "calendar") {
+        if ((triggreGlobalVariable.localeCompare("gmail")==0) || (triggreGlobalVariable.localeCompare("calendar")==0))
+        {
             $scope.activeGoogleAutentication = true;
         }
-        else {
-            if (triggreGlobalVariable == "twitter") {
+        else
+        {
+            if (triggreGlobalVariable.localeCompare("twitter")==0)
+            {
                 $scope.activeTwitterAutentication = true;
             }
-            else {
+            else
+            {
                 $scope.activeWeatherAutentication = true;
 
             }
@@ -4885,11 +4889,14 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         }
 
 
-        if (actionGlobalVariable == "gmail" || actionGlobalVariable == "calendar") {
+        if ((actionGlobalVariable.localeCompare("gmail")==0)  ||  actionGlobalVariable.localeCompare("calendar")==0)
+        {
             $scope.activeGoogleAutenticationAction = true;
         }
-        else {
-            if (triggreGlobalVariable == "twitter") {
+        else
+        {
+            if (actionGlobalVariable.localeCompare("twitter")==0)
+            {
                 $scope.activeTwitterAutenticationAction = true;
             }
 

@@ -87,7 +87,7 @@
                                 ng-if="modifyButton && !importRecipe"
                             >Cancel</a>
 
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
                                 ng-if="importRecipe && !modifyButton"
                             >Cancel</a>
 
@@ -135,7 +135,6 @@
 		importFlag = vardec.importFlag;
 		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
 		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
 		if(tokens[1]!=null) {
 			trig = tokens[1].split("trigger=")[1];			
 			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);

@@ -379,4 +379,26 @@ public class DataRestController {
 //		
 		return handleDup;
 	}
+	
+	@RequestMapping(value = "deleteAccount", method = RequestMethod.POST)
+	returnClass deleteAccount(@RequestBody String data) {
+		Integer code = 0;
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user==null) {
+			code = -1;
+		}
+		else {
+			code = loginManager.deleteAccount(user);
+		}		
+	
+		returnClass res = new returnClass();
+		if(code==-1) {
+			res.setDisconnected(false);
+		}
+		else {
+			res.setDisconnected(true);
+		}	
+		return res;
+	}	
 }
