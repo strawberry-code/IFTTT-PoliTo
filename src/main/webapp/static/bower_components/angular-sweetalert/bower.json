@@ -1,0 +1,29 @@
+{
+  "name": "angular-sweetalert",
+  "version": "1.4.7",
+  "homepage": "https://github.com/leftstick/angular-sweetalert",
+  "description": "An angular directive which expose sweetalert in angular way",
+  "main": [
+    "./dist/ngSweetAlert.js",
+    "./dist/ngSweetAlert.min.js"
+  ],
+  "keywords": [
+    "angular",
+    "sweetalert"
+  ],
+  "authors": [
+    "Howard.Zuo"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">=1.4.9",
+    "sweetalert": ">=1.1.3"
+  }
+}
