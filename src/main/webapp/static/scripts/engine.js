@@ -4041,7 +4041,21 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
 
 
-                if (flag == 1) {
+                if (flag == 1)
+                {
+
+                    var m = moment(startDate);
+                   if(m.isValid());
+
+                    else
+                   {
+                       alertError ("Your Date is not right!!!");
+                       flag = 3;
+                   }
+
+                    /* Controllo data più preciso ma non si usa momentjs */
+                    /*
+
                    var monthNumber = 0;
                     var daynumber = 0;
                         if(monthVector.localeCompare("01")==0) monthNumber = 1;
@@ -4150,11 +4164,12 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                         alertFunction();
                         flag = 3;
                     }
+                    */
 
                 }
-
-                if (flag != 3) {
-                    flagTriggerDone = false;
+                if (flag != 3)
+                {
+                    //flagTriggerDone = false;
                     count = 7;
 
                     if (modifyVar == 0) {
