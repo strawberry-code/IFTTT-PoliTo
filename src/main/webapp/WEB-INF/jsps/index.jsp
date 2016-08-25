@@ -26,6 +26,7 @@
     <script src="./static/scripts/jstz.js"></script>
     <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./static/bower_components/moment/moment.js"></script>
+    <script src="./static/bower_components/angular-sweetalert/dist/ngSweetAlert.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
@@ -169,10 +170,9 @@
 
                 </div>
 
-                <button
-                        type="submit"
+                <button type="submit"
                         class="btn btn-default"
-                        data-ng-if="!iftttLogged"
+                        data-ng-show="!iftttLogged"
                         style="margin-left: 6px"
                         data-toggle="modal"
                         data-target="#loginIFTTTModal"
@@ -181,14 +181,21 @@
                           aria-hidden="true"></span> Login
                 </button>
 
-                <a href="#index/createAccount">
-                    <button type="submit"
-                            class="btn btn-default"
-                            style=" margin-left: 6px"
-                            data-ng-if="!iftttLogged">
+                <a href="#index/createAccount"
+                    class="btn btn-default"
+                    style=" margin-left: 6px"
+                    data-ng-show="!iftttLogged">
                         <span class="glyphicon glyphicon-user"
                               aria-hidden="true"></span> Create account
-                    </button>
+                </a>
+
+                <a href="#index/createAccount"
+                   class="btn btn-default"
+                   style="margin-left: 6px"
+                   data-ng-show="!iftttLogged"
+                   data-ng-click="deleteAccount()">
+                    <span style="color: #761c19" class="glyphicon glyphicon-trash"
+                          aria-hidden="true"></span> Delete account
                 </a>
 
                 <button type="submit"
