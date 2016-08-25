@@ -49,9 +49,9 @@ public class GoogleConnectController {
 	GoogleClientSecrets clientSecrets;
 	GoogleAuthorizationCodeFlow flow;
 	Credential credential;
-	
+
 	String nextPath = null;
-	Integer count;
+	Object varencr;
 	Object trigger;
 
 	@Autowired
@@ -97,37 +97,41 @@ public class GoogleConnectController {
 			// update db with the new token for the authenticated user
 			String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 			user = loginManager.findUserByUsername(username);
-			//loginManager.setCredentials(user, credential.getAccessToken(), credential.getExpirationTimeMilliseconds());
-			loginManager.setGoogleCredentials(user, credential.getRefreshToken(), credential.getExpirationTimeMilliseconds());
+			// loginManager.setCredentials(user, credential.getAccessToken(),
+			// credential.getExpirationTimeMilliseconds());
+			loginManager.setGoogleCredentials(user, credential.getRefreshToken(),
+					credential.getExpirationTimeMilliseconds());
 
 		} catch (Exception e) {
 			logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
 					+ " Redirecting to google connection status page.");
 		}
-	//	mv.setViewName("./#/createRecipe");
+		// mv.setViewName("./#/createRecipe");
 		// mv.setViewName("eventList");
-//		return mv;
-		
+		// return mv;
+
 		// validate google recipes
-		if(user != null) {
-			recipesManager.validateGoogleRecipes(user);	
-		}		
-		
+		if (user != null) {
+			recipesManager.validateGoogleRecipes(user);
+		}
+
 		String path = "";
-		if(this.trigger.toString().compareTo("")!=0) {
-			System.out.println("Trigger: "+this.trigger);
-			try {
-				path = "/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			if (this.trigger.toString().compareTo("") != 0) {
+				System.out.println("Trigger: " + this.trigger);
+
+				path = "/progetto/#" + this.nextPath + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8")
+						+ "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8");
+
+			} else {
+				path = "/progetto/#" + this.nextPath + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
 			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			path = "/progetto/#"+this.nextPath+"?count="+this.count;
-		}
-			
-//		String path = "/progetto/#"+this.nextPath+"?count="+this.count;		
+
+		// String path = "/progetto/#"+this.nextPath+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -148,8 +152,9 @@ public class GoogleConnectController {
 			// ci servira' per effettuare l'autorizzazione
 			httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 			List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR, GmailScopes.MAIL_GOOGLE_COM);
-			flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES).setApprovalPrompt("force").setAccessType("offline").build();
-		
+			flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
+					.setApprovalPrompt("force").setAccessType("offline").build();
+
 		}
 
 		// per reindirizzare il browser dell'utente ad una pagina di
@@ -157,46 +162,48 @@ public class GoogleConnectController {
 		// e in seguito veniamo reindirizzati all'url specificata all'inizio,
 		// che drovra'
 		// essere mappata con un'altra get
-		authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(redirectURI).setApprovalPrompt("force").setAccessType("offline");
+		authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(redirectURI).setApprovalPrompt("force")
+				.setAccessType("offline");
 
 		// a questo punto il codice di autorizzazione e' generato e viene
 		// ritornato
 		// dunque viene richiamata la seconda get di questo controllore
 		return authorizationUrl.build();
 	}
-	
+
 	@RequestMapping(value = "requestGoogle", method = RequestMethod.POST)
-	@ResponseBody returnClass checkGoogleConnection(@RequestBody requestClass data) {
-		
-		System.out.println(data.getUrlNext());		
-		
-		this.nextPath = data.getUrlNext(); 
-		this.count = data.getCount();
+	@ResponseBody
+	returnClass checkGoogleConnection(@RequestBody requestClass data) {
+
+		System.out.println(data.getUrlNext());
+
+		this.nextPath = data.getUrlNext();
 		try {
+			this.varencr = URLDecoder.decode(data.getVarencr().toString(), "UTF-8");
 			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		try {
-//			this.trigger = URLEncoder.encode(data.getTrigger().toString(), "UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-				
+		// try {
+		// this.trigger = URLEncoder.encode(data.getTrigger().toString(),
+		// "UTF-8");
+		// } catch (UnsupportedEncodingException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
 		String ret = null;
-		
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Boolean connected = loginManager.checkGoogleConnection(username);
-		
-		if(connected == true) {
+
+		if (connected == true) {
 			ret = "true";
-		}
-		else {
+		} else {
 			ret = "false";
 		}
-		
+
 		returnClass res = new returnClass();
 		res.setGoogleLogged(ret);
 		return res;

@@ -667,6 +667,20 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 //
 //            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
            
+            //handle global variables
+            var varencr = {
+            	"count": count,
+            	"setChooseAx": setChooseAx,
+            	"modifyVar": modifyVar,
+            	"modifyCountVar": modifyCountVar,
+            	"flagTriggerDone": flagTriggerDone,
+            	"importFlag": importFlag,
+            	"descriptionRecipeGlobal": descriptionRecipeGlobal,
+            	"idRecipe": idRecipe
+            };
+            varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
+            
+            //handle trigger
             var encrypted = "";
             console.log(modulinoj1);
             console.log("modj1 length: "+modulinoj1.length);
@@ -680,7 +694,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	var trig;
             	if(param[1]!=null) {
             		var tokens = param[1].split("&");
-            		count = tokens[0].split("=")[1];
+            		varencr = tokens[0].split("=")[1];
             		if(tokens[1]!=null) {
             			encrypted = tokens[1].split("trigger=")[1];			
 //            			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
@@ -698,7 +712,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count, "trigger": encodeURIComponent(encrypted.toString())}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "varencr": encodeURIComponent(varencr.toString()), "trigger": encodeURIComponent(encrypted.toString())}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -821,6 +835,20 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
             }
             
+            //handle global variables
+            var varencr = {
+            	"count": count,
+            	"setChooseAx": setChooseAx,
+            	"modifyVar": modifyVar,
+            	"modifyCountVar": modifyCountVar,
+            	"flagTriggerDone": flagTriggerDone,
+            	"importFlag": importFlag,
+            	"descriptionRecipeGlobal": descriptionRecipeGlobal,
+            	"idRecipe": idRecipe
+            };
+            varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
+            
+            //handle trigger
             var encrypted = "";
             console.log(modulinoj1);
             console.log("modj1 length: "+modulinoj1.length);
@@ -834,23 +862,22 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	var trig;
             	if(param[1]!=null) {
             		var tokens = param[1].split("&");
-            		count = tokens[0].split("=")[1];
+            		varencr = tokens[0].split("=")[1];
             		if(tokens[1]!=null) {
             			encrypted = tokens[1].split("trigger=")[1];			
- //           			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
- //           			modulinoj1 = JSON.parse(dec);
- //           			console.log(modulinoj1);
- //           			flagTriggerDone="1";
+//            			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+//            			modulinoj1 = JSON.parse(dec);
+//            			console.log(modulinoj1);
+//            			flagTriggerDone="1";
             		}
             	}
             }
-//            alert(encrypted);
             
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "count": count, "trigger": encodeURIComponent(encrypted.toString())}),
+                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "varencr": encodeURIComponent(varencr.toString()), "trigger": encodeURIComponent(encrypted.toString())}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
