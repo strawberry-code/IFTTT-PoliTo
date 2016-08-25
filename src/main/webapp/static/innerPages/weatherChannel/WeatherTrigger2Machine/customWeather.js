@@ -417,7 +417,7 @@ $(function(){
                     {
                         "ingredientCode" : 15,
                         "triggerType" : "weather",
-                        "type" : "2",
+                        "type" : "3",
                          "location":   idCity_customWeatherActionControllerTrigger2,
                         "tempo" : pweather_customWeatherActionControllerTrigger2,
                         "period" : pperiod_customWeatherActionControllerTrigger2,
