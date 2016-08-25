@@ -661,11 +661,39 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 //            };
 //
 //            if (consoleLogs) console.log(JSON.stringify(googleCredentials));
+           
+            var encrypted = "";
+            console.log(modulinoj1);
+            console.log("modj1 length: "+modulinoj1.length);
+            if(modulinoj1.length === undefined) {
+            	console.log("modulinoj1 non vuoto");
+            	encrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            }
+            else {
+            	var uri = decodeURIComponent(window.location.hash);
+            	var param = (uri).split("?");
+            	var trig;
+            	if(param[1]!=null) {
+            		var tokens = param[1].split("&");
+            		count = tokens[0].split("=")[1];
+            		if(tokens[1]!=null) {
+            			encrypted = tokens[1].split("trigger=")[1];			
+//            			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+//            			modulinoj1 = JSON.parse(dec);
+//            			console.log(modulinoj1);
+//            			flagTriggerDone="1";
+            		}
+            	}
+            }
+//            console.log("encrypted: "+encrypted.toString());
+//            console.log(CryptoJS.AES.decrypt(encrypted.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+//            alert(encrypted);
+            
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "count": count, "trigger": encodeURIComponent(encrypted.toString())}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -781,12 +809,37 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 $('#loginIFTTTModal').modal('show');
 
             }
-
+            
+            var encrypted = "";
+            console.log(modulinoj1);
+            console.log("modj1 length: "+modulinoj1.length);
+            if(modulinoj1.length === undefined) {
+            	console.log("modulinoj1 non vuoto");
+            	encrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            }
+            else {
+            	var uri = decodeURIComponent(window.location.hash);
+            	var param = (uri).split("?");
+            	var trig;
+            	if(param[1]!=null) {
+            		var tokens = param[1].split("&");
+            		count = tokens[0].split("=")[1];
+            		if(tokens[1]!=null) {
+            			encrypted = tokens[1].split("trigger=")[1];			
+ //           			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+ //           			modulinoj1 = JSON.parse(dec);
+ //           			console.log(modulinoj1);
+ //           			flagTriggerDone="1";
+            		}
+            	}
+            }
+//            alert(encrypted);
+            
             setSpinner(true);
             $http({
                 url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "count": count}),
+                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "count": count, "trigger": encodeURIComponent(encrypted.toString())}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -3748,7 +3801,6 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
 iftttApp.controller('action1GcalendarController', ['$scope',
     function ($scope) {
 
-
         $scope.gcalendarinput = [];
         //gcalendarinput,  yearVector, monthVector, dayVector
         /**
@@ -5233,6 +5285,7 @@ function successAlert(redirect) {
         //confirmButtonText: "Yes, delete it!",
         //closeOnConfirm: true
     }, function () {
+    	modulinoj1 = [];
         window.location.replace(redirect);
     });
 }
