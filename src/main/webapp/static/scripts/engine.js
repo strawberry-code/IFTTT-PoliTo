@@ -153,6 +153,10 @@ var importFlag = false;
 var triggerImportRoute = "";
 var actionImportRoute = "";
 
+/* Variabile per far tornare indietro createRecipeAction sul giusto trigger*/
+var  backPageVariabile = "";
+
+
 
 
 iftttApp.config(['$routeProvider', function ($routeProvider) {
@@ -323,11 +327,13 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.when('/allActions', {
-        templateUrl: './static/innerPages/actions.html'
+        templateUrl: './static/innerPages/actions.html',
+        controller: 'ifCreatorActionController'
     });
 
     $routeProvider.when('/createRecipeAction', {
-        templateUrl: './static/innerPages/createRecipeAction.html'
+        templateUrl: './static/innerPages/createRecipeAction.html',
+        controller: 'createRecipeActionController'
     });
 
 
@@ -458,7 +464,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     	loginInactiveUser();
                         break;
                     default:
-                        console.log("url loading failure");
+                        //console.log("url loading failure");
                 }
             }
             return angular.isObject(result) ? angular.toJson(result) : result;
@@ -520,13 +526,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             //if(consoleLogs) console.log($scope.iftttLogged);
         }, function error() {
             $('#loginIFTTTModal').modal('hide');
-            $("#notificationsWrapper").notify(
-                "Server error, retry",
-                {
-                    className: 'error',
-                    position: 'bottom right'
-                }
-            );
+            alertError("Some server error occurred. (code 987)");
+
             $scope.iftttLogged = false;
             iftttLogin = false;
             if (consoleLogs) console.log($scope.iftttLogged);
@@ -621,13 +622,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 $scope.twitterLogged = false;
                 twitterLogin = false;
                 setSpinner(false);
-                $("#notificationsWrapper").notify(
-                    "Logged out from IFTTT Polito",
-                    {
-                        className: 'warning',
-                        position: 'bottom right'
-                    }
-                );
+                alertSuccess("You are disconnected from IFTTT Polito.\n Hope to see you soon, goodbye!");
                 window.location.replace('#');
                 /*      } else {
                  $('#serverSpinner').spin(false);
@@ -644,13 +639,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginIFTTTModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Disconnect to IFTTT Polito failed",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some problem occurred. (code 757)");
                 if (consoleLogs) console.log($scope.iftttLogged);
             });
 
@@ -720,13 +709,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     $scope.googleLogged = true;
                     googleLogin = true;
                     $('#loginGoogleModal').modal('hide');
-                    $("#notificationsWrapper").notify(
-                        "Logged with Google",
-                        {
-                            className: 'success',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("Now you are connected with Google!");
+
                     //FXR
                     var url = "#" + nextPath;
                     if (modifyVar == 1) {
@@ -745,13 +729,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginGoogleModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Server error, retry",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some server problem occurred. (code 889)")
+
                 $scope.googleLogged = false;
                 googleLogin = false;
                 if (consoleLogs) console.log($scope.googleLogged);
@@ -780,14 +759,18 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.googleLogged = false;
                     googleLogin = false;
+                    alertSuccess("You are disconnected from Google now");
+                    /*
                     $("#notificationsWrapper").notify(
                         "Logged out from Google",
                         {
                             className: 'warning',
                             position: 'bottom right'
                         }
-                    );
+                    );*/
                 } else {
+                    alertError("An unknown problem occurred. (code: 192)");
+                    /*
                     $("#notificationsWrapper").notify(
                         "Some problem occurred, please retry",
                         {
@@ -795,19 +778,23 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                             position: 'bottom right'
                         }
                     );
+                    */
                 }
 
                 if (consoleLogs) console.log($scope.googleLogged);
             }, function error() {
                 setSpinner(false);
                 $('#loginGoogleModal').modal('hide');
-                $("#notificationsWrapper").notify(
+                alertError("Can't disccent from Google, an unknown problem occurred. (code: 192)");
+
+                /*$("#notificationsWrapper").notify(
                     "Disconnect to Google failed",
                     {
                         className: 'error',
                         position: 'bottom right'
                     }
-                );
+                );*/
+
                 if (consoleLogs) console.log($scope.googleLogged);
             });
 
@@ -868,13 +855,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 	$scope.twitterLogged = true;
                 	twitterLogin = true;
                 	$('#loginTwitterModal').modal('hide');
-                    $("#notificationsWrapper").notify(
-                        "Logged with Google",
-                        {
-                            className: 'success',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("Logged with Google.")
+
                     //FXR
                     var url = "#" + nextPath;
                     if (modifyVar == 1) {
@@ -893,13 +875,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             }, function error() {
                 setSpinner(false);
                 $('#loginTwitterModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Server error, retry",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Some problems with server occurred. (code: 233)");
                 $scope.twitterLogged = false;
                 twitterLogin = false;
                 if (consoleLogs) console.log($scope.twitterLogged);
@@ -933,34 +909,18 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
-                    $("#notificationsWrapper").notify(
-                        "Logged out from Twitter",
-                        {
-                            className: 'warning',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertSuccess("You are connected to Twitter!");
+
                 } else {
-                    $("#notificationsWrapper").notify(
-                        "Some problem occurred, please retry",
-                        {
-                            className: 'error',
-                            position: 'bottom right'
-                        }
-                    );
+                    alertError("Some problem occurred, please retry");
                 }
 
                 if (consoleLogs) console.log($scope.twitterLogged);
             }, function error() {
                 setSpinner(false);
                 $('#loginTwitterModal').modal('hide');
-                $("#notificationsWrapper").notify(
-                    "Disconnect to Twitter failed",
-                    {
-                        className: 'error',
-                        position: 'bottom right'
-                    }
-                );
+                alertError("Failed to disconnet from Twitter. (code 234)");
+
                 if (consoleLogs) console.log($scope.twitterLogged);
             });
 
@@ -1237,6 +1197,11 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
     }]);
 
+
+
+
+
+
 iftttApp.controller('SuccessControllerRegistration', ['$scope', '$routeParams',
     function () {
 
@@ -1294,6 +1259,20 @@ iftttApp.controller('createRecipeController', ['$scope', '$routeParams',
         $scope.loadHome = function () {
             if (consoleLogs) console.log("createRecipeController: loaded");
         }
+
+    }]);
+
+
+iftttApp.controller('ifCreatorActionController', ['$scope', '$routeParams', '$window',
+    function ($scope, $rootscope, $window) {
+
+        $scope.NGgoogleLogged = false;
+        $scope.modifyButton = false;
+
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
 
     }]);
 
@@ -1931,6 +1910,20 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
     }]);
 
 
+iftttApp.controller('createRecipeActionController', ['$scope', '$routeParams', '$window', '$http',
+    function ($scope, $routeParams, $window, $http)
+    {
+        $scope.backPersonalTrigger  = function ()
+        {
+
+            window.location.replace(backPageVariabile);
+
+        }
+
+
+    }]);
+
+
 iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$window', '$http',
     function ($scope, $routeParams, $window, $http) {
 
@@ -2001,13 +1994,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
          //if(consoleLogs) console.log($scope.iftttLogged);
          }, function error() {
          $('#loginIFTTTModal').modal('hide');
-         $("#notificationsWrapper").notify(
-         "Server error, retry",
-         {
-         className: 'error',
-         position: 'bottom right'
-         }
-         );
+             alertError("Some server error occurred. (code 567)");
+
          $scope.iftttLogged = false;
          iftttLogin = false;
          if (consoleLogs) console.log($scope.iftttLogged);
@@ -2792,6 +2780,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
 iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
     function ($scope) {
 
+        backPageVariabile="#gMailTrigger";
         //Bug stringa null
 
         $scope.flagEmail = "email is empty";
@@ -2811,7 +2800,6 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
             sender_GmailTriggerController = "";
             subject_GmailTriggerController = "";
 
-            if ($scope.checkedEmail == true || $scope.checkedSubject == true) {
                 //Firt variable
                 if ($scope.checkedEmail == true) {
                     if (angular.isDefined($scope.gmailinput)) {
@@ -2889,12 +2877,7 @@ iftttApp.controller('GmailTriggerController', ['$scope', '$rootScope', '$routePa
                         }
                     }
                 }
-            }
-            else {
-                //url = "#gMailTrigger";
-                //window.location.replace(url);
 
-            }
             //Test done o.k.
             /*
              var loginDataSend =
@@ -3175,6 +3158,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
             value3: 0
         };
 
+        backPageVariabile="#WeatherTrigger1";
 
         $scope.errorButton = 'cia';
         $scope.checkadvisetimevar = 'NO';
@@ -3214,6 +3198,9 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
 
 iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
     function ($scope) {
+
+        backPageVariabile="#WeatherTrigger2";
+
         $scope.trigger1input = {
             value1: 0,
             value2: 0,
@@ -3358,6 +3345,9 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
 
 iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
     function ($scope) {
+
+
+        backPageVariabile="#WeatherTrigger3";
         $scope.trigger1input = {
             value3: 0
         };
@@ -3429,6 +3419,8 @@ iftttApp.controller('customWeatherActionControllerTrigger3', ['$scope',
 
 iftttApp.controller('customWeatherActionControllerTrigger4', ['$scope',
     function ($scope) {
+
+        backPageVariabile="#WeatherTrigger4";
         $scope.checkmodelcheckthmax = false;
         $scope.checkmodelcheckthmin = false;
 
@@ -3503,6 +3495,8 @@ iftttApp.controller('loginPageController', ['$scope',
 //Update
 iftttApp.controller('Trigger1GcalendarController', ['$scope',
     function ($scope) {
+
+        backPageVariabile = "#Trigger1Gcalendar";
 
         $scope.trigger1GcalendarVar = [];
         /**
@@ -3652,6 +3646,7 @@ iftttApp.controller('Trigger1GcalendarController', ['$scope',
 iftttApp.controller('Trigger2GcalendarController', ['$scope',
     function ($scope) {
 
+        backPageVariabile = "#Trigger2Gcalendar";
         $scope.trigger2GcalendarVar = [];
         /**
          * Description
@@ -3751,7 +3746,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
                         if(importFlag==true)
                         {
                             url = "#" + actionImportRoute;
-                            alert("1x1" + url);
+                            //alert("1x1" + url);
                             window.location.replace(url);
                         }
                         else
@@ -4268,7 +4263,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '30', hour: '30'},
                 {id: '31', hour: '31'}
             ],
-            selectedOption: {id: '00', hour: '00'}
+            selectedOption: {id: '00', hour: '00'},
+            selectedOptionDuration: {id: '00', hour: '00'}
 
         };
 
@@ -4337,7 +4333,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '58', minute: '58'},
                 {id: '59', minute: '59'}
             ],
-            selectedOption: {id: '00', minute: '00'}
+            selectedOption: {id: '00', minute: '00'},
+            selectedOptionDuration: {id: '00', minute: '00'}
         };
 
 
@@ -4405,6 +4402,8 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
 iftttApp.controller('trigger1TwitterController', ['$scope',
     function ($scope) {
+
+        backPageVariabile=  "#Trigger1Twitter";
 
         $scope.trigger1TwitterInput = [];
         $scope.iftttLoginP = iftttLogin;
@@ -4525,6 +4524,8 @@ iftttApp.controller('trigger1TwitterController', ['$scope',
 iftttApp.controller('trigger2TwitterController', ['$scope',
     function ($scope) {
         $scope.trigger2TwitterInput = [];
+
+        backPageVariabile=  "#Trigger2Twitter";
 
         /**
          * Description
@@ -4980,6 +4981,8 @@ iftttApp.filter('reformat', function () {
                 return 'Name of the city';
             case 'ingredientCode':
                 return 'Ingredient description';
+            case 'startDate':
+                return 'Start date';
         }
 
 
@@ -4990,7 +4993,7 @@ iftttApp.filter('reformat', function () {
 iftttApp.filter('skeumorphize', function(){
     return function (input, watchKey) {
 
-        console.log('input: '+input+"\nwatchKey: "+watchKey);
+        //console.log('input: '+input+"\nwatchKey: "+watchKey);
 
         /*
 
@@ -5033,6 +5036,9 @@ iftttApp.filter('skeumorphize', function(){
                 return hours + " h and " + mins + " m";
             }
 
+            case 'startDate': {
+                return moment(input).format("dddd, MMMM Do YYYY");
+            }
             case 'sender':
             {
                 switch (input) {

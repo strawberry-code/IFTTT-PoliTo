@@ -5,7 +5,7 @@
     <title>Title</title>
 
 </head>
-<body>
+<body ng-controllger="createRecipeActionController">
 
 <!-- Page Content -->
 <div class="container">
@@ -26,9 +26,28 @@
                 <a class="btn_next4" href="#createDO"><span class="glyphicon glyphicon-record" aria-hidden="true"></span> Action</a>
             </h3>
             <p>The actions are the second part of a recipe.</p>
+
+
+            <!--
+            <a  type="submit" class="btn btn-danger pull-left"   href="#allTriggers"
+
+            >Back</a>
+
+            -->
+
+            <botton  type="submit" class="btn btn-danger pull-left"  ng-click="backPersonalTrigger()"
+
+            >Back</botton>
+
+
+
+            <a type="submit"  class="btn btn-primary pull-right"  href="#createDO"
+            >Next</a>
+
         </div>
     </div>
     <!-- /.row -->
+
 
 </div>
 <br>

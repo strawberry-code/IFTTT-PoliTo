@@ -102,7 +102,7 @@
                     >Cancel</a>
 
                     <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
-                       ng-if="!importRecipe && !modifyButton"
+                       ng-if="importRecipe && !modifyButton"
                     >Cancel</a>
 
 
@@ -206,7 +206,7 @@ Example code
                     else {
                         url = "#home";
                         window.location.replace(url);
-                        alert("Non sei loggato a google");
+                        alertWarning("Non sei loggato a Google");
                     }
                 }
             }
@@ -220,7 +220,7 @@ Example code
                 else {
                     if (googleLogin == "1") {
                         if (flagTriggerDone == "0") {
-                            alert("Warning you must compile before the trigger form");
+                            alertWarning("You have to compile a trigger ingredient!");
                             url = "#allTriggers";
                             window.location.replace(url);
                         }

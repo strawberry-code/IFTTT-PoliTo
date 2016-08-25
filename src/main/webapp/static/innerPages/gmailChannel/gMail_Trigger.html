@@ -16,26 +16,26 @@
         <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> GMail trigger
             <small>Step 3/6</small>
         </h1>
-        <form id="gmail-form" role="form" name="form" ng-controller="GmailTriggerController" novalidate>
+        <form id="gmail-form" role="form" name="form" data-ng-controller="GmailTriggerController" novalidate>
 
             <div class="form-group">
                 <label>
                     <input
                             type="checkbox"
-                            ng-model="checkedEmail"
+                            data-ng-model="checkedEmail"
 
                     >
                     <img src="/progetto/static/innerPages/gmailChannel/user-question-mark.png" height="30" width="30"/>
                     Sender
                 </label><br/>
-                <div ng-if="checkedEmail" class="animate-if">
+                <div data-ng-show="checkedEmail" class="animate-if">
                     <input class="form-control"
-                           type="title" ng-disabled="!checkedEmail"
+                           type="title" data-ng-disabled="!checkedEmail"
                            id="email" placeholder="Insert here the email of the sender that you want to watch"
-                           ng-model="gmailinput.email"
+                           data-ng-model="gmailinput.email"
                            required="" name="uEmail"
                            maxlength="100"
-                           ng-trim="false"
+                           data-ng-trim="false"
                     >
                     <span style="color: #0f0f0f">{{"email is: "+ flagEmail}}</span>
                 </div>
@@ -48,19 +48,19 @@
                 <label>
                     <input
                             type="checkbox"
-                            ng-model="checkedSubject"
+                            data-ng-model="checkedSubject"
 
                     >
-                    <!--  ng-change="checkedSubjectfunc(checkedSubjectvar)" -->
+                    <!--  data-ng-change="checkedSubjectfunc(checkedSubjectvar)" -->
                     <img src="/progetto/static/innerPages/gmailChannel/email-text-search.png" height="30" width="30"/>
                     Email subject:
                 </label><br/>
-                <div ng-if="checkedSubject" class="animate-if">
-                            <textarea ng-if="checkedSubject" class="form-control  animate-if" rows="3"
+                <div data-ng-show="checkedSubject" class="animate-if">
+                            <textarea data-ng-show="checkedSubject" class="form-control  animate-if" rows="3"
                                       id="subjectReceive" placeholder="Insert here some text to filter the emails"
-                                      ng-model="gmailinput.subjectReceive" name="subjectReceive"
-                                      ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
+                                      data-ng-model="gmailinput.subjectReceive" name="subjectReceive"
+                                      data-ng-disabled="!checkedSubject"
+                                      maxlength="500" data-ng-trim="false"
                             ></textarea>
 
                     <span>{{500 - gmailinput.subjectReceive.length}} left </span>
@@ -72,34 +72,30 @@
 
             <div>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                   ng-if="!modifyButton && importFlag"
+                   data-ng-show="!modifyButton && importFlag"
                 >Cancel</a>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                   ng-if="modifyButton && importFlag"
+                   data-ng-show="modifyButton && importFlag"
                 >Cancel</a>
 
-                <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                   ng-if="!importFlag"
+                <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+                   data-ng-show="!importFlag"
                 >Cancel</a>
 
 
 
 
-                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                   ng-if="!modifyButton"
-                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Next</a>
-                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                   ng-if="modifyButton"
-                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Submit</a>
+                <a type="submit"
+                   data-ng-show="!modifyButton"
+                   class="btn btn-primary pull-right btn_next3  animate-if" data-ng-click="triggerGmail()">Next</a>
+                <a type="submit"
+                   data-ng-show="modifyButton"
+                   class="btn btn-primary pull-right btn_next3  animate-if" data-ng-click="triggerGmail()">Submit</a>
 
 
             </div>
             <div class="col-md-row" style="padding-top: 7%">
                 <hr>
-                <label style="color: #cd0a0a" ng-if="!checkedSubject && !checkedEmail" class="animate-if">
-                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice
-                    to use this trigger
-                </label>
             </div>
 
         </form>
@@ -157,7 +153,7 @@
                     else {
                         url = "#home";
                         window.location.replace(url);
-                        alert("Non sei loggato a google");
+                        alertWarning("Non sei loggato a google");
                     }
                 }
             }
@@ -195,6 +191,7 @@
             }
         }
     }
+    
 </script>
 
 

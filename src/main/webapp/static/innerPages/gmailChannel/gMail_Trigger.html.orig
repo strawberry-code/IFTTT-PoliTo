@@ -111,17 +111,17 @@
 
 <script>
 
-    if (importFlag == true) {
-        if (iftttLogin == false) {
-
 <<<<<<< HEAD
 =======
-<script>
+	var param = (window.location.hash).split("?");
+	if(param[1]!=null)
+		count = param[1].split("=")[1];
+>>>>>>> server
+
     if(importFlag==true)
     {
         if (iftttLogin == false)
         {
->>>>>>> origin/client
             url = "#home";
             window.location.replace(url);
         }
@@ -198,6 +198,7 @@
             }
         }
     }
+    
 </script>
 
 
