@@ -791,7 +791,15 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
                     alertSuccess("You are disconnected from Google now");
 
-                    setTimeout(function(){ $window.location.reload(); }, 1500);
+                    // Se mi trovo nella pagina '/myRecipes' faccio il reload
+                    if($location.path().toString().localeCompare('/myRecipes')==0){
+                        setTimeout(function(){ $window.location.reload(); }, 1500);
+                    }
+
+                    if($location.path().toString().localeCompare('/index/myRecipes')==0){
+                        setTimeout(function(){ $window.location.reload(); }, 1500);
+                    }
+
 
                     /*
                     $("#notificationsWrapper").notify(
@@ -969,7 +977,12 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     $scope.twitterLogged = false;
                     twitterLogin = false;
                     alertSuccess("You are disconnected from Twitter!");
-                    setTimeout(function(){ $window.location.reload(); }, 1500);
+                    if($location.path().toString().localeCompare('/myRecipes')==0){
+                        setTimeout(function(){ $window.location.reload(); }, 1500);
+                    }
+                    if($location.path().toString().localeCompare('/index/myRecipes')==0){
+                        setTimeout(function(){ $window.location.reload(); }, 1500);
+                    }
 
                 } else {
                     alertError("Some problem occurred, please retry");
@@ -995,16 +1008,17 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
         $scope.routeListener = function (nextRoute) {
             //cc>
             //alert(nextRoute + " X");
-            if(nextRoute.localeCompare("0")==0)
+            if(nextRoute==0)
             {
                 nextPath = ulrTriggreGlobalVariable;
               //  alert(nextPath);
             }
             else
             {
-                if(nextRoute.localeCompare("1")==0)
+                if(nextRoute==1)
                 {
                     nextPath = urlActionGlobalVariable;
+                    
                 }
             else {
                     if (nextRoute.localeCompare('currentUrl') == 0) {
@@ -4969,12 +4983,26 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
          * @return 
          */
         $scope.changePage = function (chosePath) {
-            if (chosePath == 0)
+            if (chosePath == 1)
+            {
                 rootingAutenticationTriggerAction = ulrTriggreGlobalVariable;
-            else
+                $('#loginGoogleModal').modal('show');
+            }
+            else {
                 rootingAutenticationTriggerAction = urlActionGlobalVariable;
+                $('#loginTwitterModal').modal('show');
+            }
 
-            $('#loginGoogleModal').modal('show');
+
+                /*
+
+                 var googleLogin = false;   //-> $scope.googleLogged
+                 var twitterLogin = false; //-> $scope.twitterLogged
+
+                 */
+
+
+            //$('#loginGoogleModal').modal('show');
         };
 
 
