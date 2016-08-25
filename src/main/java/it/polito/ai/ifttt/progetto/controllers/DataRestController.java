@@ -151,6 +151,7 @@ public class DataRestController {
 			ricettaJson.setAction(action);
 
 			ricettaJson.setPublish(r.getPublish());
+			ricettaJson.setValid(r.getValid());
 
 			list.add(ricettaJson);
 		}
