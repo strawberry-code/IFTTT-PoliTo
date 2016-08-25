@@ -3,7 +3,7 @@
  */
 
 
-var iftttApp = angular.module('iftttApp', ['ngRoute']);
+var iftttApp = angular.module('iftttApp', ['ngRoute', 'hSweetAlert']);
 //Secure controll
 var triggerChose = 0;
 var actionChose = 0;
@@ -373,8 +373,8 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope',
-    function ($scope, $location, $routeParams, $window, $http, $rootScope) {
+iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope', 'sweet',
+    function ($scope, $location, $routeParams, $window, $http, $rootScope, sweet) {
 
         importFlag = false;
 
@@ -964,148 +964,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
          */
         $scope.loadRecipesAndSeeThem = function () {
 
-            //var luna = sendDataToServer;
-            //$scope.userRecipes.push(luna);
-            //alert("wwww");
-
-
-            /*
-             $http({
-             method: 'GET',
-             url: 'http://localhost:3000/userRecipes',
-             data: JSON.stringify({value:"nothing"}),
-             dataType: "application/json;charset=UTF-8"
-             }).then(function success(response) {
-             // Success code here
-             if(consoleLogs) console.log(JSON.stringify(response));
-             response.data.forEach(function (x) {
-             if(consoleLogs) console.log(JSON.stringify(x));
-             $scope.userRecipes.push(x);
-             });
-
-
-             }, function error(response) {
-             // Error code here
-             alert("error");
-             });
-             */
-
-
-            //Get the recipes and print them
-
-
-            /*
-             $http({
-             method: 'GET',
-             url: 'http://localhost:3000/userRecipes'
-             }).then(
-             function success(response)
-             {
-             // Success code here
-             $scope.userRecipes = [];
-             if(consoleLogs) console.log(JSON.stringify(response));
-             $scope.userRecipes = [];
-             //alert(JSON.stringify(response));
-
-
-             var i = 0;
-             response.data.forEach(function (x)
-             {
-
-             //if(consoleLogs) console.log(JSON.stringify(x));
-             //if(consoleLogs) console.log("????"+JSON.stringify($scope.userRecipes));
-             $scope.userRecipes.push(x);
-             //if(consoleLogs) console.log("after"+JSON.stringify($scope.userRecipes));
-             //alert("WTF");
-             //Per ottenere la descrizione:
-             alert("-->" + JSON.stringify($scope.userRecipes));
-             //trigger[triggerType]
-             alert("-->" + JSON.stringify($scope.userRecipes[i]["trigger[triggerType]"]));
-
-             i++;
-             });
-
-
-             }, function error(response)
-             {
-             // Error code here
-             alert("error");
-             });
-             */
 
             url = "#/index/myRecipes";
             window.location.replace(url);
 
-
-            //Get from server the informations in order to print.
-
-            /*
-             $http
-             (
-             {
-             method: 'GET',
-             url: 'http://localhost:3000/userRecipes'
-             }
-             )
-             .then
-             (
-             function success(response)
-             {
-             alert("o.k. :)");
-             $scope.userRecipes=[];
-             // Success code here
-             //For debug
-             //if(consoleLogs) console.log(JSON.stringify(response));
-             //alert(JSON.stringify(response));
-
-             var i = 0;
-             var demp = [];
-             response.data.forEach
-             (
-             function (x)
-             {
-             //if(consoleLogs) console.log(JSON.stringify(x));
-             //if(consoleLogs) console.log("????"+JSON.stringify($scope.userRecipes));
-
-             //$scope.userRecipes.push(x);
-
-
-             demp.push(x);
-             //alert("--> " + JSON.stringify(userRecipes[i]["trigger[triggerType]"]));
-             var d1 =
-             {
-             "triggerType" :  demp[i]["trigger[triggerType]"],
-             "desc" : demp[i].desc
-             };
-             $scope.userRecipes.push(d1);
-             //alert( $scope.userRecipes[0].triggerType);
-
-
-             //if(consoleLogs) console.log("after"+JSON.stringify($scope.userRecipes));
-             //alert("WTF");
-             //Per ottenere la descrizione:
-             //alert("-->" + JSON.stringify($scope.userRecipes));
-             //trigger[triggerType]
-             //alert("-->" + JSON.stringify($scope.userRecipes[i]["trigger[triggerType]"]));
-             i++;
-             }
-             );
-             //Cambia pagina
-             url = "#/index/myRecipes";
-             window.location.replace(url);
-
-             },
-             function error(response)
-             {
-             // Error code here
-             alert("error");
-             }
-             );
-
-             //alert("---" + $scope.userRecipes[0].triggerType);
-
-
-             */
 
         };
 
@@ -1149,57 +1011,67 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 sendingToServerAll();
         };
 
-        // $('#recipedDescriptionModal').modal('hide');
 
-
-        /*
-
-         if(consoleLogs) console.log("inserted the following description: "+$scope.recipedDescriptionInput);
-         // Salvare la descrizione nella varaibile globale e nella ricetta in questione
-         // Invio della descrizione al server con una UPDATE
-         $http({
-         method: 'UPDATE',
-         url: '/Recipes',
-         data: JSON.stringify({"desc":$scope.recipedDescriptionInput}),
-         dataType: "application/json"
-         }).then(function success(response) {
-         // Success code here
-         alert(JSON.stringify(response));
-         response.data.forEach(function (x) {
-         if(consoleLogs) console.log(JSON.stringify(x));
-         });
-
-
-         }, function error(response) {
-         // Error code here
-         alert("error to update description");
-         });
-         $('#recipedDescriptionModal').modal('hide');
-         };*/
-
-        /*
-         $scope.removeRecipe = function(index){
-         if(consoleLogs) console.log("REMOVING: "+index);
-         alert(JSON.stringify("id",$scope.userRecipes[index].id));
-
-
-         $http.delete("http://localhost:3000/userRecipes", JSON.stringify("id",$scope.userRecipes[index].id))
-         .then(function success(response){
-         $scope.userRecipes.splice(index, 1);
-         if(consoleLogs) console.log("recipe deleted successfully from the server and local machine");
-         },
-         function failure(response){
-         if(consoleLogs) console.log("some problem occurred, recipes was not deleted");
-         }
-         );
-
-         // MANCA DA FARE LA DELETE ALLA SERVLET
-         };
-         */
 
         $scope.closeModal = function () {
             $('#loginIFTTTModal').modal('hide');
-        }
+        };
+
+
+        $scope.deleteAccount = function() {
+
+
+            sweet.show({
+                title: 'Confirm',
+                text: 'Delete your account?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: false
+            }, function() {
+                sweet.show('Deleted!', 'The file has been deleted.', 'success');
+
+
+                    setSpinner(true);
+                    $http({
+                        method: 'POST',
+                        url: 'http://localhost:8080/progetto/api/prova',
+                        contentType: "application/json",
+                        data: {deleteAccount: true}
+                    }).then(function success(response) {
+                        //console.log(JSON.stringify(response.data));
+                        console.log(JSON.stringify(response.data.iftttLogged));
+
+                        if(response.data.iftttLogged){
+                            $scope.iftttLogged = false;
+                            iftttLogin = false;
+                            $scope.googleLogged = false;
+                            googleLogin = false;
+                            $scope.twitterLogged = false;
+                            twitterLogin = false;
+                            setSpinner(false);
+                            console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
+                            sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
+                            window.location.replace('#');
+                        } else {
+                            setSpinner(false);
+                            console.log("Due to server problems your account can't be delete now.\n Please retry.");
+                            sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
+                        }
+                        //    if(response.data.disconnected.localeCompare("true")==0){
+
+
+                    }, function error() {
+                        setSpinner(false);
+                        alertError("Some problem occurred. (code 751)");
+                    });
+
+
+
+
+            });
+        };
 
 
     }]);
@@ -5556,6 +5428,23 @@ function alertPasswordChangedSuccess() {
     });
 }
 
+function confirmDeleteAccount() {
+    return swal({
+        title: "Delete your account?",
+        text: "You will not be able to recover your account in future!",
+        type: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, I changed idea",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }, function (isConfirm) {
+        return isConfirm;
+    });
+}
+
+
 
 function getRoute(ingredientCodeInput){
     switch (ingredientCodeInput) {
@@ -5587,3 +5476,5 @@ function getRoute(ingredientCodeInput){
             return '/Action2Twitter';
     }
 }
+
+
