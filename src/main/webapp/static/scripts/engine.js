@@ -759,7 +759,13 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.googleLogged = false;
                     googleLogin = false;
+
+
+
                     alertSuccess("You are disconnected from Google now");
+
+                    setTimeout(function(){ $window.location.reload(); }, 2300);
+
                     /*
                     $("#notificationsWrapper").notify(
                         "Logged out from Google",
@@ -1373,16 +1379,10 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                  * Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
                  */
 
-                $http
-                (
-                    {
+                $http({
                         method: 'GET',
                         url: 'http://localhost:8080/progetto/api/userRecipes'
-                    }
-                )
-                    .then
-                    (
-                        function success(response) {
+                    }).then(function success(response) {
                             if (response == null) {
                                 //alertVariable = "Error: there is a error!!!";
                                 //alertFunction();
@@ -1408,8 +1408,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             //alertFunction();
                             alertError("An unknown error occurred. (code: 136");
 
-                        }
-                    );
+                        });
             }
 
 
