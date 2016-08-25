@@ -1,5 +1,8 @@
 package it.polito.ai.ifttt.progetto.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -110,14 +113,21 @@ public class GoogleConnectController {
 			recipesManager.validateGoogleRecipes(user);	
 		}		
 		
-//		String path = "";
-//		if(this.trigger.toString().compareTo("")!=0) {
-//			System.out.println("Trigger: "+this.trigger);
-//			path = "/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+this.trigger;
-//		}
-//		else {
-			String path = "/progetto/#"+this.nextPath+"?count="+this.count;
-//		}
+		String path = "";
+		if(this.trigger.toString().compareTo("")!=0) {
+			System.out.println("Trigger: "+this.trigger);
+			try {
+				path = "/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			path = "/progetto/#"+this.nextPath+"?count="+this.count;
+		}
+			
+//		String path = "/progetto/#"+this.nextPath+"?count="+this.count;		
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -162,7 +172,18 @@ public class GoogleConnectController {
 		
 		this.nextPath = data.getUrlNext(); 
 		this.count = data.getCount();
-//		this.trigger = data.getTrigger();
+		try {
+			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		try {
+//			this.trigger = URLEncoder.encode(data.getTrigger().toString(), "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 				
 		String ret = null;
 		
