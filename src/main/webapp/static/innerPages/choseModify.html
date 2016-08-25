@@ -174,13 +174,13 @@
 		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
 		idRecipe = vardec.idRecipe;
 		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null) {
+		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").localeCompare("")!=0) {
 			trig = tokens[1].split("trigger=")[1];			
 			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
 			modulinoj1 = JSON.parse(dec);
 			console.log(modulinoj1)
 		}
-		if(tokens[2]!=null) {
+		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").localeCompare("")!=0) {
 			act = tokens[2].split("action=")[1];  
 			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
 			modulinoj2 = JSON.parse(dec1);
