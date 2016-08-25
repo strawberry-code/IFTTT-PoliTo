@@ -3720,10 +3720,6 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
              $scope.sedingServer(loginDataSend);
              */
 
-            $scope.modifyButton = false;
-            if (modifyVar == 1) {
-                $scope.modifyButton = true;
-            }
 
 
         };
@@ -3759,11 +3755,24 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
         };
 
 
+        $scope.modifyButton = false;
+        if (modifyVar == 1) {
+
+
+            $scope.modifyButton = true;
+        }
+        else
+        {
+            $scope.modifyButton = false;
+        }
 
         $scope.importRecipe = false;
-        if (importFlag == 1) {
+        if (importFlag == 1)
+        {
             $scope.importRecipe = true;
         }
+
+        
 
 
 
