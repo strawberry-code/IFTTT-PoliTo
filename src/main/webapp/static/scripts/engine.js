@@ -706,10 +706,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	if(param[1]!=null) {
             		var tokens = param[1].split("&");
             		varencr = tokens[0].split("=")[1];
-            		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").localeCompare("")!=0) {
+            		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
             			triggerencrypted = tokens[1].split("trigger=")[1];			
             		}
-            		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").localeCompare("")!=0) {
+            		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
             			actionencrypted = tokens[2].split("action=")[1];  
             		}
             	}
@@ -901,10 +901,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	if(param[1]!=null) {
             		var tokens = param[1].split("&");
             		varencr = tokens[0].split("=")[1];
-               		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").localeCompare("")!=0) {
+               		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
             			triggerencrypted = tokens[1].split("trigger=")[1];			
             		}
-            		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").localeCompare("")!=0) {
+            		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
             			actionencrypted = tokens[2].split("action=")[1];  
             		}
             	}
