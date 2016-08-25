@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import it.polito.ai.ifttt.progetto.models.Recipes;
 import it.polito.ai.ifttt.progetto.models.Roles;
 import it.polito.ai.ifttt.progetto.models.Users;
 
@@ -30,6 +31,8 @@ public class LoginManagerImpl implements LoginManager {
 	SessionFactory sessionFactory;
 	@Autowired
 	javax.mail.Session sessionMail;
+	@Autowired
+	RecipesManager recipesManager;
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	public int register(String username, String password, String email) {
@@ -395,5 +398,44 @@ public class LoginManagerImpl implements LoginManager {
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public Integer deleteAccount(Users user) {
+
+		//TODO: delete account:
+		// 1) delete all his/her recipes
+		// 2) delete tuple in user_roles
+		// 3) delete tuple in users
+		
+		Session session = sessionFactory.openSession();
+		try {
+			// begin transaction
+			Transaction tx = session.beginTransaction();
+			try {
+				List<Recipes> recipes = user.getRecipes();
+				for(Recipes r : recipes) {
+					Integer code = recipesManager.deleteRecipe(r.getRid());
+					if(code==-1) {
+						return -1;
+					}
+				}
+				session.delete(user);
+				session.flush();				
+		
+			} catch (Exception e) {
+				// if some errors during the transaction occur,
+				// rollback and return code -1
+				System.out.println(e);
+				tx.rollback();
+				return -1;
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		// -1 if errors
+		return 0;
 	}
 }

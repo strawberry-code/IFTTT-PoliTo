@@ -29,5 +29,6 @@ public interface LoginManager {
 	void disconnectTwitter(String username);
 	
 	Integer changePassword(String username, String newpass);
+	Integer deleteAccount(Users user);
 	
 }

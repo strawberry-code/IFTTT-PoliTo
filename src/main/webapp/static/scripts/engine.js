@@ -1086,9 +1086,9 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         data: {deleteAccount: true}
                     }).then(function success(response) {
                         //console.log(JSON.stringify(response.data));
-                        console.log(JSON.stringify(response.data.iftttLogged));
+                        console.log(JSON.stringify(response.data.disconnected));
 
-                        if(response.data.iftttLogged){
+                        if(response.data.disconnected){
                             $scope.iftttLogged = false;
                             iftttLogin = false;
                             $scope.googleLogged = false;
