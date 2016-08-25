@@ -53,6 +53,7 @@ public class GoogleConnectController {
 	String nextPath = null;
 	Object varencr;
 	Object trigger;
+	Object action;
 
 	@Autowired
 	LoginManager loginManager;
@@ -117,15 +118,18 @@ public class GoogleConnectController {
 
 		String path = "";
 		try {
-			if (this.trigger.toString().compareTo("") != 0) {
-				System.out.println("Trigger: " + this.trigger);
-
-				path = "/progetto/#" + this.nextPath + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8")
-						+ "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8");
-
-			} else {
+			if(this.trigger.toString().compareTo("") == 0 && this.action.toString().compareTo("") == 0) {
 				path = "/progetto/#" + this.nextPath + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
 			}
+			else {
+		//		if (this.trigger.toString().compareTo("") != 0) {
+					path = "/progetto/#" + this.nextPath + "?varencr=" 
+						  + URLEncoder.encode(this.varencr.toString(), "UTF-8")
+						  + "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8")
+						  + "&action=" + URLEncoder.encode(this.action.toString(), "UTF-8");
+		//		}
+			}				
+			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,6 +185,7 @@ public class GoogleConnectController {
 		try {
 			this.varencr = URLDecoder.decode(data.getVarencr().toString(), "UTF-8");
 			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
+			this.action = URLDecoder.decode(data.getAction().toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

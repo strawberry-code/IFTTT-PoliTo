@@ -112,6 +112,7 @@
 	var uri = decodeURIComponent(window.location.hash);
 	var param = (uri).split("?");
 	var trig;
+	var act;
 	if(param[1]!=null) {
 		var tokens = param[1].split("&");
 		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
@@ -129,6 +130,13 @@
 			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
 			modulinoj1 = JSON.parse(dec);
 			console.log(modulinoj1)
+		}
+		if(tokens[2]!=null) {
+			act = tokens[2].split("action=")[1];  
+			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+			modulinoj2 = JSON.parse(dec1);
+			console.log(modulinoj2)
+			
 		}
 	}
 

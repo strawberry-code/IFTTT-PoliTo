@@ -681,15 +681,25 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             };
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
-            //handle trigger
-            var encrypted = "";
-            console.log(modulinoj1);
-            console.log("modj1 length: "+modulinoj1.length);
-            if(modulinoj1.length === undefined) {
-            	console.log("modulinoj1 non vuoto");
-            	encrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            //handle trigger and action
+            var triggerencrypted = "";
+            var actionencrypted = "";
+            var tocheck = false;
+            if(modulinoj2.length === undefined) {
+            	actionencrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj2), "Secret Passphrase");
             }
             else {
+            	tocheck = true;
+            }
+            
+            if(modulinoj1.length === undefined) {
+            	triggerencrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            }
+            else {
+            	tocheck = true;
+            }
+            
+            if(tocheck==true) {
             	var uri = decodeURIComponent(window.location.hash);
             	var param = (uri).split("?");
             	var trig;
@@ -697,11 +707,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             		var tokens = param[1].split("&");
             		varencr = tokens[0].split("=")[1];
             		if(tokens[1]!=null) {
-            			encrypted = tokens[1].split("trigger=")[1];			
-//            			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-//            			modulinoj1 = JSON.parse(dec);
-//            			console.log(modulinoj1);
-//            			flagTriggerDone="1";
+            			triggerencrypted = tokens[1].split("trigger=")[1];			
+            		}
+            		if(tokens[2]!=null) {
+            			actionencrypted = tokens[2].split("action=")[1];  
             		}
             	}
             }
@@ -713,7 +722,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             $http({
                 url: 'http://localhost:8080/progetto/api/connect/requestGoogle',
                 method: "POST",
-                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, "varencr": encodeURIComponent(varencr.toString()), "trigger": encodeURIComponent(encrypted.toString())}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, 
+                					  "varencr": encodeURIComponent(varencr.toString()), 
+                					  "trigger": encodeURIComponent(triggerencrypted.toString()),
+                					  "action":  encodeURIComponent(actionencrypted.toString())}),                
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -851,14 +863,24 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
             //handle trigger
-            var encrypted = "";
-            console.log(modulinoj1);
-            console.log("modj1 length: "+modulinoj1.length);
-            if(modulinoj1.length === undefined) {
-            	console.log("modulinoj1 non vuoto");
-            	encrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            var triggerencrypted = "";
+            var actionencrypted = "";
+            var tocheck = false;
+            if(modulinoj2.length === undefined) {
+            	actionencrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj2), "Secret Passphrase");
             }
             else {
+            	tocheck = true;
+            }
+            
+            if(modulinoj1.length === undefined) {
+            	triggerencrypted = CryptoJS.AES.encrypt(JSON.stringify(modulinoj1), "Secret Passphrase");
+            }
+            else {
+            	tocheck = true;
+            }
+            
+            if(tocheck==true) {
             	var uri = decodeURIComponent(window.location.hash);
             	var param = (uri).split("?");
             	var trig;
@@ -866,11 +888,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             		var tokens = param[1].split("&");
             		varencr = tokens[0].split("=")[1];
             		if(tokens[1]!=null) {
-            			encrypted = tokens[1].split("trigger=")[1];			
-//            			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-//            			modulinoj1 = JSON.parse(dec);
-//            			console.log(modulinoj1);
-//            			flagTriggerDone="1";
+            			triggerencrypted = tokens[1].split("trigger=")[1];			
+            		}
+            		if(tokens[2]!=null) {
+            			actionencrypted = tokens[2].split("action=")[1];  
             		}
             	}
             }
@@ -879,7 +900,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             $http({
                 url: 'http://localhost:8080/progetto/api/twitter/requestTwitter',
                 method: "POST",
-                data: JSON.stringify({"requestTwitterAuth": "true", "urlNext": nextPath, "varencr": encodeURIComponent(varencr.toString()), "trigger": encodeURIComponent(encrypted.toString())}),
+                data: JSON.stringify({"requestGoogleAuth": "true", "urlNext": nextPath, 
+					  "varencr": encodeURIComponent(varencr.toString()), 
+					  "trigger": encodeURIComponent(triggerencrypted.toString()),
+					  "action":  encodeURIComponent(actionencrypted.toString())}),
                 contentType: "application/json",
                 dataType: 'application/json'
                 //headers: {'Content-Type': 'application/json'}
@@ -5329,6 +5353,7 @@ function successAlert(redirect) {
         //closeOnConfirm: true
     }, function () {
     	modulinoj1 = [];
+    	modulinoj2 = [];
         window.location.replace(redirect);
     });
 }

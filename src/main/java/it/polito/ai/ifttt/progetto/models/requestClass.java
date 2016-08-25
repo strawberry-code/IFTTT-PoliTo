@@ -7,6 +7,7 @@ public class requestClass {
 	String newpassword;
 	Object varencr;
 	Object trigger;
+	Object action;
 	
 	public String getRequestGoogleAuth() {
 		return requestGoogleAuth;
@@ -37,5 +38,11 @@ public class requestClass {
 	}
 	public void setTrigger(Object trigger) {
 		this.trigger = trigger;
+	}
+	public Object getAction() {
+		return action;
+	}
+	public void setAction(Object action) {
+		this.action = action;
 	}
 }
