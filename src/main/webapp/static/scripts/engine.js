@@ -3065,6 +3065,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
         {
             url = "#" + triggerImportRoute;
             window.location.replace(url);
+           
 
         },
 
@@ -3772,7 +3773,7 @@ iftttApp.controller('Trigger2GcalendarController', ['$scope',
             $scope.importRecipe = true;
         }
 
-        
+
 
 
 
@@ -4410,11 +4411,22 @@ iftttApp.controller('action1GcalendarController', ['$scope',
 
         },
 
-            $scope.importRecipe = false;
-        if (importFlag == 1) {
-            $scope.importRecipe = true;
+            $scope.modifyButton = false;
+        if (modifyVar == 1) {
+
+
+            $scope.modifyButton = true;
+        }
+        else
+        {
+            $scope.modifyButton = false;
         }
 
+        $scope.importRecipe = false;
+        if (importFlag == 1)
+        {
+            $scope.importRecipe = true;
+        }
 
 
 
@@ -4755,10 +4767,18 @@ iftttApp.controller('action1TwitterController', ['$scope',
         },
 
 
+
+            $scope.modifyButton = false;
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
         $scope.importRecipe = false;
         if (importFlag == 1) {
             $scope.importRecipe = true;
         }
+
+
 
 
     }]);
@@ -4877,10 +4897,17 @@ iftttApp.controller('action2TwitterController', ['$scope',
             window.location.replace(url);
 
         },
-            $scope.importRecipe = false;
+
+            $scope.modifyButton = false;
+        if (modifyVar == 1) {
+            $scope.modifyButton = true;
+        }
+
+        $scope.importRecipe = false;
         if (importFlag == 1) {
             $scope.importRecipe = true;
         }
+
 
         $scope.checkedtitle = false;
         $scope.checkedSubject = false;
