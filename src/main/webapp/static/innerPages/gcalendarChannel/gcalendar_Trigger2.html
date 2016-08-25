@@ -79,17 +79,19 @@
                         <hr>
 
                         <div>
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                                ng-if="!modifyButton && !importRecipe"
+                            <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+                               data-ng-show="!modifyButton && !importRecipe"
+                            >Cancel</a>
+                            <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+                               data-ng-show="modifyButton && !importRecipe"
                             >Cancel</a>
 
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                                ng-if="modifyButton && !importRecipe"
+                            <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+                               data-ng-show="importRecipe &&  !modifyButton"
                             >Cancel</a>
 
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                                ng-if="importRecipe && !modifyButton"
-                            >Cancel</a>
+
+
 
 
 
