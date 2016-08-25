@@ -7,6 +7,7 @@ public class recipeJsonClass {
 	Object trigger;
 	Object action;
 	Boolean publish;
+	Boolean valid;
 	
 	public Integer getId() {
 		return id;
@@ -38,5 +39,10 @@ public class recipeJsonClass {
 	public void setPublish(Boolean publish) {
 		this.publish = publish;
 	}
-
+	public Boolean getValid() {
+		return valid;
+	}
+	public void setValid(Boolean valid) {
+		this.valid = valid;
+	}
 }

@@ -6,6 +6,7 @@ public class requestClass {
 	String urlNext;
 	String newpassword;
 	Integer count;
+	Object trigger;
 	
 	public String getRequestGoogleAuth() {
 		return requestGoogleAuth;
@@ -30,5 +31,11 @@ public class requestClass {
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	public Object getTrigger() {
+		return trigger;
+	}
+	public void setTrigger(Object trigger) {
+		this.trigger = trigger;
 	}
 }

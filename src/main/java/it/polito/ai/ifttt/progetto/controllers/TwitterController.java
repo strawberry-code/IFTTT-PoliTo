@@ -1,5 +1,9 @@
 package it.polito.ai.ifttt.progetto.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +42,7 @@ public class TwitterController {
 	
 	String nextPath = null;
 	Integer count;
+	Object trigger;
 
 	@Autowired
 	LoginManager loginManager;
@@ -97,8 +102,22 @@ public class TwitterController {
 		if(this.user != null) {
 			recipesManager.validateTwitterRecipes(this.user);
 		}
+		
+		String path = "";
+		if(this.trigger.toString().compareTo("")!=0) {
+			System.out.println("Trigger: "+this.trigger);
+			try {
+				path = "http://localhost:8080/progetto/#"+this.nextPath+"?count="+this.count+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			path = "http://localhost:8080/progetto/#"+this.nextPath+"?count="+this.count;
+		}
 
-		String path = "http://localhost:8080/progetto/#" + this.nextPath+"?count="+this.count;
+//		String path = "http://localhost:8080/progetto/#" + this.nextPath+"?count="+this.count;
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -115,7 +134,19 @@ public class TwitterController {
 		} else {
 			path = "http://localhost:8080/progetto/#/index/myRecipes";
 		}
+		
 		path = path+"?count="+this.count;
+		
+		if(this.trigger.toString().compareTo("")!=0) {
+			System.out.println("Trigger: "+this.trigger);
+			try {
+				path = path+"&trigger="+URLEncoder.encode(this.trigger.toString(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		System.out.println(path);
 		return new RedirectView(path);
 	}
@@ -129,6 +160,12 @@ public class TwitterController {
 
 		this.nextPath = data.getUrlNext();
 		this.count = data.getCount();
+		try {
+			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		String ret = null;
 
