@@ -676,7 +676,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	"flagTriggerDone": flagTriggerDone,
             	"importFlag": importFlag,
             	"descriptionRecipeGlobal": descriptionRecipeGlobal,
-            	"idRecipe": idRecipe
+            	"idRecipe": idRecipe,
+            	"iftttLogin": iftttLogin
             };
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
@@ -844,7 +845,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
             	"flagTriggerDone": flagTriggerDone,
             	"importFlag": importFlag,
             	"descriptionRecipeGlobal": descriptionRecipeGlobal,
-            	"idRecipe": idRecipe
+            	"idRecipe": idRecipe,
+            	"iftttLogin": iftttLogin
             };
             varencr = CryptoJS.AES.encrypt(JSON.stringify(varencr), "Secret Passphrase");
             
