@@ -1140,6 +1140,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
 
             $scope.recipedDescriptionInput="";
+            flagTriggerDone  = false;
             //Mando i dati al server con i due modulini + la descrizione.
             if (modifyVar == true) {
                 sendingToServerAllput();
@@ -3054,7 +3055,7 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
 
                 if (flag == true) {
 
-                    flagTriggerDone = false;
+                    //flagTriggerDone = false;
                     count = 7;
 
 
@@ -4752,7 +4753,7 @@ iftttApp.controller('action1TwitterController', ['$scope',
                     subject = null;
                 }
 
-                flagTriggerDone = false;
+                //flagTriggerDone = false;
                 count = 7;
 
                 subject_action1TwitterController = subject;
@@ -4891,7 +4892,7 @@ iftttApp.controller('action2TwitterController', ['$scope',
                     }
                     else sendingToServerAllput();
                     //sendingToServerAll();
-                    flagTriggerDone = false;
+                    //flagTriggerDone = false;
                     count = 7;
                     // href="#SuccessTwitter"
                     //url = "#SuccessTwitter";
