@@ -43,6 +43,7 @@ public class TwitterController {
 	String nextPath = null;
 	Object varencr;
 	Object trigger;
+	Object action;
 
 	@Autowired
 	LoginManager loginManager;
@@ -105,15 +106,16 @@ public class TwitterController {
 
 		String path = "";
 		try {
-			if (this.trigger.toString().compareTo("") != 0) {
-				System.out.println("Trigger: " + this.trigger);
-
-				path = "http://localhost:8080/progetto/#" + this.nextPath + "?varencr="
-						+ URLEncoder.encode(this.varencr.toString(), "UTF-8") + "&trigger="
-						+ URLEncoder.encode(this.trigger.toString(), "UTF-8");
-			} else {
+			if (this.trigger.toString().compareTo("") == 0 && this.action.toString().compareTo("") == 0) {
 				path = "http://localhost:8080/progetto/#" + this.nextPath + "?varencr="
 						+ URLEncoder.encode(this.varencr.toString(), "UTF-8");
+			} else {
+				// if (this.trigger.toString().compareTo("") != 0) {
+				path = "http://localhost:8080/progetto/#" + this.nextPath + "?varencr="
+						+ URLEncoder.encode(this.varencr.toString(), "UTF-8") + "&trigger="
+						+ URLEncoder.encode(this.trigger.toString(), "UTF-8") + "&action="
+						+ URLEncoder.encode(this.action.toString(), "UTF-8");
+				// }
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -139,15 +141,17 @@ public class TwitterController {
 			path = "http://localhost:8080/progetto/#/index/myRecipes";
 		}
 
-		if (this.trigger.toString().compareTo("") != 0) {
-			System.out.println("Trigger: " + this.trigger);
-			try {
+		try {
+			if (this.trigger.toString().compareTo("") == 0 && this.action.toString().compareTo("") == 0) {
 				path = path + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
+			} else {
 				path = path + "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				path = path + "&action=" + URLEncoder.encode(this.action.toString(), "UTF-8");
 			}
+
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		System.out.println(path);
@@ -164,6 +168,7 @@ public class TwitterController {
 		try {
 			this.varencr = URLDecoder.decode(data.getVarencr().toString(), "UTF-8");
 			this.trigger = URLDecoder.decode(data.getTrigger().toString(), "UTF-8");
+			this.action = URLDecoder.decode(data.getAction().toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
