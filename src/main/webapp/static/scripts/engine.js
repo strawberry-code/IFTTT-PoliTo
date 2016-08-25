@@ -915,7 +915,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 if (response.data.disconnected) {
                     $scope.twitterLogged = false;
                     twitterLogin = false;
-                    alertSuccess("You are connected to Twitter!");
+                    alertSuccess("You are disconnected from Twitter!");
 
                 } else {
                     alertError("Some problem occurred, please retry");
@@ -5425,22 +5425,6 @@ function alertPasswordChangedSuccess() {
         //closeOnConfirm: true
     }, function () {
         window.location.replace('#myRecipes');
-    });
-}
-
-function confirmDeleteAccount() {
-    return swal({
-        title: "Delete your account?",
-        text: "You will not be able to recover your account in future!",
-        type: "error",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, I changed idea",
-        closeOnConfirm: true,
-        closeOnCancel: true
-    }, function (isConfirm) {
-        return isConfirm;
     });
 }
 

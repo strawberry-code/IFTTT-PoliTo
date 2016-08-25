@@ -29,39 +29,74 @@
                         </div>
 
                         <div class="col-md-4">
-                            <button title="Delete this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
-                                    style="margin-left: 3px" class="btn btn-danger pull-right">
-                                <span class="glyphicon glyphicon-trash"
-                                      data-ng-click="removeRecipe($index, f.id)"></span>
-                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+
+                            <button title="Delete this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px" class="btn btn-danger pull-right"
+                                    data-ng-click="removeRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-trash"></span>
                             </button>
 
-                            <button title="Share this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
-                                    style="margin-left: 3px" class="btn btn-primary pull-right animate-if"
-                                    data-ng-show="!f.publish">
-                                <span class="glyphicon glyphicon-share"
-                                      data-ng-click="shareRecipe($index, f.id)"></span>
-                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                <!-- Share buttons -->
+
+                            <!-- when INVALID -->
+                            <button data-ng-show="!f.publish && !f.valid"
+                                    title="To share this recipe you have to logged in the relative service channel (for example Google)"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px" class="btn pull-right animate-if">
+                                <span class="glyphicon glyphicon-share"></span>
                             </button>
 
-                            <button title="Unshare this recipe" data-toggle="tooltip" data-placement="bottom" bs-tooltip
-                                    style="margin-left: 3px" class="btn btn-danger pull-right animate-if"
-                                    data-ng-show="f.publish">
-                                <span class="glyphicon glyphicon-share-alt"
-                                      data-ng-click="DoNotshareRecipe($index, f.id)"></span>
-                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
+                            <!-- when VALID -->
+                            <button data-ng-show="!f.publish && f.valid"
+                                    title="Share this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px"
+                                    class="btn btn-primary pull-right animate-if"
+                                    data-ng-click="shareRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-share"></span>
                             </button>
 
+                <!-- Unshare buttons -->
+
+                            <!-- when INVALID -->
+                            <button data-ng-show="!f.valid && f.publish"
+                                    title="To unshare this recipe you have to logged in the relative service channel (for example Google)"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px"
+                                    class="btn pull-right animate-if">
+                                <span class="glyphicon glyphicon-share-alt"></span>
+                            </button>
+
+                            <!-- when VALID -->
+                            <button data-ng-show="f.valid && f.publish"
+                                    title="Unshare this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" bs-tooltip
+                                    style="margin-left: 3px"
+                                    class="btn btn-danger pull-right animate-if"
+                                    data-ng-click="DoNotshareRecipe($index, f.id)">
+                                <span class="glyphicon glyphicon-share-alt"></span>
+                            </button>
+
+                <!-- Modify Buttons -->
+
+                            <!-- when INVALID -->
                             <button data-ng-show="!f.valid"
                                     title="To modify this reciped you have to logged in the relative service channel (for example Google)"
                                     data-toggle="tooltip"
                                     data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px"
-                                    class="btn pull-right">
+                                    class="btn pull-right"
+                                    data-ng-click="modifyRecipe($index)">
                                 <span class="glyphicon glyphicon-edit"></span>
-                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
 
+                            <!-- when VALID -->
                             <button data-ng-show="f.valid"
                                     title="Modify this recipe"
                                     data-toggle="tooltip"
@@ -70,12 +105,13 @@
                                     class="btn btn-success pull-right">
                                 <span class="glyphicon glyphicon-edit"
                                       data-ng-click="modifyRecipe($index)"></span>
-                                <!--  <button ng-click="removeRecipe(f.id)">remove</button> -->
                             </button>
+
+                <!-- Ingredient description button -->
 
                             <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn btn-info pull-right"
-                                    ng-click="f.isCollapsed = !f.isCollapsed">
+                                    data-ng-click="f.isCollapsed = !f.isCollapsed">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </button>
 
