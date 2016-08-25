@@ -4945,11 +4945,127 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         $scope.activeWeatherAutentication = false;
 
         $scope.urlActionUser = urlActionGlobalVariable;
+
         $scope.activeGoogleAutenticationAction = false;
         $scope.activeTwitterAutenticationAction = false;
+        $scope.googleLoggedHtml=false;
+        $scope.twitterLoggedHtml =false;
+
+
+
+
+
+       var ingredientTriggerCode =  modulinoj1.ingredientCode;
+        var ingredientActionCode =  modulinoj2.ingredientCode;
+
+
+        if(ingredientTriggerCode == 11 ||
+            ingredientTriggerCode == 12||
+            ingredientTriggerCode == 13)
+            $scope.activeGoogleAutentication = true;
+
+        if(ingredientTriggerCode == 14  ||
+            ingredientTriggerCode == 15 ||
+            ingredientTriggerCode == 16 ||
+            ingredientTriggerCode == 17
+        )
+            $scope.activeWeatherAutentication = true;
+
+        if(ingredientTriggerCode == 18  ||
+            ingredientTriggerCode == 19
+        )
+            $scope.activeTwitterAutentication = true;
+
+
+
+
+
+        if(ingredientActionCode == 21 ||
+            ingredientActionCode == 22)
+            $scope.activeGoogleAutenticationAction = true;
+
+
+        if(ingredientActionCode == 23 ||
+            ingredientActionCode == 24)
+            $scope.activeTwitterAutenticationAction = true;
+
+
+
+
+        /*
+
+
+        switch (ingredientTriggerCode)
+        {
+            case 11: $scope.activeGoogleAutentication = true;
+
+            case 12: $scope.activeGoogleAutentication = true;
+
+            case 13: $scope.activeGoogleAutentication = true;
+
+            case 14:   $scope.activeWeatherAutentication = true;
+
+            case 15:  $scope.activeWeatherAutentication = true;
+
+            case 16:  $scope.activeWeatherAutentication = true;
+
+            case 17:  $scope.activeWeatherAutentication = true;
+
+            case 18: $scope.activeTwitterAutentication = true;
+
+            case 19: $scope.activeTwitterAutentication = true;
+
+
+
+        }
+
+
+
+
+
+
+
+        switch (ingredientActionCode)
+        {
+            case 21:   $scope.activeGoogleAutenticationAction = true;
+
+            case 22:  $scope.activeGoogleAutenticationAction = true;
+
+            case 23:   $scope.activeTwitterAutenticationAction = true;
+
+            case 24:   $scope.activeTwitterAutenticationAction = true;
+
+        }
+
+        */
+
+
+        if(twitterLogin == true)
+        {
+            $scope.twitterLoggedHtml=true;
+
+        }
+        if(googleLogin==true)
+        {
+            $scope.googleLoggedHtml=true;
+        }
 
 
         modifyVar = 1;
+
+        console.log("Goolge ingredient  " + $scope.activeGoogleAutentication  + " loggato a google   " +  $scope.googleLoggedHtml );
+        console.log("Weather ingredient  " + $scope.activeWeatherAutentication  + " loggato a meteo   " );
+        console.log("twitter ingredient  " + $scope.activeTwitterAutentication  + " loggato a twitter   " +  $scope.twitterLoggedHtml );
+
+        console.log("Problema numero numer 8" + ingredientTriggerCode); //XXX
+
+
+        //var googleLogin = false;   //-> $scope.googleLogged
+        //var twitterLogin = false; //-> $scope.twitterLogged
+
+
+
+        /*
         if ((triggreGlobalVariable.localeCompare("gmail")==0) || (triggreGlobalVariable.localeCompare("calendar")==0))
         {
             $scope.activeGoogleAutentication = true;
@@ -4981,7 +5097,9 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
             }
 
         }
+        alert("twitter" +  "Azione   " +  $scope.activeTwitterAutenticationAction + "loggato?   " +  $scope.twitterLoggedHtml );
 
+*/
         /**
          * Description
          * @method changePage
