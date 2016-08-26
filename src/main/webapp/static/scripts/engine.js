@@ -1166,6 +1166,59 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
         };
 
 
+        $scope.removeAllRecipes = function() {
+
+
+            sweet.show({
+                title: 'Confirm',
+                text: 'Delete all recipes?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, delete them all!',
+                closeOnConfirm: false
+            }, function() {
+
+
+                setSpinner(true);
+
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:8080/progetto/api/deleteAllRecipes',
+                    contentType: "application/json",
+                    data: {deleteAllRecipes: true}
+                }).then(function success(response) {
+                    //console.log(JSON.stringify(response.data));
+                    console.log(JSON.stringify(response.data.disconnected));
+
+                    if(response.data.disconnected){
+                        setSpinner(false);
+                        console.log("All recipes are deleted.");
+                        sweet.show('Nice!', 'Your recipes are been removed.', 'success');
+                        window.location.replace('#index/myRecipes');
+                    } else {
+                        setSpinner(false);
+                        console.log("Due to server problems your recipes can't be deleted.\n Please retry.");
+                        sweet.show('Sorry', "Due to server problems your recipes can't be deleted.\n Please retry.", 'error');
+                    }
+                    //    if(response.data.disconnected.localeCompare("true")==0){
+
+
+                }, function error() {
+                    setSpinner(false);
+                    alertError("Some problem occurred. (code 121)");
+                });
+
+
+
+
+            });
+        };
+
+
+
+
+
     }]);
 
 
@@ -1483,6 +1536,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 );
 
         };
+
+
 
         //Rosso don't share
         /**
