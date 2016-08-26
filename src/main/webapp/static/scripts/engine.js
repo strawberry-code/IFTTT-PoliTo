@@ -1189,19 +1189,25 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     data: {deleteAllRecipes: true}
                 }).then(function success(response) {
                     //console.log(JSON.stringify(response.data));
-                    console.log(JSON.stringify(response.data.disconnected));
+                    console.log(JSON.stringify(response.data.deleted));
+                    setSpinner(false);
 
-                    if(response.data.disconnected){
-                        setSpinner(false);
+                    // Se == 0 oopure se == true allora le ricette sono rimosse con successo
+                    if(response.data.deleted){
                         console.log("All recipes are deleted.");
                         sweet.show('Nice!', 'Your recipes are been removed.', 'success');
                         window.location.replace('#index/myRecipes');
+
+                        // Se == -2 allora non ci sono ricette da rimuover
+                    } else if (response.data.deleted == -2) {
+                        console.log("There are not recipes.");
+                        sweet.show('Sorry', "There are any recipes to remove.", 'info');
+
+                        // Se == -1 e in tutti gli altri casi è un errore inatteso
                     } else {
-                        setSpinner(false);
                         console.log("Due to server problems your recipes can't be deleted.\n Please retry.");
                         sweet.show('Sorry', "Due to server problems your recipes can't be deleted.\n Please retry.", 'error');
                     }
-                    //    if(response.data.disconnected.localeCompare("true")==0){
 
 
                 }, function error() {
