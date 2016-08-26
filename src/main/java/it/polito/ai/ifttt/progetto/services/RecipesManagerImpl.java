@@ -1,6 +1,9 @@
 package it.polito.ai.ifttt.progetto.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -116,6 +119,13 @@ public class RecipesManagerImpl implements RecipesManager {
 		Integer triggerid = null;
 		Integer actionid = null;
 		Integer recipeid = -1;
+		
+		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user==null) {
+			return -1;
+		}
 
 		try {
 			// begin transaction
@@ -170,6 +180,19 @@ public class RecipesManagerImpl implements RecipesManager {
 							return -1;
 						}
 					}
+					String tz = null;
+					if(weathertrigger.getTimezone()==null) {
+						tz = user.getTimezone();
+					}
+					else {
+						tz = weathertrigger.getTimezone();
+					}
+					if(timezones.contains(tz)==false) {
+						return -1;
+					}
+					else {
+						weathertrigger.setTimezone(tz);
+					}
 					weathertrigger.setLastCheck(null);
 					//weathertrigger.setLastCheck(System.currentTimeMillis());
 					session.save(weathertrigger);
@@ -210,7 +233,20 @@ public class RecipesManagerImpl implements RecipesManager {
 					}
 					if(calendaraction.getDuration()==null) {
 						calendaraction.setDuration((long) 3600000);
-					}	
+					}
+					String tz = null;
+					if(calendaraction.getTimezone()==null) {
+						tz = user.getTimezone();
+					}
+					else {
+						tz = calendaraction.getTimezone();
+					}
+					if(timezones.contains(tz)==false) {
+						return -1;
+					}
+					else {
+						calendaraction.setTimezone(tz);
+					}
 					session.save(calendaraction);
 					session.flush();
 					actionid = calendaraction.getCaid();
@@ -249,8 +285,6 @@ public class RecipesManagerImpl implements RecipesManager {
 				}
 
 				// RECIPE
-				String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-				Users user = loginManager.findUserByUsername(username);
 				Recipes recipe = new Recipes();
 				recipe.setTriggerType(triggerType);
 				recipe.setActionType(actionType);
@@ -302,6 +336,13 @@ public class RecipesManagerImpl implements RecipesManager {
 		String actionTypeOld = rec.getActionType();
 		Integer triggerid = rec.getTriggerid();
 		Integer actionid = rec.getActionid();
+		
+		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user==null) {
+			return -1;
+		}
 
 		try {
 			// begin transaction
@@ -359,6 +400,19 @@ public class RecipesManagerImpl implements RecipesManager {
 							if(weathertrigger.getThmax()<(-70) || weathertrigger.getThmax()>70) {
 								return -1;
 							}
+						}
+						String tz = null;
+						if(weathertrigger.getTimezone()==null) {
+							tz = user.getTimezone();
+						}
+						else {
+							tz = weathertrigger.getTimezone();
+						}
+						if(timezones.contains(tz)==false) {
+							return -1;
+						}
+						else {
+							weathertrigger.setTimezone(tz);
 						}
 						weathertrigger.setWtid(rec.getTriggerid());
 						//weathertrigger.setLastCheck(System.currentTimeMillis());
@@ -456,6 +510,19 @@ public class RecipesManagerImpl implements RecipesManager {
 								return -1;
 							}
 						}
+						String tz = null;
+						if(weathertrigger.getTimezone()==null) {
+							tz = user.getTimezone();
+						}
+						else {
+							tz = weathertrigger.getTimezone();
+						}
+						if(timezones.contains(tz)==false) {
+							return -1;
+						}
+						else {
+							weathertrigger.setTimezone(tz);
+						}
 						//weathertrigger.setLastCheck(System.currentTimeMillis());
 						weathertrigger.setLastCheck(null);
 						session.save(weathertrigger);
@@ -500,6 +567,19 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
+						}
+						String tz = null;
+						if(calendaraction.getTimezone()==null) {
+							tz = user.getTimezone();
+						}
+						else {
+							tz = calendaraction.getTimezone();
+						}
+						if(timezones.contains(tz)==false) {
+							return -1;
+						}
+						else {
+							calendaraction.setTimezone(tz);
 						}
 						calendaraction.setCaid(rec.getActionid());
 						session.update(calendaraction);
@@ -575,7 +655,20 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
-						}					
+						}
+						String tz = null;
+						if(calendaraction.getTimezone()==null) {
+							tz = user.getTimezone();
+						}
+						else {
+							tz = calendaraction.getTimezone();
+						}
+						if(timezones.contains(tz)==false) {
+							return -1;
+						}
+						else {
+							calendaraction.setTimezone(tz);
+						}
 						session.save(calendaraction);
 						session.flush();
 						actionid = calendaraction.getCaid();
@@ -615,8 +708,6 @@ public class RecipesManagerImpl implements RecipesManager {
 				}
 
 				// RECIPE
-				String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-				Users user = loginManager.findUserByUsername(username);
 				Recipes recipe = new Recipes();
 				recipe.setRid(id);
 				recipe.setTriggerType(triggerType);
