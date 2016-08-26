@@ -3,9 +3,11 @@ package it.polito.ai.ifttt.progetto.controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import it.polito.ai.ifttt.progetto.models.CalendarAction;
 import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
 import it.polito.ai.ifttt.progetto.models.GmailAction;
@@ -58,42 +59,37 @@ public class DataRestController {
 		String username = null;
 		String password = null;
 		String email = null;
+		String timezone = null;
 
-		System.out.println(user.toString());
+		Integer i = null;
 
 		username = user.getUsername();
 		password = user.getPassword();
 		email = user.getEmail();
+		timezone = user.getTimezone();
 
-		System.out.println(username + ", " + password + ", " + email);
-
-		/*
-		 * String[] splits = user.split("&"); username =
-		 * splits[0].split("=")[1]; password = splits[2].split("=")[1]; email =
-		 * splits[1].split("=")[1];
-		 */
-
-		try {
-			email = URLDecoder.decode(email, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+		if(timezones.contains(timezone)==false) {
+			i=7;
+		}
+		else {
+			try {
+				email = URLDecoder.decode(email, "UTF-8");
+				if (username != null && password != null && email != null)
+					i = loginManager.register(username, password, email);
+			} catch (UnsupportedEncodingException e) {
+				i=6;
+			}
 		}
 
-		Integer i = null;
-		if (username != null && password != null && email != null)
-			i = loginManager.register(username, password, email);
-
-		System.out.println(i);
-
-		// i=0 : You have successfully signed. To complete the registration,
-		// please check your email
+		// i=0 : You have successfully signed. To complete the registration, please check your email
 		// i=1 : user already exist
 		// i=2 : email already exist
 		// i=3 : email not valid
 		// i=4 : password too short
 		// i=5 : username too short
 		// i=6 : some errors
+		// i=7 : timezone not valid
 
 		return i;
 	}

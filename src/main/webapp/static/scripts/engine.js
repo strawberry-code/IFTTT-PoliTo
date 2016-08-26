@@ -5269,7 +5269,7 @@ iftttApp.filter('describe', function(){
     return function (input) {
         switch (input) {
             case 11:
-                return 'IF a new calendar event is added...';
+                return 'IF a calendar event is starting...';
             case 12:
                 return 'IF a new calendar event is created...';
             case 13:
