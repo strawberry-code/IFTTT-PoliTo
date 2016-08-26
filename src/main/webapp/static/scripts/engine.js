@@ -1538,13 +1538,14 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
         {
 
 
+
             descriptionRecipeGlobal = $scope.userRecipes[index].description;
             idRecipe = $scope.userRecipes[index].id;
             triggreGlobalVariable = $scope.userRecipes[index].trigger.triggerType;
             actionGlobalVariable = $scope.userRecipes[index].action.actionType;
             publishRecipeGlobal = $scope.userRecipes[index].publish;
             var ingredientCodeTrigger=$scope.userRecipes[index].trigger.ingredientCode;
-            var ingredientCodeAction=$scope.userRecipes[index].trigger.ingredientCode;
+            var ingredientCodeAction=$scope.userRecipes[index].action.ingredientCode;
 
             switch (ingredientCodeTrigger)
             {
