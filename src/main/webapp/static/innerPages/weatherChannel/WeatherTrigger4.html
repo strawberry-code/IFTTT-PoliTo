@@ -58,17 +58,17 @@
                 <input
                         id="thmaxidcheckbox"
                         type="checkbox"
-                        ng-model="checkmodelcheckthmax"
+                        data-ng-model="checkmodelcheckthmax"
                 > <img src="/progetto/static/images/trigger-icons/max.png" height="30" width="30"/> <b> Max temperature</b></label>
-                    <div  ng-if="checkmodelcheckthmax" class="animate-if">
+                    <div  data-ng-if="checkmodelcheckthmax" class="animate-if">
 
                         <label>
-                <input id="thmaxidinput" ng-disabled="!checkmodelcheckthmax" type="number" name="input" ng-model="trigger1input.value1"
+                <input id="thmaxidinput" data-ng-disabled="!checkmodelcheckthmax" type="number" name="input" data-ng-model="trigger1input.value1"
                        min="-70" max="70" required></label>
                 <div role="alert">
-                        <span  style="color:#ac2925" class="error" ng-show="thmax.input.$error.required  && checkmodelcheckthmax">
+                        <span  style="color:#ac2925" class="error" data-ng-show="thmax.input.$error.required  && checkmodelcheckthmax">
                             Required!</span>
-                    <span  style="color:#ac2925"  class="error" ng-show="thmax.input.$error.number  && checkmodelcheckthmax">
+                    <span  style="color:#ac2925"  class="error" data-ng-show="thmax.input.$error.number  && checkmodelcheckthmax">
                             Not valid number!</span>
                 </div>
                     </div>
@@ -79,20 +79,20 @@
                 <input
                         id="thminidcheckbox"
                         type="checkbox"
-                        ng-model="checkmodelcheckthmin"
+                        data-ng-model="checkmodelcheckthmin"
 
                 > <img src="/progetto/static/images/trigger-icons/min.png" height="30" width="30"/><b> Min temperature</b></label>
 
-                    <div  ng-if="checkmodelcheckthmin" class="animate-if">
+                    <div  data-ng-if="checkmodelcheckthmin" class="animate-if">
 
                         <label>
-                <input id="thminidinput" ng-disabled="!checkmodelcheckthmin" type="number" name="input" ng-model="trigger1input.value2"
+                <input id="thminidinput" data-ng-disabled="!checkmodelcheckthmin" type="number" name="input" data-ng-model="trigger1input.value2"
                        min="-70" max="70" required></label>
 
                 <div role="alert">
-                        <span  style="color:#ac2925" class="error" ng-show="thmin.input.$error.required && checkmodelcheckthmin">
+                        <span  style="color:#ac2925" class="error" data-ng-show="thmin.input.$error.required && checkmodelcheckthmin">
                             Required!</span>
-                    <span  style="color:#ac2925"  class="error" ng-show="thmin.input.$error.number && checkmodelcheckthmin">
+                    <span  style="color:#ac2925"  class="error" data-ng-show="thmin.input.$error.number && checkmodelcheckthmin">
                             Not valid number!</span>
                 </div>
                         </div>
@@ -105,22 +105,22 @@
                     <input
                             id="periodidcheckbox"
                             type="checkbox"
-                            ng-model="checkmodelcheckperiod"
+                            data-ng-model="checkmodelcheckperiod"
 
                     > <img src="/progetto/static/images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic checking</b></label>
 
-                    <div  ng-if="checkmodelcheckperiod" class="animate-if">
+                    <div  data-ng-if="checkmodelcheckperiod" class="animate-if">
 
                         every
 
                         <label>
-                    <input id="periodidinput" ng-disabled="!checkmodelcheckperiod" type="number" name="input" ng-model="trigger1input.value4"
+                    <input id="periodidinput" data-ng-disabled="!checkmodelcheckperiod" type="number" name="input" data-ng-model="trigger1input.value4"
                            min="0" max="700" required> ms</label>
 
                     <div role="alert">
-                        <span  style="color:#ac2925" class="error" ng-show="periodform.input.$error.required && checkmodelcheckperiod">
+                        <span  style="color:#ac2925" class="error" data-ng-show="periodform.input.$error.required && checkmodelcheckperiod">
                             Required!</span>
-                        <span  style="color:#ac2925"  class="error" ng-show="periodform.input.$error.number && checkmodelcheckperiod">
+                        <span  style="color:#ac2925"  class="error" data-ng-show="periodform.input.$error.number && checkmodelcheckperiod">
                             Not valid number!</span>
                     </div>
                         </div>
@@ -312,30 +312,30 @@
                 <hr>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#allTriggers"
-                    ng-if="!modifyButton && !importRecipe"
+                    data-ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
 
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#choseModify"
-                    ng-if="modifyButton && !importRecipe"
+                    data-ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#publicRecipes"
-                    ng-if="importRecipe && !modifyButton"
+                    data-ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
                 <button id="but" type="submit"
-                        ng-disabled="!checkmodelcheckthmin && !checkmodelcheckthmax"
+                        data-ng-disabled="!checkmodelcheckthmin && !checkmodelcheckthmax"
                         class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="!modifyButton"
+                        data-ng-if="!modifyButton"
                 >Next</button>
 
                 
                 <button id="but" type="submit"
-                        ng-disabled="!checkmodelcheckthmin && !checkmodelcheckthmax"
+                        data-ng-disabled="!checkmodelcheckthmin && !checkmodelcheckthmax"
                         class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="modifyButton"
+                        data-ng-if="modifyButton"
                 >Submit</button>
 
 
@@ -347,7 +347,7 @@
 
             <div class="col-md-row" style="padding-top: 7%">
                 <hr>
-                <label style="color: #cd0a0a" ng-if="!checkmodelcheckthmin && !checkmodelcheckthmax" class="animate-if" >
+                <label style="color: #cd0a0a" data-ng-if="!checkmodelcheckthmin && !checkmodelcheckthmax" class="animate-if" >
                     <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> You must chose tmax and/or tmin
                 </label>
             </div>
