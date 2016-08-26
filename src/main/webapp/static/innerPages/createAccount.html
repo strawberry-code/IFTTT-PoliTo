@@ -52,11 +52,10 @@
 
                 <div class="form-group">
                     <span class="controls">
-                        <label for="inputEmail">
-                            <span class="glyphicon glyphicon-envelope" aria-hidden="true">
-                            </span> Select your timezone
+                        <label for="mySelect"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Select your timezone
                         </label>
-                        <select name="mySelect"
+                        <select id="mySelect"
+                                class="form-control"
                                 data-ng-model="registrationTimezone">
                             <option value='Pacific/Midway' >(UTC-11:00) Midway Island</option>
                             <option value='Pacific/Samoa' >(UTC-11:00) Samoa</option>
