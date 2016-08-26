@@ -2356,6 +2356,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 iftttApp.controller('createAccountController', ['$scope',
     function ($scope) {
 
+        $scope.registrationTimezone = "Europe/Rome";
+
         /**
          * Description
          * @method createAccountFunc
@@ -2365,7 +2367,7 @@ iftttApp.controller('createAccountController', ['$scope',
          * @param {} pws2
          * @return
          */
-        $scope.createAccountFunc = function (user, email, pws1, pws2) {
+        $scope.createAccountFunc = function (user, email, pws1, pws2, timezone) {
 
             $scope.parallax = true;
 
@@ -2377,8 +2379,10 @@ iftttApp.controller('createAccountController', ['$scope',
                     {
                         "username": user,
                         "email": email,
-                        "password": pws1
+                        "password": pws1,
+                        "timezone": $scope.registrationTimezone
                     };
+
                     //if(consoleLogs) console.log(loginDataSend.user);
                     setSpinner(true);
                     $.ajax
@@ -2530,8 +2534,8 @@ iftttApp.controller('createAccountController', ['$scope',
 
         };
 
-        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
 
+        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
         /*
 
 
@@ -2579,8 +2583,6 @@ iftttApp.controller('createAccountController', ['$scope',
 
          };
          */
-
-
         /*
 
 
