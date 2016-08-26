@@ -22,8 +22,6 @@
     <script src="./static/scripts/spin.js"></script>
      
     <script src="./static/scripts/jqueryspin.js"></script>
-    <script src="./static/bower_components/moment-timezone/moment-timezone.js"></script>
-    <script src="./static/bower_components/moment-timezone/moment-timezone-utils.js"></script>
      
     <script src="./static/scripts/jstz.js"></script>
     <script src="./static/bower_components/sweetalert/dist/sweetalert.min.js"></script>
