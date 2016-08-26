@@ -410,12 +410,7 @@ public class DataRestController {
 		}		
 	
 		returnClass res = new returnClass();
-		if(code==-1) {
-			res.setDisconnected(false);
-		}
-		else {
-			res.setDisconnected(true);
-		}	
+		res.setDeleted(code);
 		return res;
 	}
 }
