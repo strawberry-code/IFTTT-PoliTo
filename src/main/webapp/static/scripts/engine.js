@@ -1535,7 +1535,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
          * @return 
          */
         $scope.modifyRecipe = function (index) {
-            var data = $scope.userRecipes[index];
 
 
             descriptionRecipeGlobal = $scope.userRecipes[index].description;
@@ -1545,13 +1544,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             publishRecipeGlobal = $scope.userRecipes[index].publish;
 
 
-            //alert("MODIFY RECIPE:\n\n\n"+descriptionRecipeGlobal+"\n\n"+idRecipe+"\n\n"+triggreGlobalVariable+"\n\n"+actionGlobalVariable+"\n\n"+publishRecipeGlobal+"\n\n"+"\n\n"+"\n\n");
-
-            /*
-             urlActionGlobalVariable = "";
-             ulrTriggreGlobalVariable = "";
-
-             */
 
             if (triggreGlobalVariable == "gmail") {
                 sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
@@ -1774,7 +1766,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                 /*
                 var startDate = null;
-                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null &&
                    dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
                     startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
                     + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
@@ -1784,7 +1776,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 var dur = null;
                 if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
                 	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
-                }                            
+                }
 
                 */
 
@@ -1978,20 +1970,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
         $scope.userRecipes = null;
         modifyVar = 0;
-
-        /*
-         $scope.elements = [{
-         name: 'one',
-         isCollapsed: true
-         }, {
-         name: 'two',
-         isCollapsed: true
-         }, {
-         name: 'three',
-         isCollapsed: true
-         }];
-
-         */
         $scope.elements = [];
 
 
@@ -2015,8 +1993,11 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         tmp++;
                     });
 
-                    /* * * **************/
 
+
+                   /* * * **************/
+
+                    /* Da elimonare non appena è testato XXX1 *
                     var index = 0;
                     $scope.userRecipes.forEach(function () {
 
@@ -2026,14 +2007,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
                         publishRecipeGlobal = $scope.userRecipes[index].publish;
 
-
-                        //alert("MODIFY RECIPE:\n\n\n"+descriptionRecipeGlobal+"\n\n"+idRecipe+"\n\n"+triggreGlobalVariable+"\n\n"+actionGlobalVariable+"\n\n"+publishRecipeGlobal+"\n\n"+"\n\n"+"\n\n");
-
-                        /*
-                         urlActionGlobalVariable = "";
-                         ulrTriggreGlobalVariable = "";
-
-                         */
 
                         if (triggreGlobalVariable == "gmail") {
                             sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
@@ -2240,9 +2213,9 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             durationHour_action1GcalendarController = $scope.userRecipes[index].action.startDate;
                             durationMinute_action1GcalendarController = $scope.userRecipes[index].action.duration;
                             urlActionGlobalVariable = "action1Gcalendar";
-                            
+
                             var startDate = null;
-                            if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                            if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null &&
                                dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
                                 startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
                                 + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
@@ -2252,7 +2225,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             var dur = null;
                             if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
                             	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
-                            }                            
+                            }
 
                             modulinoj2 =
                             {
@@ -2343,6 +2316,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         index++;
                     });
 
+                   FINE */
                     /*  *************/
 
 
