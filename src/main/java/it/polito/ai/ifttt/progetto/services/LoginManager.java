@@ -30,5 +30,6 @@ public interface LoginManager {
 	
 	Integer changePassword(String username, String newpass);
 	Integer deleteAccount(Users user);
+	Integer deleteAllRecipes(Users user);
 	
 }
