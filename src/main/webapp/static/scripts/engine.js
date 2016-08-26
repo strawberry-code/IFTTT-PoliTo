@@ -1550,67 +1550,204 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             {
                 case 11:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 11,
+                        "triggerType": $scope.userRecipes[index].trigger.triggerType,
+                        "eventAction": $scope.userRecipes[index].trigger.eventAction,
+                        "title": $scope.userRecipes[index].trigger.title,
+                        "description": $scope.userRecipes[index].trigger.description,
+                        "location": $scope.userRecipes[index].trigger.location
+                    };
+
                 }
-                    return '/Trigger1Gcalendar';
+                    //return '/Trigger1Gcalendar';
                 case 12:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 12,
+                        "triggerType": "calendar",
+                        "eventAction": true,
+                        "title":    $scope.userRecipes[index].trigger.title,
+                        "description":  $scope.userRecipes[index].trigger.description,
+                        "location": $scope.userRecipes[index].trigger.location,
+                    };
+
                 }
-                    return '/Trigger2Gcalendar';
+                    //return '/Trigger2Gcalendar';
                 case 13:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 13,
+                        "triggerType": "gmail",
+                        "sender": $scope.userRecipes[index].trigger.sender,
+                        "subject": $scope.userRecipes[index].trigger.subject
+
+                    };
 
                 }
-                    return '/gMailTrigger';
+                    //return '/gMailTrigger';
                 case 14:
                 {
+                    modulinoj1=
+                    {
+                        "ingredientCode" : 14,
+                        "triggerType" : "weather",
+                        "type" : "1",
+                        "location" : $scope.userRecipes[index].trigger.location,
+                        "ora"  : $scope.userRecipes[index].trigger.ora,
+                        "timezone" : $scope.userRecipes[index].trigger.timezone,
+                        "locationName" : $scope.userRecipes[index].trigger.locationName
+                    };
+
 
                 }
-                    return '/WeatherTrigger1';
+                    //return '/WeatherTrigger1';
                 case 15:
                 {
+                    modulinoj1=
+                    {
+                        "ingredientCode" : 15,
+                        "triggerType" : "weather",
+                        "type" : "3",
+                        "location":   $scope.userRecipes[index].trigger.location,
+                        "tempo" : $scope.userRecipes[index].trigger.tempo,
+                        "period" : $scope.userRecipes[index].trigger.period,
+                        "timezone" : $scope.userRecipes[index].trigger.timezone,
+                        "locationName" : $scope.userRecipes[index].trigger.locationName
+                    };
 
                 }
-                    return '/WeatherTrigger2';
+                    //return '/WeatherTrigger2';
                 case 16:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 16,
+                        "triggerType": "weather",
+                        "type": "2",
+                        "location": $scope.userRecipes[index].trigger.location,
+                        "timezone": $scope.userRecipes[index].trigger.timezone,
+                        "sunset": $scope.userRecipes[index].trigger.sunset,
+                        "sunrise": $scope.userRecipes[index].trigger.sunrise,
+                        "locationName" : $scope.userRecipes[index].trigger.locationName
+
+
+                    };
+
                 }
-                    return '/WeatherTrigger3';
+                    //return '/WeatherTrigger3';
                 case 17:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 17,
+                        "triggerType": "weather",
+                        "type": "4",
+                        "location": $scope.userRecipes[index].trigger.location,
+                        "timezone": $scope.userRecipes[index].trigger.timezone,
+                        "thmax": $scope.userRecipes[index].trigger.thmax,
+                        "thmin": $scope.userRecipes[index].trigger.thmin,
+                        "period" : $scope.userRecipes[index].trigger.period,
+                        "locationName" : $scope.userRecipes[index].trigger.locationName
+                    };
+
                 }
-                    return '/WeatherTrigger4';
+                    //return '/WeatherTrigger4';
                 case 18:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 18,
+                        "triggerType": "twitter",
+                        "type": false,
+                        "hashtag_text": $scope.userRecipes[index].trigger.hashtag_text,
+                        "username_sender": $scope.userRecipes[index].trigger.sender.username_sender
+                    };
                 }
-                    return '/Trigger1Twitter';
+                    //return '/Trigger1Twitter';
                 case 19:
                 {
+                    modulinoj1 =
+                    {
+                        "ingredientCode" : 19,
+                        "triggerType": "twitter",
+                        "type": true,
+                        "hashtag_text": $scope.userRecipes[index].trigger.hashtag_text,
+                        "username_sender": $scope.userRecipes[index].trigger.username_sender
+                    };
+
+
                 }
-                    return '/Trigger2Twitter';
+                   // return '/Trigger2Twitter';
 
             }
-            switch (ingredientCodeTrigger)
+            switch (ingredientCodeAction)
             {
                 case 21:
                 {
+                    modulinoj2 =
+                    {
+                        "ingredientCode" : 21,
+                        "actionType": "calendar",
+                        //An 2
+                        "timezone": $scope.userRecipes[index].action.timezone,
+                        "title": $scope.userRecipes[index].action.title,
+                        "description": $scope.userRecipes[index].action.description,
+                        "location": $scope.userRecipes[index].action.location,
+                        "startDate": $scope.userRecipes[index].action.startDate,
+                        "duration":  $scope.userRecipes[index].action.duration
+
+                    };
+
+
 
                 }
-                    return '/action1Gcalendar';
+                    //  return '/action1Gcalendar';
                 case 22:
                 {
+                    modulinoj2 =
+                    {
+                        "ingredientCode" : 22,
+                        "actionType": "gmail",
+                        "body": $scope.userRecipes[index].action.body,
+                        "receiver": $scope.userRecipes[index].action.receiver,
+                        "sender": $scope.userRecipes[index].action.sender,
+                        "subject": $scope.userRecipes[index].action.subject
+                    };
 
                 }
-                    return '/gMailAction';
+                    //return '/gMailAction';
                 case 23:
                 {
+                    modulinoj2 =
+                    {
+                        "ingredientCode" : 23,
+                        "actionType": "twitter",
+                        "type": false,
+                        "body": $scope.userRecipes[index].action.body,
+                        "destination": null
+
+                    };
 
                 }
-                    return '/Action1Twitter';
+                    //return '/Action1Twitter';
                 case 24:
                 {
+                    modulinoj2 =
+                    {
+                        "ingredientCode": 24,
+                        "actionType": "twitter",
+                        "type": true,
+                        "destination": $scope.userRecipes[index].action.destination,
+                        "body": $scope.userRecipes[index].action.body
+
+                    };
 
                 }
-                    return '/Action2Twitter';
+                    //return '/Action2Twitter';
             }
 
 
