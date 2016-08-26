@@ -385,11 +385,11 @@ $(function(){
             //alert(  pweather + pperiod  + " " + pzone);
             sendingToServer (pweather, pperiod, pzone );
 
-            if ($('#weatheridcheckbox').is(":checked"))
-                weathercheckfunc();
+            //if ($('#weatheridcheckbox').is(":checked"))
+               // weathercheckfunc();
             if($('#periodidcheckbox').is(":checked"))
                 periodidcheckfunc();
-            if ($('#checktimeZonevar').is(":checked"))
+            //if ($('#checktimeZonevar').is(":checked"))
                 //timezoneCheck();
 
             //alert(flagWeatherCheck + "X" + flagPeriodCheck + "X" + flagZoneCheck);
