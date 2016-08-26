@@ -5229,13 +5229,8 @@ iftttApp.filter('skeumorphize', function(){
 
             case 'thmin':
                 return input + " °C";
-
-            case 'timezone':
-                if (input > 0) {
-                    return "GMT+" + input;
-                } else {
-                    return "GMT" + input;
-                }
+            
+            // TIMOEZONE
 
             case 'duration': {
                 var d = moment.duration(parseInt(input), 'milliseconds');
