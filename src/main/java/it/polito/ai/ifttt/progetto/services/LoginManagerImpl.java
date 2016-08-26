@@ -439,4 +439,36 @@ public class LoginManagerImpl implements LoginManager {
 		// -1 if errors
 		return 0;
 	}
+	
+	public Integer deleteAllRecipes(Users user) {
+		
+		Session session = sessionFactory.openSession();
+		try {
+			// begin transaction
+			Transaction tx = session.beginTransaction();
+			try {
+				List<Recipes> recipes = user.getRecipes();
+				for(Recipes r : recipes) {
+					Integer code = recipesManager.deleteRecipe(r.getRid());
+					if(code==-1) {
+						return -1;
+					}
+				}	
+		
+			} catch (Exception e) {
+				// if some errors during the transaction occur,
+				// rollback and return code -1
+				System.out.println(e);
+				tx.rollback();
+				return -1;
+			}
+		} finally {
+			if (session != null) {
+				// close session in any case
+				session.close();
+			}
+		}
+		// -1 if errors
+		return 0;
+	}
 }
