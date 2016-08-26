@@ -23,7 +23,10 @@
                             </div>
                         </span>
 
-                        <input id="search-input" type="search" class="form-control" placeholder="Enter location...">
+                        <input id="search-input"
+                               type="search"
+                               class="form-control"
+                               placeholder="Enter location...">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">Search!</button>
                         </span>
@@ -55,20 +58,19 @@
                     <input
                             id="weatheridcheckbox"
                             type="checkbox"
-                            ng-model="checkmodelcheckweather"
+                            data-ng-model="checkmodelcheckweather"
 
                     > <img src="/progetto/static/images/trigger-icons/wcondition.png" height="30" width="30"/> <b>Select the weather condition</b></label>
-                    <div  ng-if="checkmodelcheckweather" class="animate-if">
+                    <div  data-ng-if="checkmodelcheckweather" class="animate-if">
                         <form name="myForm">
                         <label for="mySelect">Make a choice:</label>
-                        <select name="mySelect" id="mySelect"
-                                ng-disabled="!checkmodelcheckweather"
-                                ng-options="option.name  for option in data.availableOptions track by option.id"
-                                ng-model="data.selectedOption"></select>
+                                data-ng-disabled="!checkmodelcheckweather"
+                                data-ng-options="option.name  for option in data.availableOptions track by option.id"
+                                data-ng-model="data.selectedOption"></select>
                         </form>
 
                         <div role="alert">
-                            <span  style="color:#ac2925" class="error" ng-show="weather.input.$error.required && checkmodelcheckweather">
+                            <span  style="color:#ac2925" class="error" data-ng-show="weather.input.$error.required && checkmodelcheckweather">
                                 Required!</span>
                             </div>
 
@@ -80,10 +82,10 @@
                     <input
                             id="periodidcheckbox"
                             type="checkbox"
-                            ng-model="checkmodelcheckperiod"
+                            data-ng-model="checkmodelcheckperiod"
 
                     > <img src="/progetto/static/images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic checking </b></label>
-                        <div  ng-if="checkmodelcheckperiod" class="animate-if">
+                        <div  data-ng-if="checkmodelcheckperiod" class="animate-if">
 
                             every
                             <label>
@@ -92,9 +94,9 @@
 
 
                             <div role="alert">
-                        <span  style="color:#ac2925" class="error" ng-show="periodform.input.$error.required && checkmodelcheckperiod">
+                        <span  style="color:#ac2925" class="error" data-ng-show="periodform.input.$error.required && checkmodelcheckperiod">
                             Required!</span>
-                        <span  style="color:#ac2925"  class="error" ng-show="periodform.input.$error.number && checkmodelcheckperiod">
+                        <span  style="color:#ac2925"  class="error" data-ng-show="periodform.input.$error.number && checkmodelcheckperiod">
                             Not valid number!</span>
                     </div>
                         </div>
@@ -286,26 +288,26 @@
 
 
                     <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#allTriggers"
-                        ng-if="!modifyButton && !importRecipe"
+                        data-ng-if="!modifyButton && !importRecipe"
                     >Cancel</a>
 
                     <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#choseModify"
-                        ng-if="modifyButton && !importRecipe"
+                        data-ng-if="modifyButton && !importRecipe"
                     >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#publicRecipes"
-                    ng-if="importRecipe && !modifyButton"
+                    data-ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
 
                     <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
-                            ng-if="!modifyButton"
+                            data-ng-if="!modifyButton"
                     >Next</button>
 
 
                     <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
-                            ng-if="modifyButton"
+                            data-ng-if="modifyButton"
                     >Submit</button>
 
                     <div class="col-md-3">
