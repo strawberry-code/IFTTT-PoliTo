@@ -1572,7 +1572,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "eventAction": true,
                         "title":    $scope.userRecipes[index].trigger.title,
                         "description":  $scope.userRecipes[index].trigger.description,
-                        "location": $scope.userRecipes[index].trigger.location,
+                        "location": $scope.userRecipes[index].trigger.location
                     };
 
                 }
