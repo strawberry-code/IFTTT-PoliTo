@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.util.DateTime;
 
 import it.polito.ai.ifttt.progetto.models.CalendarAction;
 import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
@@ -199,6 +200,13 @@ public class RecipesManagerImpl implements RecipesManager {
 					CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
 					if(calendaraction.getIngredientCode() != 21) {
 						return -1;
+					}
+					if(calendaraction.getStartDate() != null) {
+						try {
+							DateTime d = new DateTime(calendaraction.getStartDate());
+						} catch(Exception e) {
+							return -1;
+						}
 					}
 					if(calendaraction.getDuration()==null) {
 						calendaraction.setDuration((long) 3600000);
@@ -483,6 +491,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						if(calendaraction.getIngredientCode() != 21) {
 							return -1;
 						}
+						if(calendaraction.getStartDate() != null) {
+							try {
+								DateTime d = new DateTime(calendaraction.getStartDate());
+							} catch(Exception e) {
+								return -1;
+							}
+						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
 						}
@@ -550,6 +565,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
 						if(calendaraction.getIngredientCode() != 21) {
 							return -1;
+						}
+						if(calendaraction.getStartDate() != null) {
+							try {
+								DateTime d = new DateTime(calendaraction.getStartDate());
+							} catch(Exception e) {
+								return -1;
+							}
 						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
