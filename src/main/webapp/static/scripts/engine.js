@@ -1797,8 +1797,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 //                    "dayVector": dayVector_action1GcalendarController,
 //                    "hourStart": hourStart_action1GcalendarController,
 //                    "minuteStart":  minuteStart_action1GcalendarController
-                     "startDate": startDate,
-                     "duration": dur
+                     "startDate": startDate__action1GcalendarController,
+                     "duration": dur_action1GcalendarController
 
                 };
 
