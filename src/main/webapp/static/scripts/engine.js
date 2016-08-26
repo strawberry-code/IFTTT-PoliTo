@@ -1487,7 +1487,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
         };
 
-        $scope.deleteAllRecipes = function() {
+        $scope.removeAllRecipes = function() {
 
 
             sweet.show({
