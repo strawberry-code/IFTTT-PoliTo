@@ -386,7 +386,7 @@ $(function(){
             sendingToServer (pweather, pperiod, pzone );
 
             //if ($('#weatheridcheckbox').is(":checked"))
-               // weathercheckfunc();
+            //    weathercheckfunc();
             if($('#periodidcheckbox').is(":checked"))
                 periodidcheckfunc();
             //if ($('#checktimeZonevar').is(":checked"))
