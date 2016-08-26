@@ -356,7 +356,7 @@ $(function(){
                 //timezone
                 if ($('#checktimeZonevar').is(":checked")) {
                     timezone_customWeatherActionControllerTrigger3 = $('#timezoneid').val();
-                    timezoneCheck();
+                    //timezoneCheck();
                 }
                 else {
                     timezone_customWeatherActionControllerTrigger3 = null;

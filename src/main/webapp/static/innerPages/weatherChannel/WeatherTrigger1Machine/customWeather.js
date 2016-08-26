@@ -356,7 +356,7 @@ $(function()
             /*Check value*/
             if ($('#checktimeZonevar').is(":checked"))
             {
-                timezoneCheck(timezone);
+                //timezoneCheck(timezone);
                 timezone_customWeatherActionControllerTrigger1 = timezone;
 
             }
@@ -415,19 +415,20 @@ $(function()
                 //var url = "/#/WeatherTrigger1";
                 //window.location.replace(url);
                 //Alert sull'errore commesso:
-                if(flagTimezoneCheck == false && flagTimeCheck == false)
-                {
-                    //
-                    // $("#notificationsWrapper").notify(
-                    //     "Your inputs are not right",
-                    //     {
-                    //         className: 'warning',
-                    //         position: 'bottom center'
-                    //     }
-                    // );
-                    alertWarning("You input is not right.");
-                    //alert("Your inputs are not right");
-                }
+                //if(flagTimezoneCheck == false && flagTimeCheck == false)
+                    if(lagTimeCheck == false) {
+                        //
+                        // $("#notificationsWrapper").notify(
+                        //     "Your inputs are not right",
+                        //     {
+                        //         className: 'warning',
+                        //         position: 'bottom center'
+                        //     }
+                        // );
+                        alertWarning("You input is not right.");
+                        //alert("Your inputs are not right");
+                    }
+                        /*
                 else
                 {
                     if (flagTimeCheck == false)
@@ -447,6 +448,7 @@ $(function()
                         //window.location.replace('#');
                     }
                 }
+                */
 
             }
 
