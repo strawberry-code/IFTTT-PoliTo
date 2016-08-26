@@ -1665,7 +1665,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "triggerType": "twitter",
                         "type": false,
                         "hashtag_text": $scope.userRecipes[index].trigger.hashtag_text,
-                        "username_sender": $scope.userRecipes[index].trigger.sender.username_sender
+                        "username_sender": $scope.userRecipes[index].trigger.username_sender
                     };
                 }
                     //return '/Trigger1Twitter';
