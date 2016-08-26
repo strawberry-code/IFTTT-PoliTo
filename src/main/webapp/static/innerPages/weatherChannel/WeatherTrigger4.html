@@ -86,7 +86,7 @@
                     <div  data-ng-if="checkmodelcheckthmin" class="animate-if">
 
                         <label>
-                <input id="thminidinput" data-ng-disabled="!checkmodelcheckthmin" type="number" name="input" data-ng-model="trigger1input.value2"
+                <input class="form-control" id="thminidinput" data-ng-disabled="!checkmodelcheckthmin" type="number" name="input" data-ng-model="trigger1input.value2"
                        min="-70" max="70" required></label>
 
                 <div role="alert">
@@ -111,10 +111,11 @@
 
                     <div  data-ng-if="checkmodelcheckperiod" class="animate-if">
 
-                        every
+
 
                         <label>
-                    <input id="periodidinput" data-ng-disabled="!checkmodelcheckperiod" type="number" name="input" data-ng-model="trigger1input.value4"
+                            every
+                    <input class="form-control" id="periodidinput" data-ng-disabled="!checkmodelcheckperiod" type="number" name="input" data-ng-model="trigger1input.value4"
                            min="0" max="700" required> ms</label>
 
                     <div role="alert">
