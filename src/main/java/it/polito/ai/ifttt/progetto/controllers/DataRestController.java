@@ -76,7 +76,7 @@ public class DataRestController {
 			try {
 				email = URLDecoder.decode(email, "UTF-8");
 				if (username != null && password != null && email != null)
-					i = loginManager.register(username, password, email);
+					i = loginManager.register(username, password, email, timezone);
 			} catch (UnsupportedEncodingException e) {
 				i=6;
 			}
