@@ -40,7 +40,9 @@ public class RecipesManagerImpl implements RecipesManager {
 	@Autowired
 	WeatherManager weatherManager;
 	@Autowired
-	TwitterManager twitterManager;
+	TwitterManager twitterManager;	
+	
+	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
 
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -120,7 +122,6 @@ public class RecipesManagerImpl implements RecipesManager {
 		Integer actionid = null;
 		Integer recipeid = -1;
 		
-		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		if(user==null) {
@@ -336,8 +337,7 @@ public class RecipesManagerImpl implements RecipesManager {
 		String actionTypeOld = rec.getActionType();
 		Integer triggerid = rec.getTriggerid();
 		Integer actionid = rec.getActionid();
-		
-		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		if(user==null) {
