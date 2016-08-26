@@ -64,6 +64,7 @@
                     <div  data-ng-if="checkmodelcheckweather" class="animate-if">
                         <form name="myForm">
                         <label for="mySelect">Make a choice:</label>
+                        <select class="form-control" name="mySelect" id="mySelect"
                                 data-ng-disabled="!checkmodelcheckweather"
                                 data-ng-options="option.name  for option in data.availableOptions track by option.id"
                                 data-ng-model="data.selectedOption"></select>
@@ -87,9 +88,9 @@
                     > <img src="/progetto/static/images/trigger-icons/periodic.png" height="30" width="30"/> <b>Periodic checking </b></label>
                         <div  data-ng-if="checkmodelcheckperiod" class="animate-if">
 
-                            every
-                            <label>
-                        <input id="periodidinput" ng-disabled="!checkmodelcheckperiod" type="number" name="input" ng-model="trigger1input.value4"
+
+                            <label for="periodidinput">every
+                        <input class="form-control" id="periodidinput" data-ng-disabled="!checkmodelcheckperiod" type="number" name="input" data-ng-model="trigger1input.value4"
                            min="0" max="700" required> ms</label>
 
 
