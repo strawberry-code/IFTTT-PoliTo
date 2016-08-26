@@ -1545,6 +1545,10 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
 
 
+
+            //[Bisognerebbe forse usare ingredient code visto che è stato introdotto]
+
+
             if (triggreGlobalVariable == "gmail") {
                 sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
                 subject_GmailTriggerController = $scope.userRecipes[index].trigger.subject;
