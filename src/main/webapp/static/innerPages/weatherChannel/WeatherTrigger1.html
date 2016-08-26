@@ -51,27 +51,27 @@
                 <input
                         id="checktime"
                         type="checkbox"
-                        ng-model="checkadvisetime"
-                        ng-change="checkadvisetimefunc(checkadvisetimevar)"
+                        data-ng-model="checkadvisetime"
+                        data-ng-change="checkadvisetimefunc(checkadvisetimevar)"
                 > <img src="/progetto/static/images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to be notified</b></label>
 
-                <div  ng-if="checkadvisetime" class="animate-if">
+                <div  data-ng-if="checkadvisetime" class="animate-if">
                 <form name="timeHour">
                     <label>Hour:
-                        <input  id="timehourid" ng-disabled="!checkadvisetime"  type="number" name="input1" ng-model="trigger1input.value1"
+                        <input  id="timehourid" data-ng-disabled="!checkadvisetime"  type="number" name="input1" data-ng-model="trigger1input.value1"
                                min="0" max="23" required>
                     </label>
 
 
                     <label> minute:
-                        <input  id="timeminuteid" ng-disabled="!checkadvisetime" type="number" name="input2" ng-model="trigger1input.value2"
+                        <input  id="timeminuteid" data-ng-disabled="!checkadvisetime" type="number" name="input2" data-ng-model="trigger1input.value2"
                                min="0" max="59" required>
                     </label>
                     <div role="alert">
-                        <span style="color:#ac2925" class="error" ng-show="(timeHour.input1.$error.required ||
+                        <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.required ||
                          timeHour.input2.$error.required) && checkadvisetime">
                             Required!</span>
-                        <span  style="color:#ac2925"  class="error" ng-show="(timeHour.input1.$error.number ||
+                        <span  style="color:#ac2925"  class="error" data-ng-show="(timeHour.input1.$error.number ||
                           timeHour.input2.$error.number) && checkadvisetime">
                             Not valid number!</span>
                     </div>
@@ -89,11 +89,11 @@
                     <input
                             id="checktimeZonevar"
                             type="checkbox"
-                            ng-model="checktimeZone"
-                            ng-change="checktimeZonefunc(checktimeZonevar)"
+                            data-ng-model="checktimeZone"
+                            data-ng-change="checktimeZonefunc(checktimeZonevar)"
                     > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom timezone: </b>
                 </label>
-                    <div  ng-if="checktimeZone" class="animate-if">
+                    <div  data-ng-if="checktimeZone" class="animate-if">
                     <!--<input id="timezoneid" ng-disabled="!checktimeZone" name="input" ng-model="trigger1input.value3"
                            min="-12" max="12" required> GMT
                         -->
@@ -245,9 +245,9 @@
                         </select>
 
                     <div role="alert">
-                        <span  style="color:#ac2925" class="error" ng-show="timeZone.input.$error.required  && checktimeZone">
+                        <span  style="color:#ac2925" class="error" data-ng-show="timeZone.input.$error.required  && checktimeZone">
                             Required!</span>
-                        <span  style="color:#ac2925"  class="error" ng-show="timeZone.input.$error.number  && checktimeZone">
+                        <span  style="color:#ac2925"  class="error" data-ng-show="timeZone.input.$error.number  && checktimeZone">
                             Not valid number!</span>
                     </div>
             </div>
@@ -260,24 +260,24 @@
 
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#allTriggers"
-                    ng-if="!modifyButton && !importRecipe"
+                    data-ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#choseModify"
-                    ng-if="modifyButton && !importRecipe"
+                    data-ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a  type="submit" class="btn btn-danger pull-left animate-if"   href="#publicRecipes"
-                    ng-if="importRecipe && !modifyButton"
+                    data-ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
                 <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="!modifyButton"
+                        data-ng-if="!modifyButton"
                 >Next</button>
 
                 <button id="but" type="submit"  class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="modifyButton"
+                        data-ng-if="modifyButton"
                 >Submit</button>
 
 
