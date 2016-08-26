@@ -7,7 +7,7 @@ import it.polito.ai.ifttt.progetto.models.Users;
 public interface LoginManager {
 	
 	//to register a new user
-	int register(String username, String password, String email);
+	int register(String username, String password, String email, String timezone);
 	
 	//to do login for user already registered 
 	//NO: we use spring-security

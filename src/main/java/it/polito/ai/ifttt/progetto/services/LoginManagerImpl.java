@@ -35,7 +35,7 @@ public class LoginManagerImpl implements LoginManager {
 	RecipesManager recipesManager;
 
 	@SuppressWarnings({ "unchecked", "static-access" })
-	public int register(String username, String password, String email) {
+	public int register(String username, String password, String email, String timezone) {
 
 		// open session
 		Session session = sessionFactory.openSession();
@@ -107,6 +107,7 @@ public class LoginManagerImpl implements LoginManager {
 				user.setPassword(hashpass);
 				user.setEmail(email);
 				user.setUrlactivate(url);
+				user.setTimezone(timezone);
 				Roles r = new Roles();
 				r.setName("ROLE_USER");
 				user.getRoles().add(r);
