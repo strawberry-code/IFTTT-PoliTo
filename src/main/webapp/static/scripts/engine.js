@@ -3381,9 +3381,34 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
         $scope.data =
         {
             availableOptions: [
-                {id: '200', name: 'thunderstorm with light rain'},
-                {id: '300', name: 'light intensity drizzle'},
-                {id: '500', name: '500	light rain'}
+                {id: '210', name: 'light thunderstorm'},
+                {id: '211', name: 'thunderstorm'},
+                {id: '212', name: 'heavy thunderstorm'},
+                {id: '310', name: 'light intensity drizzle rain'},
+                {id: '311', name: 'drizzle rain'},
+                {id: '312', name: 'heavy intensity drizzle rain'},
+                {id: '500', name: 'light rain'},
+                {id: '501', name: 'moderate rain'},
+                {id: '502', name: 'heavy intensity rain'},
+                {id: '503', name: 'very heavy rain'},
+                {id: '600', name: 'light snow'},
+                {id: '601', name: 'snow'},
+                {id: '602', name: 'heavy snow'},
+                {id: '741', name: 'fog'},
+                {id: '751', name: 'sand'},
+                {id: '761', name: 'dust'},
+                {id: '762', name: 'volcanic ash'},
+                {id: '800', name: 'clear sky'},
+                {id: '801', name: 'few clouds'},
+                {id: '804', name: 'overcast clouds'},
+                {id: '900', name: 'tornado'},
+                {id: '901', name: 'tropical storm'},
+                {id: '902', name: 'hurricane'},
+                {id: '903', name: 'cold'},
+                {id: '904', name: 'hot'},
+                {id: '905', name: 'windy'},
+                {id: '906', name: 'hail'},
+                {id: '962', name: 'hurricane'}
             ],
             selectedOption: {id: '200', name: 'thunderstorm with light rain'} //This sets the default value of the select in the ui
 
