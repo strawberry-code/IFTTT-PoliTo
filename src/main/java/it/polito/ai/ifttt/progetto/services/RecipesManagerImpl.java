@@ -126,6 +126,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
+					if(calendartrigger.getIngredientCode() < 11 || calendartrigger.getIngredientCode() > 19) {
+						return -1;
+					}
 					calendartrigger.setLastCheck(System.currentTimeMillis());
 					session.save(calendartrigger);
 					session.flush();
@@ -135,6 +138,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+					if(gmailtrigger.getIngredientCode() < 11 || gmailtrigger.getIngredientCode() > 19) {
+						return -1;
+					}
 					gmailtrigger.setLastCheck(System.currentTimeMillis());
 					if(gmailtrigger.getSender()!=null) {
 						EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
@@ -150,7 +156,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-					//weathertrigger.setLastCheck(System.currentTimeMillis());
+					if(weathertrigger.getIngredientCode() < 11 || weathertrigger.getIngredientCode() > 19) {
+						return -1;
+					}
 					if(weathertrigger.getThmin()!=null) {
 						if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
 							return -1;
@@ -162,6 +170,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 					}
 					weathertrigger.setLastCheck(null);
+					//weathertrigger.setLastCheck(System.currentTimeMillis());
 					session.save(weathertrigger);
 					session.flush();
 					triggerid = weathertrigger.getWtid();
@@ -170,6 +179,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+					if(twittertrigger.getIngredientCode() < 11 || twittertrigger.getIngredientCode() > 19) {
+						return -1;
+					}
 					twittertrigger.setLastCheck(System.currentTimeMillis());
 					session.save(twittertrigger);
 					session.flush();
@@ -185,6 +197,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+					if(calendaraction.getIngredientCode() < 21 || calendaraction.getIngredientCode() > 24) {
+						return -1;
+					}
 					if(calendaraction.getDuration()==null) {
 						calendaraction.setDuration((long) 3600000);
 					}	
@@ -196,6 +211,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+					if(gmailaction.getIngredientCode() < 21 || gmailaction.getIngredientCode() > 24) {
+						return -1;
+					}
 					if(gmailaction.getReceiver()!=null) {
 						EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 						if(emailval.validate()==false) {
@@ -210,6 +228,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+					if(twitteraction.getIngredientCode() < 21 || twitteraction.getIngredientCode() > 24) {
+						return -1;
+					}
 					session.save(twitteraction);
 					session.flush();
 					actionid = twitteraction.getTwaid();
@@ -289,6 +310,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						calendartrigger.setCtid(rec.getTriggerid());
+						if(calendartrigger.getIngredientCode() < 11 || calendartrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
 						session.update(calendartrigger);
 						session.flush();
@@ -297,6 +321,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						if(gmailtrigger.getIngredientCode() < 11 || gmailtrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						if(gmailtrigger.getSender()!=null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 							if(emailval.validate()==false) {
@@ -312,6 +339,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+						if(weathertrigger.getIngredientCode() < 11 || weathertrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						if(weathertrigger.getThmin()!=null) {
 							if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
 								return -1;
@@ -332,6 +362,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+						if(twittertrigger.getIngredientCode() < 11 || twittertrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						twittertrigger.setTwtid(rec.getTriggerid());
 						twittertrigger.setLastCheck(System.currentTimeMillis());
 						session.update(twittertrigger);
@@ -372,6 +405,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
+						if(calendartrigger.getIngredientCode() < 11 || calendartrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
 						session.save(calendartrigger);
 						session.flush();
@@ -381,6 +417,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
+						if(gmailtrigger.getIngredientCode() < 11 || gmailtrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						if(gmailtrigger.getSender()!=null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 							if(emailval.validate()==false) {
@@ -396,6 +435,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
+						if(weathertrigger.getIngredientCode() < 11 || weathertrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						if(weathertrigger.getThmin()!=null) {
 							if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
 								return -1;
@@ -416,6 +458,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+						if(twittertrigger.getIngredientCode() < 11 || twittertrigger.getIngredientCode() > 19) {
+							return -1;
+						}
 						twittertrigger.setLastCheck(System.currentTimeMillis());
 						session.save(twittertrigger);
 						session.flush();
@@ -435,6 +480,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						if(calendaraction.getIngredientCode() < 21 || calendaraction.getIngredientCode() > 24) {
+							return -1;
+						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
 						}
@@ -446,6 +494,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						if(gmailaction.getIngredientCode() < 21 || gmailaction.getIngredientCode() > 24) {
+							return -1;
+						}
 						if(gmailaction.getReceiver()!=null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if(emailval.validate()==false) {
@@ -460,6 +511,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+						if(twitteraction.getIngredientCode() < 21 || twitteraction.getIngredientCode() > 24) {
+							return -1;
+						}
 						twitteraction.setTwaid(rec.getActionid());
 						session.update(twitteraction);
 						session.flush();
@@ -493,7 +547,10 @@ public class RecipesManagerImpl implements RecipesManager {
 					if (actionType.compareTo("calendar") == 0) {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);						
+						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
+						if(calendaraction.getIngredientCode() < 21 || calendaraction.getIngredientCode() > 24) {
+							return -1;
+						}
 						if(calendaraction.getDuration()==null) {
 							calendaraction.setDuration((long) 3600000);
 						}					
@@ -505,6 +562,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
+						if(gmailaction.getIngredientCode() < 21 || gmailaction.getIngredientCode() > 24) {
+							return -1;
+						}
 						if(gmailaction.getReceiver()!=null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if(emailval.validate()==false) {
@@ -519,6 +579,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+						if(twitteraction.getIngredientCode() < 21 || twitteraction.getIngredientCode() > 24) {
+							return -1;
+						}
 						session.save(twitteraction);
 						session.flush();
 						actionid = twitteraction.getTwaid();
