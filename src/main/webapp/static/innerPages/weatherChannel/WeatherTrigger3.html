@@ -68,8 +68,8 @@
                     <input
                             id="checksunrise"
                             type="checkbox"
-                            ng-model="checkadvisesunrise"
-                            ng-change="checkadvisesunrisefunc(checkadvisetsunrisevar)"
+                            data-ng-model="checkadvisesunrise"
+                            data-ng-change="checkadvisesunrisefunc(checkadvisetsunrisevar)"
                     > <img src="/progetto/static/images/weatherChannel/t31.png" height="30" width="30"/> <b>Sunrise
                     time </b></label>
                 <br>
@@ -78,8 +78,8 @@
                     <input
                             id="checksunset"
                             type="checkbox"
-                            ng-model="checkadvisesunset"
-                            ng-change="checkadvisetsunsetfunc(checkadvisesunsetvar)"
+                            data-ng-model="checkadvisesunset"
+                            data-ng-change="checkadvisetsunsetfunc(checkadvisesunsetvar)"
                     > <img src="/progetto/static/images/weatherChannel/t32.png" height="30" width="30"/> <b>Sunset
                     time </b></label>
                 <br>
@@ -272,26 +272,26 @@
 
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                   ng-if="!modifyButton && !importRecipe"
+                   data-ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                   ng-if="modifyButton && !importRecipe"
+                   data-ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                   ng-if="importRecipe && !modifyButton"
+                   data-ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
                 <button id="but" type="submit" class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="!modifyButton"
+                        data-ng-if="!modifyButton"
                 >Next
                 </button>
 
 
                 <button id="but" type="submit" class="btn btn-primary pull-right btn_next3 animate-if"
-                        ng-if="modifyButton"
+                        data-ng-if="modifyButton"
                 >Submit
                 </button>
 
@@ -300,7 +300,7 @@
 
             <div class="col-md-row" style="padding-top: 7%">
                 <hr>
-                <label style="color: #cd0a0a" ng-if="!checkadvisesunrise && !checkadvisesunset" class="animate-if">
+                <label style="color: #cd0a0a"data-ng-if="!checkadvisesunrise && !checkadvisesunset" class="animate-if">
                     <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> You must chose sunrise
                     and/or sunset
                 </label>
