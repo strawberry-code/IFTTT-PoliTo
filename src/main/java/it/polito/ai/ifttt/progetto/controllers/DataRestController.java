@@ -396,4 +396,26 @@ public class DataRestController {
 		}	
 		return res;
 	}	
+	
+	@RequestMapping(value = "deleteAllRecipes", method = RequestMethod.POST)
+	returnClass deleteAllRecipes() {
+		Integer code = 0;
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user==null) {
+			code = -1;
+		}
+		else {
+			code = loginManager.deleteAllRecipes(user);
+		}		
+	
+		returnClass res = new returnClass();
+		if(code==-1) {
+			res.setDisconnected(false);
+		}
+		else {
+			res.setDisconnected(true);
+		}	
+		return res;
+	}
 }
