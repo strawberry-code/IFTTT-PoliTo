@@ -442,18 +442,21 @@ public class LoginManagerImpl implements LoginManager {
 	
 	public Integer deleteAllRecipes(Users user) {
 		
+		Integer code = 0;
 		Session session = sessionFactory.openSession();
 		try {
 			// begin transaction
 			Transaction tx = session.beginTransaction();
 			try {
 				List<Recipes> recipes = user.getRecipes();
-				for(Recipes r : recipes) {
-					Integer code = recipesManager.deleteRecipe(r.getRid());
-					if(code==-1) {
-						return -1;
-					}
-				}	
+				if(recipes == null || recipes.size()==0) {
+					code = -2;
+				} 
+				else {
+					for(Recipes r : recipes) {
+						code = recipesManager.deleteRecipe(r.getRid());
+					}	
+				}
 		
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
@@ -469,6 +472,6 @@ public class LoginManagerImpl implements LoginManager {
 			}
 		}
 		// -1 if errors
-		return 0;
+		return code;
 	}
 }
