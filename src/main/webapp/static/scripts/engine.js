@@ -1553,27 +1553,28 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     modulinoj1 =
                     {
-                        "ingredientCode" : 11,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType": $scope.userRecipes[index].trigger.triggerType,
                         "eventAction": $scope.userRecipes[index].trigger.eventAction,
                         "title": $scope.userRecipes[index].trigger.title,
                         "description": $scope.userRecipes[index].trigger.description,
                         "location": $scope.userRecipes[index].trigger.location
                     };
-
+                    break;
                 }
                     //return '/Trigger1Gcalendar';
                 case 12:
                 {
                     modulinoj1 =
                     {
-                        "ingredientCode" : 12,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType": "calendar",
                         "eventAction": true,
                         "title":    $scope.userRecipes[index].trigger.title,
                         "description":  $scope.userRecipes[index].trigger.description,
                         "location": $scope.userRecipes[index].trigger.location
                     };
+                    break;
 
                 }
                     //return '/Trigger2Gcalendar';
@@ -1581,12 +1582,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     modulinoj1 =
                     {
-                        "ingredientCode" : 13,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType": "gmail",
                         "sender": $scope.userRecipes[index].trigger.sender,
                         "subject": $scope.userRecipes[index].trigger.subject
 
                     };
+                    break;
 
                 }
                     //return '/gMailTrigger';
@@ -1594,7 +1596,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     modulinoj1=
                     {
-                        "ingredientCode" : 14,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType" : "weather",
                         "type" : "1",
                         "location" : $scope.userRecipes[index].trigger.location,
@@ -1602,6 +1604,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "timezone" : $scope.userRecipes[index].trigger.timezone,
                         "locationName" : $scope.userRecipes[index].trigger.locationName
                     };
+                    break;
 
 
                 }
@@ -1610,7 +1613,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     modulinoj1=
                     {
-                        "ingredientCode" : 15,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType" : "weather",
                         "type" : "3",
                         "location":   $scope.userRecipes[index].trigger.location,
@@ -1619,6 +1622,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "timezone" : $scope.userRecipes[index].trigger.timezone,
                         "locationName" : $scope.userRecipes[index].trigger.locationName
                     };
+                    break;
 
                 }
                     //return '/WeatherTrigger2';
@@ -1626,7 +1630,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     modulinoj1 =
                     {
-                        "ingredientCode" : 16,
+                        "ingredientCode" : ingredientCodeTrigger,
                         "triggerType": "weather",
                         "type": "2",
                         "location": $scope.userRecipes[index].trigger.location,
@@ -1637,6 +1641,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
 
                     };
+                    break;
 
                 }
                     //return '/WeatherTrigger3';
@@ -1654,6 +1659,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "period" : $scope.userRecipes[index].trigger.period,
                         "locationName" : $scope.userRecipes[index].trigger.locationName
                     };
+                    break;
 
                 }
                     //return '/WeatherTrigger4';
@@ -1667,6 +1673,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "hashtag_text": $scope.userRecipes[index].trigger.hashtag_text,
                         "username_sender": $scope.userRecipes[index].trigger.username_sender
                     };
+                    break;
                 }
                     //return '/Trigger1Twitter';
                 case 19:
@@ -1679,7 +1686,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "hashtag_text": $scope.userRecipes[index].trigger.hashtag_text,
                         "username_sender": $scope.userRecipes[index].trigger.username_sender
                     };
-
+                    break;
 
                 }
                    // return '/Trigger2Twitter';
@@ -1702,13 +1709,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "duration":  $scope.userRecipes[index].action.duration
 
                     };
-
-
-
+                    break;
                 }
                     //  return '/action1Gcalendar';
                 case 22:
                 {
+                    //console.log("3");
+
                     modulinoj2 =
                     {
                         "ingredientCode" : 22,
@@ -1718,11 +1725,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "sender": $scope.userRecipes[index].action.sender,
                         "subject": $scope.userRecipes[index].action.subject
                     };
+                    break;
 
                 }
                     //return '/gMailAction';
                 case 23:
                 {
+                    //console.log("2");
                     modulinoj2 =
                     {
                         "ingredientCode" : 23,
@@ -1732,11 +1741,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "destination": null
 
                     };
+                    break;
 
                 }
                     //return '/Action1Twitter';
                 case 24:
                 {
+                    //console.log("1");
                     modulinoj2 =
                     {
                         "ingredientCode": 24,
@@ -1746,6 +1757,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         "body": $scope.userRecipes[index].action.body
 
                     };
+                    break;
 
                 }
                     //return '/Action2Twitter';
@@ -5141,7 +5153,7 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         $scope.urlTriggerUser =getRoute(ingredientTriggerCode);
 
         $scope.urlActionUser =getRoute(ingredientActionCode);
-        console.log(ingredientActionCode + " url--> " +  $scope.urlActionUser );
+        console.log(ingredientActionCode + " url--> " +  $scope.urlActionUser  + "*** " + modulinoj2.ingredientCode );
 
 
         //$scope.urlTriggerUser = ulrTriggreGlobalVariable;
