@@ -1554,7 +1554,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 {
                     "ingredientCode": 13,
                     "triggerType": "gmail",
-                    //Tn 1
                     "sender": sender_GmailTriggerController,
                     "subject": subject_GmailTriggerController
                 };
@@ -1576,7 +1575,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             "triggerType": "calendar",
                             "eventAction": false,
 
-                            //Tn 2 S0
+
                             "title": title_Trigger1GcalendarController,
                             "description": description_Trigger1GcalendarController,
                             "location": place_Trigger1GcalendarController
@@ -1596,7 +1595,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             "ingredientCode": 12,
                             "triggerType": "calendar",
                             "eventAction": true,
-                            //Tn 3
+
                             "title": title_Trigger2GcalendarController,
                             "description": description_Trigger2GcalendarController,
                             "location": place_Trigger2GcalendarController
@@ -1780,6 +1779,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                 */
 
+
                 modulinoj2 =
                 {
                     "ingredientCode": 21,
@@ -1820,7 +1820,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                 }
                 else {
-                    if (actionGlobalVariable == "twitter") {
+                    if ($scope.userRecipes[index].action.ingredientCode == 23) {
                         subject_action1TwitterController = $scope.userRecipes[index].action.body;
                         subActionGlobalVariable = false;
                         urlActionGlobalVariable = "Action1Twitter";
@@ -1858,6 +1858,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 }
 
             }
+
 
 
             modifyVar = 1;
@@ -4923,12 +4924,21 @@ iftttApp.controller('action2TwitterController', ['$scope',
 //Update done
 iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routeParams', '$http', '$location',
     function ($scope, $rootscope, $routeParams, $http, $resource, $location) {
-        $scope.urlTriggerUser = ulrTriggreGlobalVariable;
+        var ingredientTriggerCode =  modulinoj1.ingredientCode;
+        var ingredientActionCode =  modulinoj2.ingredientCode;
+
+        $scope.urlTriggerUser =getRoute(ingredientTriggerCode);
+
+        $scope.urlActionUser =getRoute(ingredientActionCode);
+        console.log(ingredientActionCode + " url--> " +  $scope.urlActionUser );
+
+
+        //$scope.urlTriggerUser = ulrTriggreGlobalVariable;
         $scope.activeGoogleAutentication = false;
         $scope.activeTwitterAutentication = false;
         $scope.activeWeatherAutentication = false;
 
-        $scope.urlActionUser = urlActionGlobalVariable;
+        //$scope.urlActionUser = urlActionGlobalVariable;
 
         $scope.activeGoogleAutenticationAction = false;
         $scope.activeTwitterAutenticationAction = false;
@@ -4939,8 +4949,6 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
 
 
 
-       var ingredientTriggerCode =  modulinoj1.ingredientCode;
-        var ingredientActionCode =  modulinoj2.ingredientCode;
 
 
         if(ingredientTriggerCode == 11 ||
