@@ -145,6 +145,7 @@ public class TwitterController {
 			if (this.trigger.toString().compareTo("") == 0 && this.action.toString().compareTo("") == 0) {
 				path = path + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
 			} else {
+				path = path + "?varencr=" + URLEncoder.encode(this.varencr.toString(), "UTF-8");
 				path = path + "&trigger=" + URLEncoder.encode(this.trigger.toString(), "UTF-8");
 				path = path + "&action=" + URLEncoder.encode(this.action.toString(), "UTF-8");
 			}
