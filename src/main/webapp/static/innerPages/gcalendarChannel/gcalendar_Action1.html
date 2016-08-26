@@ -8,16 +8,20 @@
 
 <body>
 <div>
-    <div class="row" style="padding-top: 6%">
+
+    <div class="container" style="padding-top: 6%">
+
         <div class="col-md-4">
         </div>
+
         <div class="col-md-4">
+
             <p>
             <h1><img src="/progetto/static/images/gcalendarChannel/new-event.png"
                      style="width:42px;height:42px;border:0;"/> Create new GCalendar event</h1>
             </p>
             <hr>
-            <form id="gmail-form" role="form" name="form" data-ng-controller="action1GcalendarController" novalidate>
+            <form class="form" id="gmail-form" role="form" name="form" data-ng-controller="action1GcalendarController" novalidate>
 
                 <div class="form-group">
                     <label>
@@ -176,7 +180,8 @@
 
                     <label for="selectHourStart">Hour:</label>
 
-                    <select name="mySelect" id="selectHourDuration"
+                    <select class="form-control"
+                            name="mySelect" id="selectHourDuration"
                             data-ng-disabled="!durationEventCheck"
                             data-ng-options="option.hour  for option in hourVector.availableOptions track by option.id"
                             data-ng-model="hourVector.selectedOptionDuration">
@@ -184,7 +189,8 @@
 
                     <label for="selectMinuteStart">Minute:</label>
 
-                    <select name="mySelect" id="selectMinuteDuration"
+                    <select class="form-control"
+                            name="mySelect" id="selectMinuteDuration"
                             data-ng-disabled="!durationEventCheck"
                             data-ng-options="option.minute  for option in minuteVector.availableOptions track by option.id"
                             data-ng-model="minuteVector.selectedOptionDuration">
@@ -226,15 +232,11 @@
                     > <img src="/progetto/static/images/trigger-icons/timezone.png" height="30" width="30"/> <b>Custom
                     timezone </b></label>
 
-                <!--
-                <input id="weatheridinput" ng-disabled="!checkmodelcheckweather" type="search" name="input" ng-model="trigger1input.value2"
-                       required>
-                       -->
                 <br>
                 <div data-ng-show="timeZoneCheck" class="animate-if">
 
                     <label for="selecttimezone">Time zone:</label>
-                    <select name="mySelect" id="selecttimezone"
+                    <select class="form-control" name="mySelect" id="selecttimezone"
                             data-ng-disabled="!timeZoneCheck"
                             data-ng-model="timezoneVector.selectedOption">
                         <option value='Pacific/Midway' >(UTC-11:00) Midway Island</option>
@@ -429,9 +431,12 @@
                 <hr>
 
             </form>
+
         </div>
+
         <div class="col-md-4">
         </div>
+
     </div>
 
 </div>
