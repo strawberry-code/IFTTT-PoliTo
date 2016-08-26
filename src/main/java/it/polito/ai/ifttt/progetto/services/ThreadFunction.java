@@ -933,6 +933,13 @@ public class ThreadFunction extends Thread {
 				}
 				EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone(ca.getTimezone());
 				event.setStart(start);
+//				System.out.println(new Date(1472231359000L));
+//				Date prova = new Date();
+//				prova.setTime(1472231359000L);
+//				System.out.println(new DateTime(prova).toString());
+	//			System.out.println(new Date(1472231359000L));
+	//			System.out.println();
+			
 
 				DateTime endDateTime = null;
 				Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
