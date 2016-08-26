@@ -5688,7 +5688,15 @@ function alertPasswordChangedSuccess() {
     });
 }
 
+function timezoneLiteral(timezoneBad) {
 
+    var timezoneDictionary = {
+        "Pacific/Pago_Pago": "(-11:00) Pago Pago",
+        "Pacific/Honolulu": "(-10:00) Hawaii"
+    };
+
+    return (timezoneDictionary[timezoneBad]);
+}
 
 function getRoute(ingredientCodeInput){
     switch (ingredientCodeInput) {
