@@ -70,7 +70,7 @@ public class DataRestController {
 
 		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
 		if(timezones.contains(timezone)==false) {
-			i=7;
+			i=6;
 		}
 		else {
 			try {
@@ -89,7 +89,6 @@ public class DataRestController {
 		// i=4 : password too short
 		// i=5 : username too short
 		// i=6 : some errors
-		// i=7 : timezone not valid
 
 		return i;
 	}
