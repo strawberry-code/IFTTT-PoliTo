@@ -3998,6 +3998,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     "ingredientCode" : 21,
                     "actionType": "calendar",
                     //An 2
+                    "timezone": timeZone_action1GcalendarController,
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
                     "location": place_action1GcalendarController,
