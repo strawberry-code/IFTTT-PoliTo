@@ -394,12 +394,12 @@ $(function(){
                 if ($('#thminidcheckbox').is(":checked"))
                     flagThminCheckfunc();
                 if ($('#checktimeZonevar').is(":checked"))
-                    flagTimeZoneCheckfunc();
+                   // flagTimeZoneCheckfunc();
                 if ($('#periodidcheckbox').is(":checked"))
                     flagPeriodCheckfunc();
 
 
-                if (flagThmaxCheck == 0 || flagThminCheck == 0 || flagPeriodCheck == 0 || flagTimeZoneCheck == 0) {
+                if (flagThmaxCheck == false || flagThminCheck == false || flagPeriodCheck == false || flagTimeZoneCheck == false) {
                     // alert("Please check your input because is/are not right");
                 }
                 else {

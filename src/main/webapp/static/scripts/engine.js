@@ -46,6 +46,9 @@ var durationMinute_action1GcalendarController = "";
 var timeZone_action1GcalendarController = "";
 
 
+var startDate__action1GcalendarController = "";
+var dur_action1GcalendarController = "";
+
 /* action1TwitterController An 3 */
 var subject_action1TwitterController = "";
 
@@ -1532,7 +1535,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
          * @return 
          */
         $scope.modifyRecipe = function (index) {
-            var data = $scope.userRecipes[index];
 
 
             descriptionRecipeGlobal = $scope.userRecipes[index].description;
@@ -1542,13 +1544,6 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             publishRecipeGlobal = $scope.userRecipes[index].publish;
 
 
-            //alert("MODIFY RECIPE:\n\n\n"+descriptionRecipeGlobal+"\n\n"+idRecipe+"\n\n"+triggreGlobalVariable+"\n\n"+actionGlobalVariable+"\n\n"+publishRecipeGlobal+"\n\n"+"\n\n"+"\n\n");
-
-            /*
-             urlActionGlobalVariable = "";
-             ulrTriggreGlobalVariable = "";
-
-             */
 
             if (triggreGlobalVariable == "gmail") {
                 sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
@@ -1754,21 +1749,24 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 }
             }
 
+
+
             if (actionGlobalVariable == "calendar") {
-                title_action1GcalendarController = $scope.userRecipes[index].trigger.title;
-                subjectReceive_action1GcalendarController = $scope.userRecipes[index].trigger.description;
-                place_action1GcalendarController = $scope.userRecipes[index].trigger.place;
-                yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
-                monthVector_action1GcalendarController = $scope.userRecipes[index].trigger.monthVector;
-                dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
-                hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
-                minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
-                durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
-                durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
+                title_action1GcalendarController = $scope.userRecipes[index].action.title;
+                subjectReceive_action1GcalendarController = $scope.userRecipes[index].action.description;
+                place_action1GcalendarController = $scope.userRecipes[index].action.location;
+                //yearVector_action1GcalendarController = $scope.userRecipes[index].action.yearVector;
+                //monthVector_action1GcalendarController = $scope.userRecipes[index].action.monthVector;
+                //dayVector_action1GcalendarController = $scope.userRecipes[index].action.dayVector;
+                //hourStart_action1GcalendarController = $scope.userRecipes[index].action.hourStart;
+                //minuteStart_action1GcalendarController = $scope.userRecipes[index].action.minuteStart;
+                startDate__action1GcalendarController = $scope.userRecipes[index].action.startDate;
+                dur_action1GcalendarController = $scope.userRecipes[index].action.duration;
                 urlActionGlobalVariable = "action1Gcalendar";
 
+                /*
                 var startDate = null;
-                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null &&
                    dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
                     startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
                     + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
@@ -1778,8 +1776,9 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 var dur = null;
                 if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
                 	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
-                }                            
+                }
 
+                */
 
                 modulinoj2 =
                 {
@@ -1802,10 +1801,10 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             }
             else {
                 if (actionGlobalVariable == "gmail") {
-                    body_GmailActionController = $scope.userRecipes[index].trigger.body;
-                    receiver_GmailActionController = $scope.userRecipes[index].trigger.receiver;
-                    sender_GmailActionController = $scope.userRecipes[index].trigger.sender;
-                    subject_GmailActionController = $scope.userRecipes[index].trigger.subject;
+                    body_GmailActionController = $scope.userRecipes[index].action.body;
+                    receiver_GmailActionController = $scope.userRecipes[index].action.receiver;
+                    sender_GmailActionController = $scope.userRecipes[index].action.sender;
+                    subject_GmailActionController = $scope.userRecipes[index].action.subject;
                     urlActionGlobalVariable = "gMailAction";
 
                     modulinoj2 =
@@ -1822,7 +1821,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                 }
                 else {
                     if (actionGlobalVariable == "twitter") {
-                        subject_action1TwitterController = $scope.userRecipes[index].trigger.body;
+                        subject_action1TwitterController = $scope.userRecipes[index].action.body;
                         subActionGlobalVariable = false;
                         urlActionGlobalVariable = "Action1Twitter";
 
@@ -1838,8 +1837,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                     }
                     else {
-                        title_action2TwitterController = $scope.userRecipes[index].trigger.destination;
-                        subjec_action2TwitterController = $scope.userRecipes[index].trigger.body;
+                        title_action2TwitterController = $scope.userRecipes[index].action.destination;
+                        subjec_action2TwitterController = $scope.userRecipes[index].action.body;
                         subActionGlobalVariable = true;
                         urlActionGlobalVariable = "Action2Twitter";
 
@@ -1971,20 +1970,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
         $scope.userRecipes = null;
         modifyVar = 0;
-
-        /*
-         $scope.elements = [{
-         name: 'one',
-         isCollapsed: true
-         }, {
-         name: 'two',
-         isCollapsed: true
-         }, {
-         name: 'three',
-         isCollapsed: true
-         }];
-
-         */
         $scope.elements = [];
 
 
@@ -2008,8 +1993,11 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         tmp++;
                     });
 
-                    /* * * **************/
 
+
+                   /* * * **************/
+
+                    /* Da elimonare non appena è testato XXX1 *
                     var index = 0;
                     $scope.userRecipes.forEach(function () {
 
@@ -2019,14 +2007,6 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         actionGlobalVariable = $scope.userRecipes[index].action.actionType;
                         publishRecipeGlobal = $scope.userRecipes[index].publish;
 
-
-                        //alert("MODIFY RECIPE:\n\n\n"+descriptionRecipeGlobal+"\n\n"+idRecipe+"\n\n"+triggreGlobalVariable+"\n\n"+actionGlobalVariable+"\n\n"+publishRecipeGlobal+"\n\n"+"\n\n"+"\n\n");
-
-                        /*
-                         urlActionGlobalVariable = "";
-                         ulrTriggreGlobalVariable = "";
-
-                         */
 
                         if (triggreGlobalVariable == "gmail") {
                             sender_GmailTriggerController = $scope.userRecipes[index].trigger.sender;
@@ -2222,20 +2202,20 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         }
 
                         if (actionGlobalVariable == "calendar") {
-                            title_action1GcalendarController = $scope.userRecipes[index].trigger.title;
-                            subjectReceive_action1GcalendarController = $scope.userRecipes[index].trigger.description;
-                            place_action1GcalendarController = $scope.userRecipes[index].trigger.place;
-                            yearVector_action1GcalendarController = $scope.userRecipes[index].trigger.yearVector;
-                            monthVector_action1GcalendarController = $scope.userRecipes[index].trigger.monthVector;
-                            dayVector_action1GcalendarController = $scope.userRecipes[index].trigger.dayVector;
-                            hourStart_action1GcalendarController = $scope.userRecipes[index].trigger.hourStart;
-                            minuteStart_action1GcalendarController = $scope.userRecipes[index].trigger.minuteStart;
-                            durationHour_action1GcalendarController = $scope.userRecipes[index].trigger.durationHour;
-                            durationMinute_action1GcalendarController = $scope.userRecipes[index].trigger.durationMinute;
+                            title_action1GcalendarController = $scope.userRecipes[index].action.title;
+                            subjectReceive_action1GcalendarController = $scope.userRecipes[index].action.description;
+                            place_action1GcalendarController = $scope.userRecipes[index].action.location;
+//                            yearVector_action1GcalendarController = $scope.userRecipes[index].action.yearVector;
+//                            monthVector_action1GcalendarController = $scope.userRecipes[index].action.monthVector;
+//                            dayVector_action1GcalendarController = $scope.userRecipes[index].action.dayVector;
+//                            hourStart_action1GcalendarController = $scope.userRecipes[index].action.hourStart;
+//                            minuteStart_action1GcalendarController = $scope.userRecipes[index].action.minuteStart;
+                            durationHour_action1GcalendarController = $scope.userRecipes[index].action.startDate;
+                            durationMinute_action1GcalendarController = $scope.userRecipes[index].action.duration;
                             urlActionGlobalVariable = "action1Gcalendar";
-                            
+
                             var startDate = null;
-                            if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
+                            if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null &&
                                dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
                                 startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
                                 + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
@@ -2245,7 +2225,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             var dur = null;
                             if(durationHour_action1GcalendarController!=null && durationMinute_action1GcalendarController!=null) {
                             	dur = (durationHour_action1GcalendarController * 60 * 60 * 1000) + (durationMinute_action1GcalendarController * 60 * 1000);
-                            }                            
+                            }
 
                             modulinoj2 =
                             {
@@ -2267,10 +2247,10 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         }
                         else {
                             if (actionGlobalVariable == "gmail") {
-                                body_GmailActionController = $scope.userRecipes[index].trigger.body;
-                                receiver_GmailActionController = $scope.userRecipes[index].trigger.receiver;
-                                sender_GmailActionController = $scope.userRecipes[index].trigger.sender;
-                                subject_GmailActionController = $scope.userRecipes[index].trigger.subject;
+                                body_GmailActionController = $scope.userRecipes[index].action.body;
+                                receiver_GmailActionController = $scope.userRecipes[index].action.receiver;
+                                sender_GmailActionController = $scope.userRecipes[index].action.sender;
+                                subject_GmailActionController = $scope.userRecipes[index].action.subject;
                                 urlActionGlobalVariable = "gMailAction";
 
                                 modulinoj2 =
@@ -2286,7 +2266,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                             }
                             else {
                                 if (actionGlobalVariable == "twitter") {
-                                    subject_action1TwitterController = $scope.userRecipes[index].trigger.body;
+                                    subject_action1TwitterController = $scope.userRecipes[index].action.body;
                                     subActionGlobalVariable = false;
                                     urlActionGlobalVariable = "Action1Twitter";
 
@@ -2301,8 +2281,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 
                                 }
                                 else {
-                                    title_action2TwitterController = $scope.userRecipes[index].trigger.destination;
-                                    subjec_action2TwitterController = $scope.userRecipes[index].trigger.body;
+                                    title_action2TwitterController = $scope.userRecipes[index].action.destination;
+                                    subjec_action2TwitterController = $scope.userRecipes[index].action.body;
                                     subActionGlobalVariable = true;
                                     urlActionGlobalVariable = "Action2Twitter";
 
@@ -2336,6 +2316,7 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                         index++;
                     });
 
+                   FINE */
                     /*  *************/
 
 
@@ -2356,6 +2337,8 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
 iftttApp.controller('createAccountController', ['$scope',
     function ($scope) {
 
+        $scope.registrationTimezone = "Europe/Rome";
+
         /**
          * Description
          * @method createAccountFunc
@@ -2365,7 +2348,7 @@ iftttApp.controller('createAccountController', ['$scope',
          * @param {} pws2
          * @return
          */
-        $scope.createAccountFunc = function (user, email, pws1, pws2) {
+        $scope.createAccountFunc = function (user, email, pws1, pws2, timezone) {
 
             $scope.parallax = true;
 
@@ -2377,8 +2360,10 @@ iftttApp.controller('createAccountController', ['$scope',
                     {
                         "username": user,
                         "email": email,
-                        "password": pws1
+                        "password": pws1,
+                        "timezone": $scope.registrationTimezone
                     };
+
                     //if(consoleLogs) console.log(loginDataSend.user);
                     setSpinner(true);
                     $.ajax
@@ -2530,8 +2515,8 @@ iftttApp.controller('createAccountController', ['$scope',
 
         };
 
-        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
 
+        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
         /*
 
 
@@ -2579,8 +2564,6 @@ iftttApp.controller('createAccountController', ['$scope',
 
          };
          */
-
-
         /*
 
 
@@ -3998,6 +3981,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                     "ingredientCode" : 21,
                     "actionType": "calendar",
                     //An 2
+                    "timezone": timeZone_action1GcalendarController,
                     "title": title_action1GcalendarController,
                     "description": subjectReceive_action1GcalendarController,
                     "location": place_action1GcalendarController,
@@ -5054,8 +5038,13 @@ iftttApp.controller('choseModifyController', ['$scope', '$rootScope', '$routePar
         modifyVar = 1;
 
         console.log("Goolge ingredient  " + $scope.activeGoogleAutentication  + " loggato a google   " +  $scope.googleLoggedHtml );
-        console.log("Weather ingredient  " + $scope.activeWeatherAutentication  + " loggato a meteo   " );
         console.log("twitter ingredient  " + $scope.activeTwitterAutentication  + " loggato a twitter   " +  $scope.twitterLoggedHtml );
+
+        console.log("Goolge ingredient  " + $scope.activeGoogleAutenticationAction  + " loggato a google   " +  $scope.googleLoggedHtml );
+        console.log("twitter ingredient  " + $scope.activeTwitterAutenticationAction  + " loggato a twitter   " +  $scope.twitterLoggedHtml );
+
+
+        console.log("Weather ingredient  " + $scope.activeWeatherAutentication  + " loggato a meteo   " );
 
         console.log("Problema numero numer 8" + ingredientTriggerCode); //XXX
 
@@ -5229,13 +5218,9 @@ iftttApp.filter('skeumorphize', function(){
 
             case 'thmin':
                 return input + " °C";
-
+            
             case 'timezone':
-                if (input > 0) {
-                    return "GMT+" + input;
-                } else {
-                    return "GMT" + input;
-                }
+                return timezoneLiteral(input);
 
             case 'duration': {
                 var d = moment.duration(parseInt(input), 'milliseconds');
@@ -5693,7 +5678,121 @@ function alertPasswordChangedSuccess() {
     });
 }
 
+function timezoneLiteral(timezoneBad) {
 
+    var timezoneDictionary = {
+            "Pacific/Pago_Pago": "(-11:00) Pago Pago",
+            "Pacific/Honolulu":	"(-10:00) Hawaii",
+            "America/Anchorage":	"(-09:00) Alaska",
+            "America/Vancouver":	"(-08:00) Canada Pacific Time",
+            "America/Los_Angeles":	"(-08:00) US Pacific Time",
+            "America/Tijuana":	"(-08:00) Tijuana",
+            "America/Edmonton":	"(-07:00) Canada Mountain Time",
+            "America/Denver":	"(-07:00) US Mountain Time",
+            "America/Phoenix":	"(-07:00) Arizona",
+            "America/Mazatlan":	"(-07:00) Mazatlan",
+            "America/Winnipeg":	"(-06:00) Canada Central Time",
+            "America/Regina":	"(-06:00) Saskatchewan",
+            "America/Chicago":	"(-06:00) US Central Time",
+            "America/Mexico_City":	"(-06:00) Mexico City",
+            "America/Guatemala":	"(-06:00) Guatemala",
+            "America/El_Salvador":	"(-06:00) El Salvador",
+            "America/Managua":	"(-06:00) Managua",
+            "America/Costa_Rica":	"(-06:00) Costa Rica",
+            "America/Montreal":	"(-05:00) Canada Eastern Time",
+            "America/New_York":	"(-05:00) US Eastern Time",
+            "America/Indianapolis":	"(-05:00) East Indiana",
+            "America/Panama":	"(-05:00) Panama",
+            "America/Bogota":	"(-05:00) Bogota",
+            "America/Lima":	"(-05:00) Lima",
+            "America/Halifax":	"(-04:00) Canada Atlantic Time",
+            "America/Puerto_Rico":	"(-04:00) Puerto Rico",
+            "America/Caracas":	"(-04:00) Caracas",
+            "America/Santiago":	"(-04:00) Santiago",
+            "America/St_Johns":	"(-03:30) Newfoundland",
+            "America/Sao_Paulo":	"(-03:00) Sao Paulo",
+            "Atlantic/Azores":	"(-01:00) Azores",
+            "Etc./UTC":	"(00:00) Universal Time",
+            "UTC":	"(00:00) Universal Time",
+            "Atlantic/Reykjavik":	"(00:00) Reykjavik",
+            "Europe/Dublin":	"(00:00) Dublin",
+            "Europe/London":	"(00:00) London",
+            "Europe/Lisbon":	"(00:00) Lisbon",
+            "Africa/Casablanca":	"(00:00) Casablanca",
+            "Africa/Nouakchott":	"(00:00) Nouakchott",
+            "Europe/Oslo":	"(+01:00) Oslo",
+            "Europe/Stockholm":	"(+01:00) Stockholm",
+            "Europe/Copenhagen":	"(+01:00) Copenhagen",
+            "Europe/Berlin":	"(+01:00) Berlin",
+            "Europe/Amsterdam":	"(+01:00) Amsterdam",
+            "Europe/Brussels":	"(+01:00) Brussels",
+            "Europe/Luxembourg":	"(+01:00) Luxembourg",
+            "Europe/Paris":	"(+01:00) Paris",
+            "Europe/Zurich":	"(+01:00) Zurich",
+            "Europe/Madrid":	"(+01:00) Madrid",
+            "Europe/Rome":	"(+01:00) Rome",
+            "Africa/Algiers":	"(+01:00) Algiers",
+            "Africa/Tunis":	"(+01:00) Tunis",
+            "Europe/Warsaw":	"(+01:00) Warsaw",
+            "Europe/Prague":	"(+01:00) Prague Bratislava",
+            "Europe/Vienna":	"(+01:00) Vienna",
+            "Europe/Budapest":	"(+01:00) Budapest",
+            "Europe/Sofia":	"(+02:00) Sofia",
+            "Europe/Istanbul":	"(+02:00) Istanbul",
+            "Europe/Athens":	"(+02:00) Athens",
+            "Asia/Nicosia":	"(+02:00) Nicosia",
+            "Asia/Beirut":	"(+02:00) Beirut",
+            "Asia/Damascus":	"(+02:00) Damascus",
+            "Asia/Jerusalem": "(+02:00) Jerusalem",
+            "Asia/Amman":	"(+02:00) Amman",
+            "Africa/Tripoli":	"(+02:00) Tripoli",
+            "Africa/Cairo":	"(+02:00) Cairo",
+            "Africa/Johannesburg":	"(+02:00) Johannesburg",
+            "Europe/Moscow":	"(+03:00) Moscow",
+            "Asia/Baghdad":	"(+03:00) Baghdad",
+            "Asia/Kuwait":	"(+03:00) Kuwait",
+            "Asia/Riyadh":	"(+03:00) Riyadh",
+            "Asia/Bahrain":	"(+03:00) Bahrain",
+            "Asia/Qatar":	"(+03:00) Qatar",
+            "Asia/Aden":	"(+03:00) Aden",
+            "Africa/Khartoum":	"(+03:00) Khartoum",
+            "Africa/Djibouti":	"(+03:00) Djibouti",
+            "Africa/Mogadishu":	"(+03:00) Mogadishu",
+            "Asia/Dubai":	"(+04:00) Dubai",
+            "Asia/Muscat":	"(+04:00) Muscat",
+            "Asia/Yekaterinburg":	"(+05:00) Yekaterinburg",
+            "Asia/Tashkent":	"(+05:00) Tashkent",
+            "Asia/Calcutta":	"(+05:30) India",
+            "Asia/Novosibirsk":	"(+06:00) Novosibirsk",
+            "Asia/Almaty":	"(+06:00) Almaty",
+            "Asia/Dacca":	"(+06:00) Dacca",
+            "Asia/Krasnoyarsk":	"(+07:00) Krasnoyarsk",
+            "Asia/Bangkok":	"(+07:00) Bangkok",
+            "Asia/Saigon":	"(+07:00) Vietnam",
+            "Asia/Jakarta":	"(+07:00) Jakarta",
+            "Asia/Irkutsk":	"(+08:00) Irkutsk",
+            "Asia/Shanghai":	"(+08:00) Beijing, Shanghai",
+            "Asia/Hong_Kong":	"(+08:00) Hong Kong",
+            "Asia/Taipei":	"(+08:00) Taipei",
+            "Asia/Kuala_Lumpur":	"(+08:00) Kuala Lumpur",
+            "Asia/Singapore":	"(+08:00) Singapore",
+            "Australia/Perth":	"(+08:00) Perth",
+            "Asia/Yakutsk":	"(+09:00) Yakutsk",
+            "Asia/Seoul":	"(+09:00) Seoul",
+            "Asia/Tokyo":	"(+09:00) Tokyo",
+            "Australia/Darwin":	"(+09:30) Darwin",
+            "Australia/Adelaide":	"(+09:30) Adelaide",
+            "Asia/Vladivostok":	"(+10:00) Vladivostok",
+            "Australia/Brisbane":	"(+10:00) Brisbane",
+            "Australia/Sydney":	"(+10:00) Sydney Canberra",
+            "Australia/Hobart":	"(+10:00) Hobart",
+            "Asia/Magadan":	"(+11:00) Magadan",
+            "Asia/Kamchatka":	"(+12:00) Kamchatka",
+            "Pacific/Auckland":	"(+12:00) Auckland"
+        };
+
+    return (timezoneDictionary[timezoneBad]);
+}
 
 function getRoute(ingredientCodeInput){
     switch (ingredientCodeInput) {
