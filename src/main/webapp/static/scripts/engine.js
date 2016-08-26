@@ -1178,10 +1178,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 confirmButtonText: 'Yes, delete them all!',
                 closeOnConfirm: false
             }, function() {
-                sweet.show('Deleted!', 'All recipes are deleted', 'success');
 
 
                 setSpinner(true);
+
                 $http({
                     method: 'POST',
                     url: 'http://localhost:8080/progetto/api/deleteAllRecipes',
@@ -1195,7 +1195,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         setSpinner(false);
                         console.log("All recipes are deleted.");
                         sweet.show('Nice!', 'Your recipes are been removed.', 'success');
-                        window.location.replace('#/myRecipes');
+                        window.location.replace('#index/myRecipes');
                     } else {
                         setSpinner(false);
                         console.log("Due to server problems your recipes can't be deleted.\n Please retry.");
