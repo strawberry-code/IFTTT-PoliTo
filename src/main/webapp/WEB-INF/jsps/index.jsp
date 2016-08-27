@@ -182,9 +182,9 @@
                 </button>
 
                 <a href="#index/createAccount"
-                    class="btn btn-default"
-                    style=" margin-left: 6px"
-                    data-ng-show="!iftttLogged">
+                   class="btn btn-default"
+                   style=" margin-left: 6px"
+                   data-ng-show="!iftttLogged">
                         <span class="glyphicon glyphicon-user"
                               aria-hidden="true"></span> Create account
                 </a>
