@@ -8,141 +8,141 @@
 <div>
 
 
-            <div class="container" style="padding-top: 6%">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <p><h1><img src="/progetto/static/images/twitterChannel/new-tweet.png" style="width:42px;height:42px;border:0;"> New tweet trigger</h1></p>
-                    <hr>
-                    <form id="gmail-form" role="form" name="form" ng-controller="trigger1TwitterController" novalidate>
-
-                        <div class="form-group">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    ng-model="checkedtitle"
-
-                                > <img src="/progetto/static/images/trigger-icons/twitteruser.png" height="30" width="30"/> <b>From the twitter user</b>
-                            </label><br/>
-                            <div  ng-if="checkedtitle" class="animate-if">
-                            <input type="title"  ng-disabled="!checkedtitle" class="form-control" id="title" placeholder="insert your title"
-                                   ng-model="trigger1TwitterInput.title"
-                                   required="" name="utitle"
-                                   maxlength="100"
-                                   ng-trim="false"
-                                  >
-                            <span>{{100 - trigger1TwitterInput.title.length}} left </span>
-                                </div>
-                        </div>
-
-
-                        <!--Subject e.mail -->
-                        <div class="form-group">
-                            <label>
-                                <input
-                                        type="checkbox"
-                                        ng-model="checkedSubject"
-
-                                > <img src="/progetto/static/images/trigger-icons/hashtag.png" height="30" width="30"/> <b>With text</b>
-                            </label><br/>
-                            <div  ng-if="checkedSubject" class="animate-if">
-
-                            <input  class="form-control" rows="5" id="subjectReceive"  placeholder="insert the subject"
-                                      ng-model="trigger1TwitterInput.subjectReceive"  name="subjectReceive"  ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
-                                        type="title"
-                                     >
-                            <span>{{100 - trigger1TwitterInput.subjectReceive.length}} left </span>
-                        </div>
-                        </div>
-
-
-
-                        <div>
-                            <a  type="submit" class="btn btn-danger pull-left  animate-if" href="#allTriggers"
-                                ng-if="!modifyButton && !importRecipe"
-                            >Cancel</a>
-
-                            <a  type="submit" class="btn btn-danger pull-left  animate-if" href="#choseModify"
-                                ng-if="modifyButton && !importRecipe"
-                            >Cancel</a>
-
-                            <a  type="submit" class="btn btn-danger pull-left  animate-if" href="#publicRecipes"
-                                ng-if="importRecipe &&  !modifyButton"
-                            >Cancel</a>
-
-
-                            <a    ng-disabled="!checkedtitle && !checkedSubject" type="submit"
-                                class="btn btn-primary pull-right btn_next3  animate-if"  ng-click="trigger1Twitterfunc()"
-                                  ng-if="!modifyButton"
-
-                            >Next</a>
-
-                            <a    ng-disabled="!checkedtitle && !checkedSubject" type="submit"
-                                  class="btn btn-primary pull-right btn_next3  animate-if"  ng-click="trigger1Twitterfunc()"
-                                  ng-if="modifyButton"
-
-                            >Submit</a>
-
-
-
-
-
-                        </div>
-                        <br>
-                        <br>
-                        <hr>
-                        <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject" class="animate-if" >
-                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice to use this trigger
-                        </label>
-
-                    </form>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
+    <div class="container" style="padding-top: 6%">
+        <div class="col-md-4">
         </div>
+        <div class="col-md-4">
+            <p>
+            <h1><img src="/progetto/static/images/twitterChannel/new-tweet.png"
+                     style="width:42px;height:42px;border:0;"> New tweet trigger</h1></p>
+            <hr>
+            <form id="gmail-form" role="form" name="form" ng-controller="trigger1TwitterController" novalidate>
 
+                <div class="form-group">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="checkedtitle"
+
+                        > <img src="/progetto/static/images/trigger-icons/twitteruser.png" height="30" width="30"/> <b>From
+                        the twitter user</b>
+                    </label><br/>
+                    <div ng-if="checkedtitle" class="animate-if">
+                        <input type="title" ng-disabled="!checkedtitle" class="form-control" id="title"
+                               placeholder="insert your title"
+                               ng-model="trigger1TwitterInput.title"
+                               required="" name="utitle"
+                               maxlength="100"
+                               ng-trim="false"
+                        >
+                        <span>{{100 - trigger1TwitterInput.title.length}} left </span>
+                    </div>
+                </div>
+
+
+                <!--Subject e.mail -->
+                <div class="form-group">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="checkedSubject"
+
+                        > <img src="/progetto/static/images/trigger-icons/hashtag.png" height="30" width="30"/> <b>With
+                        text</b>
+                    </label><br/>
+                    <div ng-if="checkedSubject" class="animate-if">
+
+                        <input class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
+                               ng-model="trigger1TwitterInput.subjectReceive" name="subjectReceive"
+                               ng-disabled="!checkedSubject"
+                               maxlength="500" ng-trim="false"
+                               type="title"
+                        >
+                        <span>{{100 - trigger1TwitterInput.subjectReceive.length}} left </span>
+                    </div>
+                </div>
+
+
+                <div>
+                    <a type="submit" class="btn btn-danger pull-left  animate-if" href="#allTriggers"
+                       ng-if="!modifyButton && !importRecipe"
+                    >Cancel</a>
+
+                    <a type="submit" class="btn btn-danger pull-left  animate-if" href="#choseModify"
+                       ng-if="modifyButton && !importRecipe"
+                    >Cancel</a>
+
+                    <a type="submit" class="btn btn-danger pull-left  animate-if" href="#publicRecipes"
+                       ng-if="importRecipe &&  !modifyButton"
+                    >Cancel</a>
+
+
+                    <a ng-disabled="!checkedtitle && !checkedSubject" type="submit"
+                       class="btn btn-primary pull-right btn_next3  animate-if" ng-click="trigger1Twitterfunc()"
+                       ng-if="!modifyButton"
+
+                    >Next</a>
+
+                    <a ng-disabled="!checkedtitle && !checkedSubject" type="submit"
+                       class="btn btn-primary pull-right btn_next3  animate-if" ng-click="trigger1Twitterfunc()"
+                       ng-if="modifyButton"
+
+                    >Submit</a>
+
+
+                </div>
+                <br>
+                <br>
+                <hr>
+                <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject" class="animate-if">
+                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice
+                    to use this trigger
+                </label>
+
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
 
 
 </body>
 
 <script>
 
-	var uri = decodeURIComponent(window.location.hash);
-	var param = (uri).split("?");
-	var trig;
-	var act;
-	if(param[1]!=null) {
-		var tokens = param[1].split("&");
-		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
-		count = vardec.count;
-		setChooseAx = vardec.setChooseAx;
-		modifyVar = vardec.modifyVar;
-		modifyCountVar = vardec.modifyCountVar;
-		flagTriggerDone = vardec.flagTriggerDone;
-		importFlag = vardec.importFlag;
-		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
-		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			trig = tokens[1].split("trigger=")[1];			
-			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj1 = JSON.parse(dec);
-			console.log(modulinoj1)
-		}
-		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			act = tokens[2].split("action=")[1];  
-			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj2 = JSON.parse(dec1);
-			console.log(modulinoj2)			
-		}
-	}
+    var uri = decodeURIComponent(window.location.hash);
+    var param = (uri).split("?");
+    var trig;
+    var act;
+    if (param[1] != null) {
+        var tokens = param[1].split("&");
+        var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+        count = vardec.count;
+        setChooseAx = vardec.setChooseAx;
+        modifyVar = vardec.modifyVar;
+        modifyCountVar = vardec.modifyCountVar;
+        flagTriggerDone = vardec.flagTriggerDone;
+        importFlag = vardec.importFlag;
+        descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
+        idRecipe = vardec.idRecipe;
+        iftttLogin = vardec.iftttLogin;
+        if (tokens[1] != null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            trig = tokens[1].split("trigger=")[1];
+            var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj1 = JSON.parse(dec);
+            console.log(modulinoj1)
+        }
+        if (tokens[2] != null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            act = tokens[2].split("action=")[1];
+            var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj2 = JSON.parse(dec1);
+            console.log(modulinoj2)
+        }
+    }
 
-    if(importFlag==true)
-    {
-        if (iftttLogin == false)
-        {
+    if (importFlag == true) {
+        if (iftttLogin == false) {
             url = "#home";
             window.location.replace(url);
         }

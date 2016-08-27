@@ -20,41 +20,54 @@
         <div class="row">
             <!-- ng-click="routeListener('action1Gcalendar') -->
 
-            <h1><img src="/progetto/static/images/ModifyPart/modifyIcon.png" style="width:42px;height:42px;border:0;"> Modify </h1>
+            <h1><img src="/progetto/static/images/ModifyPart/modifyIcon.png" style="width:42px;height:42px;border:0;">
+                Modify </h1>
             <hr>
             <div class="row">
                 <div class="col-md-4">
                     <h2>
-                        <img src="/progetto/static/images/ModifyPart/turn-notifications-on-button.png" style="width:42px;height:42px;border:0;"/> Modify trigger
+                        <img src="/progetto/static/images/ModifyPart/turn-notifications-on-button.png"
+                             style="width:42px;height:42px;border:0;"/> Modify trigger
                     </h2>
                     <p>
                         The trigger can be modify and save it.
                     </p>
                     <!-- google autenticate -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutentication" data-toggle="modal" data-ng-click="changePage(1); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutentication"
+                           data-toggle="modal" data-ng-click="changePage(1); routeListener(0)">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="googleLoggedHtml && activeGoogleAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}"
+                           ng-if="googleLoggedHtml && activeGoogleAutentication">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Twitter autenticate -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutentication" data-toggle="modal" data-ng-click="changePage(2); routeListener(0)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutentication"
+                           data-toggle="modal" data-ng-click="changePage(2); routeListener(0)">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="twitterLoggedHtml && activeTwitterAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}"
+                           ng-if="twitterLoggedHtml && activeTwitterAutentication">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Weather -->
                     <p>
-                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}" ng-if="activeWeatherAutentication" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlTriggerUser}}"
+                           ng-if="activeWeatherAutentication">Continue<span class="glyphicon glyphicon-chevron-right"
+                                                                            aria-hidden="true"></span></a>
                     </p>
 
                 </div>
                 <div class="col-md-4">
                     <h2>
-                         <img src="/progetto/static/images/ModifyPart/contract.png" style="width:42px;height:42px;border:0;"/>Modify action
+                        <img src="/progetto/static/images/ModifyPart/contract.png"
+                             style="width:42px;height:42px;border:0;"/>Modify action
                     </h2>
                     <p>
                         The action can be modify and save it.
@@ -63,31 +76,42 @@
 
                     <!-- google autenticate --> <!-- data-target="#loginGoogleModal" -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutenticationAction" data-toggle="modal" data-ng-click="changePage(1); routeListener(1)">Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutenticationAction"
+                           data-toggle="modal" data-ng-click="changePage(1); routeListener(1)">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}" ng-if="googleLoggedHtml && activeGoogleAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}"
+                           ng-if="googleLoggedHtml && activeGoogleAutenticationAction">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Twitter autenticate -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutenticationAction" data-toggle="modal" data-ng-click="changePage(2); routeListener(1)"> Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if"
+                           ng-if="!twitterLoggedHtml && activeTwitterAutenticationAction" data-toggle="modal"
+                           data-ng-click="changePage(2); routeListener(1)"> Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}" ng-if="twitterLoggedHtml && activeTwitterAutenticationAction" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}"
+                           ng-if="twitterLoggedHtml && activeTwitterAutenticationAction">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                 </div>
 
                 <div class="col-md-4">
                     <h2>
-                        <img src="/progetto/static/images/ModifyPart/descriptionIcon.png" style="width:42px;height:42px;border:0;"/> Modify description
+                        <img src="/progetto/static/images/ModifyPart/descriptionIcon.png"
+                             style="width:42px;height:42px;border:0;"/> Modify description
                     </h2>
                     <p>
                         The description can be modify and save it.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-click="descriptionModifyLanch()"  >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2" ng-click="descriptionModifyLanch()">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                 </div>
@@ -103,33 +127,38 @@
 
         <div class="row">
 
-            <h1><img src="/progetto/static/images/ModifyPart/change.png" style="width:42px;height:42px;border:0;"> Change </h1>
+            <h1><img src="/progetto/static/images/ModifyPart/change.png" style="width:42px;height:42px;border:0;">
+                Change </h1>
             <hr>
             <div class="row">
                 <div class="col-md-4">
                     <h2>
-                        <img src="/progetto/static/images/ModifyPart/turn-notifications-on-button.png" style="width:42px;height:42px;border:0;"/> Change trigger
+                        <img src="/progetto/static/images/ModifyPart/turn-notifications-on-button.png"
+                             style="width:42px;height:42px;border:0;"/> Change trigger
                     </h2>
                     <p>
                         The trigger can be changed and save it.
                     </p>
 
                     <p>
-                        <a class="btn btn_next2" data-ng-click="setupValueChange(0)" >Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2" data-ng-click="setupValueChange(0)">Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
 
                 </div>
                 <div class="col-md-4">
                     <h2>
-                        <img src="/progetto/static/images/ModifyPart/contract.png" style="width:42px;height:42px;border:0;"/>change action
+                        <img src="/progetto/static/images/ModifyPart/contract.png"
+                             style="width:42px;height:42px;border:0;"/>change action
                     </h2>
                     <p>
                         The action can be changed and save it.
                     </p>
 
                     <p>
-                        <a class="btn btn_next2" ng-click="setupValueChange(1)" > Continue<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                        <a class="btn btn_next2" ng-click="setupValueChange(1)"> Continue<span
+                                class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                 </div>
@@ -146,10 +175,8 @@
             </div>
         </div>
 
-        </div>
     </div>
-
-
+</div>
 
 
 </div>
@@ -158,46 +185,44 @@
 
 <script>
 
-	var uri = decodeURIComponent(window.location.hash);
-	var param = (uri).split("?");
-	var trig;
-	var act;
-	if(param[1]!=null) {
-		var tokens = param[1].split("&");
-		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
-		count = vardec.count;
-		setChooseAx = vardec.setChooseAx;
-		modifyVar = vardec.modifyVar;
-		modifyCountVar = vardec.modifyCountVar;
-		flagTriggerDone = vardec.flagTriggerDone;
-		importFlag = vardec.importFlag;
-		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
-		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			trig = tokens[1].split("trigger=")[1];			
-			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj1 = JSON.parse(dec);
-			console.log(modulinoj1)
-		}
-		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			act = tokens[2].split("action=")[1];  
-			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj2 = JSON.parse(dec1);
-			console.log(modulinoj2)			
-		}
-	}
+    var uri = decodeURIComponent(window.location.hash);
+    var param = (uri).split("?");
+    var trig;
+    var act;
+    if (param[1] != null) {
+        var tokens = param[1].split("&");
+        var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+        count = vardec.count;
+        setChooseAx = vardec.setChooseAx;
+        modifyVar = vardec.modifyVar;
+        modifyCountVar = vardec.modifyCountVar;
+        flagTriggerDone = vardec.flagTriggerDone;
+        importFlag = vardec.importFlag;
+        descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
+        idRecipe = vardec.idRecipe;
+        iftttLogin = vardec.iftttLogin;
+        if (tokens[1] != null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            trig = tokens[1].split("trigger=")[1];
+            var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj1 = JSON.parse(dec);
+            console.log(modulinoj1)
+        }
+        if (tokens[2] != null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            act = tokens[2].split("action=")[1];
+            var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj2 = JSON.parse(dec1);
+            console.log(modulinoj2)
+        }
+    }
 
     importFlag = false;
-    if(iftttLogin == false)
-    {
-        modifyCountVar=0;
+    if (iftttLogin == false) {
+        modifyCountVar = 0;
         url = "#home";
         window.location.replace(url);
     }
-    else
-    {
-        modifyVar=1;
+    else {
+        modifyVar = 1;
         if (modifyCountVar == 1) {
             modifyCountVar++;
         }

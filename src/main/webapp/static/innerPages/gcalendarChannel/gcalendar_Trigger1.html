@@ -8,111 +8,122 @@
 <div>
 
     <div class="container" style="padding-top: 6%">
-                <div class="col-md-4">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <p>
+            <h1><img src="/progetto/static/images/gcalendarChannel/event-start.png"
+                     style="width:42px;height:42px;border:0;"/> GCalendar triggered when an event approaches</h1></p>
+            <hr>
+            <form id="gmail-form" role="form" name="form" ng-controller="Trigger1GcalendarController" novalidate>
+
+                <div class="form-group">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="checkedtitle"
+
+                        > <img src="/progetto/static/images/gcalendarChannel/event-name.png" height="30" width="30"/>
+                        <b>Event name</b></label> <br>
+                    <div ng-if="checkedtitle" class="animate-if">
+                        <input type="title" ng-disabled="!checkedtitle" class="form-control" id="title"
+                               placeholder="Insert the event name to watch"
+                               ng-model="trigger1GcalendarVar.title"
+                               required="" name="utitle"
+                               maxlength="100"
+                               ng-trim="false"
+                        >
+                        <span>{{100 - trigger1GcalendarVar.title.length}} left </span>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <p><h1><img src="/progetto/static/images/gcalendarChannel/event-start.png" style="width:42px;height:42px;border:0;"/> GCalendar triggered when an event approaches</h1></p>
-                    <hr>
-                    <form id="gmail-form" role="form" name="form" ng-controller="Trigger1GcalendarController" novalidate>
-
-                        <div class="form-group">
-                            <label>
-                            <input
-                                    type="checkbox"
-                                    ng-model="checkedtitle"
-
-                            > <img src="/progetto/static/images/gcalendarChannel/event-name.png" height="30" width="30"/> <b>Event name</b></label> <br>
-                            <div  ng-if="checkedtitle" class="animate-if">
-                            <input type="title"  ng-disabled="!checkedtitle" class="form-control" id="title" placeholder="Insert the event name to watch"
-                                   ng-model="trigger1GcalendarVar.title"
-                                   required="" name="utitle"
-                                   maxlength="100"
-                                   ng-trim="false"
-                            >
-                            <span>{{100 - trigger1GcalendarVar.title.length}} left </span>
-                                </div>
-                        </div>
 
 
-                        <!--Subject e.mail -->
-                        <div class="form-group">
-                            <label>
-                            <input
-                                    type="checkbox"
-                                    ng-model="checkedSubject"
+                <!--Subject e.mail -->
+                <div class="form-group">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="checkedSubject"
 
-                            > <img src="/progetto/static/images/gcalendarChannel/event-description.png" height="30" width="30"/> <b>Event description</b></label>
+                        > <img src="/progetto/static/images/gcalendarChannel/event-description.png" height="30"
+                               width="30"/> <b>Event description</b></label>
 
-                            <div  ng-if="checkedSubject" class="animate-if">
-                            <textarea class="form-control" rows="5" id="subjectReceive"  placeholder="Insert the event description to watch"
-                                      ng-model="trigger1GcalendarVar.subjectReceive"  name="subjectReceive"  ng-disabled="!checkedSubject"
+                    <div ng-if="checkedSubject" class="animate-if">
+                            <textarea class="form-control" rows="5" id="subjectReceive"
+                                      placeholder="Insert the event description to watch"
+                                      ng-model="trigger1GcalendarVar.subjectReceive" name="subjectReceive"
+                                      ng-disabled="!checkedSubject"
                                       maxlength="500" ng-trim="false"
                             ></textarea>
-                            <span>{{500 - trigger1GcalendarVar.subjectReceive.length}} left </span>
-                                </div>
-                        </div>
-
-
-                        <!-- place -->
-                        <div class="form-group">
-                            <label>
-                            <input
-                                    type="checkbox"
-                                    ng-model="checkedplace"
-
-                            > <img src="/progetto/static/images/gcalendarChannel/event-location.png" height="30" width="30"/> Location</label> <br>
-
-                            <div  ng-if="checkedplace" class="animate-if">
-
-                            <input type="text"  ng-disabled="!checkedplace" class="form-control" id="place" placeholder="Insert the evnet location to watch"
-                                   ng-model="trigger1GcalendarVar.place"
-                                   required="" name="uplace"
-                                   maxlength="100"
-                                   ng-trim="false"
-                            >
-                            <span>{{100 - trigger1GcalendarVar.place.length}} left </span>
-                            <div ng-show="form.$submitted || form.uplace.$touched">
-                                <span ng-show="form.uplace.$error.place"   style="color: #b81900">This is not a valid place</span>
-                            </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div>
-
-
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                                ng-if="!modifyButton && !importRecipe"
-                            >Cancel</a>
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                                ng-if="modifyButton && !importRecipe"
-                            >Cancel</a>
-
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                                ng-if="importRecipe && !modifyButton"
-                            >Cancel</a>
-
-
-
-                            <a   ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
-                                  ng-if="!modifyButton"
-                                class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger1Gcalendar()"  >Next</a>
-
-                            <a   ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
-                                 ng-if="modifyButton"
-                                 class="btn btn-primary pull-right btn_next3 animate-if"  ng-click="trigger1Gcalendar()" >Submit</a>
-
-                        </div>
-                        <div class="col-md-row" style="padding-top: 7%">
-                            <hr>
-                            <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject && !checkedplace" class="animate-if" >
-                                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice to use this trigger
-                            </label>
-                            </div>
-
-                    </form>
+                        <span>{{500 - trigger1GcalendarVar.subjectReceive.length}} left </span>
+                    </div>
                 </div>
-                <div class="col-md-4">
+
+
+                <!-- place -->
+                <div class="form-group">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="checkedplace"
+
+                        > <img src="/progetto/static/images/gcalendarChannel/event-location.png" height="30"
+                               width="30"/> Location</label> <br>
+
+                    <div ng-if="checkedplace" class="animate-if">
+
+                        <input type="text" ng-disabled="!checkedplace" class="form-control" id="place"
+                               placeholder="Insert the evnet location to watch"
+                               ng-model="trigger1GcalendarVar.place"
+                               required="" name="uplace"
+                               maxlength="100"
+                               ng-trim="false"
+                        >
+                        <span>{{100 - trigger1GcalendarVar.place.length}} left </span>
+                        <div ng-show="form.$submitted || form.uplace.$touched">
+                            <span ng-show="form.uplace.$error.place"
+                                  style="color: #b81900">This is not a valid place</span>
+                        </div>
+                    </div>
                 </div>
+                <hr>
+                <div>
+
+
+                    <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+                       ng-if="!modifyButton && !importRecipe"
+                    >Cancel</a>
+                    <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+                       ng-if="modifyButton && !importRecipe"
+                    >Cancel</a>
+
+                    <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+                       ng-if="importRecipe && !modifyButton"
+                    >Cancel</a>
+
+
+                    <a ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
+                       ng-if="!modifyButton"
+                       class="btn btn-primary pull-right btn_next3 animate-if" ng-click="trigger1Gcalendar()">Next</a>
+
+                    <a ng-disabled="!checkedtitle && !checkedSubject && !checkedplace" type="submit"
+                       ng-if="modifyButton"
+                       class="btn btn-primary pull-right btn_next3 animate-if" ng-click="trigger1Gcalendar()">Submit</a>
+
+                </div>
+                <div class="col-md-row" style="padding-top: 7%">
+                    <hr>
+                    <label style="color: #cd0a0a" ng-if="!checkedtitle && !checkedSubject && !checkedplace"
+                           class="animate-if">
+                        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one
+                        choice to use this trigger
+                    </label>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
     </div>
 
 </div>
@@ -121,40 +132,38 @@
 
 <script>
 
-	var uri = decodeURIComponent(window.location.hash);
-	var param = (uri).split("?");
-	var trig;
-	var act;
-	if(param[1]!=null) {
-		var tokens = param[1].split("&");
-		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
-		count = vardec.count;
-		setChooseAx = vardec.setChooseAx;
-		modifyVar = vardec.modifyVar;
-		modifyCountVar = vardec.modifyCountVar;
-		flagTriggerDone = vardec.flagTriggerDone;
-		importFlag = vardec.importFlag;
-		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
-		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			trig = tokens[1].split("trigger=")[1];			
-			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj1 = JSON.parse(dec);
-			console.log(modulinoj1)
-		}
-		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			act = tokens[2].split("action=")[1];  
-			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj2 = JSON.parse(dec1);
-			console.log(modulinoj2)			
-		}
-	}
+    var uri = decodeURIComponent(window.location.hash);
+    var param = (uri).split("?");
+    var trig;
+    var act;
+    if (param[1] != null) {
+        var tokens = param[1].split("&");
+        var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+        count = vardec.count;
+        setChooseAx = vardec.setChooseAx;
+        modifyVar = vardec.modifyVar;
+        modifyCountVar = vardec.modifyCountVar;
+        flagTriggerDone = vardec.flagTriggerDone;
+        importFlag = vardec.importFlag;
+        descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
+        idRecipe = vardec.idRecipe;
+        iftttLogin = vardec.iftttLogin;
+        if (tokens[1] != null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            trig = tokens[1].split("trigger=")[1];
+            var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj1 = JSON.parse(dec);
+            console.log(modulinoj1)
+        }
+        if (tokens[2] != null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            act = tokens[2].split("action=")[1];
+            var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj2 = JSON.parse(dec1);
+            console.log(modulinoj2)
+        }
+    }
 
-    if(importFlag==true)
-    {
-        if (iftttLogin == false)
-        {
+    if (importFlag == true) {
+        if (iftttLogin == false) {
             url = "#home";
             window.location.replace(url);
         }

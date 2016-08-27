@@ -13,20 +13,20 @@
         <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
         <div class="col-md-8">
             <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
-                <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust"
-                                                                         aria-hidden="true"></span> Your IFTTT Polito
-                    recipes
+                <li class="list-group-item active text-center">
+                    <h1><span class="glyphicon glyphicon-adjust"
+                              aria-hidden="true"></span> Your IFTTT Polito
+                        recipes
 
-                    <button title="Delete all recipes"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            style="margin-left: 3px" class="btn btn-danger pull-right"
-                            data-ng-click="removeAllRecipes()">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                        <button title="Delete all recipes"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                style="margin-left: 3px" class="btn btn-danger pull-right"
+                                data-ng-click="removeAllRecipes()">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
 
-                </h1>
-
+                    </h1>
 
 
                 </li>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h4><!-- data-content="{{f.desc}}" -->
-                                <span class="glyphicon glyphicon-file"   data-placement="bottom"
+                                <span class="glyphicon glyphicon-file" data-placement="bottom"
                                       data-toggle="popover" data-trigger="hover"></span>
                                 <b>Recipe description:</b>
                             </h4>
@@ -52,7 +52,7 @@
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
 
-                <!-- Share buttons -->
+                            <!-- Share buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.publish && !f.valid"
@@ -74,7 +74,7 @@
                                 <span class="glyphicon glyphicon-share"></span>
                             </button>
 
-                <!-- Unshare buttons -->
+                            <!-- Unshare buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.valid && f.publish"
@@ -97,7 +97,7 @@
                                 <span class="glyphicon glyphicon-share-alt"></span>
                             </button>
 
-                <!-- Modify Buttons -->
+                            <!-- Modify Buttons -->
 
                             <!-- when INVALID -->
                             <button data-ng-show="!f.valid"
@@ -121,7 +121,7 @@
                                       data-ng-click="modifyRecipe($index)"></span>
                             </button>
 
-                <!-- Ingredient description button -->
+                            <!-- Ingredient description button -->
 
                             <button title="Show details" data-toggle="tooltip" data-placement="bottom" bs-tooltip
                                     style="margin-left: 3px" class="btn btn-info pull-right"
@@ -176,7 +176,7 @@
                                 <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key}}
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </li>
@@ -197,35 +197,35 @@
 
 <script>
 
-	var uri = decodeURIComponent(window.location.hash);
-	var param = (uri).split("?");
-	var trig;
-	var act;
-	if(param[1]!=null) {
-		var tokens = param[1].split("&");
-		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
-		count = vardec.count;
-		setChooseAx = vardec.setChooseAx;
-		modifyVar = vardec.modifyVar;
-		modifyCountVar = vardec.modifyCountVar;
-		flagTriggerDone = vardec.flagTriggerDone;
-		importFlag = vardec.importFlag;
-		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
-		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			trig = tokens[1].split("trigger=")[1];			
-			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj1 = JSON.parse(dec);
-			console.log(modulinoj1)
-		}
-		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			act = tokens[2].split("action=")[1];  
-			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj2 = JSON.parse(dec1);
-			console.log(modulinoj2)			
-		}
-	}
+    var uri = decodeURIComponent(window.location.hash);
+    var param = (uri).split("?");
+    var trig;
+    var act;
+    if (param[1] != null) {
+        var tokens = param[1].split("&");
+        var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+        count = vardec.count;
+        setChooseAx = vardec.setChooseAx;
+        modifyVar = vardec.modifyVar;
+        modifyCountVar = vardec.modifyCountVar;
+        flagTriggerDone = vardec.flagTriggerDone;
+        importFlag = vardec.importFlag;
+        descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
+        idRecipe = vardec.idRecipe;
+        iftttLogin = vardec.iftttLogin;
+        if (tokens[1] != null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            trig = tokens[1].split("trigger=")[1];
+            var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj1 = JSON.parse(dec);
+            console.log(modulinoj1)
+        }
+        if (tokens[2] != null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            act = tokens[2].split("action=")[1];
+            var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj2 = JSON.parse(dec1);
+            console.log(modulinoj2)
+        }
+    }
 
     importFlag = false;
     // Commento aggiunto per poter fare il commit iniziale del branch 'client'
