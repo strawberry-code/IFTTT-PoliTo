@@ -52,10 +52,10 @@
                         </p>
                         <p>
                         <p>
-                            <a class="btn" ng-if="!iftttLogged" data-toggle="modal" data-target="#loginIFTTTModal"
-                               ng-click="routeListener('index/myRecipes')">Login <span
+                            <a class="btn" data-ng-show="!iftttLogged" data-toggle="modal" data-target="#loginIFTTTModal"
+                               data-ng-click="routeListener('index/myRecipes')">Login <span
                                     class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
-                            <a class="btn" ng-if="iftttLogged" href="#index/myRecipes">Create a new recipe <span
+                            <a class="btn" data-ng-show="iftttLogged" href="#index/myRecipes">Create a new recipe <span
                                     class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                         </p>
                     </div>
