@@ -1148,41 +1148,43 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         }
                     }).then(function success(response)
                     {
-                        switch (response)
+                        setSpinner(false);
+                        switch (response.data)
                         {
+                            // Se == 0 allora l'account è rimosso con successo
                             case 0:
                             {
-                                console.log(JSON.stringify(response.data.disconnected));
-                                if(response.data.disconnected){
+                                if(response.data){
                                     $scope.iftttLogged = false;
                                     iftttLogin = false;
                                     $scope.googleLogged = false;
                                     googleLogin = false;
                                     $scope.twitterLogged = false;
                                     twitterLogin = false;
-                                    setSpinner(false);
                                     console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
                                     sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
                                     window.location.replace('#');
                                 } else {
-                                    setSpinner(false);
                                     console.log("Due to server problems your account can't be delete now.\n Please retry.");
                                     sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
                                 }
                                 //    if(response.data.disconnected.localeCompare("true")==0){
-
-                                break;
+                                return false;
                             }
+
+                                // Se == -1 allora c'è un errore sconosciuto
                             case -1:
                             {
                                 alertWarning("There has been a error...");
-                                break;
+                                return false;
                             }
+
+                                // Se == -2 allora l'utente ha inserito la password sbagliata
                             case -2:
                             {
-
+                                console.log("You password is not right");
                                 alertWarning("Your password is not right.");
-                                break;
+                                return false;
                             }
 
                         }
@@ -1398,7 +1400,6 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                 closeOnConfirm: false
             }, function() {
 
-
                 setSpinner(true);
 
                 $http({
@@ -1428,14 +1429,10 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         sweet.show('Sorry', "Due to server problems your recipes can't be deleted.\n Please retry.", 'error');
                     }
 
-
                 }, function error() {
                     setSpinner(false);
                     alertError("Some problem occurred. (code 121)");
                 });
-
-
-
 
             });
         };
