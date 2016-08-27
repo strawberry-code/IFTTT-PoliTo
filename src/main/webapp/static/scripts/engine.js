@@ -1156,7 +1156,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                             // Se == 0 allora l'account è rimosso con successo
                             case 0:
                             {
-                                if(response.data){
+                                if(response){
                                     $scope.iftttLogged = false;
                                     iftttLogin = false;
                                     $scope.googleLogged = false;
