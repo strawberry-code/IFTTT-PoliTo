@@ -5541,7 +5541,7 @@ iftttApp.filter('skeumorphize', function(){
             }
 
             case 'startDate': {
-                return moment(input).format("dddd, MMMM Do YYYY");
+                return moment(input).format("dddd, MMMM Do YYYY HH:mm");
             }
 
             case 'sender': {
