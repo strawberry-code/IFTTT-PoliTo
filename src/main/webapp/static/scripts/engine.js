@@ -2175,76 +2175,6 @@ iftttApp.controller('createAccountController', ['$scope',
         };
 
 
-        /* Esempio di funzione poi la si cancella è solo per aver un esempio sottomano [FXR] */
-        /*
-
-
-         var requestLogout = {
-         requestLogout: 'iftttpolito'
-         };
-
-         $('#serverSpinner').spin();
-         $http({
-         method: 'POST',
-         url: 'http://localhost:8080/progetto/logout',
-         data: requestLogout
-         }).then(function success(response) {
-         if (consoleLogs) console.log(response.data.disconnected);
-         //    if(response.data.disconnected.localeCompare("true")==0){
-         $scope.iftttLogged = false;
-         iftttLogin = false;
-         $scope.googleLogged = false;
-         googleLogin = false;
-         $scope.twitterLogged = false;
-         twitterLogin = false;
-         $('#serverSpinner').spin(false);
-         $("#notificationsWrapper").notify(
-         "Logged out from IFTTT Polito",
-         {
-         className: 'warning',
-         position: 'bottom right'
-         }
-         );
-         window.location.replace('#');
-
-         if (consoleLogs) console.log($scope.iftttLogged);
-         }, function error() {
-         setSpinner(false);
-         $('#loginIFTTTModal').modal('hide');
-         $("#notificationsWrapper").notify(
-         "Disconnect to IFTTT Polito failed",
-         {
-         className: 'error',
-         position: 'bottom right'
-         }
-         );
-         if (consoleLogs) console.log($scope.iftttLogged);
-         });
-
-         };
-         */
-        /*
-
-
-         Per la REGISTRAZIONE vi ritorno una variabile i che può avere i seguenti casi:
-         // i=0 : You have successfully signed. To complete the registration, please check your email
-         // i=1 : user already exist
-         // i=2 : email already exist
-         // i=3 : email not valid
-         // i=4 : password too short
-         // i=5 : username too short
-         // i=6 : some errors
-
-         Per la RICEZIONE DELLE RICETTE (get), vi ritorno la lista delle ricette (list), altrimenti null.
-
-         Per la CREAZIONE DI UNA RICETTA (post), vi ritorno code che è il codice della ricetta appena creata; se code=-1 vuol dire che c'è stato qualche problema e la ricetta non è stata inserita.
-
-         Per la UPDATE DI UNA RICETTA (put, modify), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
-
-         Per la DELETE DI UNA RICETTA (delete, remove), vi ritorno code, che vale 0se è andato a buon fine o -1 se qualcosa è andato storto.
-         */
-
-
     }]);
 
 
@@ -2441,8 +2371,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     alertWarning("You have to chose somethings");
                 }
             }
-        },
-            $scope.checkPaswssord = false;
+        };
+
+        $scope.checkPaswssord = false;
         $scope.newTimeZone = false;
 
         /*
@@ -2453,67 +2384,6 @@ iftttApp.controller('passwordChangeController', ['$scope',
          -2 old password not valid
          -3 new password not valid
          */
-
-        /***
-         var loginDataSend =
-         {
-             "timezone": registrationTimezone,
-             "oldpassword": pwsold,
-             "newpassword": pws1
-         };
-
-         setSpinner(true);
-         $.ajax
-         ({
-    contentType: "application/json",
-    method: "post",
-    url: "http://localhost:8080/progetto/api/changepassword",
-    data: JSON.stringify(loginDataSend),
-
-    success: function (response) {
-        setSpinner(false);
-        //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
-        //alert("La password è stata modificata con successo");
-
-
-        switch (response) {
-            case 0:
-            {
-                alertPasswordChangedSuccess();
-                break;
-            }
-            case -1:
-            {
-                alertWarning("Some unknown error occurred. (code 342).");
-                break;
-            }
-
-            case -2:
-            {
-                alertWarning("The password must be 8 character lenght minimum.");
-                break;
-            }
-            case -3:
-            {
-                alertWarning("The old password is not right");
-                break;
-            }
-        }
-
-
-    },
-
-
-    error: function () {
-        setSpinner(false);
-        //alertVariable = "some error occurred";
-        //alertFunction();
-        alertError("Some error occurred.");
-
-    }
-});
-         */
-
 
     }]);
 
@@ -2833,21 +2703,6 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
                 window.location.replace(url);
             }
 
-            /*
-             var loginDataSend =
-             {
-             l3:  sender_GmailActionController,
-             l4: subject_GmailActionController
-             }
-             $.ajax
-             ({
-             method: "post",
-             url: "/MyServlet",
-             data: loginDataSend,
-             dataType: "json",
-             success: if(consoleLogs) console.log("la post ha avuto successo")
-             });
-             */
 
         };
         $scope.checkedEmail = false;
@@ -2865,10 +2720,10 @@ iftttApp.controller('GmailActionController', ['$scope', '$rootScope', '$routePar
             window.location.replace(url);
 
 
-        },
+        };
 
 
-            $scope.importRecipe = false;
+        $scope.importRecipe = false;
         if (importFlag == 1) {
             $scope.importRecipe = true;
         }
