@@ -1246,6 +1246,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                 {
                     "newpassword": psw
                 };
+                alert(psw);
 
                 sweet.show({
                     title: 'Confirm',
@@ -1257,6 +1258,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                     closeOnConfirm: false
                 }, function(){
                     sweet.show('Deleted!', 'The file has been deleted.', 'success');
+
 
 
                     setSpinner(true);
@@ -1271,7 +1273,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                         {
                             case 0:
                             {
-                                console.log(JSON.stringify(response.data.disconnected));
+                                //console.log(JSON.stringify(response.data.disconnected));
                                 if(response.data.disconnected){
                                     $scope.iftttLogged = false;
                                     iftttLogin = false;
