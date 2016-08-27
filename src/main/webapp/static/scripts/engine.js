@@ -2759,13 +2759,13 @@ iftttApp.controller('passwordChangeController', ['$scope',
                    // alert("1");
                     if (flagtimezone == 1 || flagPassword == 1 &&  (flagtimezone!=3 && flagPassword!=3))
                     {
-  console.log("flagtimezone" + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
 
                         if(flagtimezone == 1)flagtimezone =true;
                         else flagtimezone = false;
 
                         if(flagPassword == 1)flagPassword =true;
                         else flagPassword = false;
+ console.log("flagtimezone " + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
 
                      //   alert("2");
                         var loginDataSend =
@@ -2818,7 +2818,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                     {
                                         swal({
                                             title: "Success!",
-                                            text: "Your timezone and timezone has been changed.",
+                                            text: "Your timezone  has been changed.",
                                             type: "success"
                                             //confirmButtonColor: "#DD6B55",
                                             //confirmButtonText: "Yes, delete it!",
