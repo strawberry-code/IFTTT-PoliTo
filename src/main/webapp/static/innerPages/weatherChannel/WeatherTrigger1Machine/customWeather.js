@@ -237,6 +237,7 @@ $(function()
     var searchEnter=function(){
         var city=$("#search-input").val();
 
+        setSpinner(true);
         jsonurl="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
         $.ajax({method: "GET",
             url: jsonurl,
@@ -246,14 +247,22 @@ $(function()
              * @param {} presentlocation
              * @return 
              */
-            success: function(presentlocation){
-                result=presentlocation;
+            success: function(presentlocation) {
+                result = presentlocation;
 
                 updateView(result);
+                setSpinner(false);
+            },
+            error: function () {
+                setSpinner(false);
+                //alert("some error occurred");
+                //alertVariable = "some error occurred";
+                //alertFunction();
+                alertError("Sorry, some error occurred. (code 634)");
 
+            }
 
-
-            }});
+            });
         forejsonurl="http://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
         $.ajax({method: "GET",
             url: forejsonurl,
