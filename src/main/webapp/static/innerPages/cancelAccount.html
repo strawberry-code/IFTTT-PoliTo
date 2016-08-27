@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change password</title>
+</head>
+<body data-ng-controller="cancelAccountController">
+
+<div class="container">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2>Change password</h2>
+        <hr>
+        <form role="form" name="form">
+
+
+            <div class="form-group">
+
+                <label for="inputPassword">
+                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Type the password
+                </label>
+                <div class="controls">
+                    <input autofocus type="password" class="form-control" id="inputPassword" ng-model="pws1"
+                           name="pws1"
+                    />
+                    <div role="alert">
+
+                    </div>
+                </div>
+
+
+                <hr>
+
+                <button type="submit" class="btn btn-danger pull-left" onclick="location.href='#index/myRecipes'">
+                    Cancel
+                </button>
+
+                <button type="submit" class="btn btn-primary pull-right" ng-click="deleteAccount(pws1)">
+                    Submit
+                </button>
+                </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
