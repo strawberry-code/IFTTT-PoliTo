@@ -393,6 +393,16 @@ $(function(){
                 //timezoneCheck();
 
             //alert(flagWeatherCheck + "X" + flagPeriodCheck + "X" + flagZoneCheck);
+            //idCity_customWeatherActionControllerTrigger2
+            //pweather_customWeatherActionControllerTrigger2
+
+
+           // "location":   idCity_customWeatherActionControllerTrigger2,
+           // "tempo" : pweather_customWeatherActionControllerTrigger2,
+            //"period" : pperiod_customWeatherActionControllerTrigger2,
+            //"timezone" : pzone_customWeatherActionControllerTrigger2,
+            //"locationName" : locationName_ControllerTrigger2
+
 
 
                 if(flagWeatherCheck == false ||  flagPeriodCheck == false || flagZoneCheck == false)
@@ -411,7 +421,12 @@ $(function(){
                 }
                 else
                 {
+                    var outputInMilliseconds;
                     flagTriggerDone = true;
+                    if(pperiod !=null)
+                    {
+                         outputInMilliseconds = pperiod * 60000;
+                    }
 
                     modulinoj1=
                     {
@@ -419,9 +434,9 @@ $(function(){
                         "triggerType" : "weather",
                         "type" : "3",
                          "location":   idCity_customWeatherActionControllerTrigger2,
-                        "tempo" : pweather_customWeatherActionControllerTrigger2,
-                        "period" : pperiod_customWeatherActionControllerTrigger2,
-                        "timezone" : pzone_customWeatherActionControllerTrigger2,
+                        "tempo" : pweather,
+                        "period" : outputInMilliseconds,
+                        "timezone" : pzone,
                         "locationName" : locationName_ControllerTrigger2
                     };
 

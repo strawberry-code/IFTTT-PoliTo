@@ -5490,6 +5490,8 @@ iftttApp.filter('reformat', function () {
                 return 'Ingredient description';
             case 'startDate':
                 return 'Start date';
+            case 'period':
+                return 'Periodic checking';
         }
 
 
@@ -5542,13 +5544,16 @@ iftttApp.filter('skeumorphize', function(){
             case 'startDate': {
                 return moment(input).format("dddd, MMMM Do YYYY");
             }
-            case 'sender':
-            {
+
+            case 'sender': {
                 switch (input) {
                     case false: return 'This e-mail will be sent by IFTTT-polito e-mail address.';
                     case true: return 'This e-mail will be sent by your registration e-mail address.';
                 }
             }
+
+            case 'period':
+                return "every " + (input / 60000) + " minutes";
 
             default:
                 return input;
