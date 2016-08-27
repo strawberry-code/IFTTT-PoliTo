@@ -1143,15 +1143,19 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         method: 'POST',
                         url: 'http://localhost:8080/progetto/api/deleteAccount',
                         contentType: "application/json",
-                        data: {deleteAccount: true,
-                            password: inputValue
+                        data: {
+                            //deleteAccount: true,
+                            //password: inputValue
+                            "newpassword" : inputValue
                         }
                     }).then(function success(response)
                     {
+                        setSpinner(false);
+                        console.log("1");
                         switch (response)
                         {
                             case 0:
-                            {
+                            {/*
                                 console.log(JSON.stringify(response.data.disconnected));
                                 if(response.data.disconnected){
                                     $scope.iftttLogged = false;
@@ -1170,56 +1174,29 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                                     sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
                                 }
                                 //    if(response.data.disconnected.localeCompare("true")==0){
-
+*/
+                                console.log("0");
                                 break;
                             }
                             case -1:
                             {
+                                console.log("-1");
                                 alertWarning("There has been a error...");
                                 break;
                             }
                             case -2:
                             {
 
+                                console.log("-2");
                                 alertWarning("Your password is not right.");
                                 break;
                             }
 
                         }
-                        //console.log(JSON.stringify(response.data));
 
-
-
-
-
-
-
-
-                        /*{
-                         //console.log(JSON.stringify(response.data));
-                         console.log(JSON.stringify(response.data.disconnected));
-
-
-                         if(response.data.disconnected){
-                         $scope.iftttLogged = false;
-                         iftttLogin = false;
-                         $scope.googleLogged = false;
-                         googleLogin = false;
-                         $scope.twitterLogged = false;
-                         twitterLogin = false;
-                         setSpinner(false);
-                         console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
-                         sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
-                         window.location.replace('#');
-                         } else {
-                         setSpinner(false);
-                         console.log("Due to server problems your account can't be delete now.\n Please retry.");
-                         sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
-                         }
-                         //    if(response.data.disconnected.localeCompare("true")==0){
-                         */
 
                     }, function error() {
+                        console.log("sssssswww");
                         setSpinner(false);
                         alertError("Some problem occurred. (code 751)");
                     });
