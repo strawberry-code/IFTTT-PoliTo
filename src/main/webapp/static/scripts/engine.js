@@ -2679,7 +2679,6 @@ iftttApp.controller('passwordChangeController', ['$scope',
             var flagPassword = 0;
             var flagtimezone =0;
             var flagSend = true;
-            //alert($scope.vettore.pws1  + "  "  +  $scope.vettore.pws2);
 
             if(angular.isDefined($scope.vettore.pwsold))
             {
@@ -2699,7 +2698,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
             else
             {
 
-                if ($scope.checkPaswssord == true || $scope.newTimeZone == true) {
+
+                if ($scope.checkPaswssord == true || $scope.newTimeZone == true)
+                {
 
                     if (angular.isDefined($scope.vettore.pws1) && angular.isDefined($scope.vettore.pws2) && $scope.checkPaswssord == true)
                     {
@@ -2731,22 +2732,39 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     }
 
                     //Controllo time zone
-                    if ($scope.newTimeZone == false) registrationTimezone = null;
-                    else registrationTimezone = 1;
+                    if ($scope.newTimeZone == false)
+                    {
+                        flagtimezone =0;
+                        $scope.vettore.registrationTimezone = null;
+                    }
+                    else {
+                        flagtimezone = 1;
+                        if(angular.isDefined($scope.vettore.registrationTimezone));
+                        else
+                        {
+                            flagtimezone = 3;
+                            alertWarning("Your timeZone is not defined...");
+                        }
 
+                    }
 
-                    if (flagtimezone == 1 || flagPassword == 1) {
-   // alert("You date are " + flagtimezone + "  "  + registrationTimezone + "  " + flagPassword + " " + $scope.vettore.pwsold + "  " + $scope.vettore.pws1);
+                   // alert("1");
+                    if (flagtimezone == 1 || flagPassword == 1 &&  flagtimezone!=3)
+                    {
+  console.log("flagtimezone" + flagtimezone + "  timezone "  + registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
 
+                     //   alert("2");
                         var loginDataSend =
                         {
                             "flagTimezone": flagtimezone,
-                            "timezone": registrationTimezone,
+                            "timezone": $scope.vettore.registrationTimezone,
                             "flagPassword": flagPassword,
                             "oldpassword": $scope.vettore.pwsold,
                             "newpassword": $scope.vettore.pws1
 
                         };
+                       // alert("here1");
+
 
                         setSpinner(true);
                         $.ajax
@@ -2805,7 +2823,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     alertWarning("You have to chose somethings");
                 }
             }
-        }
+        },
         $scope.checkPaswssord=false;
         $scope.newTimeZone = false;
 
