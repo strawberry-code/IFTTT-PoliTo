@@ -2759,6 +2759,12 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     {
   console.log("flagtimezone" + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
 
+                        if(flagtimezone == 1)flagtimezone =true;
+                        else flagtimezone = false;
+
+                        if(flagPassword == 1)flagPassword =true;
+                        else flagPassword = false;
+
                      //   alert("2");
                         var loginDataSend =
                         {
