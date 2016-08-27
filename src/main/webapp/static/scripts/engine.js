@@ -2667,35 +2667,118 @@ iftttApp.controller('passwordChangeController', ['$scope',
          * @param {} pws2
          * @return 
          */
+        $scope.vettore = [];
+
+        $scope.vettore.registrationTimezone="Pacific/Midway";
 
         /*
          0 se è andato a buon fine,
          -1 se qualcosa è andato storto,
          -2 se la nuova password è troppo corta
          */
-        $scope.passwordChangeFunc = function (pws1, pws2)
+        $scope.passwordChangeFunc = function ()
         {
+            var flagPassword = 0;
+            var flagtimezone =0;
+            var flagSend = true;
 
-            if (angular.isDefined(pws1) && angular.isDefined(pws2))
+            if(angular.isDefined($scope.vettore.pwsold))
             {
-                if (pws1.localeCompare(pws2)==0)
+                if ($scope.vettore.pwsold.length < 8)
                 {
-                    if (pws1.length < 8 || pws2.length < 8)
+                    flagSend =false;
+                    alertWarning("The old password is too short");
+                }
+
+            }
+                else
+            {
+                flagSend=false;
+                alertWarning("The old password is required");
+            }
+            if(flagSend==false);
+            else
+            {
+                if ($scope.checkPaswssord == true || $scope.newTimeZone == true)
+                {
+                    if (angular.isDefined($scope.vettore.pws1) && angular.isDefined($scope.vettore.pws2) && $scope.checkPaswssord == true)
                     {
-                        //alertVariable = "Warning: the password  is too short!";
-                        //alertFunction();
-                        alertWarning("The password is too short, 8 lenght is the minimum accepted.");
+                        if ($scope.vettore.pws1.localeCompare($scope.vettore.pws2) == 0)
+                        {
+                            if ($scope.vettore.pws1.length < 8 || $scope.vettore.pws2.length < 8)
+                            {
+                                alertWarning("The password is too short, 8 lenght is the minimum accepted.");
+                                flagPassword = 3;
+                                $scope.vettore.pws1 = null;
+                            }
+                            else
+                            {
+                                flagPassword = 1;
+                            }
+                        }
+                        else {
+                            alertWarning("The two passord are not equals.");
+                            flagPassword = 3;
+                            $scope.vettore.pws1 = null;
+                        }
+
                     }
                     else
                     {
+                        if ($scope.checkPaswssord == true)
+                        {
 
-                        //if(consoleLogs) console.log(user + " " + email + " " + " " + pws1);
+                            alertWarning("The password field is empty.");
+                            flagPassword = 3;
+                        }
 
+                    }
+                    if ($scope.checkPaswssord == false)
+                    {
+                        flagPassword = 0;
+                        $scope.vettore.pws1 = null;
+                    }
 
+                    //Controllo time zone
+                    if ($scope.newTimeZone == false)
+                    {
+                        flagtimezone =0;
+                        $scope.vettore.registrationTimezone = null;
+                    }
+                    else {
+                        flagtimezone = 1;
+                        if(angular.isDefined($scope.vettore.registrationTimezone));
+                        else
+                        {
+                            flagtimezone = 3;
+                            alertWarning("Your timeZone is not defined...");
+                        }
+
+                    }
+
+                   // alert("1");
+                    if (flagtimezone == 1 || flagPassword == 1 &&  (flagtimezone!=3 && flagPassword!=3))
+                    {
+
+                        if(flagtimezone == 1)flagtimezone =true;
+                        else flagtimezone = false;
+
+                        if(flagPassword == 1)flagPassword =true;
+                        else flagPassword = false;
+ console.log("flagtimezone " + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
+
+                     //   alert("2");
                         var loginDataSend =
                         {
-                            "newpassword": pws1
+                            "flagTimezone": flagtimezone,
+                            "timezone": $scope.vettore.registrationTimezone,
+                            "flagPassword": flagPassword,
+                            "oldpassword": $scope.vettore.pwsold,
+                            "newpassword": $scope.vettore.pws1
+
                         };
+                       // alert("here1");
+
 
                         setSpinner(true);
                         $.ajax
@@ -2704,54 +2787,70 @@ iftttApp.controller('passwordChangeController', ['$scope',
                             method: "post",
                             url: "http://localhost:8080/progetto/api/changepassword",
                             data: JSON.stringify(loginDataSend),
-                            /**
-                             * Description
-                             * @method success
-                             * @return
-                             */
-                            success: function (response)
-                            {
+
+                            success: function (response) {
                                 setSpinner(false);
                                 //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
                                 //alert("La password è stata modificata con successo");
-                                if (response == 0)
-                                {
-                                    //alertVariable = "Success: the password is changed";
-                                    //alertFunction();
-                                    alertPasswordChangedSuccess();
 
 
-                                }
-                                else
-                                {
-
-                                    if (response == -1)
+                                switch (response) {
+                                    case 0:
                                     {
-                                        //alertVariable = "Error: there has been a error . . .";
-                                        alertWarning("Some unknown error occurred. (code 342).");
-                                        //alertFunction();
-
+                                        alertPasswordChangedSuccess();
+                                        break;
                                     }
-                                    else
-                                        if (response == -2)
-                                        {
-                                            //alertVariable = "Error: the pasword is too much short";
-                                            //alertFunction();
-                                            alertWarning("The password must be 8 character lenght minimum.");
-                                            //window.location.replace('#myRecipes');
+                                    case 1:
+                                    {
+                                        swal({
+                                            title: "Success!",
+                                            text: "Your passowrd has been changed.",
+                                            type: "success"
+                                            //confirmButtonColor: "#DD6B55",
+                                            //confirmButtonText: "Yes, delete it!",
+                                            //closeOnConfirm: true
+                                        }, function () {
+                                            window.location.replace('#myRecipes');
+                                        });
+                                        break;
+                                    }
+                                    case 2:
+                                    {
+                                        swal({
+                                            title: "Success!",
+                                            text: "Your timezone  has been changed.",
+                                            type: "success"
+                                            //confirmButtonColor: "#DD6B55",
+                                            //confirmButtonText: "Yes, delete it!",
+                                            //closeOnConfirm: true
+                                        }, function () {
+                                            window.location.replace('#myRecipes');
+                                        });
+                                        break;
+                                    }
+                                    case -1:
+                                    {
+                                        alertWarning("Some unknown error occurred. (code 2805).");
+                                        break;
+                                    }
 
-
-                                        }
+                                    case -2:
+                                    {
+                                        alertWarning("The old password is not valid.");
+                                        break;
+                                    }
+                                    case -3:
+                                    {
+                                        alertWarning("The new password is not valid");
+                                        break;
+                                    }
                                 }
+
 
                             },
-                            /**
-                             * Description
-                             * @method error
-                             * @return
-                             */
-                            error: function ()
-                            {
+
+
+                            error: function () {
                                 setSpinner(false);
                                 //alertVariable = "some error occurred";
                                 //alertFunction();
@@ -2759,28 +2858,86 @@ iftttApp.controller('passwordChangeController', ['$scope',
 
                             }
                         });
-
                     }
 
                 }
                 else {
-                    //alert("Input password error.");
-                    //alertVariable = "Warning: the two password is not egual!";
-                    //alertFunction();
-                    alertWarning("The two passord are not equals.");
+                    alertWarning("You have to chose somethings");
                 }
-
             }
-            else
+        },
+        $scope.checkPaswssord=false;
+        $scope.newTimeZone = false;
+
+        /*
+         0  timezone and password ok
+         1  password ok
+         2  timezone ok
+         -1 some errors
+         -2 old password not valid
+         -3 new password not valid
+         */
+
+/***
+var loginDataSend =
+{
+    "timezone": registrationTimezone,
+    "oldpassword": pwsold,
+    "newpassword": pws1
+};
+
+setSpinner(true);
+$.ajax
+({
+    contentType: "application/json",
+    method: "post",
+    url: "http://localhost:8080/progetto/api/changepassword",
+    data: JSON.stringify(loginDataSend),
+
+    success: function (response) {
+        setSpinner(false);
+        //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
+        //alert("La password è stata modificata con successo");
+
+
+        switch (response) {
+            case 0:
             {
-                //alertVariable = "Warning: the password is empty";
-                //alertFunction();
-                alertWarning("The password field is empty.");
-
+                alertPasswordChangedSuccess();
+                break;
+            }
+            case -1:
+            {
+                alertWarning("Some unknown error occurred. (code 342).");
+                break;
             }
 
-
+            case -2:
+            {
+                alertWarning("The password must be 8 character lenght minimum.");
+                break;
+            }
+            case -3:
+            {
+                alertWarning("The old password is not right");
+                break;
+            }
         }
+
+
+    },
+
+
+    error: function () {
+        setSpinner(false);
+        //alertVariable = "some error occurred";
+        //alertFunction();
+        alertError("Some error occurred.");
+
+    }
+});
+*/
+
 
     }]);
 
@@ -4349,16 +4506,16 @@ iftttApp.controller('action1GcalendarController', ['$scope',
         $scope.hourVector =
         {
             availableOptions: [
-                {id: '00', hour: '00'},               
-                {id: '01', hour: '01'},
-                {id: '02', hour: '02'},
-                {id: '03', hour: '03'},
-                {id: '04', hour: '04'},
-                {id: '05', hour: '05'},
-                {id: '06', hour: '06'},
-                {id: '07', hour: '07'},
-                {id: '08', hour: '08'},
-                {id: '09', hour: '09'},
+                {id: '00', hour: '0'},
+                {id: '01', hour: '1'},
+                {id: '02', hour: '2'},
+                {id: '03', hour: '3'},
+                {id: '04', hour: '4'},
+                {id: '05', hour: '5'},
+                {id: '06', hour: '6'},
+                {id: '07', hour: '7'},
+                {id: '08', hour: '8'},
+                {id: '09', hour: '9'},
                 {id: '10', hour: '10'},
                 {id: '11', hour: '11'},
                 {id: '12', hour: '12'},
@@ -4373,14 +4530,6 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 {id: '21', hour: '21'},
                 {id: '22', hour: '22'},
                 {id: '23', hour: '23'},
-                {id: '24', hour: '24'},
-                {id: '25', hour: '25'},
-                {id: '26', hour: '26'},
-                {id: '27', hour: '27'},
-                {id: '28', hour: '28'},
-                {id: '29', hour: '29'},
-                {id: '30', hour: '30'},
-                {id: '31', hour: '31'}
             ],
             selectedOption: {id: '00', hour: '00'},
             selectedOptionDuration: {id: '00', hour: '00'}
@@ -5279,6 +5428,8 @@ iftttApp.filter('reformat', function () {
                 return 'Ingredient description';
             case 'startDate':
                 return 'Start date';
+            case 'period':
+                return 'Periodic checking';
         }
 
 
@@ -5329,15 +5480,18 @@ iftttApp.filter('skeumorphize', function(){
             }
 
             case 'startDate': {
-                return moment(input).format("dddd, MMMM Do YYYY");
+                return moment(input).format("dddd, MMMM Do YYYY HH:mm");
             }
-            case 'sender':
-            {
+
+            case 'sender': {
                 switch (input) {
                     case false: return 'This e-mail will be sent by IFTTT-polito e-mail address.';
                     case true: return 'This e-mail will be sent by your registration e-mail address.';
                 }
             }
+
+            case 'period':
+                return "every " + (input / 60000) + " minutes";
 
             default:
                 return input;
@@ -5766,7 +5920,7 @@ function alertInfo(message) {
 function alertPasswordChangedSuccess() {
     swal({
         title: "Success!",
-        text: "Your passowrd has been changed.",
+        text: "Your passowrd and timezone has been changed.",
         type: "success"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
