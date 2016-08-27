@@ -1286,7 +1286,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
 
                     }, function error() {
                         setSpinner(false);
-                        alertError("Some problem occurred. (code 751)");
+                        alertError("Some problem occurred. (code 1289)");
                     });
 
 
@@ -1297,9 +1297,28 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
             }
             else
             {
-                alert("Please insert a right password");
+                alertError("Please insert a right password");
 
             }
+
+            /*
+
+             var loginDataSend =
+             {
+             "newpassword": pws1
+             };
+
+             setSpinner(true);
+             $.ajax
+             ({
+             contentType: "application/json",
+             method: "post",
+             url: "http://localhost:8080/progetto/api/changepassword",
+             data: JSON.stringify(loginDataSend),
+
+            success: function (response)
+            {
+             */
 
         }
 
