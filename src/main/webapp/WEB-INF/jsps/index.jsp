@@ -219,23 +219,6 @@
 
 <!-- TOP NAVBAR END -->
 
-<!-- DEBUG AREA BEGIN -->
-<!--
-{{"iftttLogged: "+ iftttLogged}}
-<br>
-{{"googleLogged: "+ googleLogged}}
-<br>
-{{"twitterLogged: "+ twitterLogged}}
-<!-- DEBUG AREA END -->
-<!--
-{{"recipe: "+ userRecipes}}
--->
-
-<!-- DEBUG AREA
-<button id="qwe1">Spin = ON</button>
-<button id="qwe2">Spin = OFF</button>
--->
-
 <span hidden data-ng-bind="$location.path()"></span>
 
 
