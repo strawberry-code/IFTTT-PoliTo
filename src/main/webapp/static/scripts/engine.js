@@ -1116,7 +1116,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
         };
 
 
-        $scope.deleteAccount = function()
+        $scope.eleteAccount = function()
         {
 
 
@@ -1233,7 +1233,6 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
 
 
-
     }]);
 
 iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope', 'sweet',
@@ -1245,7 +1244,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
             {
                 var loginDataSend =
                 {
-                    "newpassword": pws
+                    "newpassword": psw
                 };
 
                 sweet.show({
@@ -1268,31 +1267,45 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                         data: JSON.stringify(loginDataSend),
                     }).then(function success(response)
                     {
-                        /*
+                        switch (response)
+                        {
+                            case 0:
+                            {
+                                console.log(JSON.stringify(response.data.disconnected));
+                                if(response.data.disconnected){
+                                    $scope.iftttLogged = false;
+                                    iftttLogin = false;
+                                    $scope.googleLogged = false;
+                                    googleLogin = false;
+                                    $scope.twitterLogged = false;
+                                    twitterLogin = false;
+                                    setSpinner(false);
+                                    console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
+                                    sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
+                                    window.location.replace('#');
+                                } else {
+                                    setSpinner(false);
+                                    console.log("Due to server problems your account can't be delete now.\n Please retry.");
+                                    sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
+                                }
+                                //    if(response.data.disconnected.localeCompare("true")==0){
 
-                        mETTERE IF; PER IL RITORNO
+                                break;
+                            }
+                            case -1:
+                            {
+                                alertWarning("There has been a error...");
+                                break;
+                            }
+                            case -2:
+                            {
 
-                         */
-                        //console.log(JSON.stringify(response.data));
-                        console.log(JSON.stringify(response.data.disconnected));
+                                alertWarning("Your password is not right.");
+                                break;
+                            }
 
-                        if(response.data.disconnected){
-                            $scope.iftttLogged = false;
-                            iftttLogin = false;
-                            $scope.googleLogged = false;
-                            googleLogin = false;
-                            $scope.twitterLogged = false;
-                            twitterLogin = false;
-                            setSpinner(false);
-                            console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
-                            sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
-                            window.location.replace('#');
-                        } else {
-                            setSpinner(false);
-                            console.log("Due to server problems your account can't be delete now.\n Please retry.");
-                            sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
                         }
-                        //    if(response.data.disconnected.localeCompare("true")==0){
+                        //console.log(JSON.stringify(response.data));
 
 
                     }, function error() {
