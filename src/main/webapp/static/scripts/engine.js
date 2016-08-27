@@ -1243,6 +1243,10 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
         {
             if(angular.isDefined(psw))
             {
+                var loginDataSend =
+                {
+                    "newpassword": pws
+                };
 
                 sweet.show({
                     title: 'Confirm',
@@ -1252,7 +1256,7 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                     confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Yes, delete it!',
                     closeOnConfirm: false
-                }, function() {
+                }, function(){
                     sweet.show('Deleted!', 'The file has been deleted.', 'success');
 
 
@@ -1261,8 +1265,14 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
                         method: 'POST',
                         url: 'http://localhost:8080/progetto/api/deleteAccount',
                         contentType: "application/json",
-                        data: {deleteAccount: true}
-                    }).then(function success(response) {
+                        data: JSON.stringify(loginDataSend),
+                    }).then(function success(response)
+                    {
+                        /*
+
+                        mETTERE IF; PER IL RITORNO
+
+                         */
                         //console.log(JSON.stringify(response.data));
                         console.log(JSON.stringify(response.data.disconnected));
 
