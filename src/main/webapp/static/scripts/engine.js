@@ -3092,7 +3092,7 @@ iftttApp.controller('loginPageController', ['$scope',
                     }
                 });
             }
-        }
+        };
 
 
         $scope.importRecipe = false;
@@ -4047,9 +4047,9 @@ iftttApp.controller('action1GcalendarController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
-        },
+        };
 
-            $scope.modifyButton = false;
+        $scope.modifyButton = false;
         if (modifyVar == 1) {
 
 
@@ -4386,10 +4386,10 @@ iftttApp.controller('action1TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
-        },
+        }
 
 
-            $scope.modifyButton = false;
+        $scope.modifyButton = false;
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
@@ -4513,9 +4513,9 @@ iftttApp.controller('action2TwitterController', ['$scope',
             url = "#" + triggerImportRoute;
             window.location.replace(url);
 
-        },
+        };
 
-            $scope.modifyButton = false;
+        $scope.modifyButton = false;
         if (modifyVar == 1) {
             $scope.modifyButton = true;
         }
