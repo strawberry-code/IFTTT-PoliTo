@@ -5272,7 +5272,7 @@ iftttApp.filter('reformat', function () {
             case 'startDate':
                 return 'Start date';
             case 'period':
-                return 'Periodic checking:';
+                return 'Periodic checking';
         }
 
 
