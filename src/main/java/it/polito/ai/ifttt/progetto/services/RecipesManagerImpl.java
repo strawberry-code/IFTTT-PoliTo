@@ -1,7 +1,10 @@
 package it.polito.ai.ifttt.progetto.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -192,6 +195,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						return -1;
 					}
 					else {
+						System.out.println(">>>>>>>>>>>>>> "+TimeZone.getTimeZone(tz));
 						weathertrigger.setTimezone(tz);
 					}
 					weathertrigger.setLastCheck(null);
@@ -227,8 +231,9 @@ public class RecipesManagerImpl implements RecipesManager {
 					}
 					if(calendaraction.getStartDate() != null) {
 						try {
-							DateTime d = new DateTime(calendaraction.getStartDate());
-						} catch(Exception e) {
+							 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							  sdf.parse(calendaraction.getStartDate());
+						} catch (ParseException e1) {
 							return -1;
 						}
 					}
@@ -560,8 +565,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 						if(calendaraction.getStartDate() != null) {
 							try {
-								DateTime d = new DateTime(calendaraction.getStartDate());
-							} catch(Exception e) {
+								 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								  sdf.parse(calendaraction.getStartDate());
+							} catch (ParseException e1) {
 								return -1;
 							}
 						}
@@ -648,8 +654,9 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 						if(calendaraction.getStartDate() != null) {
 							try {
-								DateTime d = new DateTime(calendaraction.getStartDate());
-							} catch(Exception e) {
+								 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								  sdf.parse(calendaraction.getStartDate());
+							} catch (ParseException e1) {
 								return -1;
 							}
 						}
@@ -964,111 +971,4 @@ public class RecipesManagerImpl implements RecipesManager {
 		}
 		return 0;	
 	}
-
-	// @SuppressWarnings("unchecked")
-	// public List<Recipes> findRecipesByUser(Integer userid) {
-	// Session session = sessionFactory.openSession();
-	// List<Recipes> recipesuser = null;
-	// try {
-	// String hql = "from it.polito.ai.ifttt.progetto.models.Recipes r where
-	// r.id=:n";
-	// Query query = session.createQuery(hql);
-	// query.setInteger("n", userid);
-	// recipesuser = query.list();
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// if(recipesuser.size()==0) {
-	// return null;
-	// }
-	// return recipesuser;
-	// }
-	//
-	// public String extractActionType(Integer id) {
-	// Session session = sessionFactory.openSession();
-	// String actiontype = null;
-	// try {
-	// String hql = "select actionType from
-	// it.polito.ai.ifttt.progetto.models.Recipes r where r.rid=:n";
-	// Query query = session.createQuery(hql);
-	// query.setInteger("n", id);
-	// actiontype = (String) query.uniqueResult();
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// if(actiontype==null) {
-	// return null;
-	// }
-	// return actiontype;
-	// }
-	//
-	// public String extractTriggerType(Integer id) {
-	// Session session = sessionFactory.openSession();
-	// String triggertype = null;
-	// try {
-	// String hql = "select trigerType from
-	// it.polito.ai.ifttt.progetto.models.Recipes r where r.rid=:n";
-	// Query query = session.createQuery(hql);
-	// query.setInteger("n", id);
-	// triggertype = (String) query.uniqueResult();
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// if(triggertype==null) {
-	// return null;
-	// }
-	// return triggertype;
-	// }
-	//
-	// public Integer extractActionId(Integer id) {
-	// Session session = sessionFactory.openSession();
-	// Integer actionid = null;
-	// try {
-	// String hql = "select actionid from
-	// it.polito.ai.ifttt.progetto.models.Recipes r where r.rid=:n";
-	// Query query = session.createQuery(hql);
-	// query.setInteger("n", id);
-	// actionid = (Integer) query.uniqueResult();
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// if(actionid==null) {
-	// return null;
-	// }
-	// return actionid;
-	// }
-	//
-	// public Integer extractTriggerId(Integer id) {
-	// Session session = sessionFactory.openSession();
-	// Integer triggerid = null;
-	// try {
-	// String hql = "select triggerid from
-	// it.polito.ai.ifttt.progetto.models.Recipes r where r.rid=:n";
-	// Query query = session.createQuery(hql);
-	// query.setInteger("n", id);
-	// triggerid = (Integer) query.uniqueResult();
-	// } finally {
-	// if (session != null) {
-	// // close session in any case
-	// session.close();
-	// }
-	// }
-	// if(triggerid==null) {
-	// return null;
-	// }
-	// return triggerid;
-	// }
-
 }
