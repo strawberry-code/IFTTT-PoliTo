@@ -92,7 +92,7 @@
                 <li>
                     <a href="#passwordChange"
                        data-ng-if="iftttLogged">
-                        <span aria-hidden="true">Change password</span>
+                        <span aria-hidden="true">Change password or timezone</span>
                     </a>
                 </li>
 
