@@ -29,6 +29,8 @@ import it.polito.ai.ifttt.progetto.services.CalendarManager;
 import it.polito.ai.ifttt.progetto.services.CalendarManagerImpl;
 import it.polito.ai.ifttt.progetto.services.GmailManager;
 import it.polito.ai.ifttt.progetto.services.GmailManagerImpl;
+import it.polito.ai.ifttt.progetto.services.LoadFile;
+import it.polito.ai.ifttt.progetto.services.LoadFileImpl;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
 import it.polito.ai.ifttt.progetto.services.LoginManagerImpl;
 import it.polito.ai.ifttt.progetto.services.RecipesManager;
@@ -100,6 +102,11 @@ public class RootConfig {
 	public ApplicationListener<ContextRefreshedEvent> contextInitFinishListener() {
 		return new ContextInitFinishListener(loginManager(), gmailManager(), recipesManager(), sessionMail(),
 				weatherManager(), calendarManager(), twitterManager());
+	}
+	
+	@Bean
+	LoadFile loadFile() {
+		return new LoadFileImpl();
 	}
 
 	@Bean

@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.hibernate.Query;
@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.util.DateTime;
 
 import it.polito.ai.ifttt.progetto.models.CalendarAction;
 import it.polito.ai.ifttt.progetto.models.CalendarTrigger;
@@ -44,8 +43,11 @@ public class RecipesManagerImpl implements RecipesManager {
 	WeatherManager weatherManager;
 	@Autowired
 	TwitterManager twitterManager;	
+    @Autowired
+    LoadFile loadFile;
 	
 	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+	Map<Long, String> cities = loadFile.buildMap();
 
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -174,6 +176,20 @@ public class RecipesManagerImpl implements RecipesManager {
 					if(weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
 						return -1;
 					}
+					if(weathertrigger.getLocation()!=null && weathertrigger.getLocationName()!=null) {
+						if(cities.containsKey(weathertrigger.getLocation()) == true) {
+							String cityName = cities.get(weathertrigger.getLocation());
+							if(cityName.compareTo(weathertrigger.getLocationName())!=0) {
+								return -1;
+							}
+						}
+						else {
+							return -1;
+						}
+					}
+					else {
+						return -1;
+					}
 					if(weathertrigger.getThmin()!=null) {
 						if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
 							return -1;
@@ -195,7 +211,6 @@ public class RecipesManagerImpl implements RecipesManager {
 						return -1;
 					}
 					else {
-						System.out.println(">>>>>>>>>>>>>> "+TimeZone.getTimeZone(tz));
 						weathertrigger.setTimezone(tz);
 					}
 					weathertrigger.setLastCheck(null);
@@ -396,6 +411,20 @@ public class RecipesManagerImpl implements RecipesManager {
 						if(weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
 							return -1;
 						}
+						if(weathertrigger.getLocation()!=null && weathertrigger.getLocationName()!=null) {
+							if(cities.containsKey(weathertrigger.getLocation()) == true) {
+								String cityName = cities.get(weathertrigger.getLocation());
+								if(cityName.compareTo(weathertrigger.getLocationName())!=0) {
+									return -1;
+								}
+							}
+							else {
+								return -1;
+							}
+						}
+						else {
+							return -1;
+						}
 						if(weathertrigger.getThmin()!=null) {
 							if(weathertrigger.getThmin()<(-70) || weathertrigger.getThmin()>70) {
 								return -1;
@@ -503,6 +532,20 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
 						if(weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+							return -1;
+						}
+						if(weathertrigger.getLocation()!=null && weathertrigger.getLocationName()!=null) {
+							if(cities.containsKey(weathertrigger.getLocation()) == true) {
+								String cityName = cities.get(weathertrigger.getLocation());
+								if(cityName.compareTo(weathertrigger.getLocationName())!=0) {
+									return -1;
+								}
+							}
+							else {
+								return -1;
+							}
+						}
+						else {
 							return -1;
 						}
 						if(weathertrigger.getThmin()!=null) {
