@@ -923,36 +923,41 @@ public class ThreadFunction extends Thread {
 				event.setLocation(ca.getLocation());
 			}
 
-			//TODO: gestire il timezone!!!
-	//		try {
+
+			try {
 				DateTime startDateTime = null;
 				if (ca.getStartDate() != null) {
-					startDateTime = new DateTime(ca.getStartDate());
+					//startDateTime = new DateTime(ca.getStartDate());
+					Date d = null;
+					final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+					TimeZone tz = TimeZone.getTimeZone(ca.getTimezone());
+					try {
+						String s = sdf.format(parseDate(ca.getStartDate(), tz));
+						d = sdf.parse(s);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					startDateTime = new DateTime(d);
 				} else {
 					startDateTime = new DateTime(new Date());
 				}
-				EventDateTime start = new EventDateTime().setDateTime(startDateTime).setTimeZone(ca.getTimezone());
-				event.setStart(start);
-//				System.out.println(new Date(1472231359000L));
-//				Date prova = new Date();
-//				prova.setTime(1472231359000L);
-//				System.out.println(new DateTime(prova).toString());
-	//			System.out.println(new Date(1472231359000L));
-	//			System.out.println();
-			
+				EventDateTime start = new EventDateTime().setDateTime(startDateTime);
+				event.setStart(start);		
 
 				DateTime endDateTime = null;
 				Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
 				endDateTime = new DateTime(new Date(mill));
-				EventDateTime end = new EventDateTime().setDateTime(endDateTime).setTimeZone(ca.getTimezone());
+				EventDateTime end = new EventDateTime().setDateTime(endDateTime);
 				event.setEnd(end);
 
 				event = clientCal.events().insert("primary", event).execute();
-//			}
-//			catch(Exception e) {
-//				//try-catch to handle incorrect date
-//				//TODO: handle the exception: ad esempio mettendo la data corrente
-//			}
+			}
+			catch(Exception e) {
+				//try-catch to handle incorrect date
+				//TODO: handle the exception: ad esempio mettendo la data corrente
+				System.out.println(e.getMessage());
+			}
 			
 
 		} else if (atype.compareTo("twitter") == 0 && twitter != null) {
@@ -1002,5 +1007,10 @@ public class ThreadFunction extends Thread {
 		cal.add(Calendar.DATE, days); // minus number would decrement the days
 		return cal.getTime();
 	}
-
+	
+	public static Date parseDate(final String str, final TimeZone tz) throws ParseException {
+		  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		  sdf.setTimeZone(tz);
+		  return sdf.parse(str);
+	}
 }

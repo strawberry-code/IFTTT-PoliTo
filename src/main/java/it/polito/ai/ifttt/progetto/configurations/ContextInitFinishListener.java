@@ -1,7 +1,7 @@
 package it.polito.ai.ifttt.progetto.configurations;
 
 import javax.mail.Session;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
@@ -37,7 +37,7 @@ public class ContextInitFinishListener implements ApplicationListener<ContextRef
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if(event.getApplicationContext().getParent()==null) {
-			System.out.println(">>>>>>>>>>> Sono in questo AppEvent! <<<<<<<<<<<<<");
+			System.out.println(">>>>>>>>>>> Wellcome to IFTTT polito <<<<<<<<<<<<<");			
 			(new ThreadFunction(this.loginManager, this.gmailManager, this.recipesManager, 
 					this.sessionMail, this.weatherManager, this.calendarManager, this.twitterManager)).start();
 		}		
