@@ -28,7 +28,8 @@ public interface LoginManager {
 	void disconnectGoogle(String username);
 	void disconnectTwitter(String username);
 	
-	Integer changePassword(String username, String newpass);
+//	Integer changePassword(Users user);
+	Integer changePasswordTimezone(Users user);
 	Integer deleteAccount(Users user);
 	Integer deleteAllRecipes(Users user);
 	
