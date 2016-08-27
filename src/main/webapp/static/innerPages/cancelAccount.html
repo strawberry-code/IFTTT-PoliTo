@@ -20,7 +20,7 @@
                     <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Type the password
                 </label>
                 <div class="controls">
-                    <input autofocus type="password" class="form-control" id="inputPassword" ng-model="pws1"
+                    <input autofocus type="password" class="form-control" id="inputPassword" data-ng-model="pws1"
                            name="pws1"
                     />
                     <div role="alert">
@@ -35,7 +35,7 @@
                     Cancel
                 </button>
 
-                <button type="submit" class="btn btn-primary pull-right" ng-click="deleteAccount(pws1)">
+                <button type="submit" class="btn btn-primary pull-right" data-ng-click="deleteAccount(pws1)">
                     Submit
                 </button>
             </div>
