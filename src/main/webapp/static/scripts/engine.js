@@ -2673,7 +2673,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
          -1 se qualcosa è andato storto,
          -2 se la nuova password è troppo corta
          */
-        $scope.passwordChangeFunc = function (pws1, pws2)
+        $scope.passwordChangeFunc = function (pws1, pws2, pwsold, registrationTimezone)
         {
 
             if (angular.isDefined(pws1) && angular.isDefined(pws2))
@@ -2694,6 +2694,8 @@ iftttApp.controller('passwordChangeController', ['$scope',
 
                         var loginDataSend =
                         {
+                            "timezone" : registrationTimezone,
+                            "oldpassword" : pwsold,
                             "newpassword": pws1
                         };
 
@@ -2714,35 +2716,37 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                 setSpinner(false);
                                 //if (consoleLogs) console.log("(passwordRecoveryController): ricevuta correttamente una risposta dal server");
                                 //alert("La password è stata modificata con successo");
-                                if (response == 0)
+
+
+
+
+                                switch (response)
                                 {
-                                    //alertVariable = "Success: the password is changed";
-                                    //alertFunction();
-                                    alertPasswordChangedSuccess();
-
-
-                                }
-                                else
-                                {
-
-                                    if (response == -1)
+                                    case 0:
                                     {
-                                        //alertVariable = "Error: there has been a error . . .";
-                                        alertWarning("Some unknown error occurred. (code 342).");
-                                        //alertFunction();
-
+                                        alertPasswordChangedSuccess();
+                                        break;
                                     }
-                                    else
-                                        if (response == -2)
-                                        {
-                                            //alertVariable = "Error: the pasword is too much short";
-                                            //alertFunction();
-                                            alertWarning("The password must be 8 character lenght minimum.");
-                                            //window.location.replace('#myRecipes');
+                                    case -1:
+                                    {
+                                        alertWarning("Some unknown error occurred. (code 342).");
+                                        break;
+                                    }
 
-
-                                        }
+                                    case -2:
+                                    {
+                                        alertWarning("The password must be 8 character lenght minimum.");
+                                        break;
+                                    }
+                                    case -3:
+                                    {
+                                        alertWarning("The old password is not right");
+                                        break;
+                                    }
                                 }
+
+
+
 
                             },
                             /**
