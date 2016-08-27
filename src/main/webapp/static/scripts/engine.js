@@ -2697,11 +2697,8 @@ iftttApp.controller('passwordChangeController', ['$scope',
             if(flagSend==false);
             else
             {
-
-
                 if ($scope.checkPaswssord == true || $scope.newTimeZone == true)
                 {
-
                     if (angular.isDefined($scope.vettore.pws1) && angular.isDefined($scope.vettore.pws2) && $scope.checkPaswssord == true)
                     {
                         if ($scope.vettore.pws1.localeCompare($scope.vettore.pws2) == 0)
@@ -2709,7 +2706,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
                             if ($scope.vettore.pws1.length < 8 || $scope.vettore.pws2.length < 8)
                             {
                                 alertWarning("The password is too short, 8 lenght is the minimum accepted.");
-                                flagPassword = 0;
+                                flagPassword = 3;
                                 $scope.vettore.pws1 = null;
                             }
                             else
@@ -2719,16 +2716,25 @@ iftttApp.controller('passwordChangeController', ['$scope',
                         }
                         else {
                             alertWarning("The two passord are not equals.");
-                            flagPassword = 0;
+                            flagPassword = 3;
                             $scope.vettore.pws1 = null;
                         }
 
                     }
-                    else if ($scope.checkPaswssord == true)
+                    else
                     {
+                        if ($scope.checkPaswssord == true)
+                        {
 
-                        alertWarning("The password field is empty.");
+                            alertWarning("The password field is empty.");
+                            flagPassword = 3;
+                        }
+
+                    }
+                    if ($scope.checkPaswssord == false)
+                    {
                         flagPassword = 0;
+                        $scope.vettore.pws1 = null;
                     }
 
                     //Controllo time zone
@@ -2749,9 +2755,9 @@ iftttApp.controller('passwordChangeController', ['$scope',
                     }
 
                    // alert("1");
-                    if (flagtimezone == 1 || flagPassword == 1 &&  flagtimezone!=3)
+                    if (flagtimezone == 1 || flagPassword == 1 &&  (flagtimezone!=3 && flagPassword!=3))
                     {
-  //console.log("flagtimezone" + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
+  console.log("flagtimezone" + flagtimezone + "  timezone "  + $scope.vettore.registrationTimezone + " flagPassword " + flagPassword + " oldpassword " + $scope.vettore.pwsold + "  newpassword " + $scope.vettore.pws1);
 
                      //   alert("2");
                         var loginDataSend =
