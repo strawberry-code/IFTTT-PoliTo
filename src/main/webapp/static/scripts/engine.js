@@ -5323,13 +5323,15 @@ iftttApp.filter('skeumorphize', function(){
             case 'startDate': {
                 return moment(input).format("dddd, MMMM Do YYYY");
             }
-            case 'sender':
-            {
+
+            case 'sender': {
                 switch (input) {
                     case false: return 'This e-mail will be sent by IFTTT-polito e-mail address.';
                     case true: return 'This e-mail will be sent by your registration e-mail address.';
                 }
             }
+
+            case 'period':
 
             default:
                 return input;
