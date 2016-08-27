@@ -1244,7 +1244,6 @@ iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routePa
             {
                 var loginDataSend =
                 {
-                    "newpassword": psw
                 };
 
                 sweet.show({
