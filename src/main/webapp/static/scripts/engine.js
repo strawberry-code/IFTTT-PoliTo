@@ -1155,7 +1155,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                         {
                             // Se == 0 allora l'account è rimosso con successo
                             case 0:
-                            {/*
+                            {
                                 if(response.data){
                                     $scope.iftttLogged = false;
                                     iftttLogin = false;
@@ -1173,7 +1173,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                                 //    if(response.data.disconnected.localeCompare("true")==0){
                                 return false;
                             }
-*/
+
                                 console.log("0");
                                 // Se == -1 allora c'è un errore sconosciuto
                             case -1:
