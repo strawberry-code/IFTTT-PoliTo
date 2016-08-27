@@ -372,6 +372,12 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'hiddenPageConfirmationController'
     });
 
+    $routeProvider.when('/cancelAccount', {
+        templateUrl: './static/innerPages/cancelAccount.html',
+        controller: 'cancelAccountController'
+    });
+
+
 
     $routeProvider.otherwise({redirectTo: '/home'});
 }]);
@@ -1110,9 +1116,11 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
         };
 
 
-        $scope.deleteAccount = function() {
+        $scope.deleteAccount = function()
+        {
 
 
+/*
             sweet.show({
                 title: 'Confirm',
                 text: 'Delete your account?',
@@ -1163,6 +1171,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
 
             });
+            */
         };
 
 
@@ -1226,6 +1235,75 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
 
     }]);
 
+iftttApp.controller('cancelAccountController', ['$scope', '$location', '$routeParams', '$window', '$http', '$rootScope', 'sweet',
+    function ($scope, $location, $routeParams, $window, $http, $rootScope, sweet)
+    {
+        $scope.deleteAccount = function (psw)
+        {
+            if(angular.isDefined(psw))
+            {
+
+                sweet.show({
+                    title: 'Confirm',
+                    text: 'Delete your account?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, delete it!',
+                    closeOnConfirm: false
+                }, function() {
+                    sweet.show('Deleted!', 'The file has been deleted.', 'success');
+
+
+                    setSpinner(true);
+                    $http({
+                        method: 'POST',
+                        url: 'http://localhost:8080/progetto/api/deleteAccount',
+                        contentType: "application/json",
+                        data: {deleteAccount: true}
+                    }).then(function success(response) {
+                        //console.log(JSON.stringify(response.data));
+                        console.log(JSON.stringify(response.data.disconnected));
+
+                        if(response.data.disconnected){
+                            $scope.iftttLogged = false;
+                            iftttLogin = false;
+                            $scope.googleLogged = false;
+                            googleLogin = false;
+                            $scope.twitterLogged = false;
+                            twitterLogin = false;
+                            setSpinner(false);
+                            console.log("Your account has been removed.\n Hope to see you soon, goodbye!");
+                            sweet.show('Nice!', 'Your account has been removed.\n Hope to see you soon, goodbye!', 'success');
+                            window.location.replace('#');
+                        } else {
+                            setSpinner(false);
+                            console.log("Due to server problems your account can't be delete now.\n Please retry.");
+                            sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
+                        }
+                        //    if(response.data.disconnected.localeCompare("true")==0){
+
+
+                    }, function error() {
+                        setSpinner(false);
+                        alertError("Some problem occurred. (code 751)");
+                    });
+
+
+
+
+                });
+
+            }
+            else
+            {
+                alert("Please insert a right password");
+
+            }
+
+        }
+
+    }]);
 
 
 

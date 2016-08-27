@@ -189,11 +189,10 @@
                               aria-hidden="true"></span> Create account
                 </a>
 
-                <a href="#index/createAccount"
+                <a href="#cancelAccount"
                    class="btn btn-default"
                    style="margin-left: 6px"
                    data-ng-show="iftttLogged"
-                   data-ng-click="deleteAccount()">
                     <span style="color: #761c19" class="glyphicon glyphicon-trash"
                           aria-hidden="true"></span> Delete account
                 </a>
