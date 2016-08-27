@@ -34,6 +34,8 @@ import it.polito.ai.ifttt.progetto.models.TwitterAction;
 import it.polito.ai.ifttt.progetto.models.TwitterTrigger;
 import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
+import net.aksingh.owmjapis.CurrentWeather;
+import net.aksingh.owmjapis.OpenWeatherMap;
 
 public class RecipesManagerImpl implements RecipesManager {
 
@@ -51,7 +53,8 @@ public class RecipesManagerImpl implements RecipesManager {
 	TwitterManager twitterManager;
 
 	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
-	Map<Long, String> cities = this.buildMap();
+	String apiKey = "7a270c3877b50b233c4873ffc56f3ff7";
+	OpenWeatherMap owm = new OpenWeatherMap(apiKey);
 
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -181,16 +184,25 @@ public class RecipesManagerImpl implements RecipesManager {
 						return -1;
 					}
 					if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
-						if (cities.containsKey(weathertrigger.getLocation()) == true) {
-							String cityName = cities.get(weathertrigger.getLocation());
-							if (cityName.compareTo(weathertrigger.getLocationName()) != 0) {
+						try {
+							CurrentWeather cwd = owm.currentWeatherByCityCode(weathertrigger.getLocation());
+							if(cwd.isValid()) {
+								if(cwd.hasCityName()) {
+									if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+										return -1;
+									}
+								}
+								else { 
+									return -1;
+								}
+							}
+							else {
 								return -1;
 							}
-						} else {
+						}
+						catch (Exception e) {
 							return -1;
 						}
-					} else {
-						return -1;
 					}
 					if (weathertrigger.getThmin() != null) {
 						if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
@@ -410,16 +422,25 @@ public class RecipesManagerImpl implements RecipesManager {
 							return -1;
 						}
 						if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
-							if (cities.containsKey(weathertrigger.getLocation()) == true) {
-								String cityName = cities.get(weathertrigger.getLocation());
-								if (cityName.compareTo(weathertrigger.getLocationName()) != 0) {
+							try {
+								CurrentWeather cwd = owm.currentWeatherByCityCode(weathertrigger.getLocation());
+								if(cwd.isValid()) {
+									if(cwd.hasCityName()) {
+										if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+											return -1;
+										}
+									}
+									else { 
+										return -1;
+									}
+								}
+								else {
 									return -1;
 								}
-							} else {
+							}
+							catch (Exception e) {
 								return -1;
 							}
-						} else {
-							return -1;
 						}
 						if (weathertrigger.getThmin() != null) {
 							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
@@ -529,16 +550,25 @@ public class RecipesManagerImpl implements RecipesManager {
 							return -1;
 						}
 						if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
-							if (cities.containsKey(weathertrigger.getLocation()) == true) {
-								String cityName = cities.get(weathertrigger.getLocation());
-								if (cityName.compareTo(weathertrigger.getLocationName()) != 0) {
+							try {
+								CurrentWeather cwd = owm.currentWeatherByCityCode(weathertrigger.getLocation());
+								if(cwd.isValid()) {
+									if(cwd.hasCityName()) {
+										if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+											return -1;
+										}
+									}
+									else { 
+										return -1;
+									}
+								}
+								else {
 									return -1;
 								}
-							} else {
+							}
+							catch (Exception e) {
 								return -1;
 							}
-						} else {
-							return -1;
 						}
 						if (weathertrigger.getThmin() != null) {
 							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
@@ -1002,31 +1032,5 @@ public class RecipesManagerImpl implements RecipesManager {
 			}
 		}
 		return 0;
-	}
-
-	public Map<Long, String> buildMap() {
-		// String file = context.getRealPath("/WEB-INF/cityFile.txt");
-		ClassLoader classLoader = getClass().getClassLoader();
-//		File file = new File(classLoader.getResource("cityFile.txt").getFile());
-		Map<Long, String> cities = new HashMap<Long, String>();
-		FileReader f;
-		try {
-			f = new FileReader(classLoader.getResource("cityFile.txt").getFile());
-			BufferedReader b = new BufferedReader(f);
-			String s = "";
-			while ((s = b.readLine()) != null) {
-				JSONObject obj = new JSONObject(s);
-				cities.put(obj.getLong("i"), obj.getString("n"));
-			}
-			b.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return cities;
 	}
 }
