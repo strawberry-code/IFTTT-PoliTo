@@ -1151,12 +1151,23 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     }).then(function success(response)
                     {
                         setSpinner(false);
+<<<<<<< HEAD
                         switch (response.data)
+=======
+                        console.log("1 "   + response);
+                        switch (response)
+>>>>>>> origin/ProveDiOttimizazioneTastoCancelAccount
                         {
                             // Se == 0 allora l'account è rimosso con successo
                             case 0:
-                            {/*
+<<<<<<< HEAD
+                            {
                                 if(response.data){
+=======
+                            {/*
+                                console.log(JSON.stringify(response.data.disconnected));
+                                if(response.data.disconnected){
+>>>>>>> origin/ProveDiOttimizazioneTastoCancelAccount
                                     $scope.iftttLogged = false;
                                     iftttLogin = false;
                                     $scope.googleLogged = false;
@@ -1171,10 +1182,15 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                                     sweet.show('Sorry', "Due to server problems your account can't be delete now.\n Please retry.", 'error');
                                 }
                                 //    if(response.data.disconnected.localeCompare("true")==0){
+<<<<<<< HEAD
                                 return false;
-                            }
+=======
 */
                                 console.log("0");
+                                break;
+>>>>>>> origin/ProveDiOttimizazioneTastoCancelAccount
+                            }
+
                                 // Se == -1 allora c'è un errore sconosciuto
                             case -1:
                             {
@@ -1186,8 +1202,12 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                                 // Se == -2 allora l'utente ha inserito la password sbagliata
                             case -2:
                             {
+<<<<<<< HEAD
                                 console.log("You password is not right");
+=======
+
                                 console.log("-2");
+>>>>>>> origin/ProveDiOttimizazioneTastoCancelAccount
                                 alertWarning("Your password is not right.");
                                 return false;
                             }
