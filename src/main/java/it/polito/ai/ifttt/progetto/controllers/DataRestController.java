@@ -442,8 +442,9 @@ public class DataRestController {
 		return handleDup;
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "deleteAccount", method = RequestMethod.POST)
-	returnClass deleteAccount(@RequestBody String data) {
+	Integer deleteAccount(@RequestBody requestClass data) {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
@@ -451,17 +452,19 @@ public class DataRestController {
 			code = -1;
 		}
 		else {
-			code = loginManager.deleteAccount(user);
+			if(data.getNewpassword()==null || user.getPassword().compareTo(this.computeMD5(data.getNewpassword()))!=0) {
+				code = -2;				
+			}
+			else {
+				code = loginManager.deleteAccount(user);
+			}
 		}		
-	
-		returnClass res = new returnClass();
-		if(code==-1) {
-			res.setDisconnected(false);
-		}
-		else {
-			res.setDisconnected(true);
-		}	
-		return res;
+		
+		//  0 success
+		// -1 error
+		// -2 wrong password
+		
+		return code;
 	}	
 	
 	@RequestMapping(value = "deleteAllRecipes", method = RequestMethod.POST)
