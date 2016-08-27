@@ -1151,7 +1151,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     }).then(function success(response)
                     {
                         setSpinner(false);
-                        console.log("1");
+                        console.log("1 "   + response);
                         switch (response)
                         {
                             case 0:
@@ -1193,6 +1193,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                             }
 
                         }
+                        alertWarning("Non è entrato dentro un case.");
 
 
                     }, function error() {
