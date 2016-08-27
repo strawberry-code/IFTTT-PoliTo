@@ -2800,20 +2800,48 @@ iftttApp.controller('passwordChangeController', ['$scope',
                                         alertPasswordChangedSuccess();
                                         break;
                                     }
+                                    case 1:
+                                    {
+                                        swal({
+                                            title: "Success!",
+                                            text: "Your passowrd has been changed.",
+                                            type: "success"
+                                            //confirmButtonColor: "#DD6B55",
+                                            //confirmButtonText: "Yes, delete it!",
+                                            //closeOnConfirm: true
+                                        }, function () {
+                                            window.location.replace('#myRecipes');
+                                        });
+                                        break;
+                                    }
+                                    case 2:
+                                    {
+                                        swal({
+                                            title: "Success!",
+                                            text: "Your timezone and timezone has been changed.",
+                                            type: "success"
+                                            //confirmButtonColor: "#DD6B55",
+                                            //confirmButtonText: "Yes, delete it!",
+                                            //closeOnConfirm: true
+                                        }, function () {
+                                            window.location.replace('#myRecipes');
+                                        });
+                                        break;
+                                    }
                                     case -1:
                                     {
-                                        alertWarning("Some unknown error occurred. (code 342).");
+                                        alertWarning("Some unknown error occurred. (code 2805).");
                                         break;
                                     }
 
                                     case -2:
                                     {
-                                        alertWarning("The password must be 8 character lenght minimum.");
+                                        alertWarning("The old password is not valid.");
                                         break;
                                     }
                                     case -3:
                                     {
-                                        alertWarning("The old password is not right");
+                                        alertWarning("The new password is not valid");
                                         break;
                                     }
                                 }
@@ -2841,7 +2869,14 @@ iftttApp.controller('passwordChangeController', ['$scope',
         $scope.checkPaswssord=false;
         $scope.newTimeZone = false;
 
-
+        /*
+         0  timezone and password ok
+         1  password ok
+         2  timezone ok
+         -1 some errors
+         -2 old password not valid
+         -3 new password not valid
+         */
 
 /***
 var loginDataSend =
@@ -5885,7 +5920,7 @@ function alertInfo(message) {
 function alertPasswordChangedSuccess() {
     swal({
         title: "Success!",
-        text: "Your passowrd has been changed.",
+        text: "Your passowrd and timezone has been changed.",
         type: "success"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
