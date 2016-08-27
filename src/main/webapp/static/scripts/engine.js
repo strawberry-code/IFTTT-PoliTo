@@ -1193,7 +1193,7 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     setSpinner(false);
 
                     // Se == 0 oopure se == true allora le ricette sono rimosse con successo
-                    if(response.data.deleted){
+                    if(response.data.deleted == 0){
                         console.log("All recipes are deleted.");
                         sweet.show('Nice!', 'Your recipes are been removed.', 'success');
                         window.location.replace('#index/myRecipes');
