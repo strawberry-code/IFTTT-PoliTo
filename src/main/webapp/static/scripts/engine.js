@@ -1193,15 +1193,14 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     setSpinner(false);
 
                     // Se == 0 oopure se == true allora le ricette sono rimosse con successo
-                    if(response.data.deleted){
+                    if(response.data.deleted == 0){
                         console.log("All recipes are deleted.");
                         sweet.show('Nice!', 'Your recipes are been removed.', 'success');
                         window.location.replace('#index/myRecipes');
 
-                        // Se == -2 allora non ci sono ricette da rimuover
                     } else if (response.data.deleted == -2) {
                         console.log("There are not recipes.");
-                        sweet.show('Sorry', "There are any recipes to remove.", 'info');
+                        sweet.show('Sorry', "There is any recipe to remove.", 'info');
 
                         // Se == -1 e in tutti gli altri casi è un errore inatteso
                     } else {
@@ -4061,7 +4060,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 if(yearVector_action1GcalendarController!=null && monthVector_action1GcalendarController!=null && 
                    dayVector_action1GcalendarController!=null && hourStart_action1GcalendarController!=null && minuteStart_action1GcalendarController!=null) {
                     startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
-                    + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
+                    + "-" + dayVector_action1GcalendarController + " " + hourStart_action1GcalendarController
                     + ":" + minuteStart_action1GcalendarController + ":00";
                 }
 
