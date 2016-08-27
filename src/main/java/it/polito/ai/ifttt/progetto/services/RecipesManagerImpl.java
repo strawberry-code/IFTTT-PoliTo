@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -256,13 +257,17 @@ public class RecipesManagerImpl implements RecipesManager {
 					if (calendaraction.getIngredientCode() != 21) {
 						return -1;
 					}
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					if (calendaraction.getStartDate() != null) {
 						try {
-							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							sdf.parse(calendaraction.getStartDate());
 						} catch (ParseException e1) {
 							return -1;
 						}
+					}
+					else {
+						String dstr = sdf.format(new Date());
+						calendaraction.setStartDate(dstr);
 					}
 					if (calendaraction.getDuration() == null) {
 						calendaraction.setDuration((long) 3600000);
@@ -626,13 +631,17 @@ public class RecipesManagerImpl implements RecipesManager {
 						if (calendaraction.getIngredientCode() != 21) {
 							return -1;
 						}
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
-							try {
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							try {								
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
 								return -1;
 							}
+						}
+						else {
+							String dstr = sdf.format(new Date());
+							calendaraction.setStartDate(dstr);
 						}
 						if (calendaraction.getDuration() == null) {
 							calendaraction.setDuration((long) 3600000);
@@ -713,13 +722,17 @@ public class RecipesManagerImpl implements RecipesManager {
 						if (calendaraction.getIngredientCode() != 21) {
 							return -1;
 						}
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
-							try {
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							try {								
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
 								return -1;
 							}
+						}
+						else {
+							String dstr = sdf.format(new Date());
+							calendaraction.setStartDate(dstr);
 						}
 						if (calendaraction.getDuration() == null) {
 							calendaraction.setDuration((long) 3600000);
