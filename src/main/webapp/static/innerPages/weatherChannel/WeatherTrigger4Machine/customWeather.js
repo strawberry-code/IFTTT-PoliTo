@@ -378,7 +378,7 @@ $(function(){
                 }
 
                 idCity_customWeatherActionControllerTrigger4 =idCity;
-                    ptimezone_customWeatherActionControllerTrigger4 = timezone;
+                ptimezone_customWeatherActionControllerTrigger4 = timezone;
                 pthmax_customWeatherActionControllerTrigger4 = thmax;
                 pthmin_customWeatherActionControllerTrigger4 = thmin;
                 period_customWeatherActionControllerTrigger4 = period;
@@ -404,6 +404,13 @@ $(function(){
                 }
                 else {
 
+                    var  outputInMilliseconds = 0;
+                    if(period_customWeatherActionControllerTrigger4 !=null)
+                    {
+                        outputInMilliseconds = period_customWeatherActionControllerTrigger4 * 60000;
+                    }
+
+
                     modulinoj1 =
                     {
                         "ingredientCode" : 17,
@@ -413,7 +420,7 @@ $(function(){
                         "timezone": ptimezone_customWeatherActionControllerTrigger4,
                         "thmax": pthmax_customWeatherActionControllerTrigger4,
                         "thmin": pthmin_customWeatherActionControllerTrigger4,
-                        "period" : period_customWeatherActionControllerTrigger4,
+                        "period" : outputInMilliseconds,
                         "locationName" : locationName_ControllerTrigger4
                     };
 
