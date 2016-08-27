@@ -103,11 +103,6 @@ public class RootConfig {
 		return new ContextInitFinishListener(loginManager(), gmailManager(), recipesManager(), sessionMail(),
 				weatherManager(), calendarManager(), twitterManager());
 	}
-	
-	@Bean
-	LoadFile loadFile() {
-		return new LoadFileImpl();
-	}
 
 	@Bean
 	LoginManager loginManager() {
