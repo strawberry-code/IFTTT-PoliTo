@@ -5271,6 +5271,8 @@ iftttApp.filter('reformat', function () {
                 return 'Ingredient description';
             case 'startDate':
                 return 'Start date';
+            case 'period':
+                return 'Periodic checking:';
         }
 
 
@@ -5332,6 +5334,7 @@ iftttApp.filter('skeumorphize', function(){
             }
 
             case 'period':
+                return "every " + (input / 60000) + " minutes";
 
             default:
                 return input;
