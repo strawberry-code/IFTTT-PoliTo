@@ -2676,7 +2676,6 @@ iftttApp.controller('passwordChangeController', ['$scope',
          */
         $scope.passwordChangeFunc = function ()
         {
-            var pzone = $('#mySelect').val();
             var flagPassword = 0;
             var flagtimezone =0;
             var flagSend = true;
