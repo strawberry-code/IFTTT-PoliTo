@@ -2669,6 +2669,8 @@ iftttApp.controller('passwordChangeController', ['$scope',
          */
         $scope.vettore = [];
 
+        $scope.vettore.registrationTimezone="Pacific/Midway";
+
         /*
          0 se è andato a buon fine,
          -1 se qualcosa è andato storto,
