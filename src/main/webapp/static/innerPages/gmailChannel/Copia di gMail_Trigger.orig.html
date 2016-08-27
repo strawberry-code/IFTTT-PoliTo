@@ -61,167 +61,168 @@
                                       ng-disabled="!checkedSubject"
                                       maxlength="500" ng-trim="false"
                             ></textarea>
-<<<<<<< HEAD
-                            <span>{{500 - gmailinput.subjectReceive.length}} left </span>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div>
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                                ng-if="!modifyButton && !importRecipe"
-                            >Cancel</a>
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                                ng-if="modifyButton && !importRecipe"
-                            >Cancel</a>
-
-                            <a  type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                                ng-if="importRecipe && !modifyButton"
-                            >Cancel</a>
-
-=======
+                    <<<<<<< HEAD
                     <span>{{500 - gmailinput.subjectReceive.length}} left </span>
                 </div>
             </div>
->>>>>>> master
 
             <hr>
 
             <div>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
-                   ng-if="!modifyButton && importFlag"
+                   ng-if="!modifyButton && !importRecipe"
                 >Cancel</a>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                   ng-if="modifyButton && importFlag"
+                   ng-if="modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
-                   ng-if="!importFlag"
+                   ng-if="importRecipe && !modifyButton"
                 >Cancel</a>
 
-<<<<<<< HEAD
-
-                            <a   ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                                 ng-if="!modifyButton"
-                                class="btn btn-primary pull-right btn_next3  animate-if"  ng-click="triggerGmail()" >Next</a>
-                            <a   ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                                 ng-if="modifyButton"
-                                 class="btn btn-primary pull-right btn_next3  animate-if"  ng-click="triggerGmail()" >Submit</a>
-=======
->>>>>>> master
-
-                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                   ng-if="!modifyButton"
-                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Next</a>
-                <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
-                   ng-if="modifyButton"
-                   class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Submit</a>
-
-
+                =======
+                <span>{{500 - gmailinput.subjectReceive.length}} left </span>
             </div>
-            <div class="col-md-row" style="padding-top: 7%">
-                <hr>
-                <label style="color: #cd0a0a" ng-if="!checkedSubject && !checkedEmail" class="animate-if">
-                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice
-                    to use this trigger
-                </label>
-            </div>
-
-        </form>
     </div>
+    >>>>>>> master
+
+    <hr>
+
+    <div>
+        <a type="submit" class="btn btn-danger pull-left animate-if" href="#allTriggers"
+           ng-if="!modifyButton && importFlag"
+        >Cancel</a>
+        <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+           ng-if="modifyButton && importFlag"
+        >Cancel</a>
+
+        <a type="submit" class="btn btn-danger pull-left animate-if" href="#publicRecipes"
+           ng-if="!importFlag"
+        >Cancel</a>
+
+        <<<<<<< HEAD
+
+        <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+           ng-if="!modifyButton"
+           class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Next</a>
+        <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+           ng-if="modifyButton"
+           class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Submit</a>
+        =======
+        >>>>>>> master
+
+        <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+           ng-if="!modifyButton"
+           class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Next</a>
+        <a ng-disabled="!checkedSubject && !checkedEmail" type="submit"
+           ng-if="modifyButton"
+           class="btn btn-primary pull-right btn_next3  animate-if" ng-click="triggerGmail()">Submit</a>
+
+
+    </div>
+    <div class="col-md-row" style="padding-top: 7%">
+        <hr>
+        <label style="color: #cd0a0a" ng-if="!checkedSubject && !checkedEmail" class="animate-if">
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice
+            to use this trigger
+        </label>
+    </div>
+
+    </form>
+</div>
 
 
 </div>
 
 
 <script>
-<<<<<<< HEAD
-    alert(importFlag + " " + modifyButton );
-    if(importFlag==true)
-    {
-        if (iftttLogin == false)
-        {
-=======
+    <<<<<<<
+    HEAD
+    alert(importFlag + " " + modifyButton);
     if (importFlag == true) {
         if (iftttLogin == false) {
->>>>>>> master
-            url = "#home";
-            window.location.replace(url);
-        }
-
-    }
-    else {
-        if (setChooseAx == 4) {
-            if (iftttLogin == false) {
-                url = "#home";
-                window.location.replace(url);
-            }
-
-        }
-        else {
-            if (modifyVar == 1) {
+        ======
+            =
+            if (importFlag == true) {
                 if (iftttLogin == false) {
+                >>>>>>>
+                    master
                     url = "#home";
                     window.location.replace(url);
-                    modifyCountVar = 0;
                 }
-                else {
-                    if (googleLogin == "1") {
-                        if (modifyCountVar == 2) {
-                            modifyCountVar++;
-                        }
-                        else {
-                            if (modifyCountVar < 2) {
-                                url = "#/index/myRecipes";
-                                window.location.replace(url);
-                            }
 
-                        }
-
-
-                    }
-                    else {
+            }
+            else {
+                if (setChooseAx == 4) {
+                    if (iftttLogin == false) {
                         url = "#home";
                         window.location.replace(url);
-                        alert("Non sei loggato a google");
                     }
-                }
-            }
 
-            else {
-
-
-                if (iftttLogin == false) {
-                    url = "#home";
-                    window.location.replace(url);
-                    count = 0;
-                    flagTriggerDone = "0";
                 }
                 else {
-                    if (googleLogin == "1") {
-
-
-                        if (count == 2) {
-                            count++;
-                            url1back = "#gMailTrigger";
+                    if (modifyVar == 1) {
+                        if (iftttLogin == false) {
+                            url = "#home";
+                            window.location.replace(url);
+                            modifyCountVar = 0;
                         }
                         else {
-                            if (count < 2) {
+                            if (googleLogin == "1") {
+                                if (modifyCountVar == 2) {
+                                    modifyCountVar++;
+                                }
+                                else {
+                                    if (modifyCountVar < 2) {
+                                        url = "#/index/myRecipes";
+                                        window.location.replace(url);
+                                    }
+
+                                }
+
+
+                            }
+                            else {
+                                url = "#home";
+                                window.location.replace(url);
+                                alert("Non sei loggato a google");
+                            }
+                        }
+                    }
+
+                    else {
+
+
+                        if (iftttLogin == false) {
+                            url = "#home";
+                            window.location.replace(url);
+                            count = 0;
+                            flagTriggerDone = "0";
+                        }
+                        else {
+                            if (googleLogin == "1") {
+
+
+                                if (count == 2) {
+                                    count++;
+                                    url1back = "#gMailTrigger";
+                                }
+                                else {
+                                    if (count < 2) {
+                                        url = "#allTriggers";
+                                        window.location.replace(url);
+                                    }
+
+                                }
+                            }
+                            else {
                                 url = "#allTriggers";
                                 window.location.replace(url);
                             }
-
                         }
-                    }
-                    else {
-                        url = "#allTriggers";
-                        window.location.replace(url);
                     }
                 }
             }
-        }
-    }
 </script>
 
 

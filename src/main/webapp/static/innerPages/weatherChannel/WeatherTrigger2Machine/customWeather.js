@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     var result;
     var foreresult;
     var temperature;
@@ -8,7 +8,7 @@ $(function(){
     var jsonurl;
     var forejsonurl;
     var deg;
-    var idCity=0;
+    var idCity = 0;
 
     /* Per i checking  */
     var flagWeatherCheck = "1";
@@ -22,45 +22,46 @@ $(function(){
      * @param {} time
      * @return BinaryExpression
      */
-    var getToDate=function(time){
-        var date = new Date(time*1000);
-        var day=date.getDate();
-        var month=1+date.getMonth();
-        var year=date.getFullYear();
-        return month+"/"+day+"/"+year;
+    var getToDate = function (time) {
+        var date = new Date(time * 1000);
+        var day = date.getDate();
+        var month = 1 + date.getMonth();
+        var year = date.getFullYear();
+        return month + "/" + day + "/" + year;
     };
 
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
-            jsonurl="http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
-            $.ajax({method: "GET",
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            jsonurl = "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
+            $.ajax({
+                method: "GET",
                 url: jsonurl,
                 /**
                  * Description
                  * @method success
                  * @param {} presentlocation
-                 * @return 
+                 * @return
                  */
-                success: function(presentlocation){
-                    result=presentlocation;
+                success: function (presentlocation) {
+                    result = presentlocation;
                     updateView(result);
-
 
 
                 }
 
             });
-            forejsonurl="http://api.openweathermap.org/data/2.5/forecast/daily?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
-            $.ajax({method: "GET",
+            forejsonurl = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
+            $.ajax({
+                method: "GET",
                 url: forejsonurl,
                 /**
                  * Description
                  * @method success
                  * @param {} forepresentlocation
-                 * @return 
+                 * @return
                  */
-                success: function(forepresentlocation){
-                    var foreresult=forepresentlocation;
+                success: function (forepresentlocation) {
+                    var foreresult = forepresentlocation;
 
 
                     updateBox3(foreresult);
@@ -73,18 +74,16 @@ $(function(){
     } /// end of weather update based on Location...
 
 
-
     /**
      * Description
      * @method updateView
      * @param {} result
-     * @return 
+     * @return
      */
-    function updateView(result){
+    function updateView(result) {
 
 
-
-        if(result.cod==="404"){
+        if (result.cod === "404") {
             $('#temper').hide();
             //alert("No City found Try Again!!....");
         }
@@ -206,125 +205,125 @@ $(function(){
         }
 
 
-
     };
     /**
      * Description
      * @method updateBox3
      * @param {} foreresult
-     * @return 
+     * @return
      */
-    var updateBox3=function(foreresult){
+    var updateBox3 = function (foreresult) {
 
-        for(var i=1;i<=6;i++){
-            $("#forecast").append('<div class="forecast"><span  id="fore-'+i+'">Date</span> : <span><img id="fore-'+i+'-image" src="..." alt="Icon"></span></div> ');
-            $("#fore-"+i).html(getToDate(foreresult.list[i-1].dt)) ;
+        for (var i = 1; i <= 6; i++) {
+            $("#forecast").append('<div class="forecast"><span  id="fore-' + i + '">Date</span> : <span><img id="fore-' + i + '-image" src="..." alt="Icon"></span></div> ');
+            $("#fore-" + i).html(getToDate(foreresult.list[i - 1].dt));
 
         }
 
-        for(var i=1;i<=6;i++){
-            foreIcon=foreresult.list[i-1].weather[0].icon;
-            $("#fore-"+i+"-image").attr("src","http://openweathermap.org/img/w/"+foreIcon+".png") ;
+        for (var i = 1; i <= 6; i++) {
+            foreIcon = foreresult.list[i - 1].weather[0].icon;
+            $("#fore-" + i + "-image").attr("src", "http://openweathermap.org/img/w/" + foreIcon + ".png");
         }
 
     };
     /**
      * Description
      * @method searchEnter
-     * @return 
+     * @return
      */
-    var searchEnter=function(){
-        var city=$("#search-input").val();
+    var searchEnter = function () {
+        var city = $("#search-input").val();
 
-        jsonurl="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
-        $.ajax({method: "GET",
+        jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
+        $.ajax({
+            method: "GET",
             url: jsonurl,
             /**
              * Description
              * @method success
              * @param {} presentlocation
-             * @return 
+             * @return
              */
-            success: function(presentlocation){
-                result=presentlocation;
+            success: function (presentlocation) {
+                result = presentlocation;
 
                 updateView(result);
 
 
-
-            }});
-        forejsonurl="http://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&appid=444a5c5b0f4846dd7465cb680a94caf1"
-        $.ajax({method: "GET",
+            }
+        });
+        forejsonurl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
+        $.ajax({
+            method: "GET",
             url: forejsonurl,
             /**
              * Description
              * @method success
              * @param {} forepresentlocation
-             * @return 
+             * @return
              */
-            success: function(forepresentlocation){
-                var foreresult=forepresentlocation;
+            success: function (forepresentlocation) {
+                var foreresult = forepresentlocation;
 
 
-
-              //  updateBox3(foreresult);
-            }});
+                //  updateBox3(foreresult);
+            }
+        });
 
 
     }
     $("#search-input").keyup(function (e) {
-        if ( e.which == 13 ){
+        if (e.which == 13) {
             $('#temper').fadeOut("fast");
             $('#temper').fadeIn("slow");
-            $("#deg").animate({"left":"0px"});
-            deg="true";
+            $("#deg").animate({"left": "0px"});
+            deg = "true";
             $("#deg").html("&deg;C");
             searchEnter();
 
         }
 
     });
-    $("button").on("click",function(){
+    $("button").on("click", function () {
         $('#temper').fadeOut("fast");
         $('#temper').fadeIn("slow");
-        $("#deg").animate({"left":"0px"});
-        deg="true";
+        $("#deg").animate({"left": "0px"});
+        deg = "true";
         $("#deg").html("&deg;C");
         searchEnter();
     });
-    deg="true";
+    deg = "true";
 
-    $("#deg").on("click",function(){
-        if(deg==="true")
-        {$("#deg").animate({"left":"26px"});
-            deg="false";
+    $("#deg").on("click", function () {
+        if (deg === "true") {
+            $("#deg").animate({"left": "26px"});
+            deg = "false";
             $("#deg").html("&deg;F");
-            temperature=result.main.temp - 273.15;
+            temperature = result.main.temp - 273.15;
 
-            temperature=temperature.toFixed(1);
-            temperature=1.8*(temperature) + 32;
-            $("#temp").html(temperature+' &deg;F');
+            temperature = temperature.toFixed(1);
+            temperature = 1.8 * (temperature) + 32;
+            $("#temp").html(temperature + ' &deg;F');
         }
 
-        else if(deg==="false"){
-            $("#deg").animate({"left":"0px"});
-            deg="true";
+        else if (deg === "false") {
+            $("#deg").animate({"left": "0px"});
+            deg = "true";
             $("#deg").html("&deg;C");
-            temperature=result.main.temp - 273.15;
-            temperature=temperature.toFixed(1);
-            $("#temp").html(temperature+' &deg;C');
+            temperature = result.main.temp - 273.15;
+            temperature = temperature.toFixed(1);
+            $("#temp").html(temperature + ' &deg;C');
         }
     });
 
 
-    $("#but").on("click", function updateView(){
+    $("#but").on("click", function updateView() {
         //alert(idCity);
         flagWeatherCheck = true;
         flagPeriodCheck = true;
         flagZoneCheck = true;
         triggerChose = 7;
-        if (idCity == '0')
-        {
+        if (idCity == '0') {
             //$scope.errorButton= "Almost a field must be completed";
             //alert("You have not found you ciry");
 
@@ -337,41 +336,38 @@ $(function(){
             // );
             alertWarning("We have not found your city.");
         }
-        else
-        {
+        else {
             //Brute force resolution
             /*weatheridcheckbox    periodidcheckbox   checktimeZonevar        DONE
-               0                0               0                   *
-               0                0               1                   *
-               0                1               0                   *
-               0                1               1                   *
-               1                0               0
-               1                0               1
-               1                1               0
-               1                1               1
-            */
+             0                0               0                   *
+             0                0               1                   *
+             0                1               0                   *
+             0                1               1                   *
+             1                0               0
+             1                0               1
+             1                1               0
+             1                1               1
+             */
 
             //  sunset
             // weatheridcheckbox    periodidcheckbox    checktimeZonevar
             //  thmaxidinput      thminidinput
 
-            var pweather ="200";
+            var pweather = "200";
             var pperiod = "0";
             var pzone = "0";
 
             if ($('#weatheridcheckbox').is(":checked"))// &&  $('#periodidcheckbox').is(":checked") &&   $('#checktimeZonevar').is(":checked"))
             {
-                 pweather = $('#mySelect').val();
+                pweather = $('#mySelect').val();
             }
             else  pweather = null;
-            if ($('#periodidcheckbox').is(":checked"))
-            {
-                     pperiod = $('#periodidinput').val();
+            if ($('#periodidcheckbox').is(":checked")) {
+                pperiod = $('#periodidinput').val();
             }
             else  pperiod = null;
-            if ($('#checktimeZonevar').is(":checked"))
-            {
-                 pzone = $('#timezoneid').val();
+            if ($('#checktimeZonevar').is(":checked")) {
+                pzone = $('#timezoneid').val();
             }
             else  pzone = null;
 
@@ -383,94 +379,84 @@ $(function(){
 
              */
             //alert(  pweather + pperiod  + " " + pzone);
-            sendingToServer (pweather, pperiod, pzone );
+            sendingToServer(pweather, pperiod, pzone);
 
             //if ($('#weatheridcheckbox').is(":checked"))
             //    weathercheckfunc();
-            if($('#periodidcheckbox').is(":checked"))
+            if ($('#periodidcheckbox').is(":checked"))
                 periodidcheckfunc();
             //if ($('#checktimeZonevar').is(":checked"))
-                //timezoneCheck();
+            //timezoneCheck();
 
             //alert(flagWeatherCheck + "X" + flagPeriodCheck + "X" + flagZoneCheck);
             //idCity_customWeatherActionControllerTrigger2
             //pweather_customWeatherActionControllerTrigger2
 
 
-           // "location":   idCity_customWeatherActionControllerTrigger2,
-           // "tempo" : pweather_customWeatherActionControllerTrigger2,
+            // "location":   idCity_customWeatherActionControllerTrigger2,
+            // "tempo" : pweather_customWeatherActionControllerTrigger2,
             //"period" : pperiod_customWeatherActionControllerTrigger2,
             //"timezone" : pzone_customWeatherActionControllerTrigger2,
             //"locationName" : locationName_ControllerTrigger2
 
 
-
-                if(flagWeatherCheck == false ||  flagPeriodCheck == false || flagZoneCheck == false)
-                {
-                    //url = "#WeatherTrigger2";
-                    //window.location.replace(url);
-                    //alert("Your input is not right");
-                    // $("#notificationsWrapper").notify(
-                    //     "Your input is not right",
-                    //     {
-                    //         className: 'warning',
-                    //         position: 'bottom center'
-                    //     }
-                    // );
-                    alertWarning("You input is not right");
+            if (flagWeatherCheck == false || flagPeriodCheck == false || flagZoneCheck == false) {
+                //url = "#WeatherTrigger2";
+                //window.location.replace(url);
+                //alert("Your input is not right");
+                // $("#notificationsWrapper").notify(
+                //     "Your input is not right",
+                //     {
+                //         className: 'warning',
+                //         position: 'bottom center'
+                //     }
+                // );
+                alertWarning("You input is not right");
+            }
+            else {
+                var outputInMilliseconds;
+                flagTriggerDone = true;
+                if (pperiod != null) {
+                    outputInMilliseconds = pperiod * 60000;
                 }
-                else
+
+                modulinoj1 =
                 {
-                    var outputInMilliseconds;
-                    flagTriggerDone = true;
-                    if(pperiod !=null)
-                    {
-                         outputInMilliseconds = pperiod * 60000;
-                    }
+                    "ingredientCode": 15,
+                    "triggerType": "weather",
+                    "type": "3",
+                    "location": idCity_customWeatherActionControllerTrigger2,
+                    "tempo": pweather,
+                    "period": outputInMilliseconds,
+                    "timezone": pzone,
+                    "locationName": locationName_ControllerTrigger2
+                };
 
-                    modulinoj1=
-                    {
-                        "ingredientCode" : 15,
-                        "triggerType" : "weather",
-                        "type" : "3",
-                         "location":   idCity_customWeatherActionControllerTrigger2,
-                        "tempo" : pweather,
-                        "period" : outputInMilliseconds,
-                        "timezone" : pzone,
-                        "locationName" : locationName_ControllerTrigger2
-                    };
-
-                    if(modifyVar == true)
-                    {
-                        sendingToServerAllput();
-                    }
-                    else
-                    {
-                        if(importFlag==true)
-                        {
-                            window.location.replace("#" + actionImportRoute);
-                        }
-                        else
-                        {
-                            url = "#createRecipeAction";
-                            window.location.replace(url);
-                        }
-                    }
-
+                if (modifyVar == true) {
+                    sendingToServerAllput();
                 }
+                else {
+                    if (importFlag == true) {
+                        window.location.replace("#" + actionImportRoute);
+                    }
+                    else {
+                        url = "#createRecipeAction";
+                        window.location.replace(url);
+                    }
+                }
+
+            }
 
 
         }
 
 
-
         /**
          * Description
          * @method timezoneCheck
-         * @return 
+         * @return
          */
-        function  timezoneCheck  ()
-        {
+        function timezoneCheck() {
 
             if (pzone_customWeatherActionControllerTrigger2.localeCompare('0') == 0 ||
                 pzone_customWeatherActionControllerTrigger2.localeCompare('1') == 0 ||
@@ -498,17 +484,16 @@ $(function(){
                 pzone_customWeatherActionControllerTrigger2.localeCompare('-12') == 0)
                 flagZoneCheck = true;
             else
-                flagZoneCheck =false;
+                flagZoneCheck = false;
 
         };
 
         /**
          * Description
          * @method weathercheckfunc
-         * @return 
+         * @return
          */
-        function  weathercheckfunc  ()
-        {
+        function weathercheckfunc() {
 
             if (pweather_customWeatherActionControllerTrigger2.localeCompare("200") == 0 ||
                 pweather_customWeatherActionControllerTrigger2.localeCompare("300") == 0 ||
@@ -516,7 +501,7 @@ $(function(){
             )
                 flagWeatherCheck = true;
             else
-                flagWeatherCheck =false;
+                flagWeatherCheck = false;
 
         };
 
@@ -524,24 +509,18 @@ $(function(){
         /**
          * Description
          * @method periodidcheckfunc
-         * @return 
+         * @return
          */
-        function  periodidcheckfunc  ()
-        {
-            var i=0;
+        function periodidcheckfunc() {
+            var i = 0;
             flagPeriodCheck = false;
-            for (i=0; i<701; i++)
-            {
-                if(pperiod_customWeatherActionControllerTrigger2 == i.toString())
+            for (i = 0; i < 701; i++) {
+                if (pperiod_customWeatherActionControllerTrigger2 == i.toString())
                     flagPeriodCheck = true;
 
             }
 
         };
-
-
-
-
 
 
         /**
@@ -550,10 +529,9 @@ $(function(){
          * @param {} pweather
          * @param {} pperiod
          * @param {} pzone
-         * @return 
+         * @return
          */
-        function sendingToServer (pweather, pperiod, pzone )
-        {
+        function sendingToServer(pweather, pperiod, pzone) {
             idCity_customWeatherActionControllerTrigger2 = idCity;
             pweather_customWeatherActionControllerTrigger2 = pweather;
             pperiod_customWeatherActionControllerTrigger2 = pperiod;
@@ -563,11 +541,7 @@ $(function(){
         }
 
 
-
     })
-
-
-
 
 
 });
@@ -576,25 +550,25 @@ $(function(){
 /* Template for checkbox [] ^ $ */
 /*
 
-var timezone = $('#timezoneid').val();
-var loginDataSend =
-{
-    "sender:": idCity,
-    "timezone" : timezone,
-    "ora": time
+ var timezone = $('#timezoneid').val();
+ var loginDataSend =
+ {
+ "sender:": idCity,
+ "timezone" : timezone,
+ "ora": time
 
-};
-//alert(loginDataSend.pssword);
-$.ajax({
-    method: "post",
-    url: "/MyServlet",
-    data: loginDataSend,
-    dataType: "json",
-    success: console.log("la post ha avuto successo")
-});
+ };
+ //alert(loginDataSend.pssword);
+ $.ajax({
+ method: "post",
+ url: "/MyServlet",
+ data: loginDataSend,
+ dataType: "json",
+ success: console.log("la post ha avuto successo")
+ });
 
-url = "http://localhost:8080/#/gMailSucces";
-window.location.replace(url);
-//or
-//window.location(url);
-*/
+ url = "http://localhost:8080/#/gMailSucces";
+ window.location.replace(url);
+ //or
+ //window.location(url);
+ */

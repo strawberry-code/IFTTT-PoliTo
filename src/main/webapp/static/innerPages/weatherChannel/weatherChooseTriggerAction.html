@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  ng-app="iftttApp">
+<html lang="en" ng-app="iftttApp">
 <head>
     <meta charset="UTF-8">
     <title>yWeather</title>
@@ -23,108 +23,112 @@
 
     <div class="row">
 
-            <h1>Choose a trigger</h1>
+        <h1>Choose a trigger</h1>
         <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>
-                        <img src="/progetto/static/images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;"> Tomorrow weather
-                    </h2>
-                    <p>
-                        The weather of tomorrow: you can chose the location and the hour that you wish to monitor.
-                    </p>
-                    <p>
-                        <a class="btn" href="#WeatherTrigger1">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <h2>
-                        <img src="/progetto/static/images/weatherChannel/temp-range.png" style="width:42px;height:42px;border:0;"> Temperature range
-                    </h2>
-                    <p>
-                        Get notified when the current temperature changes and moves above or below a given threshold.
-                    </p>
-                    <p>
-                        <a class="btn" href="#WeatherTrigger4">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                    </p>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>
+                    <img src="/progetto/static/images/weatherChannel/t1.png" style="width:42px;height:42px;border:0;">
+                    Tomorrow weather
+                </h2>
+                <p>
+                    The weather of tomorrow: you can chose the location and the hour that you wish to monitor.
+                </p>
+                <p>
+                    <a class="btn" href="#WeatherTrigger1">Continue <span class="glyphicon glyphicon-chevron-right"
+                                                                          aria-hidden="true"></span></a>
+                </p>
             </div>
-            <div class="row">
+            <div class="col-md-6">
+                <h2>
+                    <img src="/progetto/static/images/weatherChannel/temp-range.png"
+                         style="width:42px;height:42px;border:0;"> Temperature range
+                </h2>
+                <p>
+                    Get notified when the current temperature changes and moves above or below a given threshold.
+                </p>
+                <p>
+                    <a class="btn" href="#WeatherTrigger4">Continue <span class="glyphicon glyphicon-chevron-right"
+                                                                          aria-hidden="true"></span></a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
 
-                <div class="col-md-6">
-                    <h2>
-                        <img src="/progetto/static/images/weatherChannel/t31.png" style="width:42px;height:42px;border:0;"> Sunrise/Sunset <img src="../../images/weatherChannel/t32.png" style="width:42px;height:42px;border:0;">
-                    </h2>
-                    <p>
-                        You wish to know when the sun rises today? Or what time takes the sunset?
-                    </p>
-                    <p>
-                        <a class="btn" href="#WeatherTrigger3">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <h2>
-                        <img src="/progetto/static/images/weatherChannel/t4.png" style="width:42px;height:42px;border:0;"> Monitor a special weather condition
-                    </h2>
-                    <p>
-                        Do you wish to follow a special weather condition?
-                    </p>
-                    <p>
-                        <a class="btn" href="#WeatherTrigger2">Continue <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-                    </p>
-                </div>
-
-
-
+            <div class="col-md-6">
+                <h2>
+                    <img src="/progetto/static/images/weatherChannel/t31.png" style="width:42px;height:42px;border:0;">
+                    Sunrise/Sunset <img src="../../images/weatherChannel/t32.png"
+                                        style="width:42px;height:42px;border:0;">
+                </h2>
+                <p>
+                    You wish to know when the sun rises today? Or what time takes the sunset?
+                </p>
+                <p>
+                    <a class="btn" href="#WeatherTrigger3">Continue <span class="glyphicon glyphicon-chevron-right"
+                                                                          aria-hidden="true"></span></a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h2>
+                    <img src="/progetto/static/images/weatherChannel/t4.png" style="width:42px;height:42px;border:0;">
+                    Monitor a special weather condition
+                </h2>
+                <p>
+                    Do you wish to follow a special weather condition?
+                </p>
+                <p>
+                    <a class="btn" href="#WeatherTrigger2">Continue <span class="glyphicon glyphicon-chevron-right"
+                                                                          aria-hidden="true"></span></a>
+                </p>
+            </div>
 
 
         </div>
         <hr>
-        <a class="btn" href="#chooseChannel"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Go back</a>
+        <a class="btn" href="#chooseChannel"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            Go back</a>
     </div>
 </div>
 
 </body>
 <script>
-	
-	var uri = decodeURIComponent(window.location.hash);
-	var param = (uri).split("?");
-	var trig;
-	var act;
-	if(param[1]!=null) {
-		var tokens = param[1].split("&");
-		var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
-		count = vardec.count;
-		setChooseAx = vardec.setChooseAx;
-		modifyVar = vardec.modifyVar;
-		modifyCountVar = vardec.modifyCountVar;
-		flagTriggerDone = vardec.flagTriggerDone;
-		importFlag = vardec.importFlag;
-		descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
-		idRecipe = vardec.idRecipe;
-		iftttLogin = vardec.iftttLogin;
-		if(tokens[1]!=null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			trig = tokens[1].split("trigger=")[1];			
-			var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj1 = JSON.parse(dec);
-			console.log(modulinoj1)
-		}
-		if(tokens[2]!=null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("")!=0) {
-			act = tokens[2].split("action=")[1];  
-			var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
-			modulinoj2 = JSON.parse(dec1);
-			console.log(modulinoj2)			
-		}
-	}
 
-    if (count==5)
-    {
+    var uri = decodeURIComponent(window.location.hash);
+    var param = (uri).split("?");
+    var trig;
+    var act;
+    if (param[1] != null) {
+        var tokens = param[1].split("&");
+        var vardec = JSON.parse(CryptoJS.AES.decrypt(tokens[0].split("=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8));
+        count = vardec.count;
+        setChooseAx = vardec.setChooseAx;
+        modifyVar = vardec.modifyVar;
+        modifyCountVar = vardec.modifyCountVar;
+        flagTriggerDone = vardec.flagTriggerDone;
+        importFlag = vardec.importFlag;
+        descriptionRecipeGlobal = vardec.descriptionRecipeGlobal;
+        idRecipe = vardec.idRecipe;
+        iftttLogin = vardec.iftttLogin;
+        if (tokens[1] != null && CryptoJS.AES.decrypt(tokens[1].split("trigger=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            trig = tokens[1].split("trigger=")[1];
+            var dec = CryptoJS.AES.decrypt(trig.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj1 = JSON.parse(dec);
+            console.log(modulinoj1)
+        }
+        if (tokens[2] != null && CryptoJS.AES.decrypt(tokens[2].split("action=")[1], "Secret Passphrase").toString(CryptoJS.enc.Utf8).localeCompare("") != 0) {
+            act = tokens[2].split("action=")[1];
+            var dec1 = CryptoJS.AES.decrypt(act.toString(), "Secret Passphrase").toString(CryptoJS.enc.Utf8);
+            modulinoj2 = JSON.parse(dec1);
+            console.log(modulinoj2)
+        }
+    }
+
+    if (count == 5) {
         count++;
     }
-    else
-    {
-        if(count<5)
-        {
+    else {
+        if (count < 5) {
             url = "#createDO";
             window.location.replace(url);
         }
