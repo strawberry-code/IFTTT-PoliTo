@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Create a IFTTT recipe</title>
 </head>
-<body ng-controller="ifCreatorController">
+<body data-ng-controller="ifCreatorController">
 
 <!-- Page Content -->
 <div class="container">
@@ -39,12 +39,12 @@
                     <p>
                     -->
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal"
-                           data-target="#loginGoogleModal" ng-click="routeListener('Trigger1Gcalendar')">Continue<span
+                        <a class="btn btn_next2" data-ng-show="!googleLogged" data-toggle="modal"
+                           data-target="#loginGoogleModal" data-ng-click="routeListener('Trigger1Gcalendar')">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Trigger1Gcalendar" ng-if="googleLogged">Continue<span
+                        <a class="btn btn_next2" href="#Trigger1Gcalendar" data-ng-show="googleLogged">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -66,12 +66,12 @@
                     -->
 
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal"
-                           data-target="#loginGoogleModal" ng-click="routeListener('Trigger2Gcalendar')">Continue<span
+                        <a class="btn btn_next2" data-ng-show="!googleLogged" data-toggle="modal"
+                           data-target="#loginGoogleModal" data-ng-click="routeListener('Trigger2Gcalendar')">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Trigger2Gcalendar" ng-if="googleLogged">Continue<span
+                        <a class="btn btn_next2" href="#Trigger2Gcalendar" data-ng-show="googleLogged">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -107,12 +107,12 @@
                      -->
 
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal"
-                           data-target="#loginGoogleModal" ng-click="routeListener('gMailTrigger')">Continue<span
+                        <a class="btn btn_next2" data-ng-show="!googleLogged" data-toggle="modal"
+                           data-target="#loginGoogleModal" data-ng-click="routeListener('gMailTrigger')">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#gMailTrigger" ng-if="googleLogged">Continue<span
+                        <a class="btn btn_next2" href="#gMailTrigger" data-ng-show="googleLogged">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -214,12 +214,12 @@
                         Get notified when someone post a tweet, filtered by Person or Hashtag.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal"
-                           data-target="#loginTwitterModal" ng-click="routeListener('Trigger1Twitter')">Login in Twitter
+                        <a class="btn btn_next2" data-ng-show="!twitterLogged" data-toggle="modal"
+                           data-target="#loginTwitterModal" data-ng-click="routeListener('Trigger1Twitter')">Login in Twitter
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Trigger1Twitter" ng-if="twitterLogged">Continue <span
+                        <a class="btn btn_next2" href="#Trigger1Twitter" data-ng-show="twitterLogged">Continue <span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                 </div>
@@ -233,12 +233,12 @@
                         Text.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal"
-                           data-target="#loginTwitterModal" ng-click="routeListener('Trigger2Twitter')">Login in Twitter
+                        <a class="btn btn_next2" data-ng-show="!twitterLogged" data-toggle="modal"
+                           data-target="#loginTwitterModal" data-ng-click="routeListener('Trigger2Twitter')">Login in Twitter
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Trigger2Twitter" ng-if="twitterLogged">Continue <span
+                        <a class="btn btn_next2" href="#Trigger2Twitter" data-ng-show="twitterLogged">Continue <span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                 </div>
