@@ -1,7 +1,10 @@
 package it.polito.ai.ifttt.progetto.controllers;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URLDecoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -54,6 +57,8 @@ public class DataRestController {
 	CalendarManager calendarManager;
 	@Autowired
 	TwitterManager twitterManager;
+	
+	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
 
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
 	Integer registerUser(@RequestBody Users user) {
@@ -69,8 +74,7 @@ public class DataRestController {
 		password = user.getPassword();
 		email = user.getEmail();
 		timezone = user.getTimezone();
-
-		List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));	
+	
 		if(timezones.contains(timezone)==false) {
 			i=6;
 		}
@@ -259,14 +263,75 @@ public class DataRestController {
 		return res;
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
 	Integer changePassword(@RequestBody requestClass data) {
 
+		Integer code = 0;	//both
+		Boolean codp = false;
+		Boolean codt = false;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		String newpass = data.getNewpassword();
-		Integer code = loginManager.changePassword(username, newpass);
+		Users user = loginManager.findUserByUsername(username);
+		if(user == null) {
+			code = -1;
+		} else {
+			//check the old password
+			if(user.getPassword().compareTo(this.computeMD5(data.getOldpassword()))==0) {
+				
+				//set password
+				if(data.getFlagPassword()==true) {
+					if(data.getNewpassword()==null) {
+						code = -3;
+					}
+					else {
+						if (data.getNewpassword().length() < 8) {
+							code = -3;
+						}
+						else {
+							user.setPassword(this.computeMD5(data.getNewpassword()));
+							codp = true;
+							code = 1;
+						}
+					}					
+				}
+				
+				//set timezone
+				if(data.getFlagTimezone()==true) {
+					if(data.getTimezone()==null) {
+						code = -1;
+					}
+					else {
+						if(timezones.contains(data.getTimezone())==false) {
+							code = -1;
+						}
+						else {
+							user.setTimezone(data.getTimezone());
+							codt = true;
+							code = 2;
+						}
+					}
+				}
+				
+				loginManager.changePasswordTimezone(user);
+			}
+			else {
+				// old password not valid
+				code = -2;
+			}
+		}
+			
+		if(codt==true && codp==true) {
+			//both
+			code = 0;
+		}	
 
-		// -1 if error
+//		0  timezone and password ok
+//		1  password ok
+//		2  timezone ok
+//		-1 some errors
+//		-2 old password not valid
+//		-3 new password not valid
+		
 		return code;
 	}
 
@@ -414,5 +479,23 @@ public class DataRestController {
 		returnClass res = new returnClass();
 		res.setDeleted(code);
 		return res;
+	}
+	
+	// function to compute an MD5 hash of the user password
+	public static String computeMD5(String input) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+			// Now we need to zero pad it if you actually want the full 32
+			// chars.
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
