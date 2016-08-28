@@ -156,7 +156,7 @@
                             && !(key == 'twtid')
                             && !(data == null)
                             ">
-                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key}}
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key:f.trigger.ingredientCode}}
                             </div>
                         </div>
 
@@ -173,7 +173,7 @@
                             && !(key == 'twaid')
                             && !(data == null)
                             ">
-                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key}}
+                                <h4>{{key | reformat | capitalize}}:</h4> {{data | skeumorphize: key:f.action.ingredientCode}}
                             </div>
                         </div>
 
