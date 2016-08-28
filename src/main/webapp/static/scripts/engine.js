@@ -363,6 +363,11 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: './static/innerPages/passwordChange.html',
         controller: 'passwordChangeController'
     });
+    
+    $routeProvider.when('/index/forgotPassword', {
+        templateUrl: './static/innerPages/forgotPassword.html',
+        controller: 'forgotPasswordController'
+    });
 
     $routeProvider.when('/hiddenPageConfirmation', {
         templateUrl: './static/innerPages/hidden.html',
@@ -2791,6 +2796,122 @@ iftttApp.controller('createAccountController', ['$scope',
 
 
     }]);
+
+
+
+
+iftttApp.controller('forgotPasswordController', ['$scope',
+                                                function ($scope) {
+
+
+    /**
+     * Description
+     * @method forgotPasswordFunc
+     * @param {} user
+     * @param {} email
+     * @return
+     */
+    $scope.forgotPasswordFunc = function (user, email) {
+
+        $scope.parallax = true;
+
+        if (angular.isDefined(email) && angular.isDefined(user)) {
+          
+                var loginDataSend =
+                {
+                    "username": user,
+                    "email": email
+                };
+
+                if(consoleLogs) console.log(loginDataSend);
+                setSpinner(true);
+                $.ajax
+                ({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "post",
+                    url: "http://localhost:8080/progetto/api/forgotPassword",
+                    data: JSON.stringify(loginDataSend),
+                    dataType: "json",
+                    /**
+                     * Description
+                     * @method success
+                     * @return
+                     */
+                    /**
+                     code:
+		  				 0 success
+		 				-1 error
+		 				-2 invalid username
+		 				-3 invalid email
+                     **/
+                    success: function (response) {
+                        setSpinner(false);
+                        //if (consoleLogs) console.log("la post ha avuto successo");
+                        //window.location.replace('#');
+
+                        console.log(response);
+                        switch (response) {
+                        case 0:
+                        {
+                        	 swal({
+                        	        title: "Success!",
+                        	        text: "Your new credentials has been sent by email.",
+                        	        type: "success"
+                        	        //confirmButtonColor: "#DD6B55",
+                        	        //confirmButtonText: "Yes, delete it!",
+                        	        //closeOnConfirm: true
+                        	    }, function () {
+                        	        window.location.replace('#home');
+                        	    });
+                            break;
+                        }
+                        case -1:
+                        {
+                            alertWarning("Some unknown error occurred. (code 2805).");
+                            break;
+                        }
+                        case -2:
+                        {
+                            alertWarning("The username is not valid.");
+                            break;
+                        }
+                        case -3:
+                        {
+                            alertWarning("The e-mail address is not valid");
+                            break;
+                        }
+                    }
+
+
+                    },
+                    /**
+                     * Description
+                     * @method error
+                     * @return
+                     */
+                    error: function () {
+                        setSpinner(false);
+                        //alert("some error occurred");
+                        //alertVariable = "some error occurred";
+                        //alertFunction();
+                        alertError("Sorry, some error occurred. (code 634)");
+
+                    }
+                });
+
+        }
+
+
+    };                                           
+
+
+}]);
+
+
+
 
 
 //fxr>
