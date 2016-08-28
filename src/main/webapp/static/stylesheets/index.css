@@ -23,3 +23,11 @@
     vertical-align: middle;
     float: none;
 }
+
+.btn-danger.btn-outline {
+    color: #c0c0c0;
+}
+
+.btn-danger.btn-outline:hover {
+    color: #fff;
+}

@@ -498,9 +498,9 @@ public class DataRestController {
 							message.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
 							message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(data.getEmail()));
 							message.setSubject("New Credentials");
-							message.setContent("<p>Dear " + data.getUsername() + ",<br>these are your new credentials:"
-									+ "<br>Username: " + data.getUsername() + "<br>Password: " + newpassword
-									+ "</p><p>Please, remember to change your password!</p>", "text/html");
+							message.setContent("<p>Dear <b>" + data.getUsername() + "</b>,</p><p>these are your new credentials:</p>"
+									+ "<p>Username: " + data.getUsername() + "<br>Password: " + newpassword +"</p>"
+									+ "<p>Please, remember to change your password!</p>", "text/html");
 							Transport.send(message);
 
 						} catch (MessagingException e) {
