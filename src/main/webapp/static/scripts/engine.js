@@ -4918,7 +4918,7 @@ iftttApp.filter('reformat', function () {
 });
 
 iftttApp.filter('skeumorphize', function () {
-    return function (input, watchKey) {
+    return function (input, watchKey, ingredient) {
 
         //console.log('input: '+input+"\nwatchKey: "+watchKey);
 
@@ -4939,6 +4939,8 @@ iftttApp.filter('skeumorphize', function () {
          twitterAction2 	24
 
          */
+
+        console.log("BEGIN > watchkey: " + watchKey + " input: " + input);
 
         switch (watchKey) {
 
@@ -4967,16 +4969,25 @@ iftttApp.filter('skeumorphize', function () {
 
             case 'sender':
             {
-                switch (input) {
-                    case false:
-                        return 'This e-mail will be sent by IFTTT-polito e-mail address.';
-                    case true:
-                        return 'This e-mail will be sent by your registration e-mail address.';
+                console.log(">>>>>> watchkey: " + watchKey + " input: " + input + " typeIngredient:" + ingredient );
+                if(ingredient > 10 && ingredient< 20) {
+                    return input
+                } else {
+                    switch (input) {
+                        case false:
+                            return 'This e-mail will be sent by IFTTT-polito e-mail address.';
+                        case true:
+                            return 'This e-mail will be sent by your registration e-mail address.';
+                    }
                 }
+
+                break;
             }
 
             case 'period':
+                console.log("NaN: " + (input / 60000));
                 return "every " + (input / 60000) + " minutes";
+
 
             default:
                 return input;
