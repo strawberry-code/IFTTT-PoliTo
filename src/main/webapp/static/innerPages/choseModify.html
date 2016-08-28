@@ -5,7 +5,7 @@
     <title>Title</title>
 
 </head>
-<body ng-controller="choseModifyController">
+<body data-ng-controller="choseModifyController">
 <div class="container">
 
     <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> What do you want to do?
@@ -34,7 +34,8 @@
                     </p>
                     <!-- google autenticate -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutentication"
+                        <a class="btn btn_next2 animate-if"
+                           data-ng-show="!googleLoggedHtml && activeGoogleAutentication"
                            data-toggle="modal" data-ng-click="changePage(1); routeListener(0)">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
@@ -46,7 +47,8 @@
 
                     <!-- Twitter autenticate -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!twitterLoggedHtml && activeTwitterAutentication"
+                        <a class="btn btn_next2 animate-if"
+                           data-ng-show="!twitterLoggedHtml && activeTwitterAutentication"
                            data-toggle="modal" data-ng-click="changePage(2); routeListener(0)">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
@@ -76,26 +78,27 @@
 
                     <!-- google autenticate --> <!-- data-target="#loginGoogleModal" -->
                     <p>
-                        <a class="btn btn_next2 animate-if" ng-if="!googleLoggedHtml && activeGoogleAutenticationAction"
+                        <a class="btn btn_next2 animate-if"
+                           data-ng-show="!googleLoggedHtml && activeGoogleAutenticationAction"
                            data-toggle="modal" data-ng-click="changePage(1); routeListener(1)">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
                         <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}"
-                           ng-if="googleLoggedHtml && activeGoogleAutenticationAction">Continue<span
+                           data-ng-show="googleLoggedHtml && activeGoogleAutenticationAction">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
                     <!-- Twitter autenticate -->
                     <p>
                         <a class="btn btn_next2 animate-if"
-                           ng-if="!twitterLoggedHtml && activeTwitterAutenticationAction" data-toggle="modal"
+                           data-ng-show="!twitterLoggedHtml && activeTwitterAutenticationAction" data-toggle="modal"
                            data-ng-click="changePage(2); routeListener(1)"> Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
                         <a class="btn btn_next2 animate-if" href="#{{urlActionUser}}"
-                           ng-if="twitterLoggedHtml && activeTwitterAutenticationAction">Continue<span
+                           data-ng-show="twitterLoggedHtml && activeTwitterAutenticationAction">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -110,7 +113,7 @@
                         The description can be modify and save it.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-click="descriptionModifyLanch()">Continue<span
+                        <a class="btn btn_next2" data-ng-click="descriptionModifyLanch()">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -157,7 +160,7 @@
                     </p>
 
                     <p>
-                        <a class="btn btn_next2" ng-click="setupValueChange(1)"> Continue<span
+                        <a class="btn btn_next2" data-ng-click="setupValueChange(1)"> Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -178,8 +181,6 @@
     </div>
 </div>
 
-
-</div>
 
 </body>
 

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Create a DO recipe</title>
 </head>
-<body ng-controller="ifCreatorActionController">
+<body data-ng-controller="ifCreatorActionController">
 
 <!-- Actions -->
 <div class="container">
 
     <h1 class="page-header"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Choose an action
-        <small class="animate-if" ng-if="!modifyButton">Step 5/6</small>
+        <small class="animate-if" data-ng-show="!modifyButton">Step 5/6</small>
     </h1>
 
     <!-- GCalendar -->
@@ -37,12 +37,12 @@
                      -->
 
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal"
-                           data-target="#loginGoogleModal" ng-click="routeListener('action1Gcalendar')">Continue<span
+                        <a class="btn btn_next2" data-ng-show="!googleLogged" data-toggle="modal"
+                           data-target="#loginGoogleModal" data-ng-click="routeListener('action1Gcalendar')">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#action1Gcalendar" ng-if="googleLogged">Continue<span
+                        <a class="btn btn_next2" href="#action1Gcalendar" data-ng-show="googleLogged">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -79,12 +79,12 @@
                     -->
 
                     <p>
-                        <a class="btn btn_next2" ng-if="!googleLogged" data-toggle="modal"
-                           data-target="#loginGoogleModal" ng-click="routeListener('gMailAction')">Continue<span
+                        <a class="btn btn_next2" data-ng-show="!googleLogged" data-toggle="modal"
+                           data-target="#loginGoogleModal" data-ng-click="routeListener('gMailAction')">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#gMailAction" ng-if="googleLogged">Continue<span
+                        <a class="btn btn_next2" href="#gMailAction" data-ng-show="googleLogged">Continue<span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
 
@@ -114,12 +114,12 @@
                         Post a new tweet with the specified Text.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal"
-                           data-target="#loginTwitterModal" ng-click="routeListener('Action1Twitter')">Login in Twitter
+                        <a class="btn btn_next2" data-ng-show="!twitterLogged" data-toggle="modal"
+                           data-target="#loginTwitterModal" data-ng-click="routeListener('Action1Twitter')">Login in Twitter
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Action1Twitter" ng-if="twitterLogged">Continue <span
+                        <a class="btn btn_next2" href="#Action1Twitter" data-ng-show="twitterLogged">Continue <span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                 </div>
@@ -132,12 +132,12 @@
                         Send a new private message to a certain User with some Text.
                     </p>
                     <p>
-                        <a class="btn btn_next2" ng-if="!twitterLogged" data-toggle="modal"
-                           data-target="#loginTwitterModal" ng-click="routeListener('Action2Twitter')">Login in Twitter
+                        <a class="btn btn_next2" data-ng-show="!twitterLogged" data-toggle="modal"
+                           data-target="#loginTwitterModal" data-ng-click="routeListener('Action2Twitter')">Login in Twitter
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                     <p>
-                        <a class="btn btn_next2" href="#Action2Twitter" ng-if="twitterLogged">Continue <span
+                        <a class="btn btn_next2" href="#Action2Twitter" data-ng-show="twitterLogged">Continue <span
                                 class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
                     </p>
                 </div>
