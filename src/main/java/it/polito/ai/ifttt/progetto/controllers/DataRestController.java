@@ -11,7 +11,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.UUID;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +41,7 @@ import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
 import it.polito.ai.ifttt.progetto.services.CalendarManager;
+import it.polito.ai.ifttt.progetto.services.EmailValidator;
 import it.polito.ai.ifttt.progetto.services.GmailManager;
 import it.polito.ai.ifttt.progetto.services.LoginManager;
 import it.polito.ai.ifttt.progetto.services.RecipesManager;
@@ -57,7 +64,9 @@ public class DataRestController {
 	CalendarManager calendarManager;
 	@Autowired
 	TwitterManager twitterManager;
-	
+	@Autowired
+	javax.mail.Session sessionMail;
+
 	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
 
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
@@ -74,21 +83,21 @@ public class DataRestController {
 		password = user.getPassword();
 		email = user.getEmail();
 		timezone = user.getTimezone();
-	
-		if(timezones.contains(timezone)==false) {
-			i=6;
-		}
-		else {
+
+		if (timezones.contains(timezone) == false) {
+			i = 6;
+		} else {
 			try {
 				email = URLDecoder.decode(email, "UTF-8");
 				if (username != null && password != null && email != null)
 					i = loginManager.register(username, password, email, timezone);
 			} catch (UnsupportedEncodingException e) {
-				i=6;
+				i = 6;
 			}
 		}
 
-		// i=0 : You have successfully signed. To complete the registration, please check your email
+		// i=0 : You have successfully signed. To complete the registration,
+		// please check your email
 		// i=1 : user already exist
 		// i=2 : email already exist
 		// i=3 : email not valid
@@ -217,24 +226,22 @@ public class DataRestController {
 	returnClass disconnectGoogle() {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		
+
 		loginManager.disconnectGoogle(username);
-		
+
 		Users user = loginManager.findUserByUsername(username);
-		if(user != null) {
+		if (user != null) {
 			code = recipesManager.invalidateGoogleRecipes(user);
-		}
-		else {
+		} else {
 			code = -1;
-		}	
-		
-		returnClass res = new returnClass();
-		if(code==-1) {
-			res.setDisconnected(false);
 		}
-		else {
+
+		returnClass res = new returnClass();
+		if (code == -1) {
+			res.setDisconnected(false);
+		} else {
 			res.setDisconnected(true);
-		}	
+		}
 		return res;
 	}
 
@@ -242,24 +249,22 @@ public class DataRestController {
 	returnClass disconnectTwitter() {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		
+
 		loginManager.disconnectTwitter(username);
 
 		Users user = loginManager.findUserByUsername(username);
-		if(user != null) {
+		if (user != null) {
 			code = recipesManager.invalidateTwitterRecipes(user);
-		}
-		else {
+		} else {
 			code = -1;
-		}	
-		
-		returnClass res = new returnClass();
-		if(code==-1) {
-			res.setDisconnected(false);
 		}
-		else {
+
+		returnClass res = new returnClass();
+		if (code == -1) {
+			res.setDisconnected(false);
+		} else {
 			res.setDisconnected(true);
-		}	
+		}
 		return res;
 	}
 
@@ -267,71 +272,66 @@ public class DataRestController {
 	@RequestMapping(value = "changepassword", method = RequestMethod.POST)
 	Integer changePassword(@RequestBody requestClass data) {
 
-		Integer code = 0;	//both
+		Integer code = 0; // both
 		Boolean codp = false;
 		Boolean codt = false;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
-		if(user == null) {
+		if (user == null) {
 			code = -1;
 		} else {
-			//check the old password
-			if(user.getPassword().compareTo(this.computeMD5(data.getOldpassword()))==0) {
-				
-				//set password
-				if(data.getFlagPassword()==true) {
-					if(data.getNewpassword()==null) {
+			// check the old password
+			if (user.getPassword().compareTo(this.computeMD5(data.getOldpassword())) == 0) {
+
+				// set password
+				if (data.getFlagPassword() == true) {
+					if (data.getNewpassword() == null) {
 						code = -3;
-					}
-					else {
+					} else {
 						if (data.getNewpassword().length() < 8) {
 							code = -3;
-						}
-						else {
+						} else {
 							user.setPassword(this.computeMD5(data.getNewpassword()));
 							codp = true;
 							code = 1;
 						}
-					}					
-				}
-				
-				//set timezone
-				if(data.getFlagTimezone()==true) {
-					if(data.getTimezone()==null) {
-						code = -1;
 					}
-					else {
-						if(timezones.contains(data.getTimezone())==false) {
+				}
+
+				// set timezone
+				if (data.getFlagTimezone() == true) {
+					if (data.getTimezone() == null) {
+						code = -1;
+					} else {
+						if (timezones.contains(data.getTimezone()) == false) {
 							code = -1;
-						}
-						else {
+						} else {
 							user.setTimezone(data.getTimezone());
 							codt = true;
 							code = 2;
 						}
 					}
 				}
-				
+
 				loginManager.changePasswordTimezone(user);
-			}
-			else {
+			} else {
 				// old password not valid
 				code = -2;
 			}
 		}
-			
-		if(codt==true && codp==true) {
-			//both
-			code = 0;
-		}	
 
-//		0  timezone and password ok
-//		1  password ok
-//		2  timezone ok
-//		-1 some errors
-//		-2 old password not valid
-//		-3 new password not valid
-		
+		if (codt == true && codp == true) {
+			// both
+			code = 0;
+		}
+
+		// 0 timezone and password ok
+		// 1 password ok
+		// 2 timezone ok
+		// -1 some errors
+		// -2 old password not valid
+		// -3 new password not valid
+
 		return code;
 	}
 
@@ -345,10 +345,10 @@ public class DataRestController {
 		if (recipe == null) {
 			code = -1;
 		} else {
-			if (data==true) {
+			if (data == true) {
 				recipe.setPublish(true);
 				recipesManager.publishRecipe(recipe);
-			} else if(data==false) {
+			} else if (data == false) {
 				recipe.setPublish(false);
 				recipesManager.publishRecipe(recipe);
 			} else {
@@ -358,36 +358,37 @@ public class DataRestController {
 		// -1 if error
 		return code;
 	}
-	
+
 	@RequestMapping(value = "publish/userRecipes", method = RequestMethod.GET)
 	Set<Types> getPublishRecipe() {
-	//	String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-	//	Users user = loginManager.findUserByUsername(username);
-	//	List<Recipes> recipes = user.getRecipes();
-		
+		// String username =
+		// SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		// Users user = loginManager.findUserByUsername(username);
+		// List<Recipes> recipes = user.getRecipes();
+
 		// devo prendere TUTTE le ricette presenti nel db
 		List<Recipes> recipes = recipesManager.findAllRecipes();
-		if(recipes==null) {
+		if (recipes == null) {
 			return null;
 		}
-	//	List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
+		// List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		Set<Types> handleDup = new HashSet<Types>();
 		for (Recipes r : recipes) {
-			
+
 			// controllo se sono state pubblicate
-			if(r.getPublish()) {
-				
+			if (r.getPublish()) {
+
 				Types retClass = new Types();
-				
-//				recipeJsonClass ricettaJson = new recipeJsonClass();
-//				ricettaJson.setId(r.getRid());
-//				ricettaJson.setDescription(r.getDescription());
-				
+
+				// recipeJsonClass ricettaJson = new recipeJsonClass();
+				// ricettaJson.setId(r.getRid());
+				// ricettaJson.setDescription(r.getDescription());
+
 				// prelevo trigger e setto
 				String triggerType = r.getTriggerType();
 				Integer triggerid = r.getTriggerid();
 				Integer triggerIngredientCode = null;
-//				Object trigger = null;
+				// Object trigger = null;
 				if (triggerType.compareTo("gmail") == 0) {
 					GmailTrigger trigger = gmailManager.findGmailTriggerById(triggerid);
 					triggerIngredientCode = trigger.getIngredientCode();
@@ -404,14 +405,14 @@ public class DataRestController {
 					// valore non valido
 					return null;
 				}
-//				ricettaJson.setTrigger(trigger);
+				// ricettaJson.setTrigger(trigger);
 				retClass.setTriggerIngredientCode(triggerIngredientCode);
-				
+
 				// prelevo action e setto
 				String actionType = r.getActionType();
 				Integer actionIngredientCode = null;
 				Integer actionid = r.getActionid();
-//				Object action = null;
+				// Object action = null;
 				if (actionType.compareTo("gmail") == 0) {
 					GmailAction action = gmailManager.findGmailActionById(actionid);
 					actionIngredientCode = action.getIngredientCode();
@@ -426,64 +427,121 @@ public class DataRestController {
 					return null;
 				}
 				retClass.setActionIngredientCode(actionIngredientCode);
-			//	ricettaJson.setAction(action);
-			//	ricettaJson.setPublish(r.getPublish());
-				
-//				list.add(ricettaJson);
+				// ricettaJson.setAction(action);
+				// ricettaJson.setPublish(r.getPublish());
+
+				// list.add(ricettaJson);
 				handleDup.add(retClass);
 			}
 		}
-		
-		//DEBUG
-//		for(Types r : handleDup) {
-//			System.out.println(r.getTriggerIngredientCode()+" - "+r.getActionIngredientCode());
-//		}
-//		
+
+		// DEBUG
+		// for(Types r : handleDup) {
+		// System.out.println(r.getTriggerIngredientCode()+" -
+		// "+r.getActionIngredientCode());
+		// }
+		//
 		return handleDup;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	@RequestMapping(value = "deleteAccount", method = RequestMethod.POST)
 	Integer deleteAccount(@RequestBody requestClass data) {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
-		if(user==null) {
+		if (user == null) {
 			code = -1;
-		}
-		else {
-			if(data.getNewpassword()==null || user.getPassword().compareTo(this.computeMD5(data.getNewpassword()))!=0) {
-				code = -2;				
-			}
-			else {
+		} else {
+			if (data.getNewpassword() == null
+					|| user.getPassword().compareTo(this.computeMD5(data.getNewpassword())) != 0) {
+				code = -2;
+			} else {
 				code = loginManager.deleteAccount(user);
 			}
-		}		
-		
-		//  0 success
+		}
+
+		// code:
+		// 0 success
 		// -1 error
 		// -2 wrong password
-		
+
 		return code;
-	}	
-	
+	}
+
+	@RequestMapping(value = "forgotPassword", method = RequestMethod.POST)
+	Integer forgotPassword(@RequestBody requestClass data) {
+		Integer code = 0;
+		// String username =
+		// SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		if (data.getUsername() != null) {
+			Users user = loginManager.findUserByUsername(data.getUsername());
+			if (user == null) {
+				code = -2;
+			} else {
+				//check email
+				if (data.getEmail() != null) {
+					EmailValidator emailvalidator = new EmailValidator(data.getEmail());
+					if (emailvalidator.validate() == true && user.getEmail().compareTo(data.getEmail()) == 0) {
+
+						// create new random password
+						String newpassword = UUID.randomUUID().toString().substring(0, 10);
+
+						// compute MD5 and save it in db
+						user.setPassword(this.computeMD5(newpassword));
+						loginManager.changePasswordTimezone(user);
+
+						// send email with new password
+						try {
+
+							Message message = new MimeMessage(sessionMail);
+							message.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
+							message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(data.getEmail()));
+							message.setSubject("New Credentials");
+							message.setContent("<p>Dear " + data.getUsername() + ",<br>these are your new credentials:"
+									+ "<br>Username: " + data.getUsername() + "<br>Password: " + newpassword
+									+ "</p><p>Please, remember to change your password!</p>", "text/html");
+							Transport.send(message);
+
+						} catch (MessagingException e) {
+							System.out.println(e.getMessage());
+							code = -1;
+						}
+					} else {
+						code = -3;
+					}
+				} else {
+					code = -3;
+				}
+			}
+		} else {
+			code = -1;
+		}
+
+		// code:
+		// 0 success
+		// -1 error
+		// -2 invalid username
+		// -3 invalid email
+		return code;
+	}
+
 	@RequestMapping(value = "deleteAllRecipes", method = RequestMethod.POST)
 	returnClass deleteAllRecipes() {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
-		if(user==null) {
+		if (user == null) {
 			code = -1;
-		}
-		else {
+		} else {
 			code = loginManager.deleteAllRecipes(user);
-		}		
-	
+		}
+
 		returnClass res = new returnClass();
 		res.setDeleted(code);
 		return res;
 	}
-	
+
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {
 		try {
