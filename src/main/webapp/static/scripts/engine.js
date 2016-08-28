@@ -4306,7 +4306,7 @@ iftttApp.controller('action1GcalendarController', ['$scope',
                 if (yearVector_action1GcalendarController != null && monthVector_action1GcalendarController != null &&
                     dayVector_action1GcalendarController != null && hourStart_action1GcalendarController != null && minuteStart_action1GcalendarController != null) {
                     startDate = yearVector_action1GcalendarController + "-" + monthVector_action1GcalendarController
-                        + "-" + dayVector_action1GcalendarController + "T" + hourStart_action1GcalendarController
+                        + "-" + dayVector_action1GcalendarController + " " + hourStart_action1GcalendarController
                         + ":" + minuteStart_action1GcalendarController + ":00";
                 }
 
