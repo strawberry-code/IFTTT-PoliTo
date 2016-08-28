@@ -59,7 +59,6 @@ $(function () {
         if (result.cod === "404") {
             $('#temper').hide();
 
-            alertWarning("There has been a error (code error 400x).");
         }
         else
         {
