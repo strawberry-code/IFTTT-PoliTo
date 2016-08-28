@@ -123,9 +123,9 @@ public class LoginManagerImpl implements LoginManager {
 					message.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
 					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 					message.setSubject("New Registration");
-					message.setContent("<h4>Dear " + username + ",<br>to complete the registration please click "
+					message.setContent("<p>Dear <b>" + username + "</b>,</p><p>to complete the registration please click "
 							+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url
-							+ "\">here</a>.</h4><br><p>If you didn't try to register to our site "
+							+ "\">here</a>.</p><br><p>If you didn't try to register to our site "
 							+ "(<a href=\"http://localhost:8080/progetto/\">IFTTT-polito</a>), please ignore this e-mail!</p>", "text/html");
 					Transport.send(message);
 
