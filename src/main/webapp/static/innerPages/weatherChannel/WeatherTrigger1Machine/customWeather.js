@@ -191,10 +191,11 @@ $(function () {
         flagTimezoneCheck = true;
         flagTimeCheck = true;
 
-        if (idCity == '0')
+        //Qui mettere o togliere i controlli:
+        if (idCity.localeCompare('') || idCity.length()<7)
         {
 
-            alertWarning("We have not found your city.");
+            alertWarning("We have not found your  city.");
         }
         else {
             /*
