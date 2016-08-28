@@ -93,6 +93,7 @@ $(function () {
      */
     var searchEnter = function () {
         var city = $("#search-input").val();
+        setSpinner(true);
 
         jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
         $.ajax({
@@ -104,11 +105,11 @@ $(function () {
              * @param {} presentlocation
              * @return
              */
-            success: function (presentlocation) {
+            success: function (presentlocation)
+            {
+                setSpinner(false);
                 result = presentlocation;
-
                 updateView(result);
-
 
             }
         });
