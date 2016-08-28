@@ -123,9 +123,9 @@ public class LoginManagerImpl implements LoginManager {
 					message.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
 					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 					message.setSubject("New Registration");
-					message.setContent("<h4>Dear " + username + ",<br>to complete the registration please click "
+					message.setContent("<p>Dear <b>" + username + "</b>,</p><p>to complete the registration please click "
 							+ "<a href=\"http://localhost:8080/progetto/api/activation.html?id=" + id + "&url=" + url
-							+ "\">here</a>.</h4><br><p>If you didn't try to register to our site "
+							+ "\">here</a>.</p><br><p>If you didn't try to register to our site "
 							+ "(<a href=\"http://localhost:8080/progetto/\">IFTTT-polito</a>), please ignore this e-mail!</p>", "text/html");
 					Transport.send(message);
 
@@ -352,28 +352,42 @@ public class LoginManagerImpl implements LoginManager {
 		return;
 	}
 	
-	@SuppressWarnings("static-access")
-	public Integer changePassword(String username, String newpass) {
+//	public Integer changePassword(/*String username, String newpass*/ Users user) {
+//		Session session = sessionFactory.openSession();
+//		Integer flag = 0;
+////		Users user = null;
+//		try {
+////			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
+////			Query query = session.createQuery(hql);
+////			query.setString("n", username);
+////			try {
+////				user = (Users) query.list().get(0);
+////			} catch(Exception e) {
+////				flag = -1;
+////			}
+////			if (newpass.length() < 8) {
+////				flag = -2;
+////			}
+////			else {
+////				user.setPassword(this.computeMD5(newpass));
+//				session.update(user);
+//				session.flush();
+////			}
+//		} finally {
+//			if (session != null) {
+//				// close session in any case
+//				session.close();
+//			}
+//		}
+//		return flag;
+//	}
+	
+	public Integer changePasswordTimezone(Users user) {
 		Session session = sessionFactory.openSession();
 		Integer flag = 0;
-		Users user = null;
 		try {
-			String hql = "from it.polito.ai.ifttt.progetto.models.Users u where u.username=:n";
-			Query query = session.createQuery(hql);
-			query.setString("n", username);
-			try {
-				user = (Users) query.list().get(0);
-			} catch(Exception e) {
-				flag = -1;
-			}
-			if (newpass.length() < 8) {
-				flag = -2;
-			}
-			else {
-				user.setPassword(this.computeMD5(newpass));
-				session.update(user);
-				session.flush();
-			}
+			session.update(user);
+			session.flush();
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -381,24 +395,6 @@ public class LoginManagerImpl implements LoginManager {
 			}
 		}
 		return flag;
-	}
-
-	// function to compute an MD5 hash of the user password
-	public static String computeMD5(String input) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] messageDigest = md.digest(input.getBytes());
-			BigInteger number = new BigInteger(1, messageDigest);
-			String hashtext = number.toString(16);
-			// Now we need to zero pad it if you actually want the full 32
-			// chars.
-			while (hashtext.length() < 32) {
-				hashtext = "0" + hashtext;
-			}
-			return hashtext;
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public Integer deleteAccount(Users user) {
@@ -473,5 +469,23 @@ public class LoginManagerImpl implements LoginManager {
 		}
 		// -1 if errors
 		return code;
+	}
+	
+	// function to compute an MD5 hash of the user password
+	public static String computeMD5(String input) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+			// Now we need to zero pad it if you actually want the full 32
+			// chars.
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

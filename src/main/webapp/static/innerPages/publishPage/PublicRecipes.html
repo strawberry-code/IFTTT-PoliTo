@@ -13,46 +13,46 @@
         <!--  {{privateprivateuserRecipesVetVet[0].triggerType}} -->
         <div class="col-md-8">
             <ul class="list-group"> <!-- privateprivateuserRecipesVetVet =  userRecipes -->
-                <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Your IFTTT Polito recipes</h1></li>
+                <li class="list-group-item active text-center"><h1><span class="glyphicon glyphicon-adjust"
+                                                                         aria-hidden="true"></span> Your IFTTT Polito
+                    recipes</h1></li>
                 <li ng-repeat="f in  userRecipes" class="list-group-item">
                     <div class="row">
 
-                            <div class="col-md-5 text-center">
-                                <h4>{{f.triggerIngredientCode | describe}}</h4>
-                            </div>
+                        <div class="col-md-5 text-center">
+                            <h4>{{f.triggerIngredientCode | describe}}</h4>
+                        </div>
 
-                            <div class="col-md-5 center-text">
-                                <h4>{{f.actionIngredientCode | describe}}</h4>
-                            </div>
+                        <div class="col-md-5 center-text">
+                            <h4>{{f.actionIngredientCode | describe}}</h4>
+                        </div>
 
-                            <div class="col-md-2">
+                        <div class="col-md-2">
 
-                                <button ng-show="iftttLogged"
-                                        title="Import this recipe"
-                                        data-toggle="tooltip"
-                                        data-placement="bottom"
-                                        bs-tooltip style="margin-left: 3px"
-                                        class="btn btn-primary pull-right vcenter"
-                                        ng-click="routeListener('#createRecipe'); ngImportRecipeAlert(f.triggerIngredientCode, f.actionIngredientCode)"
-                                        data-ng-click="modifyRecipe(f.index)">
-                                    <span class="glyphicon glyphicon glyphicon-save"></span>
-                                </button>
+                            <button ng-show="iftttLogged"
+                                    title="Import this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    bs-tooltip style="margin-left: 3px"
+                                    class="btn btn-primary pull-right vcenter"
+                                    ng-click="routeListener('#createRecipe'); ngImportRecipeAlert(f.triggerIngredientCode, f.actionIngredientCode)"
+                                    data-ng-click="modifyRecipe(f.index)">
+                                <span class="glyphicon glyphicon glyphicon-save"></span>
+                            </button>
 
-                                <button ng-show="!iftttLogged"
-                                        title="Please login to import this recipe"
-                                        data-toggle="tooltip"
-                                        data-placement="bottom"
-                                        bs-tooltip style="margin-left: 3px"
-                                        class="btn btn-warning pull-right vcenter">
+                            <button ng-show="!iftttLogged"
+                                    title="Please login to import this recipe"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    bs-tooltip style="margin-left: 3px"
+                                    class="btn btn-warning pull-right vcenter">
                                 <span class="glyphicon glyphicon glyphicon-save"
                                       data-toggle="modal"
                                       data-target="#loginIFTTTModal"
                                       ng-click="routeListener('#publicRecipes')"></span>
-                                </button>
+                            </button>
 
-                            </div>
-
-
+                        </div>
 
 
                     </div>
@@ -72,9 +72,9 @@
 
 
         <a class="btn btn-success btn-large"
-                ng-if="!iftttLogged" style="margin-left: 6px"
-                data-toggle="modal" data-target="#loginIFTTTModal"
-                ng-click="routeListener('#createRecipe')">
+           ng-if="!iftttLogged" style="margin-left: 6px"
+           data-toggle="modal" data-target="#loginIFTTTModal"
+           ng-click="routeListener('#createRecipe')">
             <h4>Create new recipe </h4></a>
 
     </div>
@@ -86,14 +86,13 @@
     </div>
 
 
-
 </div>
 </body>
 
 <script>
 
     // Commento aggiunto per poter fare il commit iniziale del branch 'client'
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="popover"]').popover({
             container: 'body'
         });
@@ -104,7 +103,7 @@
 
 <style type="text/css">
     em {
-        font-style: normal;         /* Removes italics */
+        font-style: normal; /* Removes italics */
         text-decoration: underline; /* Makes underline */
     }
 </style>
