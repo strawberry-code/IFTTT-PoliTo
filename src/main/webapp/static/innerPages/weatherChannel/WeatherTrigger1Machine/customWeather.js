@@ -4,7 +4,7 @@ $(function () {
     var weather;
     var locality;
     var jsonurl;
-    var forejsonurl;
+
     var deg;
     var idCity = 0;
     /* Per i checking  */
@@ -59,7 +59,7 @@ $(function () {
         if (result.cod === "404") {
             $('#temper').hide();
 
-            //alert("No City found Try Again!!....");
+            alertWarning("There has been a error (code error 400x).");
         }
         else
         {
@@ -95,8 +95,9 @@ $(function () {
         var city = $("#search-input").val();
         setSpinner(true);
 
-        jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
-        $.ajax({
+        jsonurl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1",
+        $.ajax
+        ({
             method: "GET",
             url: jsonurl,
             /**
@@ -110,29 +111,34 @@ $(function () {
                 setSpinner(false);
                 result = presentlocation;
                 updateView(result);
-
+            },
+            error: function()
+            {
+            setSpinner(false);
+            alertError("Sorry there has been an error");
             }
         });
-        forejsonurl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1"
+
+      /*  forejsonurl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&appid=444a5c5b0f4846dd7465cb680a94caf1",
         $.ajax({
             method: "GET",
             url: forejsonurl,
-            /**
+            /!**
              * Description
              * @method success
              * @param {} forepresentlocation
              * @return
-             */
+             *!/
             success: function (forepresentlocation) {
                 var foreresult = forepresentlocation;
 
 
-                //  updateBox3(foreresult);
             }
-        });
+        });*/
 
 
-    }
+    };
+    /* Non lo so se server :)
     $("#search-input").keyup(function (e) {
         if (e.which == 13) {
             $('#temper').fadeOut("fast");
@@ -145,6 +151,7 @@ $(function () {
         }
 
     });
+    */
     $("button").on("click", function () {
         $('#temper').fadeOut("fast");
         $('#temper').fadeIn("slow");
@@ -185,17 +192,10 @@ $(function () {
         flagTimezoneCheck = true;
         flagTimeCheck = true;
 
-        if (idCity == '0') {
+        if (idCity == '0')
+        {
 
-            // $("#notificationsWrapper").notify(
-            //     "You have not found you ciry",
-            //     {
-            //         className: 'warning',
-            //         position: 'bottom center'
-            //     }
-            // );
             alertWarning("We have not found your city.");
-            //alert("You have not found you ciry");
         }
         else {
             /*
