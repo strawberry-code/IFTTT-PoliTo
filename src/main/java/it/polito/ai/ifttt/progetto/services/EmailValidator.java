@@ -10,12 +10,12 @@ public class EmailValidator {
 	Matcher matcher;
 	String email;
 	
-	EmailValidator(String email) {
+	public EmailValidator(String email) {
 		this.email = email;
 		pattern = Pattern.compile(EMAIL_PATTERN);
 	}
 	
-	boolean validate() {	
+	public boolean validate() {	
 		if(this.email!=null) {
 			Matcher matcher = pattern.matcher(email);
 			return matcher.matches();
