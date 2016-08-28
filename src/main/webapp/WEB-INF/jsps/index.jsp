@@ -272,6 +272,11 @@
                             <div class="col-md-5">
                                 <a href="#index/createAccount" data-ng-click="closeModal()">Create an account</a>
                             </div>
+                            
+                              <!-- Forgot password? -->
+                            <div class="col-md-5">
+                                <a href="#index/forgotPassword" data-ng-click="closeModal()">Forgot password?</a>
+                            </div>
 
                         </div>
 
