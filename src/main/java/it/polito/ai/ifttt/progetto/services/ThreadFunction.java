@@ -41,6 +41,7 @@ import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
+import net.aksingh.owmjapis.OpenWeatherMap.Units;
 import twitter4j.DirectMessage;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -355,6 +356,7 @@ public class ThreadFunction extends Thread {
 											// declaring object of "OpenWeatherMap"
 											// class
 											OpenWeatherMap owm = new OpenWeatherMap(apiKey);
+											owm.setUnits(Units.METRIC);
 											WeatherTrigger wt = weatherManager.findWeatherTriggerById(tid);
 
 											if (wt.getType() == 1) {
@@ -398,39 +400,39 @@ public class ThreadFunction extends Thread {
 																			+ " is: " + System.lineSeparator();
 																	body = body + "Morning temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getMorningTemperature()))
+																					.getMorningTemperature())
 																			+ " °C" + System.lineSeparator();
 																	body = body + "Day temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getDayTemperature()))
+																					.getDayTemperature())
 																			+ " °C" + System.lineSeparator();
 																	body = body + "Evening temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getEveningTemperature()))
+																					.getEveningTemperature())
 																			+ " °C" + System.lineSeparator();
 																	body = body + "Night temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getNightTemperature()))
+																					.getNightTemperature())
 																			+ " °C" + System.lineSeparator();
 																	body = body + "Maximum temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getMaximumTemperature()))
+																					.getMaximumTemperature())
 																			+ " °C" + System.lineSeparator();
 																	body = body + "Minimum temperature :" + String.format(
 																			"%.02f",
-																			ConverToCelsius(df.getForecastInstance(1)
+																			df.getForecastInstance(1)
 																					.getTemperatureInstance()
-																					.getMinimumTemperature()))
+																					.getMinimumTemperature())
 																			+ " °C" + System.lineSeparator();
 
 																	body = body + "Weather description :"
@@ -608,8 +610,7 @@ public class ThreadFunction extends Thread {
 															if (cwd.isValid()) {
 																Float currentTmp = null;
 																if (cwd.getMainInstance().hasTemperature()) {
-																	currentTmp = ConverToCelsius(
-																			cwd.getMainInstance().getTemperature());
+																	currentTmp = cwd.getMainInstance().getTemperature();
 																}
 
 																if (currentTmp != null) {
@@ -626,9 +627,7 @@ public class ThreadFunction extends Thread {
 																						+ " is under the minimum threshold of "
 																						+ thmin + "°C: "
 																						+ String.format("%.02f",
-																								ConverToCelsius(
-																										cwd.getMainInstance()
-																												.getTemperature()))
+																								cwd.getMainInstance().getTemperature())
 																						+ " °C";
 																				this.executeAction(atype, aid, session,
 																						body);
@@ -654,9 +653,7 @@ public class ThreadFunction extends Thread {
 																						+ " is over the maximum threshold of "
 																						+ thmax + "°C: "
 																						+ String.format("%.02f",
-																								ConverToCelsius(
-																										cwd.getMainInstance()
-																												.getTemperature()))
+																								cwd.getMainInstance().getTemperature())
 																						+ " °C";
 																				this.executeAction(atype, aid, session,
 																						body);
@@ -997,9 +994,9 @@ public class ThreadFunction extends Thread {
 	}
 
 	// per convertire i gradi Fahrenheit ritornati in Celsius
-	public Float ConverToCelsius(Float temp) {
-		return ((temp - 32) * 5) / 9;
-	}
+//	public Float ConverToCelsius(Float temp) {
+//		return ((temp - 32) * 5) / 9;
+//	}
 
 	public static Date addDays(Date date, int days) {
 		Calendar cal = Calendar.getInstance();
