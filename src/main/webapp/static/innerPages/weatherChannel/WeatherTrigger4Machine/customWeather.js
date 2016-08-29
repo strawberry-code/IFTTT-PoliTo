@@ -302,7 +302,7 @@ $(function () {
                 }
                 else {
 
-                    var outputInMilliseconds = 0;
+                    var outputInMilliseconds = null;
                     if (period_customWeatherActionControllerTrigger4 != null) {
                         outputInMilliseconds = period_customWeatherActionControllerTrigger4 * 60000;
                     }

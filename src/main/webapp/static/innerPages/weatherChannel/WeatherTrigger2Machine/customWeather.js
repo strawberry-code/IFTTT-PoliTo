@@ -314,7 +314,7 @@ $(function() {
 								// );
 								alertWarning("You input is not right");
 							} else {
-								var outputInMilliseconds;
+								var outputInMilliseconds = null;
 								flagTriggerDone = true;
 								if (pperiod != null) {
 									outputInMilliseconds = pperiod * 60000;
