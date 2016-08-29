@@ -64,7 +64,7 @@
                             <input class="form-control" id="timehourid" data-ng-disabled="!checkadvisetime"
                                    type="number" name="input1"
                                    data-ng-model="trigger1input.value1"
-                                   min="0" max="23" required>
+                                   min="0" max="23" value="0" required>
                         </label>
 
 
@@ -72,7 +72,7 @@
                             <input class="form-control" id="timeminuteid" data-ng-disabled="!checkadvisetime"
                                    type="number" name="input2"
                                    data-ng-model="trigger1input.value2"
-                                   min="0" max="59" required>
+                                   min="0" max="59" value="0" required>
                         </label>
                         <div role="alert">
                         <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.required ||
