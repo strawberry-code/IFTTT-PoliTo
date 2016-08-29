@@ -125,7 +125,7 @@ $(function () {
 
             //box1
             $("#wind-speed").text(result.wind.speed);
-            $("#wind-deg").text(result.wind.deg.toFixed(1));
+            //$("#wind-deg").text(result.wind.deg.toFixed(1));  --> riga malefica :)
             $("#clouds-all").text(result.clouds.all);
             $("#rain-3h").text("0");
             $("#snow-3h").text("0");
