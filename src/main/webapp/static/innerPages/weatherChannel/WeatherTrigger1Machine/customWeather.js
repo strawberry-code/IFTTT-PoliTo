@@ -192,7 +192,7 @@ $(function () {
         flagTimeCheck = true;
 
         //Qui mettere o togliere i controlli:
-        if (idCity.localeCompare('') || idCity.length()<7)
+        if (idCity===undefined || idCity==0)
         {
 
             alertWarning("We have not found your  city.");
