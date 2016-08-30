@@ -481,7 +481,7 @@ public class ThreadFunction extends Thread {
 														Long sunset = owm.currentWeatherByCityCode(wt.getLocation())
 																.getSysInstance().getSunsetTime().getTime();
 
-														String body = "Sunrise Event is happening";
+														String body = "Sunrise event is happening in "+wt.getLocationName();
 														if ((wt.getLastCheck() == null
 																|| wt.getLastCheck() < (sunrise - 60000))
 																&& (current - sunrise) > -60000) {
@@ -494,7 +494,7 @@ public class ThreadFunction extends Thread {
 															}
 														}
 
-														body = "Sunset Event is happening";
+														body = "Sunset event is happening in "+wt.getLocationName();
 														if ((wt.getLastCheck() == null
 																|| wt.getLastCheck() < (sunset - 60000))
 																&& (current - sunset) > -60000) {
