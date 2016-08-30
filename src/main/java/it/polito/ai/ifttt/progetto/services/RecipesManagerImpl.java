@@ -257,8 +257,12 @@ public class RecipesManagerImpl implements RecipesManager {
 					} else {
 						weathertrigger.setTimezone(tz);
 					}
-					weathertrigger.setLastCheck(null);
-					// weathertrigger.setLastCheck(System.currentTimeMillis());
+					if(weathertrigger.getType()==2) {
+						weathertrigger.setLastCheck(System.currentTimeMillis());
+					}
+					else {
+						weathertrigger.setLastCheck(null);
+					}
 					session.save(weathertrigger);
 					session.flush();
 					triggerid = weathertrigger.getWtid();
@@ -561,8 +565,12 @@ public class RecipesManagerImpl implements RecipesManager {
 							weathertrigger.setTimezone(tz);
 						}
 						weathertrigger.setWtid(rec.getTriggerid());
-						// weathertrigger.setLastCheck(System.currentTimeMillis());
-						weathertrigger.setLastCheck(null);
+						if(weathertrigger.getType()==2) {
+							weathertrigger.setLastCheck(System.currentTimeMillis());
+						}
+						else {
+							weathertrigger.setLastCheck(null);
+						}
 						session.update(weathertrigger);
 						session.flush();
 
@@ -716,8 +724,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						} else {
 							weathertrigger.setTimezone(tz);
 						}
-						// weathertrigger.setLastCheck(System.currentTimeMillis());
-						weathertrigger.setLastCheck(null);
+						if(weathertrigger.getType()==2) {
+							weathertrigger.setLastCheck(System.currentTimeMillis());
+						}
+						else {
+							weathertrigger.setLastCheck(null);
+						}
 						session.save(weathertrigger);
 						session.flush();
 						triggerid = weathertrigger.getWtid();
