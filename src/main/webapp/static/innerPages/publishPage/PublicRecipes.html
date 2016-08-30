@@ -29,6 +29,19 @@
 
                         <div class="col-md-2">
 
+                            <!-- ATTENZIONE il button sotto a questo dommento
+
+                                    dovrebbe essere:
+
+                                    data-ng-click="routeListener('#createRecipe'); ngImportRecipeAlert(f.triggerIngredientCode, f.actionIngredientCode), modifyRecipe(f.index)">
+
+                                    invece è:
+
+                                    ng-click="routeListener('#createRecipe'); ngImportRecipeAlert(f.triggerIngredientCode, f.actionIngredientCode)"
+                                    data-ng-click="modifyRecipe(f.index)">
+
+                             -->
+
                             <button data-ng-show="iftttLogged"
                                     title="Import this recipe"
                                     data-toggle="tooltip"
