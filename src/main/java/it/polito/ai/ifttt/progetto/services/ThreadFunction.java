@@ -461,9 +461,6 @@ public class ThreadFunction extends Thread {
 														}
 
 													} catch (ParseException e) {
-														// TODO Auto-generated
-														// catch
-														// block
 														e.printStackTrace();
 													}
 												}
@@ -670,14 +667,8 @@ public class ThreadFunction extends Thread {
 																}
 															}
 														} catch (JSONException e) {
-															// TODO
-															// Auto-generated
-															// catch block
 															e.printStackTrace();
 														} catch (IOException e) {
-															// TODO
-															// Auto-generated
-															// catch block
 															e.printStackTrace();
 														}
 													}
@@ -762,7 +753,6 @@ public class ThreadFunction extends Thread {
 													}
 																									
 												} catch (TwitterException e) {
-													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
 												twitterManager.setLastCheck(System.currentTimeMillis(), tid);
@@ -833,7 +823,6 @@ public class ThreadFunction extends Thread {
 													}
 																									
 												} catch (TwitterException e) {
-													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}											
 												twitterManager.setLastCheck(System.currentTimeMillis(), tid);
@@ -844,10 +833,8 @@ public class ThreadFunction extends Thread {
 								}
 							}
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} //FINE check tokens
@@ -857,7 +844,6 @@ public class ThreadFunction extends Thread {
 			try {
 				ThreadFunction.sleep(120000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -932,7 +918,6 @@ public class ThreadFunction extends Thread {
 						String s = sdf.format(parseDate(ca.getStartDate(), tz));
 						d = sdf.parse(s);
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					startDateTime = new DateTime(d);
@@ -952,7 +937,6 @@ public class ThreadFunction extends Thread {
 			}
 			catch(Exception e) {
 				//try-catch to handle incorrect date
-				//TODO: handle the exception: ad esempio mettendo la data corrente
 				System.out.println(e.getMessage());
 			}
 			
