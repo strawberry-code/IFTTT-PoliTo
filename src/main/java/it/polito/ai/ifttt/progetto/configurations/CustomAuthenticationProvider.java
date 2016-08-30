@@ -33,7 +33,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             Users user = loginManager.findUserByUsername(username);
             String hashpass = this.computeMD5(password);
      
-            if (user == null || !user.getUsername().equalsIgnoreCase(username)) {
+            if (user == null || !user.getUsername().equals(username)) {
                 throw new BadCredentialsException("Username not found.");
             }
      
