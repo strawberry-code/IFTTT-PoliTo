@@ -36,14 +36,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             if (user == null || !user.getUsername().equals(username)) {
                 throw new BadCredentialsException("Username not found.");
             }
+            
+            if (!hashpass.equals(user.getPassword())) {
+                throw new BadCredentialsException("Wrong password.");
+            }
      
             if(user.getEnabled()==false) {
             	throw new BadCredentialsException("User not activated.");
             }
             
-            if (!hashpass.equals(user.getPassword())) {
-                throw new BadCredentialsException("Wrong password.");
-            }
+            
      
             Collection<? extends GrantedAuthority> authorities = user.getRoles();
      
