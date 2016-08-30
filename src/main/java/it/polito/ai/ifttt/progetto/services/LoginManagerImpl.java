@@ -46,9 +46,11 @@ public class LoginManagerImpl implements LoginManager {
 			try {
 
 				if (password.length() < 8) {
+					tx.rollback();
 					return 4;
 				}
 				if (username.length() < 4) {
+					tx.rollback();
 					return 5;
 				}
 				// compute hash (MD5) of the user password to store it in an
@@ -78,6 +80,7 @@ public class LoginManagerImpl implements LoginManager {
 				List<Users> users = query.list();
 				if (users.size() != 0) {
 					// user already exists --> 1
+					tx.rollback();
 					return 1;
 				}
 
@@ -88,6 +91,7 @@ public class LoginManagerImpl implements LoginManager {
 //				}
 				EmailValidator emailval = new EmailValidator(email);
 				if(emailval.validate()==false) {
+					tx.rollback();
 					return 3;
 				}
 
@@ -98,6 +102,7 @@ public class LoginManagerImpl implements LoginManager {
 				List<Users> users1 = query1.list();
 				if (users1.size() != 0) {
 					// email already exists --> 2
+					tx.rollback();
 					return 2;
 				}
 
@@ -130,6 +135,7 @@ public class LoginManagerImpl implements LoginManager {
 					Transport.send(message);
 
 				} catch (MessagingException e) {
+					tx.rollback();
 					throw new RuntimeException(e);
 				}
 			} catch (Exception e) {
@@ -160,14 +166,17 @@ public class LoginManagerImpl implements LoginManager {
 				Users usr = session.get(Users.class, id);
 				if (usr == null) {
 					// user doesn't exist
+					tx.rollback();
 					return -1;
 				}
 				if (usr.getEnabled()) {
 					// user already activated
+					tx.rollback();
 					return 1;
 				}
 				if (usr.getUrlactivate().compareTo(url) != 0) {
 					// url wrong
+					tx.rollback();
 					return -1;
 				}
 
@@ -413,6 +422,7 @@ public class LoginManagerImpl implements LoginManager {
 				for(Recipes r : recipes) {
 					Integer code = recipesManager.deleteRecipe(r.getRid());
 					if(code==-1) {
+						tx.rollback();
 						return -1;
 					}
 				}

@@ -37,6 +37,11 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class RecipesManagerImpl implements RecipesManager {
 
@@ -54,8 +59,12 @@ public class RecipesManagerImpl implements RecipesManager {
 	TwitterManager twitterManager;
 
 	List<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
+	
 	String apiKey = "7a270c3877b50b233c4873ffc56f3ff7";
 	OpenWeatherMap owm = new OpenWeatherMap(apiKey);
+	
+	public static final String tw_appid = "quh3sSXVjZsPJD0858lbzk1ch";
+	public static final String tw_appsecret = "4B2XJn3D0lCkVuFoQf3fY3P1oEsHV5GRDH1IlYKPnuY2ilWm8h";	
 
 	@SuppressWarnings("unchecked")
 	public List<Recipes> findAllRecipes() {
@@ -140,6 +149,17 @@ public class RecipesManagerImpl implements RecipesManager {
 		if (user == null) {
 			return -1;
 		}
+		
+		Twitter twitter = null;
+		if(user.getTwitterToken()!=null && user.getTwitterTokenSecret()!=null) {
+			ConfigurationBuilder builder = new ConfigurationBuilder();
+			builder.setOAuthConsumerKey(tw_appid);
+			builder.setOAuthConsumerSecret(tw_appsecret);
+			Configuration configuration = builder.build();
+			TwitterFactory factory = new TwitterFactory(configuration);
+			twitter = factory.getInstance();
+			twitter.setOAuthAccessToken(new AccessToken(user.getTwitterToken(), user.getTwitterTokenSecret()));
+		}
 
 		try {
 			// begin transaction
@@ -152,6 +172,7 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 					if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+						tx.rollback();
 						return -1;
 					}
 					calendartrigger.setLastCheck(System.currentTimeMillis());
@@ -164,12 +185,14 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
 					if (gmailtrigger.getIngredientCode() != 13) {
+						tx.rollback();
 						return -1;
 					}
 					gmailtrigger.setLastCheck(System.currentTimeMillis());
 					if (gmailtrigger.getSender() != null) {
 						EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 						if (emailval.validate() == false) {
+							tx.rollback();
 							return -1;
 						}
 					}
@@ -182,6 +205,7 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
 					if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+						tx.rollback();
 						return -1;
 					}
 					if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
@@ -190,28 +214,34 @@ public class RecipesManagerImpl implements RecipesManager {
 							if(cwd.isValid()) {
 								if(cwd.hasCityName()) {
 									if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+										tx.rollback();
 										return -1;
 									}
 								}
 								else { 
+									tx.rollback();
 									return -1;
 								}
 							}
 							else {
+								tx.rollback();
 								return -1;
 							}
 						}
 						catch (Exception e) {
+							tx.rollback();
 							return -1;
 						}
 					}
 					if (weathertrigger.getThmin() != null) {
 						if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+							tx.rollback();
 							return -1;
 						}
 					}
 					if (weathertrigger.getThmax() != null) {
 						if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+							tx.rollback();
 							return -1;
 						}
 					}
@@ -222,6 +252,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						tz = weathertrigger.getTimezone();
 					}
 					if (timezones.contains(tz) == false) {
+						tx.rollback();
 						return -1;
 					} else {
 						weathertrigger.setTimezone(tz);
@@ -232,21 +263,39 @@ public class RecipesManagerImpl implements RecipesManager {
 					session.flush();
 					triggerid = weathertrigger.getWtid();
 
-				} else if (triggerType.compareTo("twitter") == 0) {
-					ObjectMapper mapper = new ObjectMapper();
-					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-					TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
-					if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
+				} else if (triggerType.compareTo("twitter") == 0) {	
+					
+					if(twitter==null) {
+						tx.rollback();
 						return -1;
 					}
-					twittertrigger.setLastCheck(System.currentTimeMillis());
-					session.save(twittertrigger);
-					session.flush();
-					triggerid = twittertrigger.getTwtid();
+					else {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+						if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
+							tx.rollback();
+							return -1;
+						}
+						if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+							try {
+								twitter.showUser(twittertrigger.getUsername_sender()).getId();
+							}
+							catch (Exception e) {
+								tx.rollback();
+								return -2;
+							}
+						}
+						twittertrigger.setLastCheck(System.currentTimeMillis());
+						session.save(twittertrigger);
+						session.flush();
+						triggerid = twittertrigger.getTwtid();
+					}
 
 				} else {
 					// errore: valore non valido!
-					recipeid = -1;
+					tx.rollback();
+					return -1;
 				}
 
 				// ACTION
@@ -255,6 +304,7 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
 					if (calendaraction.getIngredientCode() != 21) {
+						tx.rollback();
 						return -1;
 					}
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -262,6 +312,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						try {
 							sdf.parse(calendaraction.getStartDate());
 						} catch (ParseException e1) {
+							tx.rollback();
 							return -1;
 						}
 					}
@@ -279,6 +330,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						tz = calendaraction.getTimezone();
 					}
 					if (timezones.contains(tz) == false) {
+						tx.rollback();
 						return -1;
 					} else {
 						calendaraction.setTimezone(tz);
@@ -292,11 +344,13 @@ public class RecipesManagerImpl implements RecipesManager {
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
 					if (gmailaction.getIngredientCode() < 22) {
+						tx.rollback();
 						return -1;
 					}
 					if (gmailaction.getReceiver() != null) {
 						EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 						if (emailval.validate() == false) {
+							tx.rollback();
 							return -1;
 						}
 					}
@@ -305,19 +359,35 @@ public class RecipesManagerImpl implements RecipesManager {
 					actionid = gmailaction.getGaid();
 
 				} else if (actionType.compareTo("twitter") == 0) {
-					ObjectMapper mapper = new ObjectMapper();
-					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-					TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
-					if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+					if(twitter==null) {
+						tx.rollback();
 						return -1;
 					}
-					session.save(twitteraction);
-					session.flush();
-					actionid = twitteraction.getTwaid();
-
+					else {
+						ObjectMapper mapper = new ObjectMapper();
+						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+						if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+							tx.rollback();
+							return -1;
+						}
+						if(twitteraction.getDestination()!=null) {
+							try {
+								twitter.showUser(twitteraction.getDestination());
+							}
+							catch (Exception e) {
+								tx.rollback();
+								return -2;
+							}
+						}
+						session.save(twitteraction);
+						session.flush();
+						actionid = twitteraction.getTwaid();
+					}
 				} else {
 					// errore: valore non valido!
-					recipeid = -1;
+					tx.rollback();
+					return -1;
 				}
 
 				// RECIPE
@@ -354,7 +424,7 @@ public class RecipesManagerImpl implements RecipesManager {
 
 	public Integer modifyRecipe(Integer id, String data) {
 		Session session = sessionFactory.openSession();
-
+		
 		// new data
 		JSONObject ricetta = new JSONObject(data);
 		String trig = ricetta.get("trigger").toString();
@@ -378,6 +448,17 @@ public class RecipesManagerImpl implements RecipesManager {
 		if (user == null) {
 			return -1;
 		}
+		
+		Twitter twitter = null;
+		if(user.getTwitterToken()!=null && user.getTwitterTokenSecret()!=null) {
+			ConfigurationBuilder builder = new ConfigurationBuilder();
+			builder.setOAuthConsumerKey(tw_appid);
+			builder.setOAuthConsumerSecret(tw_appsecret);
+			Configuration configuration = builder.build();
+			TwitterFactory factory = new TwitterFactory(configuration);
+			twitter = factory.getInstance();
+			twitter.setOAuthAccessToken(new AccessToken(user.getTwitterToken(), user.getTwitterTokenSecret()));
+		}
 
 		try {
 			// begin transaction
@@ -395,6 +476,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						calendartrigger.setCtid(rec.getTriggerid());
 						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+							tx.rollback();
 							return -1;
 						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
@@ -406,11 +488,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
 						if (gmailtrigger.getIngredientCode() != 13) {
+							tx.rollback();
 							return -1;
 						}
 						if (gmailtrigger.getSender() != null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 							if (emailval.validate() == false) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -424,6 +508,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
 						if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+							tx.rollback();
 							return -1;
 						}
 						if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
@@ -432,28 +517,34 @@ public class RecipesManagerImpl implements RecipesManager {
 								if(cwd.isValid()) {
 									if(cwd.hasCityName()) {
 										if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+											tx.rollback();
 											return -1;
 										}
 									}
 									else { 
+										tx.rollback();
 										return -1;
 									}
 								}
 								else {
+									tx.rollback();
 									return -1;
 								}
 							}
 							catch (Exception e) {
+								tx.rollback();
 								return -1;
 							}
 						}
 						if (weathertrigger.getThmin() != null) {
 							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+								tx.rollback();
 								return -1;
 							}
 						}
 						if (weathertrigger.getThmax() != null) {
 							if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -464,6 +555,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tz = weathertrigger.getTimezone();
 						}
 						if (timezones.contains(tz) == false) {
+							tx.rollback();
 							return -1;
 						} else {
 							weathertrigger.setTimezone(tz);
@@ -475,20 +567,36 @@ public class RecipesManagerImpl implements RecipesManager {
 						session.flush();
 
 					} else if (triggerType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
-						if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
+						if(twitter==null) {
+							tx.rollback();
 							return -1;
 						}
-						twittertrigger.setTwtid(rec.getTriggerid());
-						twittertrigger.setLastCheck(System.currentTimeMillis());
-						session.update(twittertrigger);
-						session.flush();
+						else {
+							ObjectMapper mapper = new ObjectMapper();
+							mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+							TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
+								return -1;
+							}
+							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+								try {
+									twitter.showUser(twittertrigger.getUsername_sender()).getId();
+								}
+								catch (Exception e) {
+									tx.rollback();
+									return -2;
+								}
+							}
+							twittertrigger.setTwtid(rec.getTriggerid());
+							twittertrigger.setLastCheck(System.currentTimeMillis());
+							session.update(twittertrigger);
+							session.flush();
+						}
 
 					} else {
 						// errore: valore non valido!
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
 				} else {
 					// the trigger type changed
@@ -513,7 +621,8 @@ public class RecipesManagerImpl implements RecipesManager {
 						session.flush();
 					} else {
 						// type non valido
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
 
 					// TRIGGER to add
@@ -522,6 +631,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+							tx.rollback();
 							return -1;
 						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
@@ -534,11 +644,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailTrigger gmailtrigger = mapper.readValue(trig, GmailTrigger.class);
 						if (gmailtrigger.getIngredientCode() != 13) {
+							tx.rollback();
 							return -1;
 						}
 						if (gmailtrigger.getSender() != null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 							if (emailval.validate() == false) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -552,6 +664,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
 						if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+							tx.rollback();
 							return -1;
 						}
 						if (weathertrigger.getLocation() != null && weathertrigger.getLocationName() != null) {
@@ -560,28 +673,34 @@ public class RecipesManagerImpl implements RecipesManager {
 								if(cwd.isValid()) {
 									if(cwd.hasCityName()) {
 										if(cwd.getCityName().compareTo(weathertrigger.getLocationName())!=0) {
+											tx.rollback();
 											return -1;
 										}
 									}
 									else { 
+										tx.rollback();
 										return -1;
 									}
 								}
 								else {
+									tx.rollback();
 									return -1;
 								}
 							}
 							catch (Exception e) {
+								tx.rollback();
 								return -1;
 							}
 						}
 						if (weathertrigger.getThmin() != null) {
 							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+								tx.rollback();
 								return -1;
 							}
 						}
 						if (weathertrigger.getThmax() != null) {
 							if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -592,6 +711,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tz = weathertrigger.getTimezone();
 						}
 						if (timezones.contains(tz) == false) {
+							tx.rollback();
 							return -1;
 						} else {
 							weathertrigger.setTimezone(tz);
@@ -603,22 +723,38 @@ public class RecipesManagerImpl implements RecipesManager {
 						triggerid = weathertrigger.getWtid();
 
 					} else if (triggerType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
-						if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
+						if(twitter==null) {
+							tx.rollback();
 							return -1;
 						}
-						twittertrigger.setLastCheck(System.currentTimeMillis());
-						session.save(twittertrigger);
-						session.flush();
-						triggerid = twittertrigger.getTwtid();
+						else {
+							ObjectMapper mapper = new ObjectMapper();
+							mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+							TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
+							if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
+								tx.rollback();
+								return -1;
+							}
+							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+								try {
+									twitter.showUser(twittertrigger.getUsername_sender()).getId();
+								}
+								catch (Exception e) {
+									tx.rollback();
+									return -2;
+								}
+							}
+							twittertrigger.setLastCheck(System.currentTimeMillis());
+							session.save(twittertrigger);
+							session.flush();
+							triggerid = twittertrigger.getTwtid();
+						}
 
 					} else {
 						// errore: valore non valido!
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
-
 				}
 
 				// ACTION
@@ -629,6 +765,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
 						if (calendaraction.getIngredientCode() != 21) {
+							tx.rollback();
 							return -1;
 						}
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -636,6 +773,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							try {								
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -653,6 +791,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tz = calendaraction.getTimezone();
 						}
 						if (timezones.contains(tz) == false) {
+							tx.rollback();
 							return -1;
 						} else {
 							calendaraction.setTimezone(tz);
@@ -666,11 +805,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
 						if (gmailaction.getIngredientCode() != 22) {
+							tx.rollback();
 							return -1;
 						}
 						if (gmailaction.getReceiver() != null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if (emailval.validate() == false) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -679,18 +820,35 @@ public class RecipesManagerImpl implements RecipesManager {
 						session.flush();
 
 					} else if (actionType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
-						if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+						if(twitter==null) {
+							tx.rollback();
 							return -1;
 						}
-						twitteraction.setTwaid(rec.getActionid());
-						session.update(twitteraction);
-						session.flush();
+						else {
+							ObjectMapper mapper = new ObjectMapper();
+							mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+							TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+							if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+								tx.rollback();
+								return -1;
+							}
+							if(twitteraction.getDestination()!=null) {
+								try {
+									twitter.showUser(twitteraction.getDestination());
+								}
+								catch (Exception e) {
+									tx.rollback();
+									return -2;
+								}
+							}
+							twitteraction.setTwaid(rec.getActionid());
+							session.update(twitteraction);
+							session.flush();
+						}
 					} else {
 						// errore: valore non valido!
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
 				} else {
 					// the action type changed
@@ -711,7 +869,8 @@ public class RecipesManagerImpl implements RecipesManager {
 						session.flush();
 					} else {
 						// type non valido
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
 
 					// ACTION to add
@@ -720,6 +879,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarAction calendaraction = mapper.readValue(act, CalendarAction.class);
 						if (calendaraction.getIngredientCode() != 21) {
+							tx.rollback();
 							return -1;
 						}
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -727,6 +887,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							try {								
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -744,6 +905,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tz = calendaraction.getTimezone();
 						}
 						if (timezones.contains(tz) == false) {
+							tx.rollback();
 							return -1;
 						} else {
 							calendaraction.setTimezone(tz);
@@ -757,11 +919,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						GmailAction gmailaction = mapper.readValue(act, GmailAction.class);
 						if (gmailaction.getIngredientCode() != 22) {
+							tx.rollback();
 							return -1;
 						}
 						if (gmailaction.getReceiver() != null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if (emailval.validate() == false) {
+								tx.rollback();
 								return -1;
 							}
 						}
@@ -770,19 +934,36 @@ public class RecipesManagerImpl implements RecipesManager {
 						actionid = gmailaction.getGaid();
 
 					} else if (actionType.compareTo("twitter") == 0) {
-						ObjectMapper mapper = new ObjectMapper();
-						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-						TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
-						if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+						if(twitter==null) {
+							tx.rollback();
 							return -1;
 						}
-						session.save(twitteraction);
-						session.flush();
-						actionid = twitteraction.getTwaid();
+						else {
+							ObjectMapper mapper = new ObjectMapper();
+							mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+							TwitterAction twitteraction = mapper.readValue(act, TwitterAction.class);
+							if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
+								tx.rollback();
+								return -1;
+							}
+							if(twitteraction.getDestination()!=null) {
+								try {
+									twitter.showUser(twitteraction.getDestination());
+								}
+								catch (Exception e) {
+									tx.rollback();
+									return -2;
+								}
+							}
+							session.save(twitteraction);
+							session.flush();
+							actionid = twitteraction.getTwaid();
+						}						
 
 					} else {
 						// errore: valore non valido!
-						flag = -1;
+						tx.rollback();
+						return -1;
 					}
 				}
 
@@ -802,7 +983,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				System.out.println(e);
+				e.printStackTrace();
 				tx.rollback();
 				return -1;
 			}

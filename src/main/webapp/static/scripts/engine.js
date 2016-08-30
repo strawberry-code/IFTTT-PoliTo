@@ -1640,7 +1640,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             {
                                 "ingredientCode": 14,
                                 "triggerType": "weather",
-                                "type": true,
+                                "type": "1",
                                 "location": idCity_customWeatherActionControllerTrigger1,
                                 "locationName": locationName_ControllerTrigger1,
                                 "ora": ora_customWeatherActionControllerTrigger1,
@@ -5137,6 +5137,11 @@ function sedingServerAllRun(loginDataSend) {
                 //alertVariable="Warning: the recipe is not memorised by server try again or go home";
                 //alertFunction ();
                 alertWarning("The recipe is not stored on our server. Please, try again.");
+                $('#recipedDescriptionModal').modal('hide');
+            }
+            else if(response == -2) {
+            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+            	 $('#recipedDescriptionModal').modal('hide');
             }
             else {
 
@@ -5219,10 +5224,15 @@ function sedingServerAllRunput(loginDataSend) {
                 //url = "#SuccessRepice";
                 //window.location.replace(url);
             }
+            else if(response == -2) {
+            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+            	 $('#recipedDescriptionModal').modal('hide');
+            }
             else {
                 //alertVariable="Warning: the recipe is not update try again or go home";
                 //alertFunction ();
                 alertWarning("The recipe is not update try again.");
+                $('#recipedDescriptionModal').modal('hide');
 
             }
 
