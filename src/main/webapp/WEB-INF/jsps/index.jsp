@@ -100,7 +100,8 @@
 					<div class="form-group">
 
 						<a href="" data-ng-click="logoutIFTTT()"> <img
-							id="IFTTTLogoON" data-ng-if="iftttLogged"
+							id="IFTTTLogoON" data-ng-if="iftttLogged" data-toggle="popover" data-placement="bottom"
+							data-trigger="hover" data-content="Click to logout from IFTTT Polito"
 							src="./static/images/logos/polito-logged-in.png" height="30"
 							width="30" />
 						</a> <img id="iftttLogoOFF" data-ng-if="!iftttLogged"
@@ -108,7 +109,8 @@
 							data-trigger="hover" data-content="Not logged in IFTTT Polito"
 							src="./static/images/logos/polito-logged-out.png" height="30"
 							width="30" /> <a href="" data-ng-click="logoutTwitter()"> <img
-							id="twitterLogoON" data-ng-if="twitterLogged"
+							id="twitterLogoON" data-ng-if="twitterLogged" data-toggle="popover" data-placement="bottom"
+							data-trigger="hover" data-content="Click to logout from Twitter"
 							src="./static/images/logos/twitter-logged-in.png" height="34"
 							width="34" />
 						</a> <span data-toggle="modal" data-ng-show="!twitterLogged"
@@ -120,7 +122,8 @@
 							src="./static/images/logos/twitter-logged-out.png" height="34"
 							width="34" />
 						</span> <a data-ng-click="logoutGoogle()"> <img id="googleLogoON"
-							data-ng-if="googleLogged"
+							data-ng-if="googleLogged" data-toggle="popover" data-placement="bottom"
+							data-trigger="hover" data-content="Click to logout from Google"
 							src="./static/images/logos/google-logged-in.png" height="30"
 							width="30" />
 						</a> <span data-toggle="modal" data-ng-show="!googleLogged"

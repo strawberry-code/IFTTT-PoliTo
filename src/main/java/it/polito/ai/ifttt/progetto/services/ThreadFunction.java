@@ -149,7 +149,7 @@ public class ThreadFunction extends Thread {
 							List<Recipes> recipes = u.getRecipes();
 							if (recipes.size() != 0) {
 								for (Recipes r : recipes) {
-									
+
 									//controllo se la ricetta e' valida
 									//altrimenti non faccio nulla
 									if(r.getValid()==true) {
@@ -159,184 +159,192 @@ public class ThreadFunction extends Thread {
 
 										if (ttype.compareTo("gmail") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
 											GmailTrigger gt = gmailManager.findGmailTriggerById(tid);
-											String subject = gt.getSubject();
-											String emailsender = gt.getSender();											
-											EmailValidator emailval = new EmailValidator(emailsender);
-											if(emailval.validate()==true) {
-												Date current = new Date(gt.getLastCheck());
-												long epoch = current.getTime()/1000;
-												String query = "in:inbox is:unread after:"+epoch;
-												if (subject != null && emailsender != null) {
-													query = query + " from:" + emailsender + " subject:'" + subject + "'";
-												} else if (subject == null && emailsender != null) {
-													query = query + " from:" + emailsender;
-												} else if (subject != null && emailsender == null) {
-													query = query + " subject:" + subject;
-												}
-												ListMessagesResponse responseMess = clientGmail.users().messages().list("me")
-														.setQ(query).execute();
-												if (responseMess.getMessages() != null) {
-													// c'è qualche messaggio
-													for (Message m : responseMess.getMessages()) {
-														List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-																ttype);
-														for (Object[] a : actions) {
-															Integer aid = (Integer) a[0];
-															String atype = (String) a[1];
-															this.executeAction(atype, aid, session, null);
-														}
+											if(gt!=null) {
+												String subject = gt.getSubject();
+												String emailsender = gt.getSender();
+												String body = "";
+												EmailValidator emailval = new EmailValidator(emailsender);
+												if(emailval.validate()==true) {
+													Date current = new Date(gt.getLastCheck());
+													long epoch = current.getTime()/1000;
+													String query = "in:inbox is:unread after:"+epoch;
+													if (subject != null && emailsender != null) {
+														query = query + " from:" + emailsender + " subject:'" + subject + "'";
+														body = "You have received an e-mail by "+emailsender+" with the following subject: "+subject;
+													} else if (subject == null && emailsender != null) {
+														query = query + " from:" + emailsender;
+														body = "You have received an e-mail by "+emailsender;
+													} else if (subject != null && emailsender == null) {
+														query = query + " subject:" + subject;
+														body = "You have received an e-mail with the following subject: "+subject;
 													}
-												}
-												gmailManager.setLastCheck(System.currentTimeMillis(), tid);
-											}
-
-										} else if (ttype.compareTo("calendar") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
-
-											CalendarTrigger ct = calendarManager.findCalendarTriggerById(tid);
-											if(eventList!=null) {
-												for (Event e : eventList.getItems()) {
-
-													boolean success = false;
-													boolean firstCheck = false;
-													boolean secondCheck = false;
-
-													if (ct.getEventAction() == false) {
-														// significa event starts
-														Long diff = System.currentTimeMillis()
-																- e.getStart().getDateTime().getValue();
-														if (diff > -60000 && (ct.getLastCheck() == null
-																|| ct.getLastCheck() < (e.getStart().getDateTime().getValue()
-																		- 60000))) {
-															firstCheck = true;
-														}
-													} else if (ct.getEventAction() == true) {
-														// significa event added
-														if (ct.getLastCheck() == null
-																|| ct.getLastCheck() < e.getCreated().getValue()) {
-															// se l'ultima data di
-															// controllo e' minore della
-															// data di
-															// creazione di un evento,
-															// allora scatena l'azione
-															secondCheck = true;
-														}
-													}
-
-													if (firstCheck == true || secondCheck == true) {
-														String line = "";
-														if (firstCheck == true) {
-															line = "The following event is starting";
-														} else if (secondCheck == true) {
-															line = "The following event was added";
-														}
-														String location = "";
-														String description = "";
-														String title = "";
-
-														if (e.getLocation() != null) {
-															if (ct.getLocation() != null && ct.getDescription() == null
-																	&& ct.getTitle() == null) {
-																if (ct.getLocation().compareTo(e.getLocation()) == 0) {
-																	success = true;
-																	location = e.getLocation();
-																}
-															} else if (ct.getLocation() != null && ct.getDescription() != null
-																	&& ct.getTitle() == null) {
-																if (e.getDescription() != null) {
-																	if (ct.getLocation().compareTo(e.getLocation()) == 0
-																			&& ct.getDescription()
-																					.compareTo(e.getDescription()) == 0) {
-																		success = true;
-																		location = e.getLocation();
-																		description = e.getDescription();
-																	}
-																}
-															} else if (ct.getLocation() != null && ct.getDescription() == null
-																	&& ct.getTitle() != null) {
-																if (e.getSummary() != null) {
-																	if (ct.getLocation().compareTo(e.getLocation()) == 0
-																			&& ct.getTitle().compareTo(e.getSummary()) == 0) {
-																		success = true;
-																		location = e.getLocation();
-																		title = e.getSummary();
-																	}
-																}
-															} else if (ct.getLocation() != null && ct.getDescription() != null
-																	&& ct.getTitle() != null) {
-																if (e.getDescription() != null && e.getSummary() != null) {
-																	if (ct.getLocation().compareTo(e.getLocation()) == 0
-																			&& ct.getTitle().compareTo(e.getSummary()) == 0
-																			&& ct.getDescription()
-																					.compareTo(e.getDescription()) == 0) {
-																		success = true;
-																		location = e.getLocation();
-																		description = e.getDescription();
-																		title = e.getSummary();
-																	}
-																}
-															}
-														} else if (ct.getLocation() == null && ct.getDescription() != null
-																&& ct.getTitle() == null) {
-															if (e.getDescription() != null) {
-																if (ct.getDescription().compareTo(e.getDescription()) == 0) {
-																	success = true;
-																	description = e.getDescription();
-																}
-															}
-														} else if (ct.getLocation() == null && ct.getDescription() == null
-																&& ct.getTitle() != null) {
-															if (e.getSummary() != null) {
-																if (ct.getTitle().compareTo(e.getSummary()) == 0) {
-																	success = true;
-																	title = e.getSummary();
-																}
-															}
-														} else if (ct.getLocation() == null && ct.getDescription() != null
-																&& ct.getTitle() != null) {
-															if (e.getDescription() != null && e.getSummary() != null) {
-																if (ct.getDescription().compareTo(e.getDescription()) == 0
-																		&& ct.getTitle().compareTo(e.getSummary()) == 0) {
-																	success = true;
-																	description = e.getDescription();
-																	title = e.getSummary();
-																}
-															}
-														}
-
-														if (success == true) {
-
-															List<Object[]> actions = recipesManager
-																	.findAllActionsByTriggerId(tid, ttype);
+													ListMessagesResponse responseMess = clientGmail.users().messages().list("me")
+															.setQ(query).execute();
+													if (responseMess.getMessages() != null) {
+														// c'è qualche messaggio
+														for (Message m : responseMess.getMessages()) {
+															List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																	ttype);
 															for (Object[] a : actions) {
 																Integer aid = (Integer) a[0];
 																String atype = (String) a[1];
-
-																String body = line + System.lineSeparator();
-																
-																Date date = new Date();
-																date.setTime(e.getStart().getDateTime().getValue());
-																SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-																String DateToStr = format.format(date);																
-
-																body = body + "Date: "
-																		+ DateToStr + ": "
-																		+ System.lineSeparator();
-																if (title.compareTo("") != 0)
-																	body = body + "Title: " + title + System.lineSeparator();
-																if (description.compareTo("") != 0)
-																	body = body + "Description: " + description
-																			+ System.lineSeparator();
-																if (location.compareTo("") != 0)
-																	body = body + "Location: " + location
-																			+ System.lineSeparator();
 																this.executeAction(atype, aid, session, body);
 															}
 														}
 													}
+													gmailManager.setLastCheck(System.currentTimeMillis(), tid);
 												}
-											}										
-											calendarManager.setLastCheck(System.currentTimeMillis(), tid);
+											}											
 
+										} else if (ttype.compareTo("calendar") == 0 && u.getGoogleToken() != null && u.getGoogleExpire() != null) {
+
+											CalendarTrigger ct = calendarManager.findCalendarTriggerById(tid);
+											if(ct!=null) {
+												if(eventList!=null) {
+													for (Event e : eventList.getItems()) {
+
+														boolean success = false;
+														boolean firstCheck = false;
+														boolean secondCheck = false;
+
+														if (ct.getEventAction() == false) {
+															// significa event starts
+															Long diff = System.currentTimeMillis()
+																	- e.getStart().getDateTime().getValue();
+															if (diff > -60000 && (ct.getLastCheck() == null
+																	|| ct.getLastCheck() < (e.getStart().getDateTime().getValue()
+																			- 60000))) {
+																firstCheck = true;
+															}
+														} else if (ct.getEventAction() == true) {
+															// significa event added
+															if (ct.getLastCheck() == null
+																	|| ct.getLastCheck() < e.getCreated().getValue()) {
+																// se l'ultima data di
+																// controllo e' minore della
+																// data di
+																// creazione di un evento,
+																// allora scatena l'azione
+																secondCheck = true;
+															}
+														}
+
+														if (firstCheck == true || secondCheck == true) {
+															String line = "";
+															if (firstCheck == true) {
+																line = "The following event is starting";
+															} else if (secondCheck == true) {
+																line = "The following event was added";
+															}
+															String location = "";
+															String description = "";
+															String title = "";
+
+															if (e.getLocation() != null) {
+																if (ct.getLocation() != null && ct.getDescription() == null
+																		&& ct.getTitle() == null) {
+																	if (ct.getLocation().compareTo(e.getLocation()) == 0) {
+																		success = true;
+																		location = e.getLocation();
+																	}
+																} else if (ct.getLocation() != null && ct.getDescription() != null
+																		&& ct.getTitle() == null) {
+																	if (e.getDescription() != null) {
+																		if (ct.getLocation().compareTo(e.getLocation()) == 0
+																				&& ct.getDescription()
+																						.compareTo(e.getDescription()) == 0) {
+																			success = true;
+																			location = e.getLocation();
+																			description = e.getDescription();
+																		}
+																	}
+																} else if (ct.getLocation() != null && ct.getDescription() == null
+																		&& ct.getTitle() != null) {
+																	if (e.getSummary() != null) {
+																		if (ct.getLocation().compareTo(e.getLocation()) == 0
+																				&& ct.getTitle().compareTo(e.getSummary()) == 0) {
+																			success = true;
+																			location = e.getLocation();
+																			title = e.getSummary();
+																		}
+																	}
+																} else if (ct.getLocation() != null && ct.getDescription() != null
+																		&& ct.getTitle() != null) {
+																	if (e.getDescription() != null && e.getSummary() != null) {
+																		if (ct.getLocation().compareTo(e.getLocation()) == 0
+																				&& ct.getTitle().compareTo(e.getSummary()) == 0
+																				&& ct.getDescription()
+																						.compareTo(e.getDescription()) == 0) {
+																			success = true;
+																			location = e.getLocation();
+																			description = e.getDescription();
+																			title = e.getSummary();
+																		}
+																	}
+																}
+															} else if (ct.getLocation() == null && ct.getDescription() != null
+																	&& ct.getTitle() == null) {
+																if (e.getDescription() != null) {
+																	if (ct.getDescription().compareTo(e.getDescription()) == 0) {
+																		success = true;
+																		description = e.getDescription();
+																	}
+																}
+															} else if (ct.getLocation() == null && ct.getDescription() == null
+																	&& ct.getTitle() != null) {
+																if (e.getSummary() != null) {
+																	if (ct.getTitle().compareTo(e.getSummary()) == 0) {
+																		success = true;
+																		title = e.getSummary();
+																	}
+																}
+															} else if (ct.getLocation() == null && ct.getDescription() != null
+																	&& ct.getTitle() != null) {
+																if (e.getDescription() != null && e.getSummary() != null) {
+																	if (ct.getDescription().compareTo(e.getDescription()) == 0
+																			&& ct.getTitle().compareTo(e.getSummary()) == 0) {
+																		success = true;
+																		description = e.getDescription();
+																		title = e.getSummary();
+																	}
+																}
+															}
+
+															if (success == true) {
+
+																List<Object[]> actions = recipesManager
+																		.findAllActionsByTriggerId(tid, ttype);
+																for (Object[] a : actions) {
+																	Integer aid = (Integer) a[0];
+																	String atype = (String) a[1];
+
+																	String body = line + System.lineSeparator();
+																	
+																	Date date = new Date();
+																	date.setTime(e.getStart().getDateTime().getValue());
+																	SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+																	String DateToStr = format.format(date);																
+
+																	body = body + "Date: "
+																			+ DateToStr + ": "
+																			+ System.lineSeparator();
+																	if (title.compareTo("") != 0)
+																		body = body + "Title: " + title + System.lineSeparator();
+																	if (description.compareTo("") != 0)
+																		body = body + "Description: " + description
+																				+ System.lineSeparator();
+																	if (location.compareTo("") != 0)
+																		body = body + "Location: " + location
+																				+ System.lineSeparator();
+																	this.executeAction(atype, aid, session, body);
+																}
+															}
+														}
+													}
+												}										
+												calendarManager.setLastCheck(System.currentTimeMillis(), tid);
+											}
+											
 										} else if (ttype.compareTo("weather") == 0) {
 											// ricevo tutti i dati del tempo
 											// logica:
@@ -358,182 +366,227 @@ public class ThreadFunction extends Thread {
 											OpenWeatherMap owm = new OpenWeatherMap(apiKey);
 											owm.setUnits(Units.METRIC);
 											WeatherTrigger wt = weatherManager.findWeatherTriggerById(tid);
+											if(wt!=null) {
+												if (wt.getType() == 1) {
+													// ora dell'utente
+													if (wt.getLastCheck() == null
+															|| (System.currentTimeMillis() - wt.getLastCheck()) > 86400000) {
+														String hour = wt.getOra();
+														String timezone = wt.getTimezone();
+														DateFormat formatter = new SimpleDateFormat("HH:mm");
+														try {
 
-											if (wt.getType() == 1) {
-												// ora dell'utente
-												if (wt.getLastCheck() == null
-														|| (System.currentTimeMillis() - wt.getLastCheck()) > 86400000) {
-													String hour = wt.getOra();
-													String timezone = wt.getTimezone();
-													DateFormat formatter = new SimpleDateFormat("HH:mm");
-													try {
+															formatter.setTimeZone(TimeZone.getTimeZone(timezone));
+															Date date = formatter.parse(hour);
+															// Date tomorrow =
+															// this.addDays(date,
+															// 1);
+															// Long timebd =
+															// tomorrow.getTime();
+															Long timecur = System.currentTimeMillis();
+															Long diff = timecur - date.getTime();
+															// margine deve essere
+															// minore del tempo di
+															// attesa del ciclo
+															if (diff > -60000) {
+																List<Object[]> actions = recipesManager
+																		.findAllActionsByTriggerId(tid, ttype);
+																for (Object[] a : actions) {
+																	Integer aid = (Integer) a[0];
+																	String atype = (String) a[1];
+																	DailyForecast df = owm.dailyForecastByCityCode(
+																			wt.getLocation(), (byte) 2);
+																	if (df.isValid()) {
+																		Date date1 = new Date();
+																		date1.setTime(df.getForecastInstance(1).getDateTime().getTime());
+																		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+																		String DateToStr = format.format(date1);	
+																		
+																		String body = "The temperature in "
+																				+ df.getCityInstance().getCityName() + " at "
+																				+ DateToStr
+																				+ " is: " + System.lineSeparator();
+																		body = body + "Morning temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getMorningTemperature())
+																				+ " °C" + System.lineSeparator();
+																		body = body + "Day temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getDayTemperature())
+																				+ " °C" + System.lineSeparator();
+																		body = body + "Evening temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getEveningTemperature())
+																				+ " °C" + System.lineSeparator();
+																		body = body + "Night temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getNightTemperature())
+																				+ " °C" + System.lineSeparator();
+																		body = body + "Maximum temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getMaximumTemperature())
+																				+ " °C" + System.lineSeparator();
+																		body = body + "Minimum temperature :" + String.format(
+																				"%.02f",
+																				df.getForecastInstance(1)
+																						.getTemperatureInstance()
+																						.getMinimumTemperature())
+																				+ " °C" + System.lineSeparator();
 
-														formatter.setTimeZone(TimeZone.getTimeZone(timezone));
-														Date date = formatter.parse(hour);
-														// Date tomorrow =
-														// this.addDays(date,
-														// 1);
-														// Long timebd =
-														// tomorrow.getTime();
-														Long timecur = System.currentTimeMillis();
-														Long diff = timecur - date.getTime();
-														// margine deve essere
-														// minore del tempo di
-														// attesa del ciclo
-														if (diff > -60000) {
-															List<Object[]> actions = recipesManager
-																	.findAllActionsByTriggerId(tid, ttype);
-															for (Object[] a : actions) {
-																Integer aid = (Integer) a[0];
-																String atype = (String) a[1];
-																DailyForecast df = owm.dailyForecastByCityCode(
-																		wt.getLocation(), (byte) 2);
-																if (df.isValid()) {
-																	Date date1 = new Date();
-																	date1.setTime(df.getForecastInstance(1).getDateTime().getTime());
-																	SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-																	String DateToStr = format.format(date1);	
-																	
-																	String body = "The temperature in "
-																			+ df.getCityInstance().getCityName() + " at "
-																			+ DateToStr
-																			+ " is: " + System.lineSeparator();
-																	body = body + "Morning temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getMorningTemperature())
-																			+ " °C" + System.lineSeparator();
-																	body = body + "Day temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getDayTemperature())
-																			+ " °C" + System.lineSeparator();
-																	body = body + "Evening temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getEveningTemperature())
-																			+ " °C" + System.lineSeparator();
-																	body = body + "Night temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getNightTemperature())
-																			+ " °C" + System.lineSeparator();
-																	body = body + "Maximum temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getMaximumTemperature())
-																			+ " °C" + System.lineSeparator();
-																	body = body + "Minimum temperature :" + String.format(
-																			"%.02f",
-																			df.getForecastInstance(1)
-																					.getTemperatureInstance()
-																					.getMinimumTemperature())
-																			+ " °C" + System.lineSeparator();
+																		body = body + "Weather description :"
+																				+ df.getForecastInstance(1)
+																						.getWeatherInstance(0)
+																						.getWeatherDescription()
+																				+ System.lineSeparator();
 
-																	body = body + "Weather description :"
-																			+ df.getForecastInstance(1)
-																					.getWeatherInstance(0)
-																					.getWeatherDescription()
-																			+ System.lineSeparator();
+																		body = body + "Humidity percentage :"
+																				+ df.getForecastInstance(1).getHumidity() + " %"
+																				+ System.lineSeparator();
 
-																	body = body + "Humidity percentage :"
-																			+ df.getForecastInstance(1).getHumidity() + " %"
-																			+ System.lineSeparator();
+																		body = body + "Pressure percentage :"
+																				+ df.getForecastInstance(1).getPressure()
+																				+ " hPa" + System.lineSeparator();
 
-																	body = body + "Pressure percentage :"
-																			+ df.getForecastInstance(1).getPressure()
-																			+ " hPa" + System.lineSeparator();
+																		body = body + "Wind speed :"
+																				+ df.getForecastInstance(1).getWindSpeed()
+																				+ " miles/hour" + System.lineSeparator();
 
-																	body = body + "Wind speed :"
-																			+ df.getForecastInstance(1).getWindSpeed()
-																			+ " miles/hour" + System.lineSeparator();
+																		this.executeAction(atype, aid, session, body);
+																		weatherManager.setLastCheck(System.currentTimeMillis(),
+																				tid);
+																	}
+																}
+															}
 
+														} catch (ParseException e) {
+															e.printStackTrace();
+														}
+													}
+
+												} else if (wt.getType() == 2) {
+													// sunrise/sunset
+													CurrentWeather cwd = owm.currentWeatherByCityCode(wt.getLocation());
+													if (cwd.isValid()) {
+														if (cwd.hasDateTime()) {
+															Long current = System.currentTimeMillis();
+															// Long current =
+															// cwd.getDateTime().getTime();
+															Long sunrise = owm.currentWeatherByCityCode(wt.getLocation())
+																	.getSysInstance().getSunriseTime().getTime();
+															Long sunset = owm.currentWeatherByCityCode(wt.getLocation())
+																	.getSysInstance().getSunsetTime().getTime();
+
+															String body = "Sunrise event is happening in "+wt.getLocationName();
+															if ((wt.getLastCheck() == null
+																	|| wt.getLastCheck() < (sunrise - 60000))
+																	&& (current - sunrise) > -60000) {
+																List<Object[]> actions = recipesManager
+																		.findAllActionsByTriggerId(tid, ttype);
+																for (Object[] a : actions) {
+																	Integer aid = (Integer) a[0];
+																	String atype = (String) a[1];
 																	this.executeAction(atype, aid, session, body);
-																	weatherManager.setLastCheck(System.currentTimeMillis(),
-																			tid);
+																}
+															}
+
+															body = "Sunset event is happening in "+wt.getLocationName();
+															if ((wt.getLastCheck() == null
+																	|| wt.getLastCheck() < (sunset - 60000))
+																	&& (current - sunset) > -60000) {
+																List<Object[]> actions = recipesManager
+																		.findAllActionsByTriggerId(tid, ttype);
+																for (Object[] a : actions) {
+																	Integer aid = (Integer) a[0];
+																	String atype = (String) a[1];
+																	this.executeAction(atype, aid, session, body);
+																}
+															}
+														}
+													}
+													weatherManager.setLastCheck(System.currentTimeMillis(), tid);
+
+												} else if (wt.getType() == 3) {
+													// codice del tempo
+
+													boolean onetimesuccess = false;
+													boolean periodsuccess = false;
+
+													CurrentWeather cwd = owm.currentWeatherByCityCode(wt.getLocation());
+													if (cwd.isValid()) {
+
+														if (wt.getPeriod() == null) {
+															// l'utente vuole che
+															// l'evento accada una ed
+															// una sola volta!
+															// eseguo e setto period =
+															// -1
+															onetimesuccess = true;
+														} else {
+															// ogni tot definito
+															// dall'utente
+															// controllo che non sia -1,
+															// perche' esso si
+															// riferisce ad azioni da
+															// eseguire una sola volta
+															if (wt.getPeriod() != -1) {
+																if (wt.getLastCheck() == null
+																		|| (System.currentTimeMillis() - wt.getLastCheck()) > wt
+																				.getPeriod()) {
+																	periodsuccess = true;
 																}
 															}
 														}
 
-													} catch (ParseException e) {
-														// TODO Auto-generated
-														// catch
-														// block
-														e.printStackTrace();
-													}
-												}
-
-											} else if (wt.getType() == 2) {
-												// sunrise/sunset
-												CurrentWeather cwd = owm.currentWeatherByCityCode(wt.getLocation());
-												if (cwd.isValid()) {
-													if (cwd.hasDateTime()) {
-														Long current = System.currentTimeMillis();
-														// Long current =
-														// cwd.getDateTime().getTime();
-														Long sunrise = owm.currentWeatherByCityCode(wt.getLocation())
-																.getSysInstance().getSunriseTime().getTime();
-														Long sunset = owm.currentWeatherByCityCode(wt.getLocation())
-																.getSysInstance().getSunsetTime().getTime();
-
-														String body = "Sunrise Event is happening";
-														if ((wt.getLastCheck() == null
-																|| wt.getLastCheck() < (sunrise - 60000))
-																&& (current - sunrise) > -60000) {
-															List<Object[]> actions = recipesManager
-																	.findAllActionsByTriggerId(tid, ttype);
-															for (Object[] a : actions) {
-																Integer aid = (Integer) a[0];
-																String atype = (String) a[1];
-																this.executeAction(atype, aid, session, body);
-															}
-														}
-
-														body = "Sunset Event is happening";
-														if ((wt.getLastCheck() == null
-																|| wt.getLastCheck() < (sunset - 60000))
-																&& (current - sunset) > -60000) {
-															List<Object[]> actions = recipesManager
-																	.findAllActionsByTriggerId(tid, ttype);
-															for (Object[] a : actions) {
-																Integer aid = (Integer) a[0];
-																String atype = (String) a[1];
-																this.executeAction(atype, aid, session, body);
+														if (onetimesuccess == true || periodsuccess == true) {
+															if (cwd.getWeatherInstance(0).hasWeatherCode()) {
+																if (cwd.getWeatherInstance(0).getWeatherCode() == wt
+																		.getTempo()) {
+																	List<Object[]> actions = recipesManager
+																			.findAllActionsByTriggerId(tid, ttype);
+																	for (Object[] a : actions) {
+																		Integer aid = (Integer) a[0];
+																		String atype = (String) a[1];
+																		String body = "Weather conditions in "
+																				+ cwd.getCityName() + " in this moment: "
+																				+ cwd.getWeatherInstance(0)
+																						.getWeatherDescription();
+																		this.executeAction(atype, aid, session, body);
+																		if (onetimesuccess == true)
+																			weatherManager.setPeriod((long) -1, tid);
+																		else if (periodsuccess == true)
+																			weatherManager.setLastCheck(
+																					System.currentTimeMillis(), tid);
+																	}
+																}
 															}
 														}
 													}
-												}
-												weatherManager.setLastCheck(System.currentTimeMillis(), tid);
+												} else if (wt.getType() == 4) {
+													// th min e max
 
-											} else if (wt.getType() == 3) {
-												// codice del tempo
-
-												boolean onetimesuccess = false;
-												boolean periodsuccess = false;
-
-												CurrentWeather cwd = owm.currentWeatherByCityCode(wt.getLocation());
-												if (cwd.isValid()) {
+													boolean onetimesuccess = false;
+													boolean periodsuccess = false;
 
 													if (wt.getPeriod() == null) {
-														// l'utente vuole che
-														// l'evento accada una ed
-														// una sola volta!
-														// eseguo e setto period =
-														// -1
+														// l'utente vuole che l'evento
+														// accada una ed una sola volta!
+														// eseguo e setto period = -1
 														onetimesuccess = true;
+
 													} else {
-														// ogni tot definito
-														// dall'utente
-														// controllo che non sia -1,
-														// perche' esso si
-														// riferisce ad azioni da
-														// eseguire una sola volta
 														if (wt.getPeriod() != -1) {
+															// ogni tot definito
+															// dall'utente
 															if (wt.getLastCheck() == null
 																	|| (System.currentTimeMillis() - wt.getLastCheck()) > wt
 																			.getPeriod()) {
@@ -543,323 +596,267 @@ public class ThreadFunction extends Thread {
 													}
 
 													if (onetimesuccess == true || periodsuccess == true) {
-														if (cwd.getWeatherInstance(0).hasWeatherCode()) {
-															if (cwd.getWeatherInstance(0).getWeatherCode() == wt
-																	.getTempo()) {
-																List<Object[]> actions = recipesManager
-																		.findAllActionsByTriggerId(tid, ttype);
-																for (Object[] a : actions) {
-																	Integer aid = (Integer) a[0];
-																	String atype = (String) a[1];
-																	String body = "Weather conditions in "
-																			+ cwd.getCityName() + " in this moment: "
-																			+ cwd.getWeatherInstance(0)
-																					.getWeatherDescription();
-																	this.executeAction(atype, aid, session, body);
-																	if (onetimesuccess == true)
-																		weatherManager.setPeriod((long) -1, tid);
-																	else if (periodsuccess == true)
-																		weatherManager.setLastCheck(
-																				System.currentTimeMillis(), tid);
-																}
-															}
-														}
-													}
-												}
-											} else if (wt.getType() == 4) {
-												// th min e max
+														if (wt.getThmin() != null || wt.getThmax() != null) {
+															Integer thmin = wt.getThmin();
+															Integer thmax = wt.getThmax();
 
-												boolean onetimesuccess = false;
-												boolean periodsuccess = false;
+															CurrentWeather cwd;
+															try {
+																// dato che arriva dal
+																// client: o quello
+																// scelto
+																// dall'utente o la
+																// localita' in cui si
+																// trova
+																cwd = owm.currentWeatherByCityCode(wt.getLocation());
+																// checking data
+																// retrieval was
+																// successful or not
+																if (cwd.isValid()) {
+																	Float currentTmp = null;
+																	if (cwd.getMainInstance().hasTemperature()) {
+																		currentTmp = cwd.getMainInstance().getTemperature();
+																	}
 
-												if (wt.getPeriod() == null) {
-													// l'utente vuole che l'evento
-													// accada una ed una sola volta!
-													// eseguo e setto period = -1
-													onetimesuccess = true;
-
-												} else {
-													if (wt.getPeriod() != -1) {
-														// ogni tot definito
-														// dall'utente
-														if (wt.getLastCheck() == null
-																|| (System.currentTimeMillis() - wt.getLastCheck()) > wt
-																		.getPeriod()) {
-															periodsuccess = true;
-														}
-													}
-												}
-
-												if (onetimesuccess == true || periodsuccess == true) {
-													if (wt.getThmin() != null || wt.getThmax() != null) {
-														Integer thmin = wt.getThmin();
-														Integer thmax = wt.getThmax();
-
-														CurrentWeather cwd;
-														try {
-															// dato che arriva dal
-															// client: o quello
-															// scelto
-															// dall'utente o la
-															// localita' in cui si
-															// trova
-															cwd = owm.currentWeatherByCityCode(wt.getLocation());
-															// checking data
-															// retrieval was
-															// successful or not
-															if (cwd.isValid()) {
-																Float currentTmp = null;
-																if (cwd.getMainInstance().hasTemperature()) {
-																	currentTmp = cwd.getMainInstance().getTemperature();
-																}
-
-																if (currentTmp != null) {
-																	String body = "";
-																	if (wt.getThmin() != null && wt.getThmin()>=(-70) && wt.getThmin()<=70) {
-																		if (currentTmp < thmin) {
-																			List<Object[]> actions = recipesManager
-																					.findAllActionsByTriggerId(tid, ttype);
-																			for (Object[] a : actions) {
-																				Integer aid = (Integer) a[0];
-																				String atype = (String) a[1];
-																				body = "The current temperature in "
-																						+ cwd.getCityName()
-																						+ " is under the minimum threshold of "
-																						+ thmin + "°C: "
-																						+ String.format("%.02f",
-																								cwd.getMainInstance().getTemperature())
-																						+ " °C";
-																				this.executeAction(atype, aid, session,
-																						body);
-																				if (onetimesuccess == true)
-																					weatherManager.setPeriod((long) -1,
-																							tid);
-																				else if (periodsuccess == true)
-																					weatherManager.setLastCheck(
-																							System.currentTimeMillis(),
-																							tid);
+																	if (currentTmp != null) {
+																		String body = "";
+																		if (wt.getThmin() != null && wt.getThmin()>=(-70) && wt.getThmin()<=70) {
+																			if (currentTmp < thmin) {
+																				List<Object[]> actions = recipesManager
+																						.findAllActionsByTriggerId(tid, ttype);
+																				for (Object[] a : actions) {
+																					Integer aid = (Integer) a[0];
+																					String atype = (String) a[1];
+																					body = "The current temperature in "
+																							+ cwd.getCityName()
+																							+ " is under the minimum threshold of "
+																							+ thmin + "°C: "
+																							+ String.format("%.02f",
+																									cwd.getMainInstance().getTemperature())
+																							+ " °C";
+																					this.executeAction(atype, aid, session,
+																							body);
+																					if (onetimesuccess == true)
+																						weatherManager.setPeriod((long) -1,
+																								tid);
+																					else if (periodsuccess == true)
+																						weatherManager.setLastCheck(
+																								System.currentTimeMillis(),
+																								tid);
+																				}
 																			}
 																		}
-																	}
-																	if (wt.getThmax() != null && wt.getThmax()>=(-70) && wt.getThmax()<=70) {
-																		if (currentTmp > thmax) {
-																			List<Object[]> actions = recipesManager
-																					.findAllActionsByTriggerId(tid, ttype);
-																			for (Object[] a : actions) {
-																				Integer aid = (Integer) a[0];
-																				String atype = (String) a[1];
-																				body = "The current temperature in "
-																						+ cwd.getCityName()
-																						+ " is over the maximum threshold of "
-																						+ thmax + "°C: "
-																						+ String.format("%.02f",
-																								cwd.getMainInstance().getTemperature())
-																						+ " °C";
-																				this.executeAction(atype, aid, session,
-																						body);
-																				if (onetimesuccess == true)
-																					weatherManager.setPeriod((long) -1,
-																							tid);
-																				else if (periodsuccess == true)
-																					weatherManager.setLastCheck(
-																							System.currentTimeMillis(),
-																							tid);
+																		if (wt.getThmax() != null && wt.getThmax()>=(-70) && wt.getThmax()<=70) {
+																			if (currentTmp > thmax) {
+																				List<Object[]> actions = recipesManager
+																						.findAllActionsByTriggerId(tid, ttype);
+																				for (Object[] a : actions) {
+																					Integer aid = (Integer) a[0];
+																					String atype = (String) a[1];
+																					body = "The current temperature in "
+																							+ cwd.getCityName()
+																							+ " is over the maximum threshold of "
+																							+ thmax + "°C: "
+																							+ String.format("%.02f",
+																									cwd.getMainInstance().getTemperature())
+																							+ " °C";
+																					this.executeAction(atype, aid, session,
+																							body);
+																					if (onetimesuccess == true)
+																						weatherManager.setPeriod((long) -1,
+																								tid);
+																					else if (periodsuccess == true)
+																						weatherManager.setLastCheck(
+																								System.currentTimeMillis(),
+																								tid);
+																				}
 																			}
 																		}
 																	}
 																}
+															} catch (JSONException e) {
+																e.printStackTrace();
+															} catch (IOException e) {
+																e.printStackTrace();
 															}
-														} catch (JSONException e) {
-															// TODO
-															// Auto-generated
-															// catch block
-															e.printStackTrace();
-														} catch (IOException e) {
-															// TODO
-															// Auto-generated
-															// catch block
-															e.printStackTrace();
 														}
 													}
 												}
-											}
+											}											
 										}
 										else if(ttype.compareTo("twitter") == 0 && u.getTwitterToken()!=null 
 												&& u.getTwitterTokenSecret()!=null) {
-											TwitterTrigger tt = twitterManager.findTwitterTriggerById(tid);										
-											String username_sender = tt.getUsername_sender();
-											String hashtag_text = tt.getHashtag_text();
-											
-											if(tt.getType()!=null && tt.getType()==false) {
-												//check tweets
-												try {
-													if(username_sender!=null && hashtag_text==null) {
-														//check only user tweet
-														List<Status> tweets = twitter.getHomeTimeline();
-														for(Status t : tweets) {
-															if((tt.getLastCheck()==null || t.getCreatedAt().getTime() > tt.getLastCheck())
-																	&& t.getUser().getName().compareTo(username_sender)==0) {
-																//trigger verify, execute all actions
-																List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-																		ttype);
-																for (Object[] a : actions) {
-																	Integer aid = (Integer) a[0];
-																	String atype = (String) a[1];
-																
-																	String body = ""+username_sender+" published the following tweet:"
-																				+System.lineSeparator()+t.getText();
-																	this.executeAction(atype, aid, session, body);
-																}
-															}
-														}
-													}
-													else if(username_sender==null && hashtag_text!=null) {
-														//check only hashtag
-														QueryResult result = twitter.search(new Query(hashtag_text));
-														if(result!=null) {
-															List<Status> qrTweets = result.getTweets();
-															for (Status t : qrTweets) {
-																if(tt.getLastCheck()==null || t.getCreatedAt().getTime() > tt.getLastCheck()) {
-																	//trigger verify, execute all relative actions
+											TwitterTrigger tt = twitterManager.findTwitterTriggerById(tid);	
+											if(tt!=null) {
+												String username_sender = tt.getUsername_sender();
+												String hashtag_text = tt.getHashtag_text();
+												
+												if(tt.getType()!=null && tt.getType()==false) {
+													//check tweets
+													try {
+														if(username_sender!=null && hashtag_text==null) {
+															//check only user tweet
+															List<Status> tweets = twitter.getHomeTimeline();
+															for(Status t : tweets) {
+																if((tt.getLastCheck()==null || t.getCreatedAt().getTime() > tt.getLastCheck())
+																		&& t.getUser().getName().compareTo(username_sender)==0) {
+																	//trigger verify, execute all actions
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																			ttype);
 																	for (Object[] a : actions) {
 																		Integer aid = (Integer) a[0];
 																		String atype = (String) a[1];
 																	
-																		String body = "The hashtag '"+hashtag_text+
-																						"' is present in the following tweet:"
+																		String body = ""+username_sender+" published the following tweet:"
 																					+System.lineSeparator()+t.getText();
 																		this.executeAction(atype, aid, session, body);
 																	}
 																}
 															}
-														}													
+														}
+														else if(username_sender==null && hashtag_text!=null) {
+															//check only hashtag
+															QueryResult result = twitter.search(new Query(hashtag_text));
+															if(result!=null) {
+																List<Status> qrTweets = result.getTweets();
+																for (Status t : qrTweets) {
+																	if(tt.getLastCheck()==null || t.getCreatedAt().getTime() > tt.getLastCheck()) {
+																		//trigger verify, execute all relative actions
+																		List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																				ttype);
+																		for (Object[] a : actions) {
+																			Integer aid = (Integer) a[0];
+																			String atype = (String) a[1];
+																		
+																			String body = "The hashtag '"+hashtag_text+
+																							"' is present in the following tweet:"
+																						+System.lineSeparator()+t.getText();
+																			this.executeAction(atype, aid, session, body);
+																		}
+																	}
+																}
+															}													
+														}
+														else if(username_sender!=null && hashtag_text!=null) {
+															//check both
+															QueryResult result = twitter.search(new Query(hashtag_text));
+															if(result!=null) {
+																List<Status> qrTweets = result.getTweets();
+																for (Status t : qrTweets) {
+																	if((tt.getLastCheck()==null || t.getCreatedAt().getTime()>tt.getLastCheck())
+																			&& t.getUser().getName().compareTo(username_sender)==0 ){
+																		//trigger verify, execute all relative actions
+																		List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																				ttype);
+																		for (Object[] a : actions) {
+																			Integer aid = (Integer) a[0];
+																			String atype = (String) a[1];
+																		
+																			String body = "The hashtag '"+hashtag_text+
+																					"' is present in the following tweet of "
+																					+ username_sender+":"+System.lineSeparator()+t.getText();
+																			this.executeAction(atype, aid, session, body);
+																		}
+																	}
+																}
+															}			
+														}
+																										
+													} catch (TwitterException e) {
+														e.printStackTrace();
 													}
-													else if(username_sender!=null && hashtag_text!=null) {
-														//check both
-														QueryResult result = twitter.search(new Query(hashtag_text));
-														if(result!=null) {
-															List<Status> qrTweets = result.getTweets();
-															for (Status t : qrTweets) {
-																if((tt.getLastCheck()==null || t.getCreatedAt().getTime()>tt.getLastCheck())
-																		&& t.getUser().getName().compareTo(username_sender)==0 ){
-																	//trigger verify, execute all relative actions
+													twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+												}
+												else if(tt.getType()!=null && tt.getType()==true) {
+													//check direct messages
+													try {
+														
+														ResponseList<DirectMessage> messages = twitter.getDirectMessages();
+														
+														if(username_sender!=null && hashtag_text==null) {
+															//check only user direct message													
+															for(DirectMessage d : messages) {														
+																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
+																		&& d.getSender().getId()==twitter.showUser(username_sender).getId()) {
+																	//trigger verify, execute all actions
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																			ttype);
 																	for (Object[] a : actions) {
 																		Integer aid = (Integer) a[0];
 																		String atype = (String) a[1];
 																	
-																		String body = "The hashtag '"+hashtag_text+
-																				"' is present in the following tweet of "
-																				+ username_sender+":"+System.lineSeparator()+t.getText();
+																		String body = ""+username_sender+" sent the following message on Twitter:"
+																					+System.lineSeparator()+d.getText();
 																		this.executeAction(atype, aid, session, body);
 																	}
-																}
+																}														
 															}
-														}			
-													}
-																									
-												} catch (TwitterException e) {
-													// TODO Auto-generated catch block
-													e.printStackTrace();
-												}
-												twitterManager.setLastCheck(System.currentTimeMillis(), tid);
-											}
-											else if(tt.getType()!=null && tt.getType()==true) {
-												//check direct messages
-												try {
-													
-													ResponseList<DirectMessage> messages = twitter.getDirectMessages();
-													
-													if(username_sender!=null && hashtag_text==null) {
-														//check only user direct message													
-														for(DirectMessage d : messages) {														
-															if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																	&& d.getSender().getId()==twitter.showUser(username_sender).getId()) {
-																//trigger verify, execute all actions
-																List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-																		ttype);
-																for (Object[] a : actions) {
-																	Integer aid = (Integer) a[0];
-																	String atype = (String) a[1];
-																
-																	String body = ""+username_sender+" sent the following message on Twitter:"
-																				+System.lineSeparator()+d.getText();
-																	this.executeAction(atype, aid, session, body);
-																}
-															}														
 														}
-													}
-													else if(username_sender==null && hashtag_text!=null) {
-														//check only hashtag
-														for(DirectMessage d : messages) {														
-															if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																	&& d.getText().compareTo(hashtag_text)==0) {
-																//trigger verify, execute all actions
-																List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-																		ttype);
-																for (Object[] a : actions) {
-																	Integer aid = (Integer) a[0];
-																	String atype = (String) a[1];
-																
-																	String body = "A message with this text is sent to you on Twitter:"
-																				+System.lineSeparator()+d.getText();
-																	this.executeAction(atype, aid, session, body);
-																}
-															}														
-														}													
-													}
-													else if(username_sender!=null && hashtag_text!=null) {
-														//check both
-														for(DirectMessage d : messages) {														
-															if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																	&& d.getSender().getId()==twitter.showUser(username_sender).getId()
-																	&& d.getText().compareTo(hashtag_text)==0) {
-																//trigger verify, execute all actions
-																List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
-																		ttype);
-																for (Object[] a : actions) {
-																	Integer aid = (Integer) a[0];
-																	String atype = (String) a[1];
-																
-																	String body = ""+username_sender+" sent a message to you on Twitter with this text:"
-																				+System.lineSeparator()+d.getText();
-																	this.executeAction(atype, aid, session, body);
-																}
-															}														
-														}		
-													}
-																									
-												} catch (TwitterException e) {
-													// TODO Auto-generated catch block
-													e.printStackTrace();
-												}											
-												twitterManager.setLastCheck(System.currentTimeMillis(), tid);
-											}
+														else if(username_sender==null && hashtag_text!=null) {
+															//check only hashtag
+															for(DirectMessage d : messages) {														
+																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
+																		&& d.getText().compareTo(hashtag_text)==0) {
+																	//trigger verify, execute all actions
+																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																			ttype);
+																	for (Object[] a : actions) {
+																		Integer aid = (Integer) a[0];
+																		String atype = (String) a[1];
+																	
+																		String body = "A message with this text is sent to you on Twitter:"
+																					+System.lineSeparator()+d.getText();
+																		this.executeAction(atype, aid, session, body);
+																	}
+																}														
+															}													
+														}
+														else if(username_sender!=null && hashtag_text!=null) {
+															//check both
+															for(DirectMessage d : messages) {														
+																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
+																		&& d.getSender().getId()==twitter.showUser(username_sender).getId()
+																		&& d.getText().compareTo(hashtag_text)==0) {
+																	//trigger verify, execute all actions
+																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
+																			ttype);
+																	for (Object[] a : actions) {
+																		Integer aid = (Integer) a[0];
+																		String atype = (String) a[1];
+																	
+																		String body = ""+username_sender+" sent a message to you on Twitter with this text:"
+																					+System.lineSeparator()+d.getText();
+																		this.executeAction(atype, aid, session, body);
+																	}
+																}														
+															}		
+														}
+																										
+													} catch (TwitterException e) {
+														e.printStackTrace();
+													}											
+													twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+												}
+											}											
 										}
 									}
 									
 								}
 							}
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (MessagingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					} //FINE check tokens
 				}
 			}
-
-			try {
-				ThreadFunction.sleep(120000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//
+//			try {
+//				ThreadFunction.sleep(120000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 
@@ -932,7 +929,6 @@ public class ThreadFunction extends Thread {
 						String s = sdf.format(parseDate(ca.getStartDate(), tz));
 						d = sdf.parse(s);
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					startDateTime = new DateTime(d);
@@ -952,7 +948,6 @@ public class ThreadFunction extends Thread {
 			}
 			catch(Exception e) {
 				//try-catch to handle incorrect date
-				//TODO: handle the exception: ad esempio mettendo la data corrente
 				System.out.println(e.getMessage());
 			}
 			

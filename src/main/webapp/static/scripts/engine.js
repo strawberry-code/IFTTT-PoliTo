@@ -1436,7 +1436,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
             ).error(function () {
                     //alertVariable = "Warning: there are been some errors";
                     //alertFunction();
-                    alertError("An unknown error occurred. (code: 338");
+                    alertError("An unknown error occurred. (code: 338)");
                     //alert("error");
                 })
                 .success(function (response) {
@@ -2100,7 +2100,7 @@ iftttApp.controller('createAccountController', ['$scope',
                             if (response == 2) {
                                 //alertVariable = "Warning: email already exist";
                                 //alertFunction();
-                                alertWarning("This username already exists.");
+                                alertWarning("This email already exists.");
 
 
                             }
