@@ -4440,9 +4440,9 @@ iftttApp.controller('action1TwitterController', ['$scope',
             var subject;
 
 
-            if ($scope.checkedSubject == true && twitterLogin == true) {
+            if (twitterLogin == true) {
 
-                if ($scope.checkedSubject == true) {
+                if (true) {
                     if (angular.isDefined($scope.action1TwitterInput)) {
                         if (angular.isDefined($scope.action1TwitterInput.subjectReceive)) {
                             subject = $scope.action1TwitterInput.subjectReceive;
