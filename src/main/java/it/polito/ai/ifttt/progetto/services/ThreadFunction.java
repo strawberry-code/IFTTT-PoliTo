@@ -167,7 +167,7 @@ public class ThreadFunction extends Thread {
 												if(emailval.validate()==true) {
 													Date current = new Date(gt.getLastCheck());
 													long epoch = current.getTime()/1000;
-													String query = "in:inbox is:unread after:"+epoch;
+													String query = "in:inbox after:"+epoch;
 													if (subject != null && emailsender != null) {
 														query = query + " from:" + emailsender + " subject:'" + subject + "'";
 														body = "You have received an e-mail by "+emailsender+" with the following subject: "+subject;
