@@ -209,13 +209,15 @@ public class LoginManagerImpl implements LoginManager {
 			Query query = session.createQuery(hql);
 			query.setString("n", username);
 			users = query.list();
-		} finally {
-			if (session != null) {
+		} catch(Exception e){
+			return null;
+		}finally {
+			if (session != null ) {
 				// close session in any case
 				session.close();
 			}
 		}
-		if (users.size() == 0) {
+		if ( users==null || users.size() == 0 ) {
 			return null;
 		}
 		return users.get(0);
