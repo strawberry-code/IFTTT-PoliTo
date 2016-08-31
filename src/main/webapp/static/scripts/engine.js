@@ -363,7 +363,7 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: './static/innerPages/passwordChange.html',
         controller: 'passwordChangeController'
     });
-    
+
     $routeProvider.when('/index/forgotPassword', {
         templateUrl: './static/innerPages/forgotPassword.html',
         controller: 'forgotPasswordController'
@@ -2183,32 +2183,30 @@ iftttApp.controller('createAccountController', ['$scope',
     }]);
 
 
-
-
 iftttApp.controller('forgotPasswordController', ['$scope',
-                                                function ($scope) {
+    function ($scope) {
 
 
-    /**
-     * Description
-     * @method forgotPasswordFunc
-     * @param {} user
-     * @param {} email
-     * @return
-     */
-    $scope.forgotPasswordFunc = function (user, email) {
+        /**
+         * Description
+         * @method forgotPasswordFunc
+         * @param {} user
+         * @param {} email
+         * @return
+         */
+        $scope.forgotPasswordFunc = function (user, email) {
 
-        $scope.parallax = true;
+            $scope.parallax = true;
 
-        if (angular.isDefined(email) && angular.isDefined(user)) {
-          
+            if (angular.isDefined(email) && angular.isDefined(user)) {
+
                 var loginDataSend =
                 {
                     "username": user,
                     "email": email
                 };
 
-                if(consoleLogs) console.log(loginDataSend);
+                if (consoleLogs) console.log(loginDataSend);
                 setSpinner(true);
                 $.ajax
                 ({
@@ -2227,10 +2225,10 @@ iftttApp.controller('forgotPasswordController', ['$scope',
                      */
                     /**
                      code:
-		  				 0 success
-		 				-1 error
-		 				-2 invalid username
-		 				-3 invalid email
+                     0 success
+                     -1 error
+                     -2 invalid username
+                     -3 invalid email
                      **/
                     success: function (response) {
                         setSpinner(false);
@@ -2239,36 +2237,36 @@ iftttApp.controller('forgotPasswordController', ['$scope',
 
                         console.log(response);
                         switch (response) {
-                        case 0:
-                        {
-                        	 swal({
-                        	        title: "Success!",
-                        	        text: "Your new credentials has been sent by email.",
-                        	        type: "success"
-                        	        //confirmButtonColor: "#DD6B55",
-                        	        //confirmButtonText: "Yes, delete it!",
-                        	        //closeOnConfirm: true
-                        	    }, function () {
-                        	        window.location.replace('#home');
-                        	    });
-                            break;
+                            case 0:
+                            {
+                                swal({
+                                    title: "Success!",
+                                    text: "Your new credentials has been sent by email.",
+                                    type: "success"
+                                    //confirmButtonColor: "#DD6B55",
+                                    //confirmButtonText: "Yes, delete it!",
+                                    //closeOnConfirm: true
+                                }, function () {
+                                    window.location.replace('#home');
+                                });
+                                break;
+                            }
+                            case -1:
+                            {
+                                alertWarning("Some unknown error occurred. (code 2805).");
+                                break;
+                            }
+                            case -2:
+                            {
+                                alertWarning("The username is not valid.");
+                                break;
+                            }
+                            case -3:
+                            {
+                                alertWarning("The e-mail address is not valid");
+                                break;
+                            }
                         }
-                        case -1:
-                        {
-                            alertWarning("Some unknown error occurred. (code 2805).");
-                            break;
-                        }
-                        case -2:
-                        {
-                            alertWarning("The username is not valid.");
-                            break;
-                        }
-                        case -3:
-                        {
-                            alertWarning("The e-mail address is not valid");
-                            break;
-                        }
-                    }
 
 
                     },
@@ -2287,16 +2285,13 @@ iftttApp.controller('forgotPasswordController', ['$scope',
                     }
                 });
 
-        }
+            }
 
 
-    };                                           
+        };
 
 
-}]);
-
-
-
+    }]);
 
 
 //fxr>
@@ -4969,8 +4964,8 @@ iftttApp.filter('skeumorphize', function () {
 
             case 'sender':
             {
-                console.log(">>>>>> watchkey: " + watchKey + " input: " + input + " typeIngredient:" + ingredient );
-                if(ingredient > 10 && ingredient< 20) {
+                console.log(">>>>>> watchkey: " + watchKey + " input: " + input + " typeIngredient:" + ingredient);
+                if (ingredient > 10 && ingredient < 20) {
                     return input
                 } else {
                     switch (input) {
@@ -5139,9 +5134,9 @@ function sedingServerAllRun(loginDataSend) {
                 alertWarning("The recipe is not stored on our server. Please, try again.");
                 $('#recipedDescriptionModal').modal('hide');
             }
-            else if(response == -2) {
-            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
-            	 $('#recipedDescriptionModal').modal('hide');
+            else if (response == -2) {
+                alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+                $('#recipedDescriptionModal').modal('hide');
             }
             else {
 
@@ -5224,9 +5219,9 @@ function sedingServerAllRunput(loginDataSend) {
                 //url = "#SuccessRepice";
                 //window.location.replace(url);
             }
-            else if(response == -2) {
-            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
-            	 $('#recipedDescriptionModal').modal('hide');
+            else if (response == -2) {
+                alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+                $('#recipedDescriptionModal').modal('hide');
             }
             else {
                 //alertVariable="Warning: the recipe is not update try again or go home";
