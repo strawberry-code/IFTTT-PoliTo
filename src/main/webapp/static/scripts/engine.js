@@ -456,8 +456,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     case '/someErrorOccurred':
                         someErrorOccurred();
                         break;
-                    case '/emailAlreadyRegistered':
-                        emailAlreadyRegistered();
+                    case '/userAlreadyActivated':
+                    	userAlreadyActivated();
                         break;
                     case '/loginWrongPassword':
                         loginWrongPassword();
@@ -5321,7 +5321,7 @@ function someErrorOccurred() {
     });
 }
 
-function emailAlreadyRegistered() {
+function userAlreadyActivated() {
     swal({
         title: "Hey!",
         text: "This email is already registered.",

@@ -89,7 +89,7 @@ public class AuthController {
 			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
 			//attributes.addFlashAttribute("msg", "Some Errors occured");
 		} else if (code == 1) {
-			return new RedirectView("http://localhost:8080/progetto/#/emailAlreadyRegistered");
+			return new RedirectView("http://localhost:8080/progetto/#/userAlreadyActivated");
 			//attributes.addFlashAttribute("msg", "User already Registered");
 		}
 		else {
