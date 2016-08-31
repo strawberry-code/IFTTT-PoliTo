@@ -13,9 +13,8 @@
     </div>
 
     <div class="col-md-4">
-        <p>
         <h1><img src="/progetto/static/images/twitterChannel/new-tweet.png" style="width:42px;height:42px;border:0;"/>
-            Post a new tweet</h1></p>
+            Post a new tweet</h1>
         <hr>
         <form id="gmail-form" role="form" name="form" data-ng-controller="action1TwitterController" novalidate>
 
@@ -40,28 +39,35 @@
 
 
             <div>
-                <a type="submit" class="btn btn-danger pull-left animate-if" href="#allActions"
+                <a type="submit" class="btn btn-danger pull-left animate-if"
+                   href="#allActions"
                    data-ng-show="!modifyButton && !importRecipe"
                 >Cancel</a>
 
-                <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
+                <a type="submit" class="btn btn-danger pull-left animate-if"
+                   href="#choseModify"
                    data-ng-show="modifyButton && !importRecipe"
                 >Cancel</a>
 
 
-                <a type="submit" class="btn btn-danger pull-left animate-if" data-ng-click="backfunctionActionPuclicRecipe()"
+                <a type="submit" class="btn btn-danger pull-left animate-if"
+                   data-ng-click="backfunctionActionPuclicRecipe()"
                    data-ng-show="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
-                <a data-ng-disabled="!checkedSubject" type="submit"
-                   class="btn btn-primary pull-right btn_next6 animate-if" data-ng-click="twitterAction1func()"
+                <a data-ng-disabled="!checkedSubject"
+                   type="submit"
+                   class="btn btn-primary pull-right btn_next6 animate-if"
+                   data-ng-click="twitterAction1func()"
                    data-ng-show="!modifyButton"
                 >Submit</a>
 
 
-                <a data-ng-disabled="!checkedSubject" type="submit"
-                   class="btn btn-primary pull-right btn_next6 animate-if" data-ng-click="twitterAction1func()"
+                <a data-ng-disabled="!checkedSubject"
+                   type="submit"
+                   class="btn btn-primary pull-right btn_next6 animate-if"
+                   data-ng-click="twitterAction1func()"
                    data-ng-show="modifyButton"
                 >Submit</a>
 
