@@ -5324,7 +5324,7 @@ function someErrorOccurred() {
 function userAlreadyActivated() {
     swal({
         title: "Hey!",
-        text: "This email is already registered.",
+        text: "This user is already activated.",
         type: "warning"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
