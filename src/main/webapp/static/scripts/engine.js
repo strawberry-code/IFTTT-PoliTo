@@ -4443,11 +4443,11 @@ iftttApp.controller('action1TwitterController', ['$scope',
                             subject = $scope.action1TwitterInput.subjectReceive;
                         }
                         else {
-                            subject = "";
+                            subject = null;
                         }
                     }
                     else {
-                        subject = "";
+                        subject = null;
                     }
 
                 }
