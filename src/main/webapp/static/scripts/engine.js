@@ -5432,7 +5432,6 @@ function timezoneLiteral(timezoneBad) {
         'America/Tijuana': '(UTC-08:00) Tijuana',
         'US/Arizona': '(UTC-07:00) Arizona',
         'America/Chihuahua': '(UTC-07:00) Chihuahua',
-        'America/Chihuahua': '(UTC-07:00) La Paz',
         'America/Mazatlan': '(UTC-07:00) Mazatlan',
         'US/Mountain': '(UTC-07:00) Mountain Time (US &amp; Canada)',
         'America/Managua': '(UTC-06:00) Central America',
