@@ -411,37 +411,37 @@ public class ThreadFunction extends Thread {
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMorningTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Day temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getDayTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Evening temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getEveningTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Night temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getNightTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Maximum temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMaximumTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Minimum temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMinimumTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 
 																		body = body + "Weather description :"
 																				+ df.getForecastInstance(1)
@@ -630,10 +630,10 @@ public class ThreadFunction extends Thread {
 																					body = "The current temperature in "
 																							+ cwd.getCityName()
 																							+ " is under the minimum threshold of "
-																							+ thmin + "ï¿½C: "
+																							+ thmin + "°C: "
 																							+ String.format("%.02f",
 																									cwd.getMainInstance().getTemperature())
-																							+ " ï¿½C";
+																							+ " °C";
 																					this.executeAction(atype, aid, session,
 																							body);
 																					if (onetimesuccess == true)
@@ -656,10 +656,10 @@ public class ThreadFunction extends Thread {
 																					body = "The current temperature in "
 																							+ cwd.getCityName()
 																							+ " is over the maximum threshold of "
-																							+ thmax + "ï¿½C: "
+																							+ thmax + "°C: "
 																							+ String.format("%.02f",
 																									cwd.getMainInstance().getTemperature())
-																							+ " ï¿½C";
+																							+ " °C";
 																					this.executeAction(atype, aid, session,
 																							body);
 																					if (onetimesuccess == true)
@@ -776,21 +776,10 @@ public class ThreadFunction extends Thread {
 														if(username_sender!=null && hashtag_text==null) {
 															//check only user direct message													
 															for(DirectMessage d : messages) {	
-																
-																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())) {
-																System.out.println(">>>>>>>>>>>>> "+d.getSenderScreenName());
-																System.out.println(">>>>>>>>>>>>> "+username_sender);
-																System.out.println(">>>>>>>>>>>>> "+ d.getSender().getId());
-																System.out.println(">>>>>>>>>>>>> "+ twitter.showUser(username_sender).getId());
-																}
-																
+																																
 																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
 																		&& d.getSenderScreenName().compareTo(username_sender)==0) {
 																	//trigger verify, execute all actions
-//																	System.out.println(">>>>>>>>>>>>> "+d.getSenderScreenName());
-//																	System.out.println(">>>>>>>>>>>>> "+username_sender);
-//																	System.out.println(">>>>>>>>>>>>> "+ d.getSender().getId());
-//																	System.out.println(">>>>>>>>>>>>> "+ twitter.showUser(username_sender).getId());
 																	
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																			ttype);
