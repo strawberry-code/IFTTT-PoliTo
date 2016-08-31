@@ -1377,10 +1377,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             $scope.userRecipes = response.data;
 
                             var tmp = 0;
-                            $scope.userRecipes.forEach(function (element) {
-                                element.index = tmp;
-                                tmp++;
-                            });
+                            if( $scope.userRecipes != null) {
+                                $scope.userRecipes.forEach(function (element) {
+                                    element.index = tmp;
+                                    tmp++;
+                                });
+                            }
+
 
 
                             /*  *************/
@@ -1999,10 +2002,12 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
-                    $scope.userRecipes.forEach(function (element) {
-                        element.index = tmp;
-                        tmp++;
-                    });
+                    if( $scope.userRecipes != null) {
+                        $scope.userRecipes.forEach(function (element) {
+                            element.index = tmp;
+                            tmp++;
+                        });
+                    }
 
                 },
                 function error(response) {
