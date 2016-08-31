@@ -119,7 +119,13 @@ public class DataRestController {
 	List<recipeJsonClass> getRecipes() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
+		if(user==null){
+			return null;
+		}
 		List<Recipes> recipes = user.getRecipes();
+		if(recipes==null){
+			return null;
+		}
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		for (Recipes r : recipes) {
 			recipeJsonClass ricettaJson = new recipeJsonClass();
