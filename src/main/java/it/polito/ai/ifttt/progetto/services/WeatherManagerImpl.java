@@ -21,6 +21,8 @@ public class WeatherManagerImpl implements WeatherManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.WeatherTrigger";
 			Query query = session.createQuery(hql);
 			weathertrigger = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -38,6 +40,8 @@ public class WeatherManagerImpl implements WeatherManager {
 		WeatherTrigger weathertrigger = null;
 		try {
 			weathertrigger = session.get(WeatherTrigger.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -58,6 +62,8 @@ public class WeatherManagerImpl implements WeatherManager {
 			weathertrigger.setLastCheck(date);
 			session.flush();
 			session.update(weathertrigger);
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -75,6 +81,8 @@ public class WeatherManagerImpl implements WeatherManager {
 			weathertrigger.setPeriod(val);
 			session.flush();
 			session.update(weathertrigger);
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case

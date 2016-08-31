@@ -77,6 +77,8 @@ public class RecipesManagerImpl implements RecipesManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.Recipes";
 			Query query = session.createQuery(hql);
 			recipes = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -94,6 +96,8 @@ public class RecipesManagerImpl implements RecipesManager {
 		Recipes recipe = null;
 		try {
 			recipe = session.get(Recipes.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -116,6 +120,8 @@ public class RecipesManagerImpl implements RecipesManager {
 			query.setInteger("t", tid);
 			query.setString("tt", ttype);
 			actionsid = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -418,6 +424,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1002,6 +1010,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1082,6 +1092,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1100,6 +1112,8 @@ public class RecipesManagerImpl implements RecipesManager {
 		try {
 			session.update(recipe);
 			session.flush();
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1134,6 +1148,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1169,6 +1185,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1200,6 +1218,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -1234,6 +1254,8 @@ public class RecipesManagerImpl implements RecipesManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
