@@ -17,22 +17,22 @@
         <h1><img src="/progetto/static/images/twitterChannel/new-tweet.png" style="width:42px;height:42px;border:0;"/>
             Post a new tweet</h1></p>
         <hr>
-        <form id="gmail-form" role="form" name="form" ng-controller="action1TwitterController" novalidate>
+        <form id="gmail-form" role="form" name="form" data-ng-controller="action1TwitterController" novalidate>
 
             <div class="form-group">
                 <label>
                     <input
                             type="checkbox"
-                            ng-model="checkedSubject"
+                            data-ng-model="checkedSubject"
 
                     > <img src="/progetto/static/images/twitterChannel/tweet-text.png" height="30" width="30"/> Tweet
                     content
                 </label><br/>
-                <div ng-if="checkedSubject" class="animate-if">
+                <div data-ng-show="checkedSubject" class="animate-if">
                             <textarea class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
-                                      ng-model="action1TwitterInput.subjectReceive" name="subjectReceive"
-                                      ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
+                                      data-ng-model="action1TwitterInput.subjectReceive" name="subjectReceive"
+                                      data-ng-disabled="!checkedSubject"
+                                      maxlength="500" data-ng-trim="false"
                             ></textarea>
                     <span>{{500 - action1TwitterInput.subjectReceive.length}} left </span>
                 </div>
@@ -41,28 +41,28 @@
 
             <div>
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#allActions"
-                   ng-if="!modifyButton && !importRecipe"
+                   data-ng-show="!modifyButton && !importRecipe"
                 >Cancel</a>
 
                 <a type="submit" class="btn btn-danger pull-left animate-if" href="#choseModify"
-                   ng-if="modifyButton && !importRecipe"
+                   data-ng-show="modifyButton && !importRecipe"
                 >Cancel</a>
 
 
-                <a type="submit" class="btn btn-danger pull-left animate-if" ng-click="backfunctionActionPuclicRecipe()"
-                   ng-if="importRecipe && !modifyButton"
+                <a type="submit" class="btn btn-danger pull-left animate-if" data-ng-click="backfunctionActionPuclicRecipe()"
+                   data-ng-show="importRecipe && !modifyButton"
                 >Cancel</a>
 
 
-                <a ng-disabled="!checkedSubject" type="submit"
-                   class="btn btn-primary pull-right btn_next6 animate-if" ng-click="twitterAction1func()"
-                   ng-if="!modifyButton"
+                <a data-ng-disabled="!checkedSubject" type="submit"
+                   class="btn btn-primary pull-right btn_next6 animate-if" data-ng-click="twitterAction1func()"
+                   data-ng-show="!modifyButton"
                 >Submit</a>
 
 
-                <a ng-disabled="!checkedSubject" type="submit"
-                   class="btn btn-primary pull-right btn_next6 animate-if" ng-click="twitterAction1func()"
-                   ng-if="modifyButton"
+                <a data-ng-disabled="!checkedSubject" type="submit"
+                   class="btn btn-primary pull-right btn_next6 animate-if" data-ng-click="twitterAction1func()"
+                   data-ng-show="modifyButton"
                 >Submit</a>
 
 
@@ -73,7 +73,7 @@
                 <hr>
 
             </div>
-            <label style="color: #cd0a0a" ng-if="!checkedSubject" class="animate-if">
+            <label style="color: #cd0a0a" data-ng-show="!checkedSubject" class="animate-if">
                 <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Make at least one choice to
                 use this trigger
             </label>
