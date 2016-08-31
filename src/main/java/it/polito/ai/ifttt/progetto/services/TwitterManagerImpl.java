@@ -106,4 +106,18 @@ public class TwitterManagerImpl implements TwitterManager {
 		return;
 	}
 
+//	public void saveUpdates(TwitterAction ta) {
+//		Session session = sessionFactory.openSession();
+//		try {
+//			session.flush();
+//			session.update(ta);
+//		} finally {
+//			if (session != null) {
+//				// close session in any case
+//				session.close();
+//			}
+//		}
+//		return;		
+//	}
+
 }

@@ -888,8 +888,13 @@ public class ThreadFunction extends Thread {
 					email.setSubject(ga.getSubject());
 				if (ga.getBody() != null)
 					email.setText(ga.getBody());
-				else if (body != null)
+				else if (body != null) {
 					email.setText(body);
+					//save it in the db
+//					ga.setBody(body);
+//					gmailManager.saveUpdates(ga);
+				}
+					
 
 				ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 				email.writeTo(bytes);
@@ -976,6 +981,10 @@ public class ThreadFunction extends Thread {
 			}
 			else if(body != null) {
 				txt = body;
+				//save it in the db
+//				ta.setBody(body);
+//				twitterManager.saveUpdates(ta);
+				
 			}
 			
 			if(dest == null) {

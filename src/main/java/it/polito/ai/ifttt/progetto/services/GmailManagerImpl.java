@@ -104,4 +104,18 @@ public class GmailManagerImpl implements GmailManager {
 		}
 		return;
 	}
+
+//	public void saveUpdates(GmailAction ga) {
+//		Session session = sessionFactory.openSession();
+//		try {
+//			session.flush();
+//			session.update(ga);
+//		} finally {
+//			if (session != null) {
+//				// close session in any case
+//				session.close();
+//			}
+//		}
+//		return;
+//	}
 }

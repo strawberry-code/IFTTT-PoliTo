@@ -12,4 +12,5 @@ public interface TwitterManager {
 	TwitterAction findTwitterActionById(Integer id);
 	TwitterTrigger findTwitterTriggerById(Integer id);
 	void setLastCheck(Long date, Integer tid);
+//	void saveUpdates(TwitterAction ta);
 }

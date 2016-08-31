@@ -12,4 +12,5 @@ public interface GmailManager {
 	GmailAction findGmailActionById(Integer id);
 	GmailTrigger findGmailTriggerById(Integer id);
 	void setLastCheck(Long date, Integer tid);
+//	void saveUpdates(GmailAction ga);
 }
