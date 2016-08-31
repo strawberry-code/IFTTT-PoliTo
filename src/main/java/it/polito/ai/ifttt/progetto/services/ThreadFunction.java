@@ -699,7 +699,7 @@ public class ThreadFunction extends Thread {
 															List<Status> tweets = twitter.getHomeTimeline();
 															for(Status t : tweets) {
 																if((tt.getLastCheck()==null || t.getCreatedAt().getTime() > tt.getLastCheck())
-																		&& t.getUser().getName().compareTo(username_sender)==0) {
+																		&& t.getUser().getScreenName().compareTo(username_sender)==0) {
 																	//trigger verify, execute all actions
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																			ttype);
@@ -744,7 +744,7 @@ public class ThreadFunction extends Thread {
 																List<Status> qrTweets = result.getTweets();
 																for (Status t : qrTweets) {
 																	if((tt.getLastCheck()==null || t.getCreatedAt().getTime()>tt.getLastCheck())
-																			&& t.getUser().getName().compareTo(username_sender)==0 ){
+																			&& t.getUser().getScreenName().compareTo(username_sender)==0 ){
 																		//trigger verify, execute all relative actions
 																		List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																				ttype);
@@ -775,10 +775,23 @@ public class ThreadFunction extends Thread {
 														
 														if(username_sender!=null && hashtag_text==null) {
 															//check only user direct message													
-															for(DirectMessage d : messages) {														
+															for(DirectMessage d : messages) {	
+																
+																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())) {
+																System.out.println(">>>>>>>>>>>>> "+d.getSenderScreenName());
+																System.out.println(">>>>>>>>>>>>> "+username_sender);
+																System.out.println(">>>>>>>>>>>>> "+ d.getSender().getId());
+																System.out.println(">>>>>>>>>>>>> "+ twitter.showUser(username_sender).getId());
+																}
+																
 																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																		&& d.getSender().getId()==twitter.showUser(username_sender).getId()) {
+																		&& d.getSenderScreenName().compareTo(username_sender)==0) {
 																	//trigger verify, execute all actions
+//																	System.out.println(">>>>>>>>>>>>> "+d.getSenderScreenName());
+//																	System.out.println(">>>>>>>>>>>>> "+username_sender);
+//																	System.out.println(">>>>>>>>>>>>> "+ d.getSender().getId());
+//																	System.out.println(">>>>>>>>>>>>> "+ twitter.showUser(username_sender).getId());
+																	
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
 																			ttype);
 																	for (Object[] a : actions) {
@@ -815,7 +828,7 @@ public class ThreadFunction extends Thread {
 															//check both
 															for(DirectMessage d : messages) {														
 																if((tt.getLastCheck()==null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																		&& d.getSender().getId()==twitter.showUser(username_sender).getId()
+																		&& d.getSenderScreenName().compareTo(username_sender)==0
 																		&& d.getText().compareTo(hashtag_text)==0) {
 																	//trigger verify, execute all actions
 																	List<Object[]> actions = recipesManager.findAllActionsByTriggerId(tid,
@@ -851,12 +864,12 @@ public class ThreadFunction extends Thread {
 					} //FINE check tokens
 				}
 			}
-//
-//			try {
-//				ThreadFunction.sleep(120000);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
+
+			try {
+				ThreadFunction.sleep(60000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

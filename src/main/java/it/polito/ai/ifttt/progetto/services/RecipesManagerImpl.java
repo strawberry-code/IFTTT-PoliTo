@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import org.hibernate.Query;
@@ -37,7 +38,9 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
+import twitter4j.RateLimitStatus;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
@@ -281,7 +284,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+						if(twittertrigger.getUsername_sender()!=null) {
 							try {
 								twitter.showUser(twittertrigger.getUsername_sender()).getId();
 							}
@@ -586,7 +589,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
 								return -1;
 							}
-							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+							if(twittertrigger.getUsername_sender()!=null) {
 								try {
 									twitter.showUser(twittertrigger.getUsername_sender()).getId();
 								}
@@ -747,7 +750,7 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
-							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getType()==true) {
+							if(twittertrigger.getUsername_sender()!=null) {
 								try {
 									twitter.showUser(twittertrigger.getUsername_sender()).getId();
 								}
