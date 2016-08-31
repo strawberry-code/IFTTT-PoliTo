@@ -2923,6 +2923,7 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
         $scope.data =
         {
             availableOptions: [
+                {id: '200', name: 'thunderstorm with light rain'},
                 {id: '210', name: 'light thunderstorm'},
                 {id: '211', name: 'thunderstorm'},
                 {id: '212', name: 'heavy thunderstorm'},
@@ -4947,6 +4948,9 @@ iftttApp.filter('skeumorphize', function () {
 
             case 'timezone':
                 return timezoneLiteral(input);
+                
+            case 'tempo':
+            	return weatherLiteral(input);
 
             case 'duration':
             {
@@ -5419,6 +5423,43 @@ function alertPasswordChangedSuccess() {
     }, function () {
         window.location.replace('#myRecipes');
     });
+}
+
+function weatherLiteral(tempoCode) {
+
+    var weatherConditions = {
+    		 '200': 'thunderstorm with light rain',
+             '210': 'light thunderstorm',
+             '211': 'thunderstorm',
+             '212': 'heavy thunderstorm',
+             '310': 'light intensity drizzle rain',
+             '311': 'drizzle rain',
+             '312': 'heavy intensity drizzle rain',
+             '500': 'light rain',
+             '501': 'moderate rain',
+             '502': 'heavy intensity rain',
+             '503': 'very heavy rain',
+             '600': 'light snow',
+             '601': 'snow',
+             '602': 'heavy snow',
+             '741': 'fog',
+             '751': 'sand',
+             '761': 'dust',
+             '762': 'volcanic ash',
+             '800': 'clear sky',
+             '801': 'few clouds',
+             '804': 'overcast clouds',
+             '900': 'tornado',
+             '901': 'tropical storm',
+             '902': 'hurricane',
+             '903': 'cold',
+             '904': 'hot',
+             '905': 'windy',
+             '906': 'hail',
+             '962': 'hurricane'
+    };
+
+    return (weatherConditions[tempoCode]);
 }
 
 function timezoneLiteral(timezoneBad) {
