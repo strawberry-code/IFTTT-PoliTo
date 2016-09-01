@@ -86,7 +86,7 @@
 					</a></li>
 
 					<li><a href="#passwordChange" data-ng-if="iftttLogged"> <span
-							aria-hidden="true">Change password or timezone</span>
+							aria-hidden="true">Profile&Setup</span>
 					</a></li>
 
 					<li><a data-ng-if="!iftttLogged" href="#publicRecipes">
