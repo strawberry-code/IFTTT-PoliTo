@@ -128,11 +128,15 @@ public class ThreadFunction extends Thread {
 									 * .setQ( query) .execute();
 									 */
 
-									// // ricevo tutti gli eventi subito
-
-									clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
-											JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
-									eventList = clientCal.events().list("primary").execute();
+//									// ricevo tutti gli eventi subito
+									try {
+										clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
+												JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
+										eventList = clientCal.events().list("primary").execute();
+									} catch (UnknownHostException e) {
+										// e.printStackTrace();
+										continue;
+									}
 
 								}
 
@@ -910,8 +914,7 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-															twitterManager.setLastCheck(System.currentTimeMillis(),
-																	tid);
+															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}
@@ -1013,8 +1016,7 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-															twitterManager.setLastCheck(System.currentTimeMillis(),
-																	tid);
+															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}
@@ -1139,7 +1141,7 @@ public class ThreadFunction extends Thread {
 				event = clientCal.events().insert("primary", event).execute();
 			} catch (Exception e) {
 				// try-catch to handle incorrect date
-				//System.out.println(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 
 		} else if (atype.compareTo("twitter") == 0 && twitter != null) {
