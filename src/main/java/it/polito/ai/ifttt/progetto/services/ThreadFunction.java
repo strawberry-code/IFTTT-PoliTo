@@ -557,8 +557,9 @@ public class ThreadFunction extends Thread {
 																	for (Object[] a : actions) {
 																		Integer aid = (Integer) a[0];
 																		String atype = (String) a[1];
+																		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy 'at' h:mm a");
 																		String body = "Weather conditions in "
-																				+ cwd.getCityName() + " in this moment: "
+																				+ cwd.getCityName() + " at this moment ("+ sdf.format(cwd.getDateTime()) +"): "
 																				+ cwd.getWeatherInstance(0)
 																						.getWeatherDescription();
 																		this.executeAction(atype, aid, session, body);
