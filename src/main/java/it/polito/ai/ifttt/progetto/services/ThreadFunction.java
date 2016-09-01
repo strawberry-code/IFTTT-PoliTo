@@ -729,7 +729,7 @@ public class ThreadFunction extends Thread {
 																			Integer aid = (Integer) a[0];
 																			String atype = (String) a[1];
 																		
-																			String body = "The hashtag '"+hashtag_text+
+																			String body = "The term '"+hashtag_text+
 																							"' is present in the following tweet:"
 																						+System.lineSeparator()+t.getText();
 																			this.executeAction(atype, aid, session, body);
@@ -753,7 +753,7 @@ public class ThreadFunction extends Thread {
 																			Integer aid = (Integer) a[0];
 																			String atype = (String) a[1];
 																		
-																			String body = "The hashtag '"+hashtag_text+
+																			String body = "The term '"+hashtag_text+
 																					"' is present in the following tweet of "
 																					+ username_sender+":"+System.lineSeparator()+t.getText();
 																			this.executeAction(atype, aid, session, body);

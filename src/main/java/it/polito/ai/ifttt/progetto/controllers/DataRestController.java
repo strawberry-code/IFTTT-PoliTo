@@ -124,7 +124,7 @@ public class DataRestController {
 		}
 		List<Recipes> recipes = user.getRecipes();
 		if(recipes==null){
-			return null;
+			return new ArrayList<recipeJsonClass>();
 		}
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		for (Recipes r : recipes) {
@@ -146,7 +146,7 @@ public class DataRestController {
 				trigger = twitterManager.findTwitterTriggerById(triggerid);
 			} else {
 				// valore non valido
-				return null;
+				return new ArrayList<recipeJsonClass>();
 			}
 			ricettaJson.setTrigger(trigger);
 
@@ -162,7 +162,7 @@ public class DataRestController {
 				action = twitterManager.findTwitterActionById(actionid);
 			} else {
 				// valore non valido
-				return null;
+				return new ArrayList<recipeJsonClass>();
 			}
 			ricettaJson.setAction(action);
 
@@ -375,7 +375,7 @@ public class DataRestController {
 		// devo prendere TUTTE le ricette presenti nel db
 		List<Recipes> recipes = recipesManager.findAllRecipes();
 		if (recipes == null) {
-			return null;
+			return new HashSet<Types>();
 		}
 		// List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		Set<Types> handleDup = new HashSet<Types>();
@@ -409,7 +409,7 @@ public class DataRestController {
 					triggerIngredientCode = trigger.getIngredientCode();
 				} else {
 					// valore non valido
-					return null;
+					return new HashSet<Types>();
 				}
 				// ricettaJson.setTrigger(trigger);
 				retClass.setTriggerIngredientCode(triggerIngredientCode);
@@ -430,7 +430,7 @@ public class DataRestController {
 					actionIngredientCode = action.getIngredientCode();
 				} else {
 					// valore non valido
-					return null;
+					return new HashSet<Types>();
 				}
 				retClass.setActionIngredientCode(actionIngredientCode);
 				// ricettaJson.setAction(action);
