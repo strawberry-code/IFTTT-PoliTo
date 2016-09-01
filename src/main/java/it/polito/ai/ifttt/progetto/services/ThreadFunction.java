@@ -323,7 +323,7 @@ public class ThreadFunction extends Thread {
 																	
 																	Date date = new Date();
 																	date.setTime(e.getStart().getDateTime().getValue());
-																	SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+																	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy 'at' h:mm a");
 																	String DateToStr = format.format(date);																
 
 																	body = body + "Date: "
