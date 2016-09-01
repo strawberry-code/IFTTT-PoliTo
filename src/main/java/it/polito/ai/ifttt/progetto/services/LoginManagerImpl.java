@@ -144,7 +144,11 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
-		} finally {
+		} 
+		catch(Exception e){
+			return -1;
+		}
+		finally {
 			if (session != null) {
 				// close session in any case
 				session.close();
