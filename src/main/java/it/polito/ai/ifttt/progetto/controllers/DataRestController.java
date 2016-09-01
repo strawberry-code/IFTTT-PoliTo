@@ -121,7 +121,7 @@ public class DataRestController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		if(user==null){
-			return null;
+			return new ArrayList<recipeJsonClass>();
 		}
 		List<Recipes> recipes = user.getRecipes();
 		if(recipes==null){
