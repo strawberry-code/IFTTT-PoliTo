@@ -2,6 +2,7 @@ package it.polito.ai.ifttt.progetto.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,7 +66,7 @@ public class ThreadFunction extends Thread {
 	TwitterManager twitterManager;
 	Session sessionMail;
 
-	private static final String APPLICATION_NAME = "";
+	private static final String APPLICATION_NAME = "IFTTT-Polito";
 	private static HttpTransport httpTransport = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static com.google.api.services.calendar.Calendar clientCal = null;
@@ -126,9 +127,14 @@ public class ThreadFunction extends Thread {
 								 */
 
 								// ricevo tutti gli eventi subito
-								clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
-										JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
-								eventList = clientCal.events().list("primary").execute();
+								try {
+									clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
+											JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
+									eventList = clientCal.events().list("primary").execute();
+								} catch(UnknownHostException e) {
+									e.printStackTrace();
+								}
+							
 							}
 							
 							if(u.getTwitterToken()!=null && u.getTwitterTokenSecret()!=null) {
@@ -850,6 +856,8 @@ public class ThreadFunction extends Thread {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						} catch (MessagingException e) {
+							e.printStackTrace();
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} //FINE check tokens
