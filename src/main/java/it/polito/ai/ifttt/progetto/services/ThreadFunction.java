@@ -913,11 +913,11 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-
+															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}
-														twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+
 													} else if (tt.getType() != null && tt.getType() == true) {
 														// check direct messages
 														try {
@@ -1015,11 +1015,11 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-
+															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}
-														twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+
 													}
 												}
 											}
