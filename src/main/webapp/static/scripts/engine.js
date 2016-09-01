@@ -2300,9 +2300,31 @@ iftttApp.controller('forgotPasswordController', ['$scope',
 
 
 //fxr>
-iftttApp.controller('passwordChangeController', ['$scope',
-    function ($scope) {
+iftttApp.controller('passwordChangeController', ['$scope', '$http',
+    function ($scope, $http) {
 
+	  $http({
+          url: 'http://localhost:8080/progetto/api/infoProfile',
+          method: "GET",
+          dataType: 'application/json', 
+          contentType: "application/json" 
+      }).then(function success(response) {
+          if (consoleLogs) console.log(response);
+          
+          if(response!=null && response.data!=null) {
+        	  $scope.infoProfile = response.data;
+        	  console.log( $scope.infoProfile);
+          }
+         
+
+      }, function error() {
+          $('#loginIFTTTModal').modal('hide');
+          alertError("Some server error occurred. (code 987)");
+
+      });
+
+	
+	
         /**
          * Description
          * @method passwordChangeFunc
@@ -2311,7 +2333,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
          * @return
          */
         $scope.vettore = [];
-
+        
         $scope.vettore.registrationTimezone = "Pacific/Midway";
 
         /*

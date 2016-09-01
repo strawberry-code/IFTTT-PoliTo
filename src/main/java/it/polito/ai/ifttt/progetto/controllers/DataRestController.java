@@ -40,6 +40,7 @@ import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
+import it.polito.ai.ifttt.progetto.models.returnProfileClass;
 import it.polito.ai.ifttt.progetto.services.CalendarManager;
 import it.polito.ai.ifttt.progetto.services.EmailValidator;
 import it.polito.ai.ifttt.progetto.services.GmailManager;
@@ -547,6 +548,23 @@ public class DataRestController {
 		res.setDeleted(code);
 		return res;
 	}
+	
+	@RequestMapping(value = "infoProfile", method = RequestMethod.GET)
+	returnProfileClass getInfoProfile() {
+				
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user == null) {
+			return null;
+		}		
+		returnProfileClass profile = new returnProfileClass();
+		profile.setUsername(user.getUsername());
+		profile.setEmail(user.getEmail());
+		profile.setTimezone(user.getTimezone());
+		
+		return profile;
+	}
+	
 
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {
