@@ -1634,8 +1634,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         if ($scope.userRecipes[index].trigger.type == 1) {
                             idCity_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.location;
                             locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
-                            timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
-                            ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
+                            timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
+                            ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
                             ulrTriggreGlobalVariable = "WeatherTrigger1";
 
