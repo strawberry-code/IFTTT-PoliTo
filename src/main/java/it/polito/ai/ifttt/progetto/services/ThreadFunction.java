@@ -400,7 +400,7 @@ public class ThreadFunction extends Thread {
 																	if (df.isValid()) {
 																		Date date1 = new Date();
 																		date1.setTime(df.getForecastInstance(1).getDateTime().getTime());
-																		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy 'at' h:mm a");
+																		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 																		String DateToStr = format.format(date1);	
 																		
 																		String body = "The temperature in "
@@ -412,37 +412,37 @@ public class ThreadFunction extends Thread {
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMorningTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Day temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getDayTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Evening temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getEveningTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Night temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getNightTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Maximum temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMaximumTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 																		body = body + "Minimum temperature :" + String.format(
 																				"%.02f",
 																				df.getForecastInstance(1)
 																						.getTemperatureInstance()
 																						.getMinimumTemperature())
-																				+ " ï¿½C" + System.lineSeparator();
+																				+ " °C" + System.lineSeparator();
 
 																		body = body + "Weather description :"
 																				+ df.getForecastInstance(1)
@@ -631,10 +631,10 @@ public class ThreadFunction extends Thread {
 																					body = "The current temperature in "
 																							+ cwd.getCityName()
 																							+ " is under the minimum threshold of "
-																							+ thmin + "ï¿½C: "
+																							+ thmin + "°C: "
 																							+ String.format("%.02f",
 																									cwd.getMainInstance().getTemperature())
-																							+ " ï¿½C";
+																							+ " °C";
 																					this.executeAction(atype, aid, session,
 																							body);
 																					if (onetimesuccess == true)
@@ -657,10 +657,10 @@ public class ThreadFunction extends Thread {
 																					body = "The current temperature in "
 																							+ cwd.getCityName()
 																							+ " is over the maximum threshold of "
-																							+ thmax + "ï¿½C: "
+																							+ thmax + "°C: "
 																							+ String.format("%.02f",
 																									cwd.getMainInstance().getTemperature())
-																							+ " ï¿½C";
+																							+ " °C";
 																					this.executeAction(atype, aid, session,
 																							body);
 																					if (onetimesuccess == true)
