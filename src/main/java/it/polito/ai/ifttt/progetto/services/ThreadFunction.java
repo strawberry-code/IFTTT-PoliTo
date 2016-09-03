@@ -92,17 +92,14 @@ public class ThreadFunction extends Thread {
 	public void run() {
 		while (true) {
 
-			System.out.println("Hello from a thread!");
+			System.out.println("--------- "+new Date(System.currentTimeMillis()).toString()+" ------------");
 			try {
 				List<Users> users = loginManager.findAllUsers();
 				if (users != null && users.size() != 0) {
 					for (Users u : users) {
-						System.out.println("----------------------------------------------");
 						if ((u.getGoogleToken() != null && u.getGoogleExpire() != null)
 								|| (u.getTwitterToken() != null && u.getTwitterTokenSecret() != null)) {
 							try {
-								System.out.println(u.getUsername());
-
 								// setto i client
 								Events eventList = null;
 								if (u.getGoogleToken() != null && u.getGoogleExpire() != null) {
