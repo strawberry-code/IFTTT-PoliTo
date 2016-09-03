@@ -262,6 +262,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							return -1;
 						}
 					}
+					if(weathertrigger.getType()==4 && weathertrigger.getThmax()==null && weathertrigger.getThmin()==null) {
+						tx.rollback();
+						return -1;
+					}
 					String tz = null;
 					if (weathertrigger.getTimezone() == null) {
 						tz = user.getTimezone();
