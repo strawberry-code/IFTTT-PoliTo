@@ -1044,7 +1044,7 @@ public class ThreadFunction extends Thread {
 									}
 								}
 							} catch (IOException e1) {
-								e1.printStackTrace();
+								// e1.printStackTrace();
 							} catch (MessagingException e) {
 								// e.printStackTrace();
 							} catch (Exception e) {
