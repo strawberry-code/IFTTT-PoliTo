@@ -265,24 +265,30 @@ public class ThreadFunction extends Thread {
 																String description = "";
 																String title = "";
 
-																if (e.getLocation() != null) {
+//																if (e.getLocation() != null) {
 																	if (ct.getLocation() != null
 																			&& ct.getDescription() == null
 																			&& ct.getTitle() == null) {
-																		if (ct.getLocation()
+																		if (e.getLocation()!=null && ct.getLocation()
 																				.compareTo(e.getLocation()) == 0) {
 																			success = true;
+																			if(e.getSummary()!=null)
+																				title = e.getSummary();
+																			if(e.getDescription()!=null)
+																				description = e.getDescription();
 																			location = e.getLocation();
 																		}
 																	} else if (ct.getLocation() != null
 																			&& ct.getDescription() != null
 																			&& ct.getTitle() == null) {
-																		if (e.getDescription() != null) {
+																		if (e.getLocation()!=null && e.getDescription() != null) {
 																			if (ct.getLocation()
 																					.compareTo(e.getLocation()) == 0
 																					&& ct.getDescription().compareTo(
 																							e.getDescription()) == 0) {
 																				success = true;
+																				if(e.getSummary()!=null)
+																					title = e.getSummary();
 																				location = e.getLocation();
 																				description = e.getDescription();
 																			}
@@ -290,7 +296,7 @@ public class ThreadFunction extends Thread {
 																	} else if (ct.getLocation() != null
 																			&& ct.getDescription() == null
 																			&& ct.getTitle() != null) {
-																		if (e.getSummary() != null) {
+																		if (e.getSummary() != null && e.getLocation()!=null) {
 																			if (ct.getLocation()
 																					.compareTo(e.getLocation()) == 0
 																					&& ct.getTitle().compareTo(
@@ -298,13 +304,15 @@ public class ThreadFunction extends Thread {
 																				success = true;
 																				location = e.getLocation();
 																				title = e.getSummary();
+																				if(e.getDescription()!=null)
+																					description = e.getDescription();
 																			}
 																		}
 																	} else if (ct.getLocation() != null
 																			&& ct.getDescription() != null
 																			&& ct.getTitle() != null) {
 																		if (e.getDescription() != null
-																				&& e.getSummary() != null) {
+																				&& e.getSummary() != null && e.getLocation()!=null) {
 																			if (ct.getLocation()
 																					.compareTo(e.getLocation()) == 0
 																					&& ct.getTitle().compareTo(
@@ -318,7 +326,7 @@ public class ThreadFunction extends Thread {
 																			}
 																		}
 																	}
-																} else if (ct.getLocation() == null
+															/*	} */else if (ct.getLocation() == null
 																		&& ct.getDescription() != null
 																		&& ct.getTitle() == null) {
 																	if (e.getDescription() != null) {
@@ -326,6 +334,10 @@ public class ThreadFunction extends Thread {
 																				.compareTo(e.getDescription()) == 0) {
 																			success = true;
 																			description = e.getDescription();
+																			if(e.getSummary()!=null)
+																				title = e.getSummary();
+																			if(e.getLocation()!=null)
+																				location = e.getLocation();
 																		}
 																	}
 																} else if (ct.getLocation() == null
@@ -336,6 +348,10 @@ public class ThreadFunction extends Thread {
 																				.compareTo(e.getSummary()) == 0) {
 																			success = true;
 																			title = e.getSummary();
+																			if(e.getDescription()!=null)
+																				description = e.getDescription();
+																			if(e.getLocation()!=null)
+																				location = e.getLocation();
 																		}
 																	}
 																} else if (ct.getLocation() == null
@@ -350,6 +366,8 @@ public class ThreadFunction extends Thread {
 																			success = true;
 																			description = e.getDescription();
 																			title = e.getSummary();
+																			if(e.getLocation()!=null)
+																				location = e.getLocation();
 																		}
 																	}
 																}
@@ -371,7 +389,7 @@ public class ThreadFunction extends Thread {
 																				"dd/MM/yyyy 'at' h:mm a");
 																		String DateToStr = format.format(date);
 
-																		body = body + "Date: " + DateToStr + ": "
+																		body = body + "Date: " + DateToStr
 																				+ System.lineSeparator();
 																		if (title.compareTo("") != 0)
 																			body = body + "Title: " + title

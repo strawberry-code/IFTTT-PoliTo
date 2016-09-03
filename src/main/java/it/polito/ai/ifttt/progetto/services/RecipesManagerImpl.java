@@ -191,6 +191,10 @@ public class RecipesManagerImpl implements RecipesManager {
 						tx.rollback();
 						return -1;
 					}
+					if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
+						tx.rollback();
+						return -1;
+					}
 					calendartrigger.setLastCheck(System.currentTimeMillis());
 					session.save(calendartrigger);
 					session.flush();
@@ -511,6 +515,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
+							tx.rollback();
+							return -1;
+						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
 						session.update(calendartrigger);
 						session.flush();
@@ -667,6 +675,10 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+							tx.rollback();
+							return -1;
+						}
+						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
 							tx.rollback();
 							return -1;
 						}

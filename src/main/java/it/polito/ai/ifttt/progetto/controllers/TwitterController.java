@@ -71,11 +71,14 @@ public class TwitterController {
 		RequestToken requestToken = null;
 		try {
 			requestToken = twitter.getOAuthRequestToken();
+			return new RedirectView(requestToken.getAuthorizationURL());
 		} catch (TwitterException e1) {
-
-			e1.printStackTrace();
+			e1.printStackTrace();	
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
 		}
-		return new RedirectView(requestToken.getAuthorizationURL());
+		catch (Exception e) {
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+		}
 	}
 
 	@RequestMapping(value = "/tw.token", method = RequestMethod.GET, params = { "oauth_token", "oauth_verifier" })
