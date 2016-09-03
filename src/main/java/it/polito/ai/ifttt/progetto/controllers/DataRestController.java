@@ -111,7 +111,7 @@ public class DataRestController {
 
 	@RequestMapping(value = "userRecipes", method = RequestMethod.POST)
 	Integer fillDatabase(@RequestBody String data) {
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = recipesManager.addRecipe(data);
 		return code;
 	}
@@ -177,7 +177,7 @@ public class DataRestController {
 
 	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.PUT)
 	Integer modifyRecipe(@PathVariable("id") Integer id, @RequestBody String data) {
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = recipesManager.modifyRecipe(id, data);
 		// -1 if error
 		return code;
@@ -345,7 +345,7 @@ public class DataRestController {
 	@RequestMapping(value = "publish/userRecipes/{id}", method = RequestMethod.PUT)
 	Integer publishRecipe(@PathVariable("id") Integer id, @RequestBody Boolean data) {
 
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = 0;
 
 		Recipes recipe = recipesManager.findRecipesById(id);
@@ -511,7 +511,7 @@ public class DataRestController {
 							Transport.send(message);
 
 						} catch (MessagingException e) {
-							System.out.println(e.getMessage());
+							//System.out.println(e.getMessage());
 							code = -1;
 						}
 					} else {

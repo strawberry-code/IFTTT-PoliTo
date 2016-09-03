@@ -130,7 +130,7 @@ public class ThreadFunction extends Thread {
 										clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
 												JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
 										eventList = clientCal.events().list("primary").execute();
-									} catch (UnknownHostException e) {
+									} catch (Exception e) {
 										// e.printStackTrace();
 										continue;
 									}
