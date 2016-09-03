@@ -73,7 +73,7 @@ public class TwitterController {
 			requestToken = twitter.getOAuthRequestToken();
 			return new RedirectView(requestToken.getAuthorizationURL());
 		} catch (TwitterException e1) {
-			e1.printStackTrace();	
+			//e1.printStackTrace();	
 			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
 		}
 		catch (Exception e) {
