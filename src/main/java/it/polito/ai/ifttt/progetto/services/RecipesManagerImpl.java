@@ -467,12 +467,24 @@ public class RecipesManagerImpl implements RecipesManager {
 						tx.rollback();
 						return -1;
 					}
+					if(gmailaction.getReceiver()==null) {
+						tx.rollback();
+						return -1;
+					}
 					if (gmailaction.getReceiver() != null) {
 						EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 						if (emailval.validate() == false) {
 							tx.rollback();
 							return -1;
 						}
+					}
+					if(gmailaction.getSubject()!=null && gmailaction.getSubject().compareTo("")==0) {
+						tx.rollback();
+						return -3;
+					}
+					if(gmailaction.getBody()!=null && gmailaction.getBody().compareTo("")==0) {
+						tx.rollback();
+						return -3;
 					}
 					session.save(gmailaction);
 					session.flush();
@@ -493,6 +505,10 @@ public class RecipesManagerImpl implements RecipesManager {
 						if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 							tx.rollback();
 							return -2;
+						}
+						if (twitteraction.getIngredientCode() == 24 && twitteraction.getBody()!=null && twitteraction.getBody().compareTo("")==0) {
+							tx.rollback();
+							return -3;
 						}
 						if (twitteraction.getDestination() != null) {
 							try {
@@ -1141,12 +1157,24 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(gmailaction.getReceiver()==null) {
+							tx.rollback();
+							return -1;
+						}
 						if (gmailaction.getReceiver() != null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if (emailval.validate() == false) {
 								tx.rollback();
 								return -1;
 							}
+						}
+						if(gmailaction.getSubject()!=null && gmailaction.getSubject().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(gmailaction.getBody()!=null && gmailaction.getBody().compareTo("")==0) {
+							tx.rollback();
+							return -3;
 						}
 						gmailaction.setGaid(rec.getActionid());
 						session.update(gmailaction);
@@ -1167,6 +1195,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
 								return -2;
+							}
+							if (twitteraction.getIngredientCode() == 24 && twitteraction.getBody()!=null && twitteraction.getBody().compareTo("")==0) {
+								tx.rollback();
+								return -3;
 							}
 							if (twitteraction.getDestination() != null) {
 								try {
@@ -1222,6 +1254,21 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						else {
+							if (calendaraction.getTitle() != null && calendaraction.getTitle().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendaraction.getDescription() != null
+									&& calendaraction.getDescription().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendaraction.getLocation() != null && calendaraction.getLocation().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+						}
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
 							try {
@@ -1261,12 +1308,24 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(gmailaction.getReceiver()==null) {
+							tx.rollback();
+							return -1;
+						}
 						if (gmailaction.getReceiver() != null) {
 							EmailValidator emailval = new EmailValidator(gmailaction.getReceiver());
 							if (emailval.validate() == false) {
 								tx.rollback();
 								return -1;
 							}
+						}
+						if(gmailaction.getSubject()!=null && gmailaction.getSubject().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(gmailaction.getBody()!=null && gmailaction.getBody().compareTo("")==0) {
+							tx.rollback();
+							return -3;
 						}
 						session.save(gmailaction);
 						session.flush();
@@ -1287,6 +1346,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
 								return -2;
+							}
+							if (twitteraction.getIngredientCode() == 24 && twitteraction.getBody()!=null && twitteraction.getBody().compareTo("")==0) {
+								tx.rollback();
+								return -3;
 							}
 							if (twitteraction.getDestination() != null) {
 								try {
