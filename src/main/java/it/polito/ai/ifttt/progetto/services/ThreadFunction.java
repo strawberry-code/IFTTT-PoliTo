@@ -879,7 +879,7 @@ public class ThreadFunction extends Thread {
 																				Integer aid = (Integer) a[0];
 																				String atype = (String) a[1];
 
-																				String body = "The term '"
+																				String body = "The hashtag '"
 																						+ hashtag_text
 																						+ "' is present in the following tweet:"
 																						+ System.lineSeparator()
@@ -917,7 +917,7 @@ public class ThreadFunction extends Thread {
 																				Integer aid = (Integer) a[0];
 																				String atype = (String) a[1];
 
-																				String body = "The term '"
+																				String body = "The hashtag '"
 																						+ hashtag_text
 																						+ "' is present in the following tweet of "
 																						+ username_sender + ":"
