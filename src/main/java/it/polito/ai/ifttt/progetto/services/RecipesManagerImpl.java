@@ -366,6 +366,14 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(twittertrigger.getUsername_sender()!=null && twittertrigger.getUsername_sender().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(twittertrigger.getHashtag_text()!=null && twittertrigger.getHashtag_text().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
 						if (twittertrigger.getUsername_sender() != null) {
 							try {
 								twitter.showUser(twittertrigger.getUsername_sender()).getId();
@@ -760,6 +768,14 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
 								return -1;
 							}
+							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getUsername_sender().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
+							if(twittertrigger.getHashtag_text()!=null && twittertrigger.getHashtag_text().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
 							if (twittertrigger.getHashtag_text() == null
 									&& twittertrigger.getUsername_sender() == null) {
 								tx.rollback();
@@ -1000,6 +1016,14 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
 								tx.rollback();
 								return -1;
+							}
+							if(twittertrigger.getUsername_sender()!=null && twittertrigger.getUsername_sender().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
+							if(twittertrigger.getHashtag_text()!=null && twittertrigger.getHashtag_text().compareTo("")==0) {
+								tx.rollback();
+								return -3;
 							}
 							if (twittertrigger.getHashtag_text() == null
 									&& twittertrigger.getUsername_sender() == null) {
