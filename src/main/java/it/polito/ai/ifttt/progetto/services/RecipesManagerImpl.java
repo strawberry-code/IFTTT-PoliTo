@@ -300,6 +300,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+							tx.rollback();
+							return -1;
+						}
 						if (twittertrigger.getUsername_sender() != null) {
 							try {
 								twitter.showUser(twittertrigger.getUsername_sender()).getId();
@@ -621,6 +625,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
 								return -1;
 							}
+							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+								tx.rollback();
+								return -1;
+							}
 							if (twittertrigger.getUsername_sender() != null) {
 								try {
 									twitter.showUser(twittertrigger.getUsername_sender()).getId();
@@ -783,6 +791,10 @@ public class RecipesManagerImpl implements RecipesManager {
 							mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 							TwitterTrigger twittertrigger = mapper.readValue(trig, TwitterTrigger.class);
 							if (twittertrigger.getIngredientCode() != 18 && twittertrigger.getIngredientCode() != 19) {
+								tx.rollback();
+								return -1;
+							}
+							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
 								tx.rollback();
 								return -1;
 							}
