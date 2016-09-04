@@ -187,13 +187,31 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-					if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+					if(calendartrigger.getEventAction()==null) {
 						tx.rollback();
 						return -1;
 					}
 					if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
 						tx.rollback();
 						return -1;
+					}
+					if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+						tx.rollback();
+						return -1;
+					}
+					else {
+						if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
+							tx.rollback();
+							return -3; 
+						}
+						if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
 					}
 					calendartrigger.setLastCheck(System.currentTimeMillis());
 					session.save(calendartrigger);
@@ -451,7 +469,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				System.out.println(e);
+				//System.out.println(e);
 				tx.rollback();
 				return -1;
 			}
@@ -528,13 +546,31 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						calendartrigger.setCtid(rec.getTriggerid());
-						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+						if(calendartrigger.getEventAction()==null) {
 							tx.rollback();
 							return -1;
 						}
 						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
 							tx.rollback();
 							return -1;
+						}
+						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+							tx.rollback();
+							return -1;
+						}
+						else {
+							if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
+								tx.rollback();
+								return -3; 
+							}
+							if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
+							if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
 						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
 						session.update(calendartrigger);
@@ -700,13 +736,31 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+						if(calendartrigger.getEventAction()==null) {
 							tx.rollback();
 							return -1;
 						}
 						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
 							tx.rollback();
 							return -1;
+						}
+						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
+							tx.rollback();
+							return -1;
+						}
+						else {
+							if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
+								tx.rollback();
+								return -3; 
+							}
+							if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
+							if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+								tx.rollback();
+								return -3;
+							}
 						}
 						calendartrigger.setLastCheck(System.currentTimeMillis());
 						session.save(calendartrigger);

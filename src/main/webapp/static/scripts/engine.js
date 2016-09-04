@@ -5171,6 +5171,10 @@ function sedingServerAllRun(loginDataSend) {
                 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
                 $('#recipedDescriptionModal').modal('hide');
             }
+            else if(response == -3) {
+            	  alertWarning("Selected field can't be blank! Please, fill them.");
+                  $('#recipedDescriptionModal').modal('hide');
+            }
             else {
 
                 $('#recipedDescriptionModal').modal('hide');
@@ -5254,6 +5258,10 @@ function sedingServerAllRunput(loginDataSend) {
             }
             else if (response == -2) {
                 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+                $('#recipedDescriptionModal').modal('hide');
+            }
+            else if(response == -3) {
+          	  alertWarning("Selected field can't be blank! Please, fill them.");
                 $('#recipedDescriptionModal').modal('hide');
             }
             else {
