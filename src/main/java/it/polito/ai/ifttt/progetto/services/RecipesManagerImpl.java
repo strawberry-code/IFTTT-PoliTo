@@ -300,7 +300,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+						if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
 							tx.rollback();
 							return -1;
 						}
@@ -625,7 +625,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
 								return -1;
 							}
-							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+							if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
 								tx.rollback();
 								return -1;
 							}
@@ -794,7 +794,7 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
-							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+							if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
 								tx.rollback();
 								return -1;
 							}
