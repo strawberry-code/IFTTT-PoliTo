@@ -136,7 +136,7 @@ public class GoogleConnectController {
 		}
 
 		// String path = "/progetto/#"+this.nextPath+"?count="+this.count;
-		System.out.println(path);
+	//	System.out.println(path);
 		return new RedirectView(path);
 	}
 
@@ -179,7 +179,7 @@ public class GoogleConnectController {
 	@ResponseBody
 	returnClass checkGoogleConnection(@RequestBody requestClass data) {
 
-		System.out.println(data.getUrlNext());
+	//	System.out.println(data.getUrlNext());
 
 		this.nextPath = data.getUrlNext();
 		try {
