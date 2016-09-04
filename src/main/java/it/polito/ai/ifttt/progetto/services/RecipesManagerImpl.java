@@ -187,28 +187,29 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-					if(calendartrigger.getEventAction()==null) {
+					if (calendartrigger.getEventAction() == null) {
 						tx.rollback();
 						return -1;
 					}
-					if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
+					if (calendartrigger.getTitle() == null && calendartrigger.getDescription() == null
+							&& calendartrigger.getLocation() == null) {
 						tx.rollback();
 						return -1;
 					}
 					if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
 						tx.rollback();
 						return -1;
-					}
-					else {
-						if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
-							tx.rollback();
-							return -3; 
-						}
-						if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+					} else {
+						if (calendartrigger.getTitle() != null && calendartrigger.getTitle().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
-						if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+						if (calendartrigger.getDescription() != null
+								&& calendartrigger.getDescription().compareTo("") == 0) {
+							tx.rollback();
+							return -3;
+						}
+						if (calendartrigger.getLocation() != null && calendartrigger.getLocation().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
@@ -226,11 +227,11 @@ public class RecipesManagerImpl implements RecipesManager {
 						tx.rollback();
 						return -1;
 					}
-					if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+					if (gmailtrigger.getSender() != null && gmailtrigger.getSender().compareTo("") == 0) {
 						tx.rollback();
 						return -3;
 					}
-					if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+					if (gmailtrigger.getSubject() != null && gmailtrigger.getSubject().compareTo("") == 0) {
 						tx.rollback();
 						return -3;
 					}
@@ -250,7 +251,58 @@ public class RecipesManagerImpl implements RecipesManager {
 					ObjectMapper mapper = new ObjectMapper();
 					mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-					if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+					switch (weathertrigger.getIngredientCode()) {
+					case 14:
+						// weather trigger 1: tomorrow
+						if (weathertrigger.getType() != 1 || weathertrigger.getOra() == null) {
+							tx.rollback();
+							return -1;
+						}
+						break;
+
+					case 15:
+						// weather trigger 2: weather condition
+						if (weathertrigger.getType() != 3 || weathertrigger.getTempo() == null) {
+							tx.rollback();
+							return -1;
+						}
+						break;
+
+					case 16:
+						// weather trigger 3: sunrise/sunset
+						if (weathertrigger.getType() != 2
+								|| (weathertrigger.getSunrise() == null && weathertrigger.getSunset() == null)) {
+							tx.rollback();
+							return -1;
+						}
+						break;
+
+					case 17:
+						// weather trigger 4: temp max/min
+						if (weathertrigger.getType() != 4
+								|| (weathertrigger.getThmax() == null && weathertrigger.getThmin() == null)) {
+							tx.rollback();
+							return -1;
+						}
+						if (weathertrigger.getThmin() != null) {
+							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+								tx.rollback();
+								return -1;
+							}
+						}
+						if (weathertrigger.getThmax() != null) {
+							if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+								tx.rollback();
+								return -1;
+							}
+						}
+						break;
+
+					default:
+						tx.rollback();
+						return -1;
+					}
+					if (weathertrigger.getLocation() == null) {
 						tx.rollback();
 						return -1;
 					}
@@ -275,22 +327,6 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-					}
-					if (weathertrigger.getThmin() != null) {
-						if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
-							tx.rollback();
-							return -1;
-						}
-					}
-					if (weathertrigger.getThmax() != null) {
-						if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
-							tx.rollback();
-							return -1;
-						}
-					}
-					if(weathertrigger.getType()==4 && weathertrigger.getThmax()==null && weathertrigger.getThmin()==null) {
-						tx.rollback();
-						return -1;
 					}
 					String tz = null;
 					if (weathertrigger.getTimezone() == null) {
@@ -326,7 +362,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+						if (twittertrigger.getHashtag_text() == null && twittertrigger.getUsername_sender() == null) {
 							tx.rollback();
 							return -1;
 						}
@@ -334,19 +370,18 @@ public class RecipesManagerImpl implements RecipesManager {
 							try {
 								twitter.showUser(twittertrigger.getUsername_sender()).getId();
 							} catch (TwitterException e) {
-								if(e.getErrorCode()==50) {
+								if (e.getErrorCode() == 50) {
 									tx.rollback();
 									return -2;
-								}
-								else {
+								} else {
 									tx.rollback();
 									return -1;
-								}							
+								}
 							}
 						}
-						if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
-							if(twittertrigger.getHashtag_text().startsWith("#")==false) {
-								twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
+						if (twittertrigger.getType() == false && twittertrigger.getHashtag_text() != null) {
+							if (twittertrigger.getHashtag_text().startsWith("#") == false) {
+								twittertrigger.setHashtag_text("#" + twittertrigger.getHashtag_text());
 							}
 						}
 						twittertrigger.setLastCheck(System.currentTimeMillis());
@@ -432,7 +467,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(twitteraction.getIngredientCode()==24 && twitteraction.getDestination()==null) {
+						if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 							tx.rollback();
 							return -2;
 						}
@@ -440,14 +475,13 @@ public class RecipesManagerImpl implements RecipesManager {
 							try {
 								twitter.showUser(twitteraction.getDestination());
 							} catch (TwitterException e) {
-								if(e.getErrorCode()==50) {
+								if (e.getErrorCode() == 50) {
 									tx.rollback();
 									return -2;
-								}
-								else {
+								} else {
 									tx.rollback();
 									return -1;
-								}							
+								}
 							}
 						}
 						session.save(twitteraction);
@@ -477,7 +511,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				//System.out.println(e);
+				// System.out.println(e);
 				tx.rollback();
 				return -1;
 			}
@@ -554,28 +588,30 @@ public class RecipesManagerImpl implements RecipesManager {
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
 						calendartrigger.setCtid(rec.getTriggerid());
-						if(calendartrigger.getEventAction()==null) {
+						if (calendartrigger.getEventAction() == null) {
 							tx.rollback();
 							return -1;
 						}
-						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
+						if (calendartrigger.getTitle() == null && calendartrigger.getDescription() == null
+								&& calendartrigger.getLocation() == null) {
 							tx.rollback();
 							return -1;
 						}
 						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
 							tx.rollback();
 							return -1;
-						}
-						else {
-							if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
-								tx.rollback();
-								return -3; 
-							}
-							if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+						} else {
+							if (calendartrigger.getTitle() != null && calendartrigger.getTitle().compareTo("") == 0) {
 								tx.rollback();
 								return -3;
 							}
-							if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+							if (calendartrigger.getDescription() != null
+									&& calendartrigger.getDescription().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendartrigger.getLocation() != null
+									&& calendartrigger.getLocation().compareTo("") == 0) {
 								tx.rollback();
 								return -3;
 							}
@@ -592,11 +628,11 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+						if (gmailtrigger.getSender() != null && gmailtrigger.getSender().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
-						if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+						if (gmailtrigger.getSubject() != null && gmailtrigger.getSubject().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
@@ -616,7 +652,58 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-						if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+						switch (weathertrigger.getIngredientCode()) {
+						case 14:
+							// weather trigger 1: tomorrow
+							if (weathertrigger.getType() != 1 || weathertrigger.getOra() == null) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 15:
+							// weather trigger 2: weather condition
+							if (weathertrigger.getType() != 3 || weathertrigger.getTempo() == null) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 16:
+							// weather trigger 3: sunrise/sunset
+							if (weathertrigger.getType() != 2
+									|| (weathertrigger.getSunrise() == null && weathertrigger.getSunset() == null)) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 17:
+							// weather trigger 4: temp max/min
+							if (weathertrigger.getType() != 4
+									|| (weathertrigger.getThmax() == null && weathertrigger.getThmin() == null)) {
+								tx.rollback();
+								return -1;
+							}
+							if (weathertrigger.getThmin() != null) {
+								if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+									tx.rollback();
+									return -1;
+								}
+							}
+							if (weathertrigger.getThmax() != null) {
+								if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+									tx.rollback();
+									return -1;
+								}
+							}
+							break;
+
+						default:
+							tx.rollback();
+							return -1;
+						}
+						if (weathertrigger.getLocation() == null) {
 							tx.rollback();
 							return -1;
 						}
@@ -642,18 +729,6 @@ public class RecipesManagerImpl implements RecipesManager {
 								return -1;
 							}
 						}
-						if (weathertrigger.getThmin() != null) {
-							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
-								tx.rollback();
-								return -1;
-							}
-						}
-						if (weathertrigger.getThmax() != null) {
-							if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
-								tx.rollback();
-								return -1;
-							}
-						}
 						String tz = null;
 						if (weathertrigger.getTimezone() == null) {
 							tz = user.getTimezone();
@@ -666,7 +741,6 @@ public class RecipesManagerImpl implements RecipesManager {
 						} else {
 							weathertrigger.setTimezone(tz);
 						}
-						weathertrigger.setWtid(rec.getTriggerid());
 						if (weathertrigger.getType() == 2) {
 							weathertrigger.setLastCheck(System.currentTimeMillis());
 						} else {
@@ -686,7 +760,8 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twittertrigger.getIngredientCode() < 18 && twittertrigger.getIngredientCode() != 19) {
 								return -1;
 							}
-							if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+							if (twittertrigger.getHashtag_text() == null
+									&& twittertrigger.getUsername_sender() == null) {
 								tx.rollback();
 								return -1;
 							}
@@ -694,19 +769,18 @@ public class RecipesManagerImpl implements RecipesManager {
 								try {
 									twitter.showUser(twittertrigger.getUsername_sender()).getId();
 								} catch (TwitterException e) {
-									if(e.getErrorCode()==50) {
+									if (e.getErrorCode() == 50) {
 										tx.rollback();
 										return -2;
-									}
-									else {
+									} else {
 										tx.rollback();
 										return -1;
-									}							
+									}
 								}
 							}
-							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
-								if(twittertrigger.getHashtag_text().startsWith("#")==false) {
-									twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
+							if (twittertrigger.getType() == false && twittertrigger.getHashtag_text() != null) {
+								if (twittertrigger.getHashtag_text().startsWith("#") == false) {
+									twittertrigger.setHashtag_text("#" + twittertrigger.getHashtag_text());
 								}
 							}
 							twittertrigger.setTwtid(rec.getTriggerid());
@@ -752,28 +826,30 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						CalendarTrigger calendartrigger = mapper.readValue(trig, CalendarTrigger.class);
-						if(calendartrigger.getEventAction()==null) {
+						if (calendartrigger.getEventAction() == null) {
 							tx.rollback();
 							return -1;
 						}
-						if(calendartrigger.getTitle()==null && calendartrigger.getDescription()==null && calendartrigger.getLocation()==null) {
+						if (calendartrigger.getTitle() == null && calendartrigger.getDescription() == null
+								&& calendartrigger.getLocation() == null) {
 							tx.rollback();
 							return -1;
 						}
 						if (calendartrigger.getIngredientCode() != 11 && calendartrigger.getIngredientCode() != 12) {
 							tx.rollback();
 							return -1;
-						}
-						else {
-							if(calendartrigger.getTitle()!=null && calendartrigger.getTitle().compareTo("")==0) {
-								tx.rollback();
-								return -3; 
-							}
-							if(calendartrigger.getDescription()!=null && calendartrigger.getDescription().compareTo("")==0) {
+						} else {
+							if (calendartrigger.getTitle() != null && calendartrigger.getTitle().compareTo("") == 0) {
 								tx.rollback();
 								return -3;
 							}
-							if(calendartrigger.getLocation()!=null && calendartrigger.getLocation().compareTo("")==0) {
+							if (calendartrigger.getDescription() != null
+									&& calendartrigger.getDescription().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendartrigger.getLocation() != null
+									&& calendartrigger.getLocation().compareTo("") == 0) {
 								tx.rollback();
 								return -3;
 							}
@@ -791,11 +867,11 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
-						if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+						if (gmailtrigger.getSender() != null && gmailtrigger.getSender().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
-						if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+						if (gmailtrigger.getSubject() != null && gmailtrigger.getSubject().compareTo("") == 0) {
 							tx.rollback();
 							return -3;
 						}
@@ -815,7 +891,58 @@ public class RecipesManagerImpl implements RecipesManager {
 						ObjectMapper mapper = new ObjectMapper();
 						mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						WeatherTrigger weathertrigger = mapper.readValue(trig, WeatherTrigger.class);
-						if (weathertrigger.getIngredientCode() < 14 || weathertrigger.getIngredientCode() > 17) {
+						switch (weathertrigger.getIngredientCode()) {
+						case 14:
+							// weather trigger 1: tomorrow
+							if (weathertrigger.getType() != 1 || weathertrigger.getOra() == null) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 15:
+							// weather trigger 2: weather condition
+							if (weathertrigger.getType() != 3 || weathertrigger.getTempo() == null) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 16:
+							// weather trigger 3: sunrise/sunset
+							if (weathertrigger.getType() != 2
+									|| (weathertrigger.getSunrise() == null && weathertrigger.getSunset() == null)) {
+								tx.rollback();
+								return -1;
+							}
+							break;
+
+						case 17:
+							// weather trigger 4: temp max/min
+							if (weathertrigger.getType() != 4
+									|| (weathertrigger.getThmax() == null && weathertrigger.getThmin() == null)) {
+								tx.rollback();
+								return -1;
+							}
+							if (weathertrigger.getThmin() != null) {
+								if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
+									tx.rollback();
+									return -1;
+								}
+							}
+							if (weathertrigger.getThmax() != null) {
+								if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
+									tx.rollback();
+									return -1;
+								}
+							}
+							break;
+
+						default:
+							tx.rollback();
+							return -1;
+						}
+						if (weathertrigger.getLocation() == null) {
 							tx.rollback();
 							return -1;
 						}
@@ -837,18 +964,6 @@ public class RecipesManagerImpl implements RecipesManager {
 									return -1;
 								}
 							} catch (Exception e) {
-								tx.rollback();
-								return -1;
-							}
-						}
-						if (weathertrigger.getThmin() != null) {
-							if (weathertrigger.getThmin() < (-70) || weathertrigger.getThmin() > 70) {
-								tx.rollback();
-								return -1;
-							}
-						}
-						if (weathertrigger.getThmax() != null) {
-							if (weathertrigger.getThmax() < (-70) || weathertrigger.getThmax() > 70) {
 								tx.rollback();
 								return -1;
 							}
@@ -886,7 +1001,8 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
-							if(twittertrigger.getHashtag_text()==null && twittertrigger.getUsername_sender()==null) {
+							if (twittertrigger.getHashtag_text() == null
+									&& twittertrigger.getUsername_sender() == null) {
 								tx.rollback();
 								return -1;
 							}
@@ -894,19 +1010,18 @@ public class RecipesManagerImpl implements RecipesManager {
 								try {
 									twitter.showUser(twittertrigger.getUsername_sender()).getId();
 								} catch (TwitterException e) {
-									if(e.getErrorCode()==50) {
+									if (e.getErrorCode() == 50) {
 										tx.rollback();
 										return -2;
-									}
-									else {
+									} else {
 										tx.rollback();
 										return -1;
-									}							
+									}
 								}
 							}
-							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
-								if(twittertrigger.getHashtag_text().startsWith("#")==false) {
-									twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
+							if (twittertrigger.getType() == false && twittertrigger.getHashtag_text() != null) {
+								if (twittertrigger.getHashtag_text().startsWith("#") == false) {
+									twittertrigger.setHashtag_text("#" + twittertrigger.getHashtag_text());
 								}
 							}
 							twittertrigger.setLastCheck(System.currentTimeMillis());
@@ -995,7 +1110,7 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
-							if(twitteraction.getIngredientCode()==24 && twitteraction.getDestination()==null) {
+							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
 								return -2;
 							}
@@ -1003,14 +1118,13 @@ public class RecipesManagerImpl implements RecipesManager {
 								try {
 									twitter.showUser(twitteraction.getDestination());
 								} catch (TwitterException e) {
-									if(e.getErrorCode()==50) {
+									if (e.getErrorCode() == 50) {
 										tx.rollback();
 										return -2;
-									}
-									else {
+									} else {
 										tx.rollback();
 										return -1;
-									}							
+									}
 								}
 							}
 							twitteraction.setTwaid(rec.getActionid());
@@ -1116,7 +1230,7 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
-							if(twitteraction.getIngredientCode()==24 && twitteraction.getDestination()==null) {
+							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
 								return -2;
 							}
@@ -1124,14 +1238,13 @@ public class RecipesManagerImpl implements RecipesManager {
 								try {
 									twitter.showUser(twitteraction.getDestination());
 								} catch (TwitterException e) {
-									if(e.getErrorCode()==50) {
+									if (e.getErrorCode() == 50) {
 										tx.rollback();
 										return -2;
-									}
-									else {
+									} else {
 										tx.rollback();
 										return -1;
-									}							
+									}
 								}
 							}
 							session.save(twitteraction);
