@@ -226,6 +226,14 @@ public class RecipesManagerImpl implements RecipesManager {
 						tx.rollback();
 						return -1;
 					}
+					if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+						tx.rollback();
+						return -3;
+					}
+					if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+						tx.rollback();
+						return -3;
+					}
 					gmailtrigger.setLastCheck(System.currentTimeMillis());
 					if (gmailtrigger.getSender() != null) {
 						EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
@@ -584,6 +592,14 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
 						if (gmailtrigger.getSender() != null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
 							if (emailval.validate() == false) {
@@ -774,6 +790,14 @@ public class RecipesManagerImpl implements RecipesManager {
 						if (gmailtrigger.getIngredientCode() != 13) {
 							tx.rollback();
 							return -1;
+						}
+						if(gmailtrigger.getSender()!=null && gmailtrigger.getSender().compareTo("")==0) {
+							tx.rollback();
+							return -3;
+						}
+						if(gmailtrigger.getSubject()!=null && gmailtrigger.getSubject().compareTo("")==0) {
+							tx.rollback();
+							return -3;
 						}
 						if (gmailtrigger.getSender() != null) {
 							EmailValidator emailval = new EmailValidator(gmailtrigger.getSender());
