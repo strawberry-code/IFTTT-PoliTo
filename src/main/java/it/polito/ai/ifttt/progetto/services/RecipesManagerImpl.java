@@ -413,6 +413,21 @@ public class RecipesManagerImpl implements RecipesManager {
 						tx.rollback();
 						return -1;
 					}
+					else {
+						if (calendaraction.getTitle() != null && calendaraction.getTitle().compareTo("") == 0) {
+							tx.rollback();
+							return -3;
+						}
+						if (calendaraction.getDescription() != null
+								&& calendaraction.getDescription().compareTo("") == 0) {
+							tx.rollback();
+							return -3;
+						}
+						if (calendaraction.getLocation() != null && calendaraction.getLocation().compareTo("") == 0) {
+							tx.rollback();
+							return -3;
+						}
+					}
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					if (calendaraction.getStartDate() != null) {
 						try {
@@ -1071,6 +1086,21 @@ public class RecipesManagerImpl implements RecipesManager {
 						if (calendaraction.getIngredientCode() != 21) {
 							tx.rollback();
 							return -1;
+						}
+						else {
+							if (calendaraction.getTitle() != null && calendaraction.getTitle().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendaraction.getDescription() != null
+									&& calendaraction.getDescription().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
+							if (calendaraction.getLocation() != null && calendaraction.getLocation().compareTo("") == 0) {
+								tx.rollback();
+								return -3;
+							}
 						}
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
