@@ -181,16 +181,19 @@ public class ThreadFunction extends Thread {
 														if (subject != null && emailsender != null) {
 															query = query + " from:" + emailsender + " subject:'"
 																	+ subject + "'";
-															body = "You have received an e-mail by " + emailsender
+															body = "You have received an e-mail from " + emailsender
 																	+ " with the following subject: " + subject;
 														} else if (subject == null && emailsender != null) {
 															query = query + " from:" + emailsender;
-															body = "You have received an e-mail by " + emailsender;
+															body = "You have received an e-mail from " + emailsender;
 														} else if (subject != null && emailsender == null) {
 															query = query + " subject:" + subject;
 															body = "You have received an e-mail with the following subject: "
 																	+ subject;
+														} else if (subject == null && emailsender == null) {															
+															body = "You have received an e-mail.";		
 														}
+														
 														ListMessagesResponse responseMess = clientGmail.users()
 																.messages().list("me").setQ(query).execute();
 														if (responseMess.getMessages() != null) {
@@ -492,37 +495,37 @@ public class ThreadFunction extends Thread {
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMorningTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 																			body = body + "Day temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getDayTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 																			body = body + "Evening temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getEveningTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 																			body = body + "Night temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getNightTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 																			body = body + "Maximum temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMaximumTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 																			body = body + "Minimum temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMinimumTemperature())
-																					+ " °C" + System.lineSeparator();
+																					+ " ï¿½C" + System.lineSeparator();
 
 																			body = body + "Weather description :"
 																					+ df.getForecastInstance(1)
@@ -761,11 +764,11 @@ public class ThreadFunction extends Thread {
 																						body = "The current temperature in "
 																								+ cwd.getCityName()
 																								+ " is under the minimum threshold of "
-																								+ thmin + "°C: "
+																								+ thmin + "ï¿½C: "
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
-																								+ " °C";
+																								+ " ï¿½C";
 																						this.executeAction(atype, aid,
 																								session, body);
 																						if (onetimesuccess == true)
@@ -791,11 +794,11 @@ public class ThreadFunction extends Thread {
 																						body = "The current temperature in "
 																								+ cwd.getCityName()
 																								+ " is over the maximum threshold of "
-																								+ thmax + "°C: "
+																								+ thmax + "ï¿½C: "
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
-																								+ " °C";
+																								+ " ï¿½C";
 																						this.executeAction(atype, aid,
 																								session, body);
 																						if (onetimesuccess == true)
