@@ -92,7 +92,7 @@ public class ThreadFunction extends Thread {
 	public void run() {
 		while (true) {
 
-			System.out.println("--------- "+new Date(System.currentTimeMillis()).toString()+" ------------");
+			System.out.println("--------- " + new Date(System.currentTimeMillis()).toString() + " ------------");
 			try {
 				List<Users> users = loginManager.findAllUsers();
 				if (users != null && users.size() != 0) {
@@ -125,7 +125,7 @@ public class ThreadFunction extends Thread {
 									 * .setQ( query) .execute();
 									 */
 
-//									// ricevo tutti gli eventi subito
+									// // ricevo tutti gli eventi subito
 									try {
 										clientCal = new com.google.api.services.calendar.Calendar.Builder(httpTransport,
 												JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
@@ -265,68 +265,73 @@ public class ThreadFunction extends Thread {
 																String description = "";
 																String title = "";
 
-//																if (e.getLocation() != null) {
-																	if (ct.getLocation() != null
-																			&& ct.getDescription() == null
-																			&& ct.getTitle() == null) {
-																		if (e.getLocation()!=null && ct.getLocation()
-																				.compareTo(e.getLocation()) == 0) {
+																// if
+																// (e.getLocation()
+																// != null) {
+																if (ct.getLocation() != null
+																		&& ct.getDescription() == null
+																		&& ct.getTitle() == null) {
+																	if (e.getLocation() != null && ct.getLocation()
+																			.compareTo(e.getLocation()) == 0) {
+																		success = true;
+																		if (e.getSummary() != null)
+																			title = e.getSummary();
+																		if (e.getDescription() != null)
+																			description = e.getDescription();
+																		location = e.getLocation();
+																	}
+																} else if (ct.getLocation() != null
+																		&& ct.getDescription() != null
+																		&& ct.getTitle() == null) {
+																	if (e.getLocation() != null
+																			&& e.getDescription() != null) {
+																		if (ct.getLocation()
+																				.compareTo(e.getLocation()) == 0
+																				&& ct.getDescription().compareTo(
+																						e.getDescription()) == 0) {
 																			success = true;
-																			if(e.getSummary()!=null)
+																			if (e.getSummary() != null)
 																				title = e.getSummary();
-																			if(e.getDescription()!=null)
-																				description = e.getDescription();
 																			location = e.getLocation();
-																		}
-																	} else if (ct.getLocation() != null
-																			&& ct.getDescription() != null
-																			&& ct.getTitle() == null) {
-																		if (e.getLocation()!=null && e.getDescription() != null) {
-																			if (ct.getLocation()
-																					.compareTo(e.getLocation()) == 0
-																					&& ct.getDescription().compareTo(
-																							e.getDescription()) == 0) {
-																				success = true;
-																				if(e.getSummary()!=null)
-																					title = e.getSummary();
-																				location = e.getLocation();
-																				description = e.getDescription();
-																			}
-																		}
-																	} else if (ct.getLocation() != null
-																			&& ct.getDescription() == null
-																			&& ct.getTitle() != null) {
-																		if (e.getSummary() != null && e.getLocation()!=null) {
-																			if (ct.getLocation()
-																					.compareTo(e.getLocation()) == 0
-																					&& ct.getTitle().compareTo(
-																							e.getSummary()) == 0) {
-																				success = true;
-																				location = e.getLocation();
-																				title = e.getSummary();
-																				if(e.getDescription()!=null)
-																					description = e.getDescription();
-																			}
-																		}
-																	} else if (ct.getLocation() != null
-																			&& ct.getDescription() != null
-																			&& ct.getTitle() != null) {
-																		if (e.getDescription() != null
-																				&& e.getSummary() != null && e.getLocation()!=null) {
-																			if (ct.getLocation()
-																					.compareTo(e.getLocation()) == 0
-																					&& ct.getTitle().compareTo(
-																							e.getSummary()) == 0
-																					&& ct.getDescription().compareTo(
-																							e.getDescription()) == 0) {
-																				success = true;
-																				location = e.getLocation();
-																				description = e.getDescription();
-																				title = e.getSummary();
-																			}
+																			description = e.getDescription();
 																		}
 																	}
-															/*	} */else if (ct.getLocation() == null
+																} else if (ct.getLocation() != null
+																		&& ct.getDescription() == null
+																		&& ct.getTitle() != null) {
+																	if (e.getSummary() != null
+																			&& e.getLocation() != null) {
+																		if (ct.getLocation()
+																				.compareTo(e.getLocation()) == 0
+																				&& ct.getTitle().compareTo(
+																						e.getSummary()) == 0) {
+																			success = true;
+																			location = e.getLocation();
+																			title = e.getSummary();
+																			if (e.getDescription() != null)
+																				description = e.getDescription();
+																		}
+																	}
+																} else if (ct.getLocation() != null
+																		&& ct.getDescription() != null
+																		&& ct.getTitle() != null) {
+																	if (e.getDescription() != null
+																			&& e.getSummary() != null
+																			&& e.getLocation() != null) {
+																		if (ct.getLocation()
+																				.compareTo(e.getLocation()) == 0
+																				&& ct.getTitle()
+																						.compareTo(e.getSummary()) == 0
+																				&& ct.getDescription().compareTo(
+																						e.getDescription()) == 0) {
+																			success = true;
+																			location = e.getLocation();
+																			description = e.getDescription();
+																			title = e.getSummary();
+																		}
+																	}
+																}
+																/* } */else if (ct.getLocation() == null
 																		&& ct.getDescription() != null
 																		&& ct.getTitle() == null) {
 																	if (e.getDescription() != null) {
@@ -334,9 +339,9 @@ public class ThreadFunction extends Thread {
 																				.compareTo(e.getDescription()) == 0) {
 																			success = true;
 																			description = e.getDescription();
-																			if(e.getSummary()!=null)
+																			if (e.getSummary() != null)
 																				title = e.getSummary();
-																			if(e.getLocation()!=null)
+																			if (e.getLocation() != null)
 																				location = e.getLocation();
 																		}
 																	}
@@ -348,9 +353,9 @@ public class ThreadFunction extends Thread {
 																				.compareTo(e.getSummary()) == 0) {
 																			success = true;
 																			title = e.getSummary();
-																			if(e.getDescription()!=null)
+																			if (e.getDescription() != null)
 																				description = e.getDescription();
-																			if(e.getLocation()!=null)
+																			if (e.getLocation() != null)
 																				location = e.getLocation();
 																		}
 																	}
@@ -366,7 +371,7 @@ public class ThreadFunction extends Thread {
 																			success = true;
 																			description = e.getDescription();
 																			title = e.getSummary();
-																			if(e.getLocation()!=null)
+																			if (e.getLocation() != null)
 																				location = e.getLocation();
 																		}
 																	}
@@ -855,8 +860,8 @@ public class ThreadFunction extends Thread {
 																}
 															} else if (username_sender == null
 																	&& hashtag_text != null) {
-																// check only
-																// hashtag
+																
+																// check only hashtag
 																QueryResult result = twitter
 																		.search(new Query(hashtag_text));
 																if (result != null) {
@@ -865,12 +870,8 @@ public class ThreadFunction extends Thread {
 																		if (tt.getLastCheck() == null
 																				|| t.getCreatedAt().getTime() > tt
 																						.getLastCheck()) {
-																			// trigger
-																			// verify,
-																			// execute
-																			// all
-																			// relative
-																			// actions
+																			
+																			// trigger verify, execute all relative actions
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid,
 																							ttype);
@@ -929,7 +930,7 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+															twitterManager.setLastCheck(System.currentTimeMillis(),	tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}
@@ -1031,7 +1032,8 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-															twitterManager.setLastCheck(System.currentTimeMillis(), tid);
+															twitterManager.setLastCheck(System.currentTimeMillis(),
+																	tid);
 														} catch (TwitterException e) {
 															// e.printStackTrace();
 														}

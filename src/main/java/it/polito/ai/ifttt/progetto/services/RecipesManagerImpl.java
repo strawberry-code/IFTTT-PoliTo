@@ -318,6 +318,11 @@ public class RecipesManagerImpl implements RecipesManager {
 								}							
 							}
 						}
+						if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
+							if(twittertrigger.getHashtag_text().startsWith("#")==false) {
+								twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
+							}
+						}
 						twittertrigger.setLastCheck(System.currentTimeMillis());
 						session.save(twittertrigger);
 						session.flush();
@@ -643,6 +648,11 @@ public class RecipesManagerImpl implements RecipesManager {
 									}							
 								}
 							}
+							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
+								if(twittertrigger.getHashtag_text().startsWith("#")==false) {
+									twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
+								}
+							}
 							twittertrigger.setTwtid(rec.getTriggerid());
 							twittertrigger.setLastCheck(System.currentTimeMillis());
 							session.update(twittertrigger);
@@ -810,6 +820,11 @@ public class RecipesManagerImpl implements RecipesManager {
 										tx.rollback();
 										return -1;
 									}							
+								}
+							}
+							if(twittertrigger.getType()==false && twittertrigger.getHashtag_text()!=null) {
+								if(twittertrigger.getHashtag_text().startsWith("#")==false) {
+									twittertrigger.setHashtag_text("#"+twittertrigger.getHashtag_text());
 								}
 							}
 							twittertrigger.setLastCheck(System.currentTimeMillis());
