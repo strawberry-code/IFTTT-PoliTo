@@ -514,6 +514,12 @@ public class RecipesManagerImpl implements RecipesManager {
 							tx.rollback();
 							return -1;
 						}
+						if(twitteraction.getIngredientCode()==23) {
+							if(twitteraction.getBody()!=null && twitteraction.getBody().length()>140) {
+								tx.rollback();
+								return -1;
+							}
+						}
 						if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 							tx.rollback();
 							return -2;
@@ -1234,6 +1240,12 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
+							if(twitteraction.getIngredientCode()==23) {
+								if(twitteraction.getBody()!=null && twitteraction.getBody().length()>140) {
+									tx.rollback();
+									return -1;
+								}
+							}
 							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
 								return -2;
@@ -1384,6 +1396,12 @@ public class RecipesManagerImpl implements RecipesManager {
 							if (twitteraction.getIngredientCode() != 23 && twitteraction.getIngredientCode() != 24) {
 								tx.rollback();
 								return -1;
+							}
+							if(twitteraction.getIngredientCode()==23) {
+								if(twitteraction.getBody()!=null && twitteraction.getBody().length()>140) {
+									tx.rollback();
+									return -1;
+								}
 							}
 							if (twitteraction.getIngredientCode() == 24 && twitteraction.getDestination() == null) {
 								tx.rollback();
