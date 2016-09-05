@@ -273,6 +273,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						}
 						DateFormat formatter = new SimpleDateFormat("HH:mm");
 						try {
+							formatter.setLenient(false);
 							Date date = formatter.parse(weathertrigger.getOra());
 						}catch(Exception e) {
 							tx.rollback();
@@ -755,6 +756,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							}
 							DateFormat formatter = new SimpleDateFormat("HH:mm");
 							try {
+								formatter.setLenient(false);
 								Date date = formatter.parse(weathertrigger.getOra());
 							}catch(Exception e) {
 								tx.rollback();
@@ -1010,6 +1012,7 @@ public class RecipesManagerImpl implements RecipesManager {
 							}
 							DateFormat formatter = new SimpleDateFormat("HH:mm");
 							try {
+								formatter.setLenient(false);
 								Date date = formatter.parse(weathertrigger.getOra());
 							}catch(Exception e) {
 								tx.rollback();
