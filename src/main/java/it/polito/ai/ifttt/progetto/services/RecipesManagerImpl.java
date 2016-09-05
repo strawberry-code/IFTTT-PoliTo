@@ -452,8 +452,12 @@ public class RecipesManagerImpl implements RecipesManager {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					if (calendaraction.getStartDate() != null) {
 						try {
-							sdf.parse(calendaraction.getStartDate());
+							sdf.setLenient(false);
+							sdf.parse(calendaraction.getStartDate());							
 						} catch (ParseException e1) {
+							tx.rollback();
+							return -1;
+						} catch (Exception e) {
 							tx.rollback();
 							return -1;
 						}
@@ -1194,8 +1198,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
 							try {
+								sdf.setLenient(false);
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
+								tx.rollback();
+								return -1;
+							} catch (Exception e) {
 								tx.rollback();
 								return -1;
 							}
@@ -1351,8 +1359,12 @@ public class RecipesManagerImpl implements RecipesManager {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						if (calendaraction.getStartDate() != null) {
 							try {
+								sdf.setLenient(false);
 								sdf.parse(calendaraction.getStartDate());
 							} catch (ParseException e1) {
+								tx.rollback();
+								return -1;
+							} catch (Exception e) {
 								tx.rollback();
 								return -1;
 							}
