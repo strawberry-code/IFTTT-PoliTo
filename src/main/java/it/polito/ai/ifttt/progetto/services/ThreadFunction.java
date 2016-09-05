@@ -462,8 +462,9 @@ public class ThreadFunction extends Thread {
 																Calendar cal = Calendar.getInstance();
 																cal.set(Calendar.HOUR_OF_DAY, date.getHours());
 																cal.set(Calendar.MINUTE, date.getMinutes());
+																cal.setTimeZone(TimeZone.getTimeZone(timezone));
 																date = cal.getTime();
-																date = this.parseDate(date.toString(), TimeZone.getTimeZone(timezone));
+																//date = this.parseDate(date.toString(), TimeZone.getTimeZone(timezone));
 																System.out.println(">>>>>>>>>>>> " + date.toString());
 																// Date tomorrow
 																// =
@@ -567,6 +568,8 @@ public class ThreadFunction extends Thread {
 																}
 
 															} catch (ParseException e) {
+																// e.printStackTrace();
+															} catch (Exception e) {
 																// e.printStackTrace();
 															}
 														}
