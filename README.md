@@ -32,10 +32,11 @@ The goal of this project is to set up a web application similar to [IFTTT](https
 ***
  
 ### The students:
-- [_S. Prino_](mailto:unknown-student@polito.it) server side,
+- [_S. Prino_](mailto:s220335@studenti.polito.it) server side,
 - [_F.X. Renna_](mailto:g.s220351@studenti.polito.it) client side,
-- [_A. Polinkins_](mailto:unknown-student@studenti.polito.it) server side,
+- [_A. Polinkins_](mailto:s214629@studenti.polito.it) server side,
 - [_C. Cavo_](mailto:s231943@studenti.polito.it) client side.
+
 
 ### The teachers:
 - [_G. Malnati_](mailto:g.malnati@polito.it)
