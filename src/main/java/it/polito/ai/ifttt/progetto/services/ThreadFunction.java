@@ -131,7 +131,7 @@ public class ThreadFunction extends Thread {
 												JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
 										eventList = clientCal.events().list("primary").execute();
 									} catch (Exception e) {
-										// e.printStackTrace();
+										//e.printStackTrace();
 										continue;
 									}
 
@@ -197,7 +197,7 @@ public class ThreadFunction extends Thread {
 														ListMessagesResponse responseMess = clientGmail.users()
 																.messages().list("me").setQ(query).execute();
 														if (responseMess.getMessages() != null) {
-															// c'ï¿½ qualche
+															// c'e' qualche
 															// messaggio
 															for (Message m : responseMess.getMessages()) {
 																List<Object[]> actions = recipesManager
@@ -226,8 +226,7 @@ public class ThreadFunction extends Thread {
 															boolean secondCheck = false;
 
 															if (ct.getEventAction() == false) {
-																// significa
-																// event starts
+																// significa event starts
 																Long diff = System.currentTimeMillis()
 																		- e.getStart().getDateTime().getValue();
 																if (diff > -60000 && (ct.getLastCheck() == null
@@ -236,23 +235,11 @@ public class ThreadFunction extends Thread {
 																	firstCheck = true;
 																}
 															} else if (ct.getEventAction() == true) {
-																// significa
-																// event added
+																// significa event added
 																if (ct.getLastCheck() == null || ct.getLastCheck() < e
 																		.getCreated().getValue()) {
-																	// se
-																	// l'ultima
-																	// data di
-																	// controllo
-																	// e' minore
-																	// della
-																	// data di
-																	// creazione
-																	// di un
-																	// evento,
-																	// allora
-																	// scatena
-																	// l'azione
+																	// se l'ultima data di controllo e' minore della data di
+																	// creazione di un evento, allora scatena l'azione
 																	secondCheck = true;
 																}
 															}
@@ -558,7 +545,7 @@ public class ThreadFunction extends Thread {
 																}
 
 															} catch (ParseException e) {
-																// e.printStackTrace();
+																 //e.printStackTrace();
 															}
 														}
 
@@ -764,7 +751,7 @@ public class ThreadFunction extends Thread {
 																						body = "The current temperature in "
 																								+ cwd.getCityName()
 																								+ " is under the minimum threshold of "
-																								+ thmin + "ï¿½C: "
+																								+ thmin + "°C: "
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
@@ -794,7 +781,7 @@ public class ThreadFunction extends Thread {
 																						body = "The current temperature in "
 																								+ cwd.getCityName()
 																								+ " is over the maximum threshold of "
-																								+ thmax + "ï¿½C: "
+																								+ thmax + "°C: "
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
@@ -814,9 +801,9 @@ public class ThreadFunction extends Thread {
 																		}
 																	}
 																} catch (JSONException e) {
-																	// e.printStackTrace();
+																	 //e.printStackTrace();
 																} catch (IOException e) {
-																	// e.printStackTrace();
+																	 //e.printStackTrace();
 																}
 															}
 														}
@@ -935,7 +922,7 @@ public class ThreadFunction extends Thread {
 															}
 															twitterManager.setLastCheck(System.currentTimeMillis(),	tid);
 														} catch (TwitterException e) {
-															// e.printStackTrace();
+															 //e.printStackTrace();
 														}
 
 													} else if (tt.getType() != null && tt.getType() == true) {
@@ -1038,7 +1025,7 @@ public class ThreadFunction extends Thread {
 															twitterManager.setLastCheck(System.currentTimeMillis(),
 																	tid);
 														} catch (TwitterException e) {
-															// e.printStackTrace();
+															 //e.printStackTrace();
 														}
 
 													}
@@ -1049,11 +1036,11 @@ public class ThreadFunction extends Thread {
 									}
 								}
 							} catch (IOException e1) {
-								// e1.printStackTrace();
+								 e1.printStackTrace();
 							} catch (MessagingException e) {
-								// e.printStackTrace();
+								 //e.printStackTrace();
 							} catch (Exception e) {
-								// e.printStackTrace();
+								 //e.printStackTrace();
 							}
 						} // FINE check tokens
 					}
@@ -1062,10 +1049,10 @@ public class ThreadFunction extends Thread {
 				try {
 					ThreadFunction.sleep(60000);
 				} catch (InterruptedException e) {
-					// e.printStackTrace();
+					 //e.printStackTrace();
 				}
 			} catch (Exception e) {
-				// e.printStackTrace();
+				 //e.printStackTrace();
 			}
 		}
 	}
@@ -1186,7 +1173,7 @@ public class ThreadFunction extends Thread {
 					Status status = twitter.updateStatus(txt);
 				} catch (TwitterException e) {
 					// TODO Auto-generated catch block
-					// e.printStackTrace();
+					// //e.printStackTrace();
 				}
 			} else {
 				// direct message
@@ -1196,7 +1183,7 @@ public class ThreadFunction extends Thread {
 					DirectMessage message = twitter.sendDirectMessage(user.getId(), txt);
 				} catch (TwitterException e) {
 					// TODO Auto-generated catch block
-					// e.printStackTrace();
+					// //e.printStackTrace();
 				}
 			}
 		}
