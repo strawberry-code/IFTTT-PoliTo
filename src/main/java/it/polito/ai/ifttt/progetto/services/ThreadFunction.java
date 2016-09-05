@@ -456,13 +456,14 @@ public class ThreadFunction extends Thread {
 															formatter.setLenient(false);
 															try {
 
-																formatter.setTimeZone(TimeZone.getTimeZone(timezone));
+																//formatter.setTimeZone(TimeZone.getTimeZone(timezone));
 																Date date = formatter.parse(hour);
 
 																Calendar cal = Calendar.getInstance();
 																cal.set(Calendar.HOUR_OF_DAY, date.getHours());
 																cal.set(Calendar.MINUTE, date.getMinutes());
 																date = cal.getTime();
+																date = this.parseDate(date.toString(), TimeZone.getTimeZone(timezone));
 																System.out.println(">>>>>>>>>>>> " + date.toString());
 																// Date tomorrow
 																// =
