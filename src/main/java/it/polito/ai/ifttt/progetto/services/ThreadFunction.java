@@ -587,6 +587,7 @@ public class ThreadFunction extends Thread {
 																		.getSysInstance().getSunsetTime().getTime();
 																SimpleDateFormat sdf = new SimpleDateFormat(
 																		"dd/MM/yyyy 'at' h:mm a");
+																sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																String body = "Sunrise event is happening in "
 																		+ wt.getLocationName() + " ( "
 																		+ sdf.format(sunrise) + " )";
