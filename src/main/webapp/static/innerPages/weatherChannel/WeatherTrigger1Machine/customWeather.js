@@ -215,7 +215,10 @@ $(function () {
             if ($('#checktimeZonevar').is(":checked")) {
                 //timezoneCheck(timezone);
                 timezone_customWeatherActionControllerTrigger1 = timezone;
-
+				var loc = window.location.hash;
+				if(timezone.localeCompare("? number:0 ?")==0) {
+					 alertWarningTrigger("You have to choose timezone", loc);
+				}
             }
             else timezone_customWeatherActionControllerTrigger1 = null;
             

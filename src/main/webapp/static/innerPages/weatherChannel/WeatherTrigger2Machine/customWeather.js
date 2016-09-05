@@ -267,6 +267,10 @@ $(function() {
 								pperiod = null;
 							if ($('#checktimeZonevar').is(":checked")) {
 								pzone = $('#timezoneid').val();
+								var loc = window.location.hash;
+								if(pzone.localeCompare("? number:0 ?")==0) {
+									 alertWarningTrigger("You have to choose timezone", loc);
+								}
 							} else
 								pzone = null;
 

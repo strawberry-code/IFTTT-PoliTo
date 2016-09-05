@@ -5462,6 +5462,19 @@ function alertPasswordChangedSuccess() {
     });
 }
 
+function alertWarningTrigger(message, loc) {
+	swal({
+	    title: "Hey!",
+	    text: message,
+	    type: "warning"
+	    //confirmButtonColor: "#DD6B55",
+	    //confirmButtonText: "Yes, delete it!",
+	    //closeOnConfirm: true
+	}, function () {
+		 window.location.replace(loc);
+	});
+}
+
 function weatherLiteral(tempoCode) {
 
     var weatherConditions = {
