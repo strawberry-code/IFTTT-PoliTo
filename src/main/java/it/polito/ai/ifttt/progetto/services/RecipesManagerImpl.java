@@ -581,7 +581,7 @@ public class RecipesManagerImpl implements RecipesManager {
 
 	public Integer modifyRecipe(Integer id, String data) {
 		Session session = sessionFactory.openSession();
-		System.out.println(data);
+	//	System.out.println(data);
 		
 		// new data
 		JSONObject ricetta = null;

@@ -888,18 +888,11 @@ public class ThreadFunction extends Thread {
 																if (result != null) {
 																	List<Status> qrTweets = result.getTweets();
 																	for (Status t : qrTweets) {
-																		if ((tt.getLastCheck() == null
-																				|| t.getCreatedAt().getTime() > tt
-																						.getLastCheck())
-																				&& t.getUser().getScreenName()
-																						.compareTo(
-																								username_sender) == 0) {
-																			// trigger
-																			// verify,
-																			// execute
-																			// all
-																			// relative
-																			// actions
+																		if ((tt.getLastCheck() == null || 
+																		   t.getCreatedAt().getTime() > tt.getLastCheck()) &&
+																		    t.getUser().getScreenName().compareTo(username_sender) == 0) {
+																			
+																			// trigger verify, execute all relative actions
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid,
 																							ttype);
