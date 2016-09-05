@@ -586,7 +586,7 @@ public class ThreadFunction extends Thread {
 																		.currentWeatherByCityCode(wt.getLocation())
 																		.getSysInstance().getSunsetTime().getTime();
 																SimpleDateFormat sdf = new SimpleDateFormat(
-																		"dd/MM/yyyy 'at' h:mm a");
+																		"dd/MM/yyyy 'at' h:mm a z");
 																sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																String body = "Sunrise event is happening in "
 																		+ wt.getLocationName() + " ( "
@@ -675,7 +675,7 @@ public class ThreadFunction extends Thread {
 																			Integer aid = (Integer) a[0];
 																			String atype = (String) a[1];
 																			SimpleDateFormat sdf = new SimpleDateFormat(
-																					"dd/MM/yyyy 'at' h:mm a");
+																					"dd/MM/yyyy 'at' h:mm a z");
 																			sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																			String body = "Weather conditions in "
 																					+ cwd.getCityName()
@@ -758,7 +758,7 @@ public class ThreadFunction extends Thread {
 																					.getTemperature();
 																		}
 																		SimpleDateFormat sdf = new SimpleDateFormat(
-																				"dd/MM/yyyy 'at' h:mm a");
+																				"dd/MM/yyyy 'at' h:mm a z");
 																		sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																		if (currentTmp != null) {
 																			String body = "";
