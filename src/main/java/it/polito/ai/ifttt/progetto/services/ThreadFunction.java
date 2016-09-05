@@ -1125,18 +1125,21 @@ public class ThreadFunction extends Thread {
 						}
 					} else {
 						// se false --> ifttt
-						javax.mail.Message message1 = new MimeMessage(sessionMail);
-						message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
-						message1.setRecipients(javax.mail.Message.RecipientType.TO,
-								InternetAddress.parse(ga.getReceiver()));
-						if (ga.getSubject() != null)
-							message1.setSubject(ga.getSubject());
-						if (ga.getBody() != null)
-							message1.setText(ga.getBody());
-						else if (body != null)
-							message1.setText(body);
+						EmailValidator emailval1 = new EmailValidator(ga.getReceiver());
+						if (emailval1.validate() == true) {
+							javax.mail.Message message1 = new MimeMessage(sessionMail);
+							message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
+							message1.setRecipients(javax.mail.Message.RecipientType.TO,
+									InternetAddress.parse(ga.getReceiver()));
+							if (ga.getSubject() != null)
+								message1.setSubject(ga.getSubject());
+							if (ga.getBody() != null)
+								message1.setText(ga.getBody());
+							else if (body != null)
+								message1.setText(body);
 
-						Transport.send(message1);
+							Transport.send(message1);
+						}
 					}
 				}
 
