@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -267,6 +268,13 @@ public class RecipesManagerImpl implements RecipesManager {
 					case 14:
 						// weather trigger 1: tomorrow
 						if (weathertrigger.getType() != 1 || weathertrigger.getOra() == null) {
+							tx.rollback();
+							return -1;
+						}
+						DateFormat formatter = new SimpleDateFormat("HH:mm");
+						try {
+							Date date = formatter.parse(weathertrigger.getOra());
+						}catch(Exception e) {
 							tx.rollback();
 							return -1;
 						}
@@ -745,6 +753,13 @@ public class RecipesManagerImpl implements RecipesManager {
 								tx.rollback();
 								return -1;
 							}
+							DateFormat formatter = new SimpleDateFormat("HH:mm");
+							try {
+								Date date = formatter.parse(weathertrigger.getOra());
+							}catch(Exception e) {
+								tx.rollback();
+								return -1;
+							}
 							break;
 
 						case 15:
@@ -990,6 +1005,13 @@ public class RecipesManagerImpl implements RecipesManager {
 						case 14:
 							// weather trigger 1: tomorrow
 							if (weathertrigger.getType() != 1 || weathertrigger.getOra() == null) {
+								tx.rollback();
+								return -1;
+							}
+							DateFormat formatter = new SimpleDateFormat("HH:mm");
+							try {
+								Date date = formatter.parse(weathertrigger.getOra());
+							}catch(Exception e) {
 								tx.rollback();
 								return -1;
 							}
