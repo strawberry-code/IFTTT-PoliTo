@@ -50,18 +50,21 @@
                 </div>
                 <br>
                 <label>
-                    <input
-                            id="checktime"
-                            type="checkbox"
-                            data-ng-model="checkadvisetime"
-                            data-ng-change="checkadvisetimefunc(checkadvisetimevar)"
-                    > <img src="/progetto/static/images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to be
+<!--                     <input -->
+<!--                             id="checktime" -->
+<!--                             type="checkbox" -->
+<!--                             data-ng-model="checkadvisetime" -->
+<!--                             data-ng-change="checkadvisetimefunc(checkadvisetimevar)" -->
+<!--                     >  -->
+                    <img src="/progetto/static/images/trigger-icons/watch.png" height="30" width="30"/> <b>Hour to be
                     notified</b></label>
 
-                <div data-ng-if="checkadvisetime" class="animate-if">
+<!--                 <div data-ng-if="checkadvisetime" class="animate-if"> -->
+            		<div class="animate-if">
                     <form name="timeHour">
                         <label>Hour:
-                            <input class="form-control" id="timehourid" data-ng-disabled="!checkadvisetime"
+<!--                             <input class="form-control" id="timehourid" data-ng-disabled="!checkadvisetime" -->
+					             <input class="form-control" id="timehourid"
                                    type="number" name="input1"
                                    data-ng-model="trigger1input.value1"
                                    min="0" max="23" value="0" required>
@@ -69,17 +72,27 @@
 
 
                         <label> minute:
-                            <input class="form-control" id="timeminuteid" data-ng-disabled="!checkadvisetime"
+<!--                             <input class="form-control" id="timeminuteid" data-ng-disabled="!checkadvisetime" -->
+								 <input class="form-control" id="timeminuteid"
                                    type="number" name="input2"
                                    data-ng-model="trigger1input.value2"
                                    min="0" max="59" value="0" required>
                         </label>
-                        <div role="alert">
+<!--                         <div role="alert"> -->
+<!--                         <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.required || -->
+<!--                          timeHour.input2.$error.required) && checkadvisetime"> -->
+<!--                             Required!</span> -->
+<!--                         <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.number || -->
+<!--                           timeHour.input2.$error.number) && checkadvisetime"> -->
+<!--                             Not valid number!</span> -->
+<!--                         </div> -->
+
+						<div role="alert">
                         <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.required ||
-                         timeHour.input2.$error.required) && checkadvisetime">
+                         timeHour.input2.$error.required)">
                             Required!</span>
                         <span style="color:#ac2925" class="error" data-ng-show="(timeHour.input1.$error.number ||
-                          timeHour.input2.$error.number) && checkadvisetime">
+                          timeHour.input2.$error.number)">
                             Not valid number!</span>
                         </div>
 

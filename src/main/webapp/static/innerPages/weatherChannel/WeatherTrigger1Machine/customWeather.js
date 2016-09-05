@@ -218,12 +218,14 @@ $(function () {
 
             }
             else timezone_customWeatherActionControllerTrigger1 = null;
-            if ($('#checktime').is(":checked")) {
+            
+            ora_customWeatherActionControllerTrigger1 = null
+//            if ($('#checktime').is(":checked")) {
                 timeCheck(htime, mtime);
                 ora_customWeatherActionControllerTrigger1 = time;
 
-            }
-            else ora_customWeatherActionControllerTrigger1 = null;
+  //          }
+  //          else ora_customWeatherActionControllerTrigger1 = null;
 
             if (flagTimezoneCheck == true && flagTimeCheck == true) {
                 flagTriggerDone = true;

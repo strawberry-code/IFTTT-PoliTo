@@ -252,14 +252,15 @@ $(function() {
 							var pperiod = "0";
 							var pzone = "0";
 
-							if ($('#weatheridcheckbox').is(":checked"))// &&
+							pweather = null;
+//							if ($('#weatheridcheckbox').is(":checked"))// &&
 																		// $('#periodidcheckbox').is(":checked")
 																		// &&
 																		// $('#checktimeZonevar').is(":checked"))
-							{
+//							{
 								pweather = $('#mySelect').val();
-							} else
-								pweather = null;
+//							} else
+//								pweather = null;
 							if ($('#periodidcheckbox').is(":checked")) {
 								pperiod = $('#periodidinput').val();
 							} else

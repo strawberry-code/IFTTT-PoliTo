@@ -89,6 +89,7 @@ public class ThreadFunction extends Thread {
 		twitterManager = tm;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void run() {
 		while (true) {
 
@@ -443,6 +444,12 @@ public class ThreadFunction extends Thread {
 
 																formatter.setTimeZone(TimeZone.getTimeZone(timezone));
 																Date date = formatter.parse(hour);
+																
+																 Calendar cal = Calendar.getInstance();															       
+															     cal.set(Calendar.HOUR_OF_DAY, date.getHours());
+															     cal.set(Calendar.MINUTE, date.getMinutes());
+															     date = cal.getTime();
+																System.out.println(">>>>>>>>>>>> "+date.toString());
 																// Date tomorrow
 																// =
 																// this.addDays(date,

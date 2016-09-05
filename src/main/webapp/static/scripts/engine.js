@@ -2899,7 +2899,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
         backPageVariabile = "#WeatherTrigger1";
 
         $scope.errorButton = 'cia';
-        $scope.checkadvisetimevar = 'NO';
+        $scope.checkadvisetimevar = 'YES';
         $scope.checktimeZonevar = 'NO';
         /**
          * Description
@@ -2908,7 +2908,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
          */
         $scope.checkadvisetimefunc = function (/*name*/) {
             if ($scope.checkadvisetimevar === "YES")
-                $scope.checkadvisetimevar = 'NO';
+                $scope.checkadvisetimevar = 'YES';
             else
                 $scope.checkadvisetimevar = 'YES';
             //if(consoleLogs) console.log(name);

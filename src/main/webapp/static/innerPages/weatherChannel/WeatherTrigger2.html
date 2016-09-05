@@ -57,25 +57,39 @@
             <!-- (cristiano):  questo problema è stato risolto? -->
             <form name="weather">
                 <label>
-                    <input
-                            id="weatheridcheckbox"
-                            type="checkbox"
-                            data-ng-model="checkmodelcheckweather"
-
-                    > <img src="/progetto/static/images/trigger-icons/wcondition.png" height="30" width="30"/> <b>Select
+<!--                     <input -->
+<!--                             id="weatheridcheckbox" -->
+<!--                             type="checkbox" -->
+<!--                             data-ng-model="checkmodelcheckweather" -->
+<!--                     >  -->
+                    <img src="/progetto/static/images/trigger-icons/wcondition.png" height="30" width="30"/> <b>Select
                     the weather condition</b></label>
-                <div data-ng-if="checkmodelcheckweather" class="animate-if">
+                	
+<!--                 	<div data-ng-if="checkmodelcheckweather" class="animate-if"> -->
+<!--                     <form name="myForm"> -->
+<!--                         <label for="mySelect">Make a choice:</label> -->
+<!--                         <select class="form-control" name="mySelect" id="mySelect" -->
+<!--                                 data-ng-disabled="!checkmodelcheckweather" -->
+<!--                                 data-ng-options="option.name  for option in data.availableOptions track by option.id" -->
+<!--                                 data-ng-model="data.selectedOption"></select> -->
+<!--                     </form> -->
+
+<!--                     <div role="alert"> -->
+<!--                             <span style="color:#ac2925" class="error" -->
+<!--                                   data-ng-show="weather.input.$error.required && checkmodelcheckweather"> -->
+<!--                                 Required!</span> -->
+<!--                     </div> -->
+
+				    <div class="animate-if">
                     <form name="myForm">
-                        <label for="mySelect">Make a choice:</label>
                         <select class="form-control" name="mySelect" id="mySelect"
-                                data-ng-disabled="!checkmodelcheckweather"
                                 data-ng-options="option.name  for option in data.availableOptions track by option.id"
                                 data-ng-model="data.selectedOption"></select>
                     </form>
 
                     <div role="alert">
                             <span style="color:#ac2925" class="error"
-                                  data-ng-show="weather.input.$error.required && checkmodelcheckweather">
+                                  data-ng-show="weather.input.$error.required">
                                 Required!</span>
                     </div>
 
