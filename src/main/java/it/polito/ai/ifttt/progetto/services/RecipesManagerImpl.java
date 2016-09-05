@@ -1392,7 +1392,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				e.printStackTrace();
+				//.printStackTrace();
 				tx.rollback();
 				return -1;
 			}

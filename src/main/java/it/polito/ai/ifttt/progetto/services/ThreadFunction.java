@@ -495,37 +495,37 @@ public class ThreadFunction extends Thread {
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMorningTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 																			body = body + "Day temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getDayTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 																			body = body + "Evening temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getEveningTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 																			body = body + "Night temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getNightTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 																			body = body + "Maximum temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMaximumTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 																			body = body + "Minimum temperature :"
 																					+ String.format("%.02f",
 																							df.getForecastInstance(1)
 																									.getTemperatureInstance()
 																									.getMinimumTemperature())
-																					+ " ï¿½C" + System.lineSeparator();
+																					+ " °C" + System.lineSeparator();
 
 																			body = body + "Weather description :"
 																					+ df.getForecastInstance(1)
@@ -768,7 +768,7 @@ public class ThreadFunction extends Thread {
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
-																								+ " ï¿½C";
+																								+ " °C";
 																						this.executeAction(atype, aid,
 																								session, body);
 																						if (onetimesuccess == true)
@@ -798,7 +798,7 @@ public class ThreadFunction extends Thread {
 																								+ String.format("%.02f",
 																										cwd.getMainInstance()
 																												.getTemperature())
-																								+ " ï¿½C";
+																								+ " °C";
 																						this.executeAction(atype, aid,
 																								session, body);
 																						if (onetimesuccess == true)
