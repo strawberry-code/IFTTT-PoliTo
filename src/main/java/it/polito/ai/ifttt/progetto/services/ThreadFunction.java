@@ -916,6 +916,8 @@ public class ThreadFunction extends Thread {
 															twitterManager.setLastCheck(System.currentTimeMillis(),	tid);
 														} catch (TwitterException e) {
 															 //e.printStackTrace();
+														} catch (Exception e) {
+															//e.printStackTrace();
 														}
 
 													} else if (tt.getType() != null && tt.getType() == true) {
@@ -988,12 +990,9 @@ public class ThreadFunction extends Thread {
 																	&& hashtag_text != null) {
 																// check both
 																for (DirectMessage d : messages) {
-																	if ((tt.getLastCheck() == null || d.getCreatedAt()
-																			.getTime() > tt.getLastCheck())
-																			&& d.getSenderScreenName()
-																					.compareTo(username_sender) == 0
-																			&& d.getText()
-																					.compareTo(hashtag_text) == 0) {
+																	if ((tt.getLastCheck() == null || d.getCreatedAt().getTime() > tt.getLastCheck())
+																			&& d.getSenderScreenName().compareTo(username_sender) == 0 
+																			&& d.getText().compareTo(hashtag_text) == 0) {
 																		// trigger
 																		// verify,
 																		// execute
@@ -1018,7 +1017,9 @@ public class ThreadFunction extends Thread {
 															twitterManager.setLastCheck(System.currentTimeMillis(),
 																	tid);
 														} catch (TwitterException e) {
-															 //e.printStackTrace();
+															//e.printStackTrace();
+														} catch (Exception e) {
+															//e.printStackTrace();
 														}
 
 													}
@@ -1029,7 +1030,7 @@ public class ThreadFunction extends Thread {
 									}
 								}
 							} catch (IOException e1) {
-								 e1.printStackTrace();
+								 //e1.printStackTrace();
 							} catch (MessagingException e) {
 								 //e.printStackTrace();
 							} catch (Exception e) {
@@ -1165,8 +1166,10 @@ public class ThreadFunction extends Thread {
 				try {
 					Status status = twitter.updateStatus(txt);
 				} catch (TwitterException e) {
-					// TODO Auto-generated catch block
-					// //e.printStackTrace();
+					//e.printStackTrace();
+				}
+				catch (Exception e) {
+					//e.printStackTrace();
 				}
 			} else {
 				// direct message
@@ -1175,8 +1178,10 @@ public class ThreadFunction extends Thread {
 					user = twitter.showUser(dest);
 					DirectMessage message = twitter.sendDirectMessage(user.getId(), txt);
 				} catch (TwitterException e) {
-					// TODO Auto-generated catch block
-					// //e.printStackTrace();
+					e.printStackTrace();
+				}
+				catch (Exception e) {
+					//e.printStackTrace();
 				}
 			}
 		}
