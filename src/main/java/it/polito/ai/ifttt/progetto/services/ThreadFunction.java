@@ -480,7 +480,7 @@ public class ThreadFunction extends Thread {
 																// tempo di
 																// attesa del
 																// ciclo
-																if (diff > -60000) {
+																if (diff > -300000 && diff < 300000) {
 																	List<Object[]> actions = recipesManager
 																			.findAllActionsByTriggerId(tid, ttype);
 																	for (Object[] a : actions) {
