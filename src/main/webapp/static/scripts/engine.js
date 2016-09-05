@@ -4350,72 +4350,72 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
 
 
             if (twitterLogin == true) {
+            	 if (($scope.checkedtitle == true || $scope.checkedSubject == true) && twitterLogin == true) {
 
-                if ($scope.checkedtitle == true) {
-                    if (angular.isDefined($scope.trigger2TwitterInput)) {
-                        if (angular.isDefined($scope.trigger2TwitterInput.title)) {
-                            title = $scope.trigger2TwitterInput.title;
-                            flag = 1
-                        }
-                        else {
-                            title = "";
-                        }
-                    }
-                    else {
-                        title = "";
-                    }
-
-                }
-                else {
-                    title = null;
-                }
-
-
-                if ($scope.checkedSubject == true) {
-                    if (angular.isDefined($scope.trigger2TwitterInput)) {
-                        if (angular.isDefined($scope.trigger2TwitterInput.subjectReceive)) {
-                            subject = $scope.trigger2TwitterInput.subjectReceive;
-                        }
-                        else {
-                            subject = "";
-                        }
-                    }
-                    else {
-                        subject = "";
-                    }
-
-                }
-                else {
-                    subject = null;
-                }
-
-                flagTriggerDone = true;
-                username_sender_trigger2TwitterController = title;
-                hashtag_text_trigger2TwitterController = subject;
-
-                modulinoj1 =
-                {
-                    "ingredientCode": 19,
-                    "triggerType": "twitter",
-                    "type": true,
-                    "hashtag_text": hashtag_text_trigger2TwitterController,
-                    "username_sender": username_sender_trigger2TwitterController
-                };
-
-                if (modifyVar == true) {
-                    sendingToServerAllput();
-                }
-                else {
-                    if (importFlag == true) {
-                        window.location.replace("#" + actionImportRoute);
-                    }
-                    else {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
-                    }
-
-
-                }
+	                if ($scope.checkedtitle == true) {
+	                    if (angular.isDefined($scope.trigger2TwitterInput)) {
+	                        if (angular.isDefined($scope.trigger2TwitterInput.title)) {
+	                            title = $scope.trigger2TwitterInput.title;
+	                            flag = 1
+	                        }
+	                        else {
+	                            title = "";
+	                        }
+	                    }
+	                    else {
+	                        title = "";
+	                    }
+	
+	                }
+	                else {
+	                    title = null;
+	                }
+	
+	
+	                if ($scope.checkedSubject == true) {
+	                    if (angular.isDefined($scope.trigger2TwitterInput)) {
+	                        if (angular.isDefined($scope.trigger2TwitterInput.subjectReceive)) {
+	                            subject = $scope.trigger2TwitterInput.subjectReceive;
+	                        }
+	                        else {
+	                            subject = "";
+	                        }
+	                    }
+	                    else {
+	                        subject = "";
+	                    }
+	
+	                }
+	                else {
+	                    subject = null;
+	                }
+	
+	                flagTriggerDone = true;
+	                username_sender_trigger2TwitterController = title;
+	                hashtag_text_trigger2TwitterController = subject;
+	
+	                modulinoj1 =
+	                {
+	                    "ingredientCode": 19,
+	                    "triggerType": "twitter",
+	                    "type": true,
+	                    "hashtag_text": hashtag_text_trigger2TwitterController,
+	                    "username_sender": username_sender_trigger2TwitterController
+	                };
+	
+	                if (modifyVar == true) {
+	                    sendingToServerAllput();
+	                }
+	                else {
+	                    if (importFlag == true) {
+	                        window.location.replace("#" + actionImportRoute);
+	                    }
+	                    else {
+	                        url = "#createRecipeAction";
+	                        window.location.replace(url);
+	                    }
+	                }
+            	 }
             }
 
             if (twitterLogin == false) {
