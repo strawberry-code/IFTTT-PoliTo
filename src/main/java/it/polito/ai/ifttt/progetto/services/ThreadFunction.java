@@ -676,6 +676,7 @@ public class ThreadFunction extends Thread {
 																			String atype = (String) a[1];
 																			SimpleDateFormat sdf = new SimpleDateFormat(
 																					"dd/MM/yyyy 'at' h:mm a");
+																			sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																			String body = "Weather conditions in "
 																					+ cwd.getCityName()
 																					+ " at this moment ("
@@ -756,7 +757,9 @@ public class ThreadFunction extends Thread {
 																			currentTmp = cwd.getMainInstance()
 																					.getTemperature();
 																		}
-
+																		SimpleDateFormat sdf = new SimpleDateFormat(
+																				"dd/MM/yyyy 'at' h:mm a");
+																		sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
 																		if (currentTmp != null) {
 																			String body = "";
 																			if (wt.getThmin() != null
@@ -769,7 +772,7 @@ public class ThreadFunction extends Thread {
 																					for (Object[] a : actions) {
 																						Integer aid = (Integer) a[0];
 																						String atype = (String) a[1];
-																						body = "The current temperature in "
+																						body = "The current temperature ("+sdf.format(cwd.getDateTime()) +") in "
 																								+ cwd.getCityName()
 																								+ " is under the minimum threshold of "
 																								+ thmin + "°C: "
@@ -799,7 +802,7 @@ public class ThreadFunction extends Thread {
 																					for (Object[] a : actions) {
 																						Integer aid = (Integer) a[0];
 																						String atype = (String) a[1];
-																						body = "The current temperature in "
+																						body = "The current temperature ("+sdf.format(cwd.getDateTime()) +") in "
 																								+ cwd.getCityName()
 																								+ " is over the maximum threshold of "
 																								+ thmax + "°C: "
