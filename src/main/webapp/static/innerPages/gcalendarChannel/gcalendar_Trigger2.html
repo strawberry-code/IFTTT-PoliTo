@@ -53,9 +53,9 @@
                                       placeholder="Insert the event description to watch"
                                       ng-model="trigger2GcalendarVar.subjectReceive" name="subjectReceive"
                                       ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
+                                      maxlength="255" ng-trim="false"
                             ></textarea>
-                        <span>{{500 - trigger2GcalendarVar.subjectReceive.length}} left </span>
+                        <span>{{255 - trigger2GcalendarVar.subjectReceive.length}} left </span>
                     </div>
                 </div>
 

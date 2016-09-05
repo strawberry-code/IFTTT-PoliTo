@@ -55,10 +55,10 @@
                         <input class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
                                ng-model="trigger1TwitterInput.subjectReceive" name="subjectReceive"
                                ng-disabled="!checkedSubject"
-                               maxlength="500" ng-trim="false"
+                               maxlength="255" ng-trim="false"
                                type="title"
                         >
-                        <span>{{100 - trigger1TwitterInput.subjectReceive.length}} left </span>
+                        <span>{{255 - trigger1TwitterInput.subjectReceive.length}} left </span>
                     </div>
                 </div>
 

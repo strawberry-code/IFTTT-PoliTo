@@ -59,9 +59,9 @@
                                       placeholder="Insert here the email subject"
                                       ng-model="gmailActionvar.subjectReceive" name="subjectReceive"
                                       ng-disabled="!checkedSubject"
-                                      maxlength="500" ng-trim="false"
+                                      maxlength="255" ng-trim="false"
                             ></textarea>
-                        <span>{{500 - gmailActionvar.subjectReceive.length}} left </span>
+                        <span>{{255 - gmailActionvar.subjectReceive.length}} left </span>
                     </div>
                 </div>
 
@@ -83,9 +83,9 @@
                                       placeholder="Inert here the email content"
                                       ng-model="gmailActionvar.checkedBody" name="checkedBody"
                                       ng-disabled="!checkedBody"
-                                      maxlength="500" ng-trim="false"
+                                      maxlength="255" ng-trim="false"
                             ></textarea>
-                        <span>{{500 - gmailActionvar.checkedBody.length}} left </span>
+                        <span>{{255 - gmailActionvar.checkedBody.length}} left </span>
                     </div>
                 </div>
                 <hr>

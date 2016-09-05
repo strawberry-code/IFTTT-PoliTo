@@ -24,10 +24,10 @@
                         <input type="title" class="form-control" id="title" placeholder="Insert the twitter user here"
                                data-ng-model="action2TwitterInput.title"
                                required="" name="utitle"
-                               maxlength="256"
+                               maxlength="255"
                                data-ng-trim="false"
                         >
-                        <span>{{256 - action2TwitterInput.title.length}} left </span>
+                        <span>{{255 - action2TwitterInput.title.length}} left </span>
                     </div>
                 </div>
 
@@ -46,9 +46,9 @@
 							<textarea class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
                                       data-ng-model="action2TwitterInput.subjectReceive" name="subjectReceive"
                                       data-ng-disabled="!checkedSubject"
-                                      maxlength="500" data-ng-trim="false"
+                                      maxlength="255" data-ng-trim="false"
                             ></textarea>
-                        <span>{{500 - action2TwitterInput.subjectReceive.length}} left </span>
+                        <span>{{255 - action2TwitterInput.subjectReceive.length}} left </span>
                     </div>
                 </div>
 
