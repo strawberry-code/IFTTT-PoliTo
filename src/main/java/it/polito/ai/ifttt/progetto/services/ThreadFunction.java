@@ -1065,134 +1065,141 @@ public class ThreadFunction extends Thread {
 			if (atype.compareTo("gmail") == 0 && clientGmail != null) {
 				GmailAction ga = gmailManager.findGmailActionById(aid);
 
-				MimeMessage email = new MimeMessage(session);
-
-				EmailValidator emailval = new EmailValidator(ga.getReceiver());
-				if (emailval.validate() == true) {
-					InternetAddress tAddress = new InternetAddress(ga.getReceiver());
-					email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
-					if (ga.getSubject() != null)
-						email.setSubject(ga.getSubject());
-					if (ga.getBody() != null)
-						email.setText(ga.getBody());
-					else if (body != null) {
-						email.setText(body);
-						// save it in the db
-						// ga.setBody(body);
-						// gmailManager.saveUpdates(ga);
-					}
-
-					ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-					email.writeTo(bytes);
-					String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
-					Message message = new Message();
-					message.setRaw(encodedEmail);
-
+				if(ga!=null) {
 					if (ga.isSender() == true) {
 						// se ==true --> me
+						MimeMessage email = new MimeMessage(session);
+
+						EmailValidator emailval = new EmailValidator(ga.getReceiver());
+						if (emailval.validate() == true) {
+							InternetAddress tAddress = new InternetAddress(ga.getReceiver());
+							email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
+							if (ga.getSubject() != null)
+								email.setSubject(ga.getSubject());
+							if (ga.getBody() != null)
+								email.setText(ga.getBody());
+							else if (body != null) {
+								email.setText(body);
+								// save it in the db
+								// ga.setBody(body);
+								// gmailManager.saveUpdates(ga);
+							}
+
+							ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+							email.writeTo(bytes);
+							String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
+							Message message = new Message();
+							message.setRaw(encodedEmail);
 						clientGmail.users().messages().send("me", message).execute();
 					} else {
 						// se false --> ifttt
-						javax.mail.Message message1 = new MimeMessage(sessionMail);
-						message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
-						message1.setRecipients(javax.mail.Message.RecipientType.TO,
-								InternetAddress.parse(ga.getReceiver()));
-						if (ga.getSubject() != null)
-							message1.setSubject(ga.getSubject());
-						if (ga.getBody() != null)
-							message1.setText(ga.getBody());
-						else if (body != null)
-							message1.setText(body);
-
-						Transport.send(message1);
+						EmailValidator emailval1 = new EmailValidator(ga.getReceiver());
+						if (emailval1.validate() == true) {
+							javax.mail.Message message1 = new MimeMessage(sessionMail);
+							message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
+							message1.setRecipients(javax.mail.Message.RecipientType.TO,
+									InternetAddress.parse(ga.getReceiver()));
+							if (ga.getSubject() != null)
+								message1.setSubject(ga.getSubject());
+							if (ga.getBody() != null)
+								message1.setText(ga.getBody());
+							else if (body != null)
+								message1.setText(body);
+	
+							Transport.send(message1);
+						}
 					}
 				}
-
+			}
 			} else if (atype.compareTo("calendar") == 0 && clientGmail != null) {
 
 				CalendarAction ca = calendarManager.findCalendarActionById(aid);
-				Event event = new Event();
-				if (ca.getTitle() != null) {
-					event.setSummary(ca.getTitle());
-				}
-				if (ca.getDescription() != null) {
-					event.setDescription(ca.getDescription());
-				}
-				if (ca.getLocation() != null) {
-					event.setLocation(ca.getLocation());
-				}
-
-				try {
-					DateTime startDateTime = null;
-					if (ca.getStartDate() != null) {
-						// startDateTime = new DateTime(ca.getStartDate());
-						Date d = null;
-						final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-						TimeZone tz = TimeZone.getTimeZone(ca.getTimezone());
-						try {
-							String s = sdf.format(parseDate(ca.getStartDate(), tz));
-							d = sdf.parse(s);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-						startDateTime = new DateTime(d);
-					} else {
-						startDateTime = new DateTime(new Date());
+				if(ca!=null) {
+					Event event = new Event();
+					if (ca.getTitle() != null) {
+						event.setSummary(ca.getTitle());
 					}
-					EventDateTime start = new EventDateTime().setDateTime(startDateTime);
-					event.setStart(start);
+					if (ca.getDescription() != null) {
+						event.setDescription(ca.getDescription());
+					}
+					if (ca.getLocation() != null) {
+						event.setLocation(ca.getLocation());
+					}
 
-					DateTime endDateTime = null;
-					Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
-					endDateTime = new DateTime(new Date(mill));
-					EventDateTime end = new EventDateTime().setDateTime(endDateTime);
-					event.setEnd(end);
+					try {
+						DateTime startDateTime = null;
+						if (ca.getStartDate() != null) {
+							// startDateTime = new DateTime(ca.getStartDate());
+							Date d = null;
+							final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+							TimeZone tz = TimeZone.getTimeZone(ca.getTimezone());
+							try {
+								String s = sdf.format(parseDate(ca.getStartDate(), tz));
+								d = sdf.parse(s);
+							} catch (ParseException e1) {
+								e1.printStackTrace();
+							}
+							startDateTime = new DateTime(d);
+						} else {
+							startDateTime = new DateTime(new Date());
+						}
+						EventDateTime start = new EventDateTime().setDateTime(startDateTime);
+						event.setStart(start);
 
-					event = clientCal.events().insert("primary", event).execute();
-				} catch (Exception e) {
-					// try-catch to handle incorrect date
-					System.out.println(e.getMessage());
-				}
+						DateTime endDateTime = null;
+						Long mill = event.getStart().getDateTime().getValue() + ca.getDuration();
+						endDateTime = new DateTime(new Date(mill));
+						EventDateTime end = new EventDateTime().setDateTime(endDateTime);
+						event.setEnd(end);
+
+						event = clientCal.events().insert("primary", event).execute();
+					} catch (Exception e) {
+						// try-catch to handle incorrect date
+						System.out.println(e.getMessage());
+					}
+				}				
 
 			} else if (atype.compareTo("twitter") == 0 && twitter != null) {
 				TwitterAction ta = twitterManager.findTwitterActionById(aid);
-				String text = ta.getBody();
-				String dest = ta.getDestination();
+				if(ta!=null) {
+					String text = ta.getBody();
+					String dest = ta.getDestination();
 
-				String txt = "";
-				if (text != null) {
-					txt = text;
-				} else if (body != null) {
-					txt = body;
-					// save it in the db
-					// ta.setBody(body);
-					// twitterManager.saveUpdates(ta);
+					String txt = "";
+					if (text != null) {
+						txt = text;
+					} else if (body != null) {
+						txt = body;
+						// save it in the db
+						// ta.setBody(body);
+						// twitterManager.saveUpdates(ta);
 
-				}
+					}
 
-				if (dest == null) {
-					// post
-					try {
-						Status status = twitter.updateStatus(txt);
-					} catch (TwitterException e) {
-						//e.printStackTrace();
+					if (dest == null) {
+						// post
+						try {
+							Status status = twitter.updateStatus(txt);
+						} catch (TwitterException e) {
+							//e.printStackTrace();
+						}
+						catch (Exception e) {
+							//e.printStackTrace();
+						}
+					} else {
+						// direct message
+						User user;
+						try {
+							user = twitter.showUser(dest);
+							DirectMessage message = twitter.sendDirectMessage(user.getId(), txt);
+						} catch (TwitterException e) {
+							e.printStackTrace();
+						}
+						catch (Exception e) {
+							//e.printStackTrace();
+						}
 					}
-					catch (Exception e) {
-						//e.printStackTrace();
-					}
-				} else {
-					// direct message
-					User user;
-					try {
-						user = twitter.showUser(dest);
-						DirectMessage message = twitter.sendDirectMessage(user.getId(), txt);
-					} catch (TwitterException e) {
-						e.printStackTrace();
-					}
-					catch (Exception e) {
-						//e.printStackTrace();
-					}
-				}
+				}				
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
