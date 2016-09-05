@@ -1653,7 +1653,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                         }
                         else {
-                            if ($scope.userRecipes[index].trigger.type == 2) {
+                            if ($scope.userRecipes[index].trigger.type == 3) {
 
                                 idCity_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.location;
                                 locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
@@ -1667,7 +1667,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 {
                                     "ingredientCode": 15,
                                     "triggerType": "weather",
-                                    "type": "2",
+                                    "type": "3",
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "locationName": locationName_ControllerTrigger2,
                                     "tempo": pweather_customWeatherActionControllerTrigger2,
@@ -1678,7 +1678,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                             }
                             else {
-                                if ($scope.userRecipes[index].trigger.type == 3) {
+                                if ($scope.userRecipes[index].trigger.type == 2) {
                                     idCity_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.location;
                                     locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                     timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
@@ -1690,7 +1690,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     {
                                         "ingredientCode": 16,
                                         "triggerType": "weather",
-                                        "type": "3",
+                                        "type": "2",
                                         "location": idCity_customWeatherActionControllerTrigger3,
                                         "locationName": locationName_ControllerTrigger3,
                                         "timezone": timezone_customWeatherActionControllerTrigger3,
