@@ -269,7 +269,7 @@ $(function () {
                 //window.location.replace(url);
                 //Alert sull'errore commesso:
                 //if(flagTimezoneCheck == false && flagTimeCheck == false)
-                if (lagTimeCheck == false) {
+                if (flagTimeCheck == false) {
                     //
                     // $("#notificationsWrapper").notify(
                     //     "Your inputs are not right",
