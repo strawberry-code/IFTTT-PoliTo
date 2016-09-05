@@ -32,7 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
                
             Users user = loginManager.findUserByUsername(username);
             String hashpass = this.computeMD5(password);
-     
+           
             if (user == null || !user.getUsername().equals(username)) {
                 throw new BadCredentialsException("Username not found.");
             }
@@ -43,8 +43,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
      
             if(user.getEnabled()==false) {
             	throw new BadCredentialsException("User not activated.");
-            }
-            
+            }           
             
      
             Collection<? extends GrantedAuthority> authorities = user.getRoles();

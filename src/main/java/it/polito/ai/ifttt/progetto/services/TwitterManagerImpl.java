@@ -23,6 +23,8 @@ public class TwitterManagerImpl implements TwitterManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.TwitterAction";
 			Query query = session.createQuery(hql);
 			twitteractions = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -43,6 +45,8 @@ public class TwitterManagerImpl implements TwitterManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.TwitterTrigger";
 			Query query = session.createQuery(hql);
 			twittertriggers = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -60,6 +64,8 @@ public class TwitterManagerImpl implements TwitterManager {
 		TwitterAction twitteraction = null;
 		try {
 			twitteraction = session.get(TwitterAction.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -77,6 +83,8 @@ public class TwitterManagerImpl implements TwitterManager {
 		TwitterTrigger twittertrigger = null;
 		try {
 			twittertrigger = session.get(TwitterTrigger.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -97,6 +105,8 @@ public class TwitterManagerImpl implements TwitterManager {
 			twittertrigger.setLastCheck(date);
 			session.flush();
 			session.update(twittertrigger);
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -105,5 +115,19 @@ public class TwitterManagerImpl implements TwitterManager {
 		}
 		return;
 	}
+
+//	public void saveUpdates(TwitterAction ta) {
+//		Session session = sessionFactory.openSession();
+//		try {
+//			session.flush();
+//			session.update(ta);
+//		} finally {
+//			if (session != null) {
+//				// close session in any case
+//				session.close();
+//			}
+//		}
+//		return;		
+//	}
 
 }

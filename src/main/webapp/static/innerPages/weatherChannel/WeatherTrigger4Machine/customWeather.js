@@ -263,6 +263,10 @@ $(function () {
                 }
                 if ($('#checktimeZonevar').is(":checked")) {
                     timezone = $('#timezoneid').val();
+    				var loc = window.location.hash;
+    				if(timezone.localeCompare("? number:0 ?")==0) {
+    					 alertWarningTrigger("You have to choose timezone", loc);
+    				}
                 }
                 else {
                     timezone = null;

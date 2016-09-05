@@ -40,6 +40,7 @@ import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import it.polito.ai.ifttt.progetto.models.recipeJsonClass;
 import it.polito.ai.ifttt.progetto.models.requestClass;
 import it.polito.ai.ifttt.progetto.models.returnClass;
+import it.polito.ai.ifttt.progetto.models.returnProfileClass;
 import it.polito.ai.ifttt.progetto.services.CalendarManager;
 import it.polito.ai.ifttt.progetto.services.EmailValidator;
 import it.polito.ai.ifttt.progetto.services.GmailManager;
@@ -110,7 +111,7 @@ public class DataRestController {
 
 	@RequestMapping(value = "userRecipes", method = RequestMethod.POST)
 	Integer fillDatabase(@RequestBody String data) {
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = recipesManager.addRecipe(data);
 		return code;
 	}
@@ -119,7 +120,13 @@ public class DataRestController {
 	List<recipeJsonClass> getRecipes() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
+		if(user==null){
+			return new ArrayList<recipeJsonClass>();
+		}
 		List<Recipes> recipes = user.getRecipes();
+		if(recipes==null){
+			return new ArrayList<recipeJsonClass>();
+		}
 		List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		for (Recipes r : recipes) {
 			recipeJsonClass ricettaJson = new recipeJsonClass();
@@ -140,7 +147,7 @@ public class DataRestController {
 				trigger = twitterManager.findTwitterTriggerById(triggerid);
 			} else {
 				// valore non valido
-				return null;
+				return new ArrayList<recipeJsonClass>();
 			}
 			ricettaJson.setTrigger(trigger);
 
@@ -156,7 +163,7 @@ public class DataRestController {
 				action = twitterManager.findTwitterActionById(actionid);
 			} else {
 				// valore non valido
-				return null;
+				return new ArrayList<recipeJsonClass>();
 			}
 			ricettaJson.setAction(action);
 
@@ -170,7 +177,7 @@ public class DataRestController {
 
 	@RequestMapping(value = "userRecipes/{id}", method = RequestMethod.PUT)
 	Integer modifyRecipe(@PathVariable("id") Integer id, @RequestBody String data) {
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = recipesManager.modifyRecipe(id, data);
 		// -1 if error
 		return code;
@@ -338,7 +345,7 @@ public class DataRestController {
 	@RequestMapping(value = "publish/userRecipes/{id}", method = RequestMethod.PUT)
 	Integer publishRecipe(@PathVariable("id") Integer id, @RequestBody Boolean data) {
 
-		System.out.println(data);
+		//System.out.println(data);
 		Integer code = 0;
 
 		Recipes recipe = recipesManager.findRecipesById(id);
@@ -369,7 +376,7 @@ public class DataRestController {
 		// devo prendere TUTTE le ricette presenti nel db
 		List<Recipes> recipes = recipesManager.findAllRecipes();
 		if (recipes == null) {
-			return null;
+			return new HashSet<Types>();
 		}
 		// List<recipeJsonClass> list = new ArrayList<recipeJsonClass>();
 		Set<Types> handleDup = new HashSet<Types>();
@@ -403,7 +410,7 @@ public class DataRestController {
 					triggerIngredientCode = trigger.getIngredientCode();
 				} else {
 					// valore non valido
-					return null;
+					return new HashSet<Types>();
 				}
 				// ricettaJson.setTrigger(trigger);
 				retClass.setTriggerIngredientCode(triggerIngredientCode);
@@ -424,7 +431,7 @@ public class DataRestController {
 					actionIngredientCode = action.getIngredientCode();
 				} else {
 					// valore non valido
-					return null;
+					return new HashSet<Types>();
 				}
 				retClass.setActionIngredientCode(actionIngredientCode);
 				// ricettaJson.setAction(action);
@@ -504,7 +511,7 @@ public class DataRestController {
 							Transport.send(message);
 
 						} catch (MessagingException e) {
-							System.out.println(e.getMessage());
+							//System.out.println(e.getMessage());
 							code = -1;
 						}
 					} else {
@@ -541,6 +548,23 @@ public class DataRestController {
 		res.setDeleted(code);
 		return res;
 	}
+	
+	@RequestMapping(value = "infoProfile", method = RequestMethod.GET)
+	returnProfileClass getInfoProfile() {
+				
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Users user = loginManager.findUserByUsername(username);
+		if(user == null) {
+			return null;
+		}		
+		returnProfileClass profile = new returnProfileClass();
+		profile.setUsername(user.getUsername());
+		profile.setEmail(user.getEmail());
+		profile.setTimezone(user.getTimezone());
+		
+		return profile;
+	}
+	
 
 	// function to compute an MD5 hash of the user password
 	public static String computeMD5(String input) {

@@ -71,11 +71,14 @@ public class TwitterController {
 		RequestToken requestToken = null;
 		try {
 			requestToken = twitter.getOAuthRequestToken();
+			return new RedirectView(requestToken.getAuthorizationURL());
 		} catch (TwitterException e1) {
-
-			e1.printStackTrace();
+			//e1.printStackTrace();	
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
 		}
-		return new RedirectView(requestToken.getAuthorizationURL());
+		catch (Exception e) {
+			return new RedirectView("http://localhost:8080/progetto/#/someErrorOccurred");
+		}
 	}
 
 	@RequestMapping(value = "/tw.token", method = RequestMethod.GET, params = { "oauth_token", "oauth_verifier" })
@@ -93,7 +96,7 @@ public class TwitterController {
 		if (this.auth != null) {
 			SecurityContextHolder.getContext().setAuthentication(auth);
 			String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-			System.out.println(username);
+		//	System.out.println(username);
 			this.user = loginManager.findUserByUsername(username);
 			loginManager.setTwitterCredentials(user, accessToken.getToken(), accessToken.getTokenSecret());
 
@@ -124,7 +127,7 @@ public class TwitterController {
 
 		// String path = "http://localhost:8080/progetto/#" +
 		// this.nextPath+"?count="+this.count;
-		System.out.println(path);
+	//	System.out.println(path);
 		return new RedirectView(path);
 	}
 
@@ -155,7 +158,7 @@ public class TwitterController {
 			e.printStackTrace();
 		}
 
-		System.out.println(path);
+	//	System.out.println(path);
 		return new RedirectView(path);
 	}
 
@@ -163,7 +166,7 @@ public class TwitterController {
 	@ResponseBody
 	returnClass checkGoogleConnection(@RequestBody requestClass data) {
 
-		System.out.println(data.getUrlNext());
+	//	System.out.println(data.getUrlNext());
 
 		this.nextPath = data.getUrlNext();
 		try {

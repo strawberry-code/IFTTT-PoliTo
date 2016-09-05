@@ -23,7 +23,9 @@ public class CalendarManagerImpl implements CalendarManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.CalendarAction";
 			Query query = session.createQuery(hql);
 			calendaractions = query.list();
-		} finally {
+		} catch(Exception e){
+			return null;
+		}finally{
 			if (session != null) {
 				// close session in any case
 				session.close();
@@ -43,7 +45,9 @@ public class CalendarManagerImpl implements CalendarManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.CalendarTrigger";
 			Query query = session.createQuery(hql);
 			calendartriggers = query.list();
-		} finally {
+		} catch(Exception e){
+			return null;
+		}finally{
 			if (session != null) {
 				// close session in any case
 				session.close();
@@ -60,7 +64,9 @@ public class CalendarManagerImpl implements CalendarManager {
 		CalendarAction calendaraction = null;
 		try {
 			calendaraction = session.get(CalendarAction.class, id);
-		} finally {
+		} catch(Exception e){
+			return null;
+		}finally{
 			if (session != null) {
 				// close session in any case
 				session.close();
@@ -77,7 +83,9 @@ public class CalendarManagerImpl implements CalendarManager {
 		CalendarTrigger calendartrigger = null;
 		try {
 			calendartrigger = session.get(CalendarTrigger.class, id);
-		} finally {
+		} catch(Exception e){
+			return null;
+		}finally{
 			if (session != null) {
 				// close session in any case
 				session.close();
@@ -97,7 +105,9 @@ public class CalendarManagerImpl implements CalendarManager {
 			calendartrigger.setLastCheck(date);
 			session.flush();
 			session.update(calendartrigger);
-		} finally {
+		} catch(Exception e){
+			return;
+		}finally{
 			if (session != null) {
 				// close session in any case
 				session.close();

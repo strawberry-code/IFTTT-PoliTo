@@ -22,6 +22,8 @@ public class GmailManagerImpl implements GmailManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.GmailAction";
 			Query query = session.createQuery(hql);
 			gmailactions = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -42,6 +44,8 @@ public class GmailManagerImpl implements GmailManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.GmailTrigger";
 			Query query = session.createQuery(hql);
 			gmailtriggers = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -59,6 +63,8 @@ public class GmailManagerImpl implements GmailManager {
 		GmailAction gmailaction = null;
 		try {
 			gmailaction = session.get(GmailAction.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -76,6 +82,8 @@ public class GmailManagerImpl implements GmailManager {
 		GmailTrigger gmailtrigger = null;
 		try {
 			gmailtrigger = session.get(GmailTrigger.class, id);
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -96,6 +104,8 @@ public class GmailManagerImpl implements GmailManager {
 			gmailtrigger.setLastCheck(date);
 			session.flush();
 			session.update(gmailtrigger);
+		} catch(Exception e){
+			return;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -104,4 +114,20 @@ public class GmailManagerImpl implements GmailManager {
 		}
 		return;
 	}
+
+//	public void saveUpdates(GmailAction ga) {
+//		Session session = sessionFactory.openSession();
+//		try {
+//			session.flush();
+//			session.update(ga);
+//		} catch(Exception e){
+//			return null;
+//		} finally {
+//			if (session != null) {
+//				// close session in any case
+//				session.close();
+//			}
+//		}
+//		return;
+//	}
 }

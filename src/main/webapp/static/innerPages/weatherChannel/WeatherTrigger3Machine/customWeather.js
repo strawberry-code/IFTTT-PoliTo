@@ -256,6 +256,10 @@ $(function () {
                 //timezone
                 if ($('#checktimeZonevar').is(":checked")) {
                     timezone_customWeatherActionControllerTrigger3 = $('#timezoneid').val();
+    				var loc = window.location.hash;
+    				if(timezone_customWeatherActionControllerTrigger3.localeCompare("? number:0 ?")==0) {
+    					 alertWarningTrigger("You have to choose timezone", loc);
+    				}
                     //timezoneCheck();
                 }
                 else {

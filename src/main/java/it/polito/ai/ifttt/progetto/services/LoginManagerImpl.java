@@ -144,7 +144,11 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
-		} finally {
+		} 
+		catch(Exception e){
+			return -1;
+		}
+		finally {
 			if (session != null) {
 				// close session in any case
 				session.close();
@@ -189,6 +193,8 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e) {
+				return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -209,13 +215,15 @@ public class LoginManagerImpl implements LoginManager {
 			Query query = session.createQuery(hql);
 			query.setString("n", username);
 			users = query.list();
-		} finally {
-			if (session != null) {
+		} catch(Exception e){
+			return null;
+		}finally {
+			if (session != null ) {
 				// close session in any case
 				session.close();
 			}
 		}
-		if (users.size() == 0) {
+		if ( users==null || users.size() == 0 ) {
 			return null;
 		}
 		return users.get(0);
@@ -229,6 +237,8 @@ public class LoginManagerImpl implements LoginManager {
 			String hql = "from it.polito.ai.ifttt.progetto.models.Users";
 			Query query = session.createQuery(hql);
 			users = query.list();
+		} catch(Exception e){
+			return null;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -248,6 +258,8 @@ public class LoginManagerImpl implements LoginManager {
 			user.setGoogleExpire(expire);
 			session.update(user);
 			session.flush();
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -264,6 +276,8 @@ public class LoginManagerImpl implements LoginManager {
 			user.setTwitterTokenSecret(tokenSecret);
 			session.update(user);
 			session.flush();
+		} catch(Exception e){
+			return;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -283,6 +297,8 @@ public class LoginManagerImpl implements LoginManager {
 			query.setString("n", username);
 			token = query.list();
 			// users = query.list();
+		} catch(Exception e){
+			return false;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -305,6 +321,8 @@ public class LoginManagerImpl implements LoginManager {
 			query.setString("n", username);
 			token = query.list();
 			// users = query.list();
+		} catch(Exception e){
+			return false;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -330,6 +348,8 @@ public class LoginManagerImpl implements LoginManager {
 			session.update(user);
 			session.flush();
 			// users = query.list();
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -352,6 +372,8 @@ public class LoginManagerImpl implements LoginManager {
 			session.update(user);
 			session.flush();
 			// users = query.list();
+		} catch(Exception e){
+			return ;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -397,6 +419,8 @@ public class LoginManagerImpl implements LoginManager {
 		try {
 			session.update(user);
 			session.flush();
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -436,6 +460,8 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case
@@ -471,6 +497,8 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
+		} catch(Exception e){
+			return -1;
 		} finally {
 			if (session != null) {
 				// close session in any case

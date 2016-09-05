@@ -215,15 +215,20 @@ $(function () {
             if ($('#checktimeZonevar').is(":checked")) {
                 //timezoneCheck(timezone);
                 timezone_customWeatherActionControllerTrigger1 = timezone;
-
+				var loc = window.location.hash;
+				if(timezone.localeCompare("? number:0 ?")==0) {
+					 alertWarningTrigger("You have to choose timezone", loc);
+				}
             }
             else timezone_customWeatherActionControllerTrigger1 = null;
-            if ($('#checktime').is(":checked")) {
+            
+            ora_customWeatherActionControllerTrigger1 = null
+//            if ($('#checktime').is(":checked")) {
                 timeCheck(htime, mtime);
                 ora_customWeatherActionControllerTrigger1 = time;
 
-            }
-            else ora_customWeatherActionControllerTrigger1 = null;
+  //          }
+  //          else ora_customWeatherActionControllerTrigger1 = null;
 
             if (flagTimezoneCheck == true && flagTimeCheck == true) {
                 flagTriggerDone = true;
@@ -264,7 +269,7 @@ $(function () {
                 //window.location.replace(url);
                 //Alert sull'errore commesso:
                 //if(flagTimezoneCheck == false && flagTimeCheck == false)
-                if (lagTimeCheck == false) {
+                if (flagTimeCheck == false) {
                     //
                     // $("#notificationsWrapper").notify(
                     //     "Your inputs are not right",

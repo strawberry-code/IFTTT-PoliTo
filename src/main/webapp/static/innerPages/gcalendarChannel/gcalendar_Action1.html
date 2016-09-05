@@ -69,9 +69,9 @@
                             <textarea class="form-control" rows="5" id="subjectReceive" placeholder="insert the subject"
                                       data-ng-model="gcalendarinput.subjectReceive" name="subjectReceive"
                                       data-ng-disabled="!checkedSubject"
-                                      maxlength="500" data-ng-trim="false"
+                                      maxlength="255" data-ng-trim="false"
                             ></textarea>
-                                <span>{{500 - gcalendarinput.subjectReceive.length}} left </span>
+                                <span>{{255 - gcalendarinput.subjectReceive.length}} left </span>
                             </div>
                         </div>
 
@@ -397,10 +397,6 @@
                                     <option value='Pacific/Kwajalein'>(UTC+12:00) International Date Line West</option>
                                     <option value='Asia/Kamchatka'>(UTC+12:00) Kamchatka</option>
                                     <option value='Asia/Magadan'>(UTC+12:00) Magadan</option>
-                                    <option value='Pacific/Fiji'>(UTC+12:00) Marshall Is.</option>
-                                    <option value='Asia/Magadan'>(UTC+12:00) New Caledonia</option>
-                                    <option value='Asia/Magadan'>(UTC+12:00) Solomon Is.</option>
-                                    <option value='Pacific/Auckland'>(UTC+12:00) Wellington</option>
                                     <option value='Pacific/Tongatapu'>(UTC+13:00) Nuku'alofa</option>
                                 </select>
 

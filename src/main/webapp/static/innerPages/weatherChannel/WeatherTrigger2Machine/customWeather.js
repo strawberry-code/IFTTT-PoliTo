@@ -252,20 +252,25 @@ $(function() {
 							var pperiod = "0";
 							var pzone = "0";
 
-							if ($('#weatheridcheckbox').is(":checked"))// &&
+							pweather = null;
+//							if ($('#weatheridcheckbox').is(":checked"))// &&
 																		// $('#periodidcheckbox').is(":checked")
 																		// &&
 																		// $('#checktimeZonevar').is(":checked"))
-							{
+//							{
 								pweather = $('#mySelect').val();
-							} else
-								pweather = null;
+//							} else
+//								pweather = null;
 							if ($('#periodidcheckbox').is(":checked")) {
 								pperiod = $('#periodidinput').val();
 							} else
 								pperiod = null;
 							if ($('#checktimeZonevar').is(":checked")) {
 								pzone = $('#timezoneid').val();
+								var loc = window.location.hash;
+								if(pzone.localeCompare("? number:0 ?")==0) {
+									 alertWarningTrigger("You have to choose timezone", loc);
+								}
 							} else
 								pzone = null;
 

@@ -363,7 +363,7 @@ iftttApp.config(['$routeProvider', function ($routeProvider) {
         templateUrl: './static/innerPages/passwordChange.html',
         controller: 'passwordChangeController'
     });
-    
+
     $routeProvider.when('/index/forgotPassword', {
         templateUrl: './static/innerPages/forgotPassword.html',
         controller: 'forgotPasswordController'
@@ -456,8 +456,8 @@ iftttApp.controller('indexController', ['$scope', '$location', '$routeParams', '
                     case '/someErrorOccurred':
                         someErrorOccurred();
                         break;
-                    case '/emailAlreadyRegistered':
-                        emailAlreadyRegistered();
+                    case '/userAlreadyActivated':
+                    	userAlreadyActivated();
                         break;
                     case '/loginWrongPassword':
                         loginWrongPassword();
@@ -1377,10 +1377,13 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                             $scope.userRecipes = response.data;
 
                             var tmp = 0;
-                            $scope.userRecipes.forEach(function (element) {
-                                element.index = tmp;
-                                tmp++;
-                            });
+                            if( $scope.userRecipes != null) {
+                                $scope.userRecipes.forEach(function (element) {
+                                    element.index = tmp;
+                                    tmp++;
+                                });
+                            }
+
 
 
                             /*  *************/
@@ -1631,8 +1634,8 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                         if ($scope.userRecipes[index].trigger.type == 1) {
                             idCity_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.location;
                             locationName_ControllerTrigger1 = $scope.userRecipes[index].trigger.locationName;
-                            timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
-                            ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
+                            timezone_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.timezone;
+                            ora_customWeatherActionControllerTrigger1 = $scope.userRecipes[index].trigger.ora;
                             subTriggerGlobalVariable = $scope.userRecipes[index].trigger.type;
                             ulrTriggreGlobalVariable = "WeatherTrigger1";
 
@@ -1650,7 +1653,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                         }
                         else {
-                            if ($scope.userRecipes[index].trigger.type == 2) {
+                            if ($scope.userRecipes[index].trigger.type == 3) {
 
                                 idCity_customWeatherActionControllerTrigger2 = $scope.userRecipes[index].trigger.location;
                                 locationName_ControllerTrigger2 = $scope.userRecipes[index].trigger.locationName;
@@ -1664,7 +1667,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                 {
                                     "ingredientCode": 15,
                                     "triggerType": "weather",
-                                    "type": "2",
+                                    "type": "3",
                                     "location": idCity_customWeatherActionControllerTrigger2,
                                     "locationName": locationName_ControllerTrigger2,
                                     "tempo": pweather_customWeatherActionControllerTrigger2,
@@ -1675,7 +1678,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
 
                             }
                             else {
-                                if ($scope.userRecipes[index].trigger.type == 3) {
+                                if ($scope.userRecipes[index].trigger.type == 2) {
                                     idCity_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.location;
                                     locationName_ControllerTrigger3 = $scope.userRecipes[index].trigger.locationName;
                                     timezone_customWeatherActionControllerTrigger3 = $scope.userRecipes[index].trigger.timezone;
@@ -1687,7 +1690,7 @@ iftttApp.controller('myRecipesController', ['$scope', '$routeParams', '$window',
                                     {
                                         "ingredientCode": 16,
                                         "triggerType": "weather",
-                                        "type": "3",
+                                        "type": "2",
                                         "location": idCity_customWeatherActionControllerTrigger3,
                                         "locationName": locationName_ControllerTrigger3,
                                         "timezone": timezone_customWeatherActionControllerTrigger3,
@@ -1999,10 +2002,12 @@ iftttApp.controller('publicRecipesController', ['$scope', '$routeParams', '$wind
                     $scope.userRecipes = response.data;
 
                     var tmp = 0;
-                    $scope.userRecipes.forEach(function (element) {
-                        element.index = tmp;
-                        tmp++;
-                    });
+                    if( $scope.userRecipes != null) {
+                        $scope.userRecipes.forEach(function (element) {
+                            element.index = tmp;
+                            tmp++;
+                        });
+                    }
 
                 },
                 function error(response) {
@@ -2183,32 +2188,30 @@ iftttApp.controller('createAccountController', ['$scope',
     }]);
 
 
-
-
 iftttApp.controller('forgotPasswordController', ['$scope',
-                                                function ($scope) {
+    function ($scope) {
 
 
-    /**
-     * Description
-     * @method forgotPasswordFunc
-     * @param {} user
-     * @param {} email
-     * @return
-     */
-    $scope.forgotPasswordFunc = function (user, email) {
+        /**
+         * Description
+         * @method forgotPasswordFunc
+         * @param {} user
+         * @param {} email
+         * @return
+         */
+        $scope.forgotPasswordFunc = function (user, email) {
 
-        $scope.parallax = true;
+            $scope.parallax = true;
 
-        if (angular.isDefined(email) && angular.isDefined(user)) {
-          
+            if (angular.isDefined(email) && angular.isDefined(user)) {
+
                 var loginDataSend =
                 {
                     "username": user,
                     "email": email
                 };
 
-                if(consoleLogs) console.log(loginDataSend);
+                if (consoleLogs) console.log(loginDataSend);
                 setSpinner(true);
                 $.ajax
                 ({
@@ -2227,10 +2230,10 @@ iftttApp.controller('forgotPasswordController', ['$scope',
                      */
                     /**
                      code:
-		  				 0 success
-		 				-1 error
-		 				-2 invalid username
-		 				-3 invalid email
+                     0 success
+                     -1 error
+                     -2 invalid username
+                     -3 invalid email
                      **/
                     success: function (response) {
                         setSpinner(false);
@@ -2239,36 +2242,36 @@ iftttApp.controller('forgotPasswordController', ['$scope',
 
                         console.log(response);
                         switch (response) {
-                        case 0:
-                        {
-                        	 swal({
-                        	        title: "Success!",
-                        	        text: "Your new credentials has been sent by email.",
-                        	        type: "success"
-                        	        //confirmButtonColor: "#DD6B55",
-                        	        //confirmButtonText: "Yes, delete it!",
-                        	        //closeOnConfirm: true
-                        	    }, function () {
-                        	        window.location.replace('#home');
-                        	    });
-                            break;
+                            case 0:
+                            {
+                                swal({
+                                    title: "Success!",
+                                    text: "Your new credentials has been sent by email.",
+                                    type: "success"
+                                    //confirmButtonColor: "#DD6B55",
+                                    //confirmButtonText: "Yes, delete it!",
+                                    //closeOnConfirm: true
+                                }, function () {
+                                    window.location.replace('#home');
+                                });
+                                break;
+                            }
+                            case -1:
+                            {
+                                alertWarning("Some unknown error occurred. (code 2805).");
+                                break;
+                            }
+                            case -2:
+                            {
+                                alertWarning("The username is not valid.");
+                                break;
+                            }
+                            case -3:
+                            {
+                                alertWarning("The e-mail address is not valid");
+                                break;
+                            }
                         }
-                        case -1:
-                        {
-                            alertWarning("Some unknown error occurred. (code 2805).");
-                            break;
-                        }
-                        case -2:
-                        {
-                            alertWarning("The username is not valid.");
-                            break;
-                        }
-                        case -3:
-                        {
-                            alertWarning("The e-mail address is not valid");
-                            break;
-                        }
-                    }
 
 
                     },
@@ -2287,22 +2290,41 @@ iftttApp.controller('forgotPasswordController', ['$scope',
                     }
                 });
 
-        }
+            }
 
 
-    };                                           
+        };
 
 
-}]);
-
-
-
+    }]);
 
 
 //fxr>
-iftttApp.controller('passwordChangeController', ['$scope',
-    function ($scope) {
+iftttApp.controller('passwordChangeController', ['$scope', '$http',
+    function ($scope, $http) {
 
+	  $http({
+          url: 'http://localhost:8080/progetto/api/infoProfile',
+          method: "GET",
+          dataType: 'application/json', 
+          contentType: "application/json" 
+      }).then(function success(response) {
+          if (consoleLogs) console.log(response);
+          
+          if(response!=null && response.data!=null) {
+        	  $scope.infoProfile = response.data;
+        	  console.log( $scope.infoProfile);
+          }
+         
+
+      }, function error() {
+          $('#loginIFTTTModal').modal('hide');
+          alertError("Some server error occurred. (code 987)");
+
+      });
+
+	
+	
         /**
          * Description
          * @method passwordChangeFunc
@@ -2311,7 +2333,7 @@ iftttApp.controller('passwordChangeController', ['$scope',
          * @return
          */
         $scope.vettore = [];
-
+        
         $scope.vettore.registrationTimezone = "Pacific/Midway";
 
         /*
@@ -2877,7 +2899,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
         backPageVariabile = "#WeatherTrigger1";
 
         $scope.errorButton = 'cia';
-        $scope.checkadvisetimevar = 'NO';
+        $scope.checkadvisetimevar = 'YES';
         $scope.checktimeZonevar = 'NO';
         /**
          * Description
@@ -2886,7 +2908,7 @@ iftttApp.controller('customWeatherActionControllerTrigger1', ['$scope', '$routeP
          */
         $scope.checkadvisetimefunc = function (/*name*/) {
             if ($scope.checkadvisetimevar === "YES")
-                $scope.checkadvisetimevar = 'NO';
+                $scope.checkadvisetimevar = 'YES';
             else
                 $scope.checkadvisetimevar = 'YES';
             //if(consoleLogs) console.log(name);
@@ -2928,6 +2950,7 @@ iftttApp.controller('customWeatherActionControllerTrigger2', ['$scope',
         $scope.data =
         {
             availableOptions: [
+                {id: '200', name: 'thunderstorm with light rain'},
                 {id: '210', name: 'light thunderstorm'},
                 {id: '211', name: 'thunderstorm'},
                 {id: '212', name: 'heavy thunderstorm'},
@@ -4327,72 +4350,72 @@ iftttApp.controller('trigger2TwitterController', ['$scope',
 
 
             if (twitterLogin == true) {
+            	 if (($scope.checkedtitle == true || $scope.checkedSubject == true) && twitterLogin == true) {
 
-                if ($scope.checkedtitle == true) {
-                    if (angular.isDefined($scope.trigger2TwitterInput)) {
-                        if (angular.isDefined($scope.trigger2TwitterInput.title)) {
-                            title = $scope.trigger2TwitterInput.title;
-                            flag = 1
-                        }
-                        else {
-                            title = "";
-                        }
-                    }
-                    else {
-                        title = "";
-                    }
-
-                }
-                else {
-                    title = null;
-                }
-
-
-                if ($scope.checkedSubject == true) {
-                    if (angular.isDefined($scope.trigger2TwitterInput)) {
-                        if (angular.isDefined($scope.trigger2TwitterInput.subjectReceive)) {
-                            subject = $scope.trigger2TwitterInput.subjectReceive;
-                        }
-                        else {
-                            subject = "";
-                        }
-                    }
-                    else {
-                        subject = "";
-                    }
-
-                }
-                else {
-                    subject = null;
-                }
-
-                flagTriggerDone = true;
-                username_sender_trigger2TwitterController = title;
-                hashtag_text_trigger2TwitterController = subject;
-
-                modulinoj1 =
-                {
-                    "ingredientCode": 19,
-                    "triggerType": "twitter",
-                    "type": true,
-                    "hashtag_text": hashtag_text_trigger2TwitterController,
-                    "username_sender": username_sender_trigger2TwitterController
-                };
-
-                if (modifyVar == true) {
-                    sendingToServerAllput();
-                }
-                else {
-                    if (importFlag == true) {
-                        window.location.replace("#" + actionImportRoute);
-                    }
-                    else {
-                        url = "#createRecipeAction";
-                        window.location.replace(url);
-                    }
-
-
-                }
+	                if ($scope.checkedtitle == true) {
+	                    if (angular.isDefined($scope.trigger2TwitterInput)) {
+	                        if (angular.isDefined($scope.trigger2TwitterInput.title)) {
+	                            title = $scope.trigger2TwitterInput.title;
+	                            flag = 1
+	                        }
+	                        else {
+	                            title = "";
+	                        }
+	                    }
+	                    else {
+	                        title = "";
+	                    }
+	
+	                }
+	                else {
+	                    title = null;
+	                }
+	
+	
+	                if ($scope.checkedSubject == true) {
+	                    if (angular.isDefined($scope.trigger2TwitterInput)) {
+	                        if (angular.isDefined($scope.trigger2TwitterInput.subjectReceive)) {
+	                            subject = $scope.trigger2TwitterInput.subjectReceive;
+	                        }
+	                        else {
+	                            subject = "";
+	                        }
+	                    }
+	                    else {
+	                        subject = "";
+	                    }
+	
+	                }
+	                else {
+	                    subject = null;
+	                }
+	
+	                flagTriggerDone = true;
+	                username_sender_trigger2TwitterController = title;
+	                hashtag_text_trigger2TwitterController = subject;
+	
+	                modulinoj1 =
+	                {
+	                    "ingredientCode": 19,
+	                    "triggerType": "twitter",
+	                    "type": true,
+	                    "hashtag_text": hashtag_text_trigger2TwitterController,
+	                    "username_sender": username_sender_trigger2TwitterController
+	                };
+	
+	                if (modifyVar == true) {
+	                    sendingToServerAllput();
+	                }
+	                else {
+	                    if (importFlag == true) {
+	                        window.location.replace("#" + actionImportRoute);
+	                    }
+	                    else {
+	                        url = "#createRecipeAction";
+	                        window.location.replace(url);
+	                    }
+	                }
+            	 }
             }
 
             if (twitterLogin == false) {
@@ -4440,19 +4463,19 @@ iftttApp.controller('action1TwitterController', ['$scope',
             var subject;
 
 
-            if ($scope.checkedSubject == true && twitterLogin == true) {
+            if (twitterLogin == true) {
 
-                if ($scope.checkedSubject == true) {
+                if (true) {
                     if (angular.isDefined($scope.action1TwitterInput)) {
                         if (angular.isDefined($scope.action1TwitterInput.subjectReceive)) {
                             subject = $scope.action1TwitterInput.subjectReceive;
                         }
                         else {
-                            subject = "";
+                            subject = null;
                         }
                     }
                     else {
-                        subject = "";
+                        subject = null;
                     }
 
                 }
@@ -4952,6 +4975,9 @@ iftttApp.filter('skeumorphize', function () {
 
             case 'timezone':
                 return timezoneLiteral(input);
+                
+            case 'tempo':
+            	return weatherLiteral(input);
 
             case 'duration':
             {
@@ -4969,8 +4995,8 @@ iftttApp.filter('skeumorphize', function () {
 
             case 'sender':
             {
-                console.log(">>>>>> watchkey: " + watchKey + " input: " + input + " typeIngredient:" + ingredient );
-                if(ingredient > 10 && ingredient< 20) {
+                console.log(">>>>>> watchkey: " + watchKey + " input: " + input + " typeIngredient:" + ingredient);
+                if (ingredient > 10 && ingredient < 20) {
                     return input
                 } else {
                     switch (input) {
@@ -4985,6 +5011,8 @@ iftttApp.filter('skeumorphize', function () {
             }
 
             case 'period':
+            	if(input == -1) 
+            		return "Once";
                 console.log("NaN: " + (input / 60000));
                 return "every " + (input / 60000) + " minutes";
 
@@ -5139,9 +5167,13 @@ function sedingServerAllRun(loginDataSend) {
                 alertWarning("The recipe is not stored on our server. Please, try again.");
                 $('#recipedDescriptionModal').modal('hide');
             }
-            else if(response == -2) {
-            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
-            	 $('#recipedDescriptionModal').modal('hide');
+            else if (response == -2) {
+                alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+                $('#recipedDescriptionModal').modal('hide');
+            }
+            else if(response == -3) {
+            	  alertWarning("Selected field can't be blank! Please, fill them.");
+                  $('#recipedDescriptionModal').modal('hide');
             }
             else {
 
@@ -5224,9 +5256,13 @@ function sedingServerAllRunput(loginDataSend) {
                 //url = "#SuccessRepice";
                 //window.location.replace(url);
             }
-            else if(response == -2) {
-            	 alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
-            	 $('#recipedDescriptionModal').modal('hide');
+            else if (response == -2) {
+                alertWarning("I'm sorry, but your sender/destination doesn't exist in Twitter.");
+                $('#recipedDescriptionModal').modal('hide');
+            }
+            else if(response == -3) {
+          	  alertWarning("Selected field can't be blank! Please, fill them.");
+                $('#recipedDescriptionModal').modal('hide');
             }
             else {
                 //alertVariable="Warning: the recipe is not update try again or go home";
@@ -5317,10 +5353,10 @@ function someErrorOccurred() {
     });
 }
 
-function emailAlreadyRegistered() {
+function userAlreadyActivated() {
     swal({
         title: "Hey!",
-        text: "This email is already registered.",
+        text: "This user is already activated.",
         type: "warning"
         //confirmButtonColor: "#DD6B55",
         //confirmButtonText: "Yes, delete it!",
@@ -5426,117 +5462,181 @@ function alertPasswordChangedSuccess() {
     });
 }
 
+function alertWarningTrigger(message, loc) {
+	swal({
+	    title: "Hey!",
+	    text: message,
+	    type: "warning"
+	    //confirmButtonColor: "#DD6B55",
+	    //confirmButtonText: "Yes, delete it!",
+	    //closeOnConfirm: true
+	}, function () {
+		 window.location.replace(loc);
+	});
+}
+
+function weatherLiteral(tempoCode) {
+
+    var weatherConditions = {
+    		 '200': 'thunderstorm with light rain',
+             '210': 'light thunderstorm',
+             '211': 'thunderstorm',
+             '212': 'heavy thunderstorm',
+             '310': 'light intensity drizzle rain',
+             '311': 'drizzle rain',
+             '312': 'heavy intensity drizzle rain',
+             '500': 'light rain',
+             '501': 'moderate rain',
+             '502': 'heavy intensity rain',
+             '503': 'very heavy rain',
+             '600': 'light snow',
+             '601': 'snow',
+             '602': 'heavy snow',
+             '741': 'fog',
+             '751': 'sand',
+             '761': 'dust',
+             '762': 'volcanic ash',
+             '800': 'clear sky',
+             '801': 'few clouds',
+             '804': 'overcast clouds',
+             '900': 'tornado',
+             '901': 'tropical storm',
+             '902': 'hurricane',
+             '903': 'cold',
+             '904': 'hot',
+             '905': 'windy',
+             '906': 'hail',
+             '962': 'hurricane'
+    };
+
+    return (weatherConditions[tempoCode]);
+}
+
 function timezoneLiteral(timezoneBad) {
 
     var timezoneDictionary = {
-        "Pacific/Pago_Pago": "(-11:00) Pago Pago",
-        "Pacific/Honolulu": "(-10:00) Hawaii",
-        "America/Anchorage": "(-09:00) Alaska",
-        "America/Vancouver": "(-08:00) Canada Pacific Time",
-        "America/Los_Angeles": "(-08:00) US Pacific Time",
-        "America/Tijuana": "(-08:00) Tijuana",
-        "America/Edmonton": "(-07:00) Canada Mountain Time",
-        "America/Denver": "(-07:00) US Mountain Time",
-        "America/Phoenix": "(-07:00) Arizona",
-        "America/Mazatlan": "(-07:00) Mazatlan",
-        "America/Winnipeg": "(-06:00) Canada Central Time",
-        "America/Regina": "(-06:00) Saskatchewan",
-        "America/Chicago": "(-06:00) US Central Time",
-        "America/Mexico_City": "(-06:00) Mexico City",
-        "America/Guatemala": "(-06:00) Guatemala",
-        "America/El_Salvador": "(-06:00) El Salvador",
-        "America/Managua": "(-06:00) Managua",
-        "America/Costa_Rica": "(-06:00) Costa Rica",
-        "America/Montreal": "(-05:00) Canada Eastern Time",
-        "America/New_York": "(-05:00) US Eastern Time",
-        "America/Indianapolis": "(-05:00) East Indiana",
-        "America/Panama": "(-05:00) Panama",
-        "America/Bogota": "(-05:00) Bogota",
-        "America/Lima": "(-05:00) Lima",
-        "America/Halifax": "(-04:00) Canada Atlantic Time",
-        "America/Puerto_Rico": "(-04:00) Puerto Rico",
-        "America/Caracas": "(-04:00) Caracas",
-        "America/Santiago": "(-04:00) Santiago",
-        "America/St_Johns": "(-03:30) Newfoundland",
-        "America/Sao_Paulo": "(-03:00) Sao Paulo",
-        "Atlantic/Azores": "(-01:00) Azores",
-        "Etc./UTC": "(00:00) Universal Time",
-        "UTC": "(00:00) Universal Time",
-        "Atlantic/Reykjavik": "(00:00) Reykjavik",
-        "Europe/Dublin": "(00:00) Dublin",
-        "Europe/London": "(00:00) London",
-        "Europe/Lisbon": "(00:00) Lisbon",
-        "Africa/Casablanca": "(00:00) Casablanca",
-        "Africa/Nouakchott": "(00:00) Nouakchott",
-        "Europe/Oslo": "(+01:00) Oslo",
-        "Europe/Stockholm": "(+01:00) Stockholm",
-        "Europe/Copenhagen": "(+01:00) Copenhagen",
-        "Europe/Berlin": "(+01:00) Berlin",
-        "Europe/Amsterdam": "(+01:00) Amsterdam",
-        "Europe/Brussels": "(+01:00) Brussels",
-        "Europe/Luxembourg": "(+01:00) Luxembourg",
-        "Europe/Paris": "(+01:00) Paris",
-        "Europe/Zurich": "(+01:00) Zurich",
-        "Europe/Madrid": "(+01:00) Madrid",
-        "Europe/Rome": "(+01:00) Rome",
-        "Africa/Algiers": "(+01:00) Algiers",
-        "Africa/Tunis": "(+01:00) Tunis",
-        "Europe/Warsaw": "(+01:00) Warsaw",
-        "Europe/Prague": "(+01:00) Prague Bratislava",
-        "Europe/Vienna": "(+01:00) Vienna",
-        "Europe/Budapest": "(+01:00) Budapest",
-        "Europe/Sofia": "(+02:00) Sofia",
-        "Europe/Istanbul": "(+02:00) Istanbul",
-        "Europe/Athens": "(+02:00) Athens",
-        "Asia/Nicosia": "(+02:00) Nicosia",
-        "Asia/Beirut": "(+02:00) Beirut",
-        "Asia/Damascus": "(+02:00) Damascus",
-        "Asia/Jerusalem": "(+02:00) Jerusalem",
-        "Asia/Amman": "(+02:00) Amman",
-        "Africa/Tripoli": "(+02:00) Tripoli",
-        "Africa/Cairo": "(+02:00) Cairo",
-        "Africa/Johannesburg": "(+02:00) Johannesburg",
-        "Europe/Moscow": "(+03:00) Moscow",
-        "Asia/Baghdad": "(+03:00) Baghdad",
-        "Asia/Kuwait": "(+03:00) Kuwait",
-        "Asia/Riyadh": "(+03:00) Riyadh",
-        "Asia/Bahrain": "(+03:00) Bahrain",
-        "Asia/Qatar": "(+03:00) Qatar",
-        "Asia/Aden": "(+03:00) Aden",
-        "Africa/Khartoum": "(+03:00) Khartoum",
-        "Africa/Djibouti": "(+03:00) Djibouti",
-        "Africa/Mogadishu": "(+03:00) Mogadishu",
-        "Asia/Dubai": "(+04:00) Dubai",
-        "Asia/Muscat": "(+04:00) Muscat",
-        "Asia/Yekaterinburg": "(+05:00) Yekaterinburg",
-        "Asia/Tashkent": "(+05:00) Tashkent",
-        "Asia/Calcutta": "(+05:30) India",
-        "Asia/Novosibirsk": "(+06:00) Novosibirsk",
-        "Asia/Almaty": "(+06:00) Almaty",
-        "Asia/Dacca": "(+06:00) Dacca",
-        "Asia/Krasnoyarsk": "(+07:00) Krasnoyarsk",
-        "Asia/Bangkok": "(+07:00) Bangkok",
-        "Asia/Saigon": "(+07:00) Vietnam",
-        "Asia/Jakarta": "(+07:00) Jakarta",
-        "Asia/Irkutsk": "(+08:00) Irkutsk",
-        "Asia/Shanghai": "(+08:00) Beijing, Shanghai",
-        "Asia/Hong_Kong": "(+08:00) Hong Kong",
-        "Asia/Taipei": "(+08:00) Taipei",
-        "Asia/Kuala_Lumpur": "(+08:00) Kuala Lumpur",
-        "Asia/Singapore": "(+08:00) Singapore",
-        "Australia/Perth": "(+08:00) Perth",
-        "Asia/Yakutsk": "(+09:00) Yakutsk",
-        "Asia/Seoul": "(+09:00) Seoul",
-        "Asia/Tokyo": "(+09:00) Tokyo",
-        "Australia/Darwin": "(+09:30) Darwin",
-        "Australia/Adelaide": "(+09:30) Adelaide",
-        "Asia/Vladivostok": "(+10:00) Vladivostok",
-        "Australia/Brisbane": "(+10:00) Brisbane",
-        "Australia/Sydney": "(+10:00) Sydney Canberra",
-        "Australia/Hobart": "(+10:00) Hobart",
-        "Asia/Magadan": "(+11:00) Magadan",
-        "Asia/Kamchatka": "(+12:00) Kamchatka",
-        "Pacific/Auckland": "(+12:00) Auckland"
+        'Pacific/Midway': '(UTC-11:00) Midway Island',
+        'Pacific/Samoa': '(UTC-11:00) Samoa',
+        'Pacific/Honolulu': '(UTC-10:00) Hawaii',
+        'US/Alaska': '(UTC-09:00) Alaska',
+        'America/Los_Angeles': '(UTC-08:00) Pacific Time (US &amp; Canada)',
+        'America/Tijuana': '(UTC-08:00) Tijuana',
+        'US/Arizona': '(UTC-07:00) Arizona',
+        'America/Chihuahua': '(UTC-07:00) Chihuahua',
+        'America/Mazatlan': '(UTC-07:00) Mazatlan',
+        'US/Mountain': '(UTC-07:00) Mountain Time (US &amp; Canada)',
+        'America/Managua': '(UTC-06:00) Central America',
+        'US/Central': '(UTC-06:00) Central Time (US &amp; Canada)',
+        'America/Mexico_City': '(UTC-06:00) Mexico City',
+        'America/Monterrey': '(UTC-06:00) Monterrey',
+        'Canada/Saskatchewan': '(UTC-06:00) Saskatchewan',
+        'America/Bogota': '(UTC-05:00) Bogota',
+        'US/Eastern': '(UTC-05:00) Eastern Time (US &amp; Canada)',
+        'US/East-Indiana': '(UTC-05:00) Indiana (East)',
+        'America/Lima': '(UTC-05:00) Lima',
+        'Canada/Atlantic': '(UTC-04:00) Atlantic Time (Canada)',
+        'America/Caracas': '(UTC-04:30) Caracas',
+        'America/La_Paz': '(UTC-04:00) La Paz',
+        'America/Santiago': '(UTC-04:00) Santiago',
+        'Canada/Newfoundland': '(UTC-03:30) Newfoundland',
+        'America/Sao_Paulo': '(UTC-03:00) Brasilia',
+        'America/Argentina/Buenos_Aires': '(UTC-03:00) Buenos Aires',
+        'America/Godthab': '(UTC-03:00) Greenland',
+        'America/Noronha': '(UTC-02:00) Mid-Atlantic',
+        'Atlantic/Azores': '(UTC-01:00) Azores',
+        'Atlantic/Cape_Verde': '(UTC-01:00) Cape Verde Is.',
+        'Africa/Casablanca': '(UTC+00:00) Casablanca',
+        'Etc/Greenwich': '(UTC+00:00) Greenwich Mean Time : Dublin',
+        'Europe/Lisbon': '(UTC+00:00) Lisbon',
+        'Europe/London': '(UTC+00:00) London',
+        'Africa/Monrovia': '(UTC+00:00) Monrovia',
+        'UTC': '(UTC+00:00) UTC',
+        'Europe/Amsterdam': '(UTC+01:00) Amsterdam',
+        'Europe/Belgrade': '(UTC+01:00) Belgrade',
+        'Europe/Berlin': '(UTC+01:00) Berlin',
+        'Europe/Bratislava': '(UTC+01:00) Bratislava',
+        'Europe/Brussels': '(UTC+01:00) Brussels',
+        'Europe/Budapest': '(UTC+01:00) Budapest',
+        'Europe/Copenhagen': '(UTC+01:00) Copenhagen',
+        'Europe/Ljubljana': '(UTC+01:00) Ljubljana',
+        'Europe/Madrid': '(UTC+01:00) Madrid',
+        'Europe/Paris': '(UTC+01:00) Paris',
+        'Europe/Prague': '(UTC+01:00) Prague',
+        'Europe/Rome': '(UTC+01:00) Rome',
+        'Europe/Sarajevo': '(UTC+01:00) Sarajevo',
+        'Europe/Skopje': '(UTC+01:00) Skopje',
+        'Europe/Stockholm': '(UTC+01:00) Stockholm',
+        'Europe/Vienna': '(UTC+01:00) Vienna',
+        'Europe/Warsaw': '(UTC+01:00) Warsaw',
+        'Africa/Lagos': '(UTC+01:00) West Central Africa',
+        'Europe/Zagreb': '(UTC+01:00) Zagreb',
+        'Europe/Athens': '(UTC+02:00) Athens',
+        'Europe/Bucharest': '(UTC+02:00) Bucharest',
+        'Africa/Cairo': '(UTC+02:00) Cairo',
+        'Africa/Harare': '(UTC+02:00) Harare',
+        'Europe/Helsinki': '(UTC+02:00) Helsinki',
+        'Europe/Istanbul': '(UTC+02:00) Istanbul',
+        'Asia/Jerusalem': '(UTC+02:00) Jerusalem',
+        'Africa/Johannesburg': '(UTC+02:00) Pretoria',
+        'Europe/Riga': '(UTC+02:00) Riga',
+        'Europe/Sofia': '(UTC+02:00) Sofia',
+        'Europe/Tallinn': '(UTC+02:00) Tallinn',
+        'Europe/Vilnius': '(UTC+02:00) Vilnius',
+        'Asia/Baghdad': '(UTC+03:00) Baghdad',
+        'Asia/Kuwait': '(UTC+03:00) Kuwait',
+        'Europe/Minsk': '(UTC+03:00) Minsk',
+        'Africa/Nairobi': '(UTC+03:00) Nairobi',
+        'Asia/Riyadh': '(UTC+03:00) Riyadh',
+        'Europe/Volgograd': '(UTC+03:00) Volgograd',
+        'Asia/Tehran': '(UTC+03:30) Tehran',
+        'Asia/Baku': '(UTC+04:00) Baku',
+        'Europe/Moscow': '(UTC+04:00) Moscow',
+        'Asia/Muscat': '(UTC+04:00) Muscat',
+        'Asia/Tbilisi': '(UTC+04:00) Tbilisi',
+        'Asia/Yerevan': '(UTC+04:00) Yerevan',
+        'Asia/Kabul': '(UTC+04:30) Kabul',
+        'Asia/Karachi': '(UTC+05:00) Karachi',
+        'Asia/Tashkent': '(UTC+05:00) Tashkent',
+        'Asia/Kolkata': '(UTC+05:30) Kolkata',
+        'Asia/Calcutta': '(UTC+05:30) New Delhi',
+        'Asia/Katmandu': '(UTC+05:45) Kathmandu',
+        'Asia/Almaty': '(UTC+06:00) Almaty',
+        'Asia/Dhaka': '(UTC+06:00) Dhaka',
+        'Asia/Yekaterinburg': '(UTC+06:00) Ekaterinburg',
+        'Asia/Rangoon': '(UTC+06:30) Rangoon',
+        'Asia/Bangkok': '(UTC+07:00) Bangkok',
+        'Asia/Jakarta': '(UTC+07:00) Jakarta',
+        'Asia/Novosibirsk': '(UTC+07:00) Novosibirsk',
+        'Asia/Chongqing': '(UTC+08:00) Chongqing',
+        'Asia/Hong_Kong': '(UTC+08:00) Hong Kong',
+        'Asia/Krasnoyarsk': '(UTC+08:00) Krasnoyarsk',
+        'Asia/Kuala_Lumpur': '(UTC+08:00) Kuala Lumpur',
+        'Australia/Perth': '(UTC+08:00) Perth',
+        'Asia/Singapore': '(UTC+08:00) Singapore',
+        'Asia/Taipei': '(UTC+08:00) Taipei',
+        'Asia/Ulan_Bator': '(UTC+08:00) Ulaan Bataar',
+        'Asia/Urumqi': '(UTC+08:00) Urumqi',
+        'Asia/Irkutsk': '(UTC+09:00) Irkutsk',
+        'Asia/Seoul': '(UTC+09:00) Seoul',
+        'Asia/Tokyo': '(UTC+09:00) Tokyo',
+        'Australia/Adelaide': '(UTC+09:30) Adelaide',
+        'Australia/Darwin': '(UTC+09:30) Darwin',
+        'Australia/Brisbane': '(UTC+10:00) Brisbane',
+        'Australia/Canberra': '(UTC+10:00) Canberra',
+        'Pacific/Guam': '(UTC+10:00) Guam',
+        'Australia/Hobart': '(UTC+10:00) Hobart',
+        'Australia/Melbourne': '(UTC+10:00) Melbourne',
+        'Pacific/Port_Moresby': '(UTC+10:00) Port Moresby',
+        'Australia/Sydney': '(UTC+10:00) Sydney',
+        'Asia/Yakutsk': '(UTC+10:00) Yakutsk',
+        'Asia/Vladivostok': '(UTC+11:00) Vladivostok',
+        'Pacific/Auckland': '(UTC+12:00) Auckland',
+        'Pacific/Fiji': '(UTC+12:00) Fiji',
+        'Pacific/Kwajalein': '(UTC+12:00) International Date Line West',
+        'Asia/Kamchatka': '(UTC+12:00) Kamchatka',
+        'Asia/Magadan': '(UTC+12:00) Magadan',
+        'Pacific/Tongatapu': '(UTC+13:00) Nuku'
+
     };
 
     return (timezoneDictionary[timezoneBad]);
