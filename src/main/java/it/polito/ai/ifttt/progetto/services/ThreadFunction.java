@@ -677,10 +677,10 @@ public class ThreadFunction extends Thread {
 																			SimpleDateFormat sdf = new SimpleDateFormat(
 																					"dd/MM/yyyy 'at' h:mm a z");
 																			sdf.setTimeZone(TimeZone.getTimeZone(wt.getTimezone()));
-																			String body = "Weather conditions in "
+																			String body = "Weather condition in "
 																					+ cwd.getCityName()
 																					+ " at this moment ("
-																					+ sdf.format(cwd.getDateTime())
+																					+ sdf.format(System.currentTimeMillis())
 																					+ "): " + cwd.getWeatherInstance(0)
 																							.getWeatherDescription();
 																			this.executeAction(atype, aid, session,
