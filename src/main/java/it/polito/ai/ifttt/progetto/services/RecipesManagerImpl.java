@@ -139,19 +139,31 @@ public class RecipesManagerImpl implements RecipesManager {
 		// I need session e transaction here, because I have to
 		// update 3 db for a single receipt.
 		Session session = sessionFactory.openSession();
-
-		JSONObject ricetta = new JSONObject(data);
-		String trig = ricetta.get("trigger").toString();
-		String act = ricetta.get("action").toString();
-		JSONObject trigger = new JSONObject(trig);
-		JSONObject action = new JSONObject(act);
-
-		String triggerType = trigger.get("triggerType").toString();
-		String actionType = action.get("actionType").toString();
+		
+		JSONObject ricetta = null;
+		String trig = null;
+		String act = null;
+		JSONObject trigger = null;
+		JSONObject action = null;
+		String triggerType = null;
+		String actionType = null;
 
 		Integer triggerid = null;
 		Integer actionid = null;
 		Integer recipeid = -1;
+		try {
+			ricetta = new JSONObject(data);
+			trig = ricetta.get("trigger").toString();
+			act = ricetta.get("action").toString();
+			trigger = new JSONObject(trig);
+			action = new JSONObject(act);
+			triggerType = trigger.get("triggerType").toString();
+			actionType = action.get("actionType").toString();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
@@ -569,24 +581,45 @@ public class RecipesManagerImpl implements RecipesManager {
 
 	public Integer modifyRecipe(Integer id, String data) {
 		Session session = sessionFactory.openSession();
-
+		System.out.println(data);
+		
 		// new data
-		JSONObject ricetta = new JSONObject(data);
-		String trig = ricetta.get("trigger").toString();
-		String act = ricetta.get("action").toString();
-		JSONObject trigger = new JSONObject(trig);
-		JSONObject action = new JSONObject(act);
-		String triggerType = trigger.get("triggerType").toString();
-		String actionType = action.get("actionType").toString();
-
+		JSONObject ricetta = null;
+		String trig = null;
+		String act = null;
+		JSONObject trigger = null;
+		JSONObject action = null;
+		String triggerType = null;
+		String actionType = null;
 		Integer flag = 0;
-
 		// old data
-		Recipes rec = this.findRecipesById(id);
-		String triggerTypeOld = rec.getTriggerType();
-		String actionTypeOld = rec.getActionType();
-		Integer triggerid = rec.getTriggerid();
-		Integer actionid = rec.getActionid();
+		Recipes rec = null;
+		String triggerTypeOld = null;
+		String actionTypeOld = null;
+		Integer triggerid = null;
+		Integer actionid = null;
+		try {
+			// new data
+			ricetta = new JSONObject(data);
+			trig = ricetta.get("trigger").toString();
+			act = ricetta.get("action").toString();
+			trigger = new JSONObject(trig);
+			action = new JSONObject(act);
+			triggerType = trigger.get("triggerType").toString();
+			actionType = action.get("actionType").toString();
+
+			// old data
+			rec = this.findRecipesById(id);
+			triggerTypeOld = rec.getTriggerType();
+			actionTypeOld = rec.getActionType();
+			triggerid = rec.getTriggerid();
+			actionid = rec.getActionid();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
@@ -616,6 +649,14 @@ public class RecipesManagerImpl implements RecipesManager {
 			// begin transaction
 			Transaction tx = session.beginTransaction();
 			try {
+				
+				if(rec.getDescription().compareTo(ricetta.get("description").toString())!=0) {
+					//cambia solo la descrizione
+					rec.setDescription((String) ricetta.get("description"));
+					session.update(rec);
+					session.flush();
+					return 0;
+				}
 
 				// TRIGGER
 				// check if trigger/action type is different
@@ -785,6 +826,7 @@ public class RecipesManagerImpl implements RecipesManager {
 						} else {
 							weathertrigger.setLastCheck(null);
 						}
+						weathertrigger.setWtid(rec.getTriggerid());
 						session.update(weathertrigger);
 						session.flush();
 
@@ -1392,7 +1434,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				//.printStackTrace();
+				e.printStackTrace();
 				tx.rollback();
 				return -1;
 			}
