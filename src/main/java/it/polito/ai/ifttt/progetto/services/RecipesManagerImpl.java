@@ -161,7 +161,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			actionType = action.get("actionType").toString();
 			
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return -1;
 		}
 
@@ -616,7 +616,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			actionid = rec.getActionid();
 			
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return -1;
 		}
 
@@ -1434,7 +1434,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
 				// rollback and return code -1
-				e.printStackTrace();
+				//e.printStackTrace();
 				tx.rollback();
 				return -1;
 			}
