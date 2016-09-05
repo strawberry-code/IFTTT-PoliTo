@@ -1122,23 +1122,24 @@ public class ThreadFunction extends Thread {
 							Message message = new Message();
 							message.setRaw(encodedEmail);
 							clientGmail.users().messages().send("me", message).execute();
-						} else {
-							// se false --> ifttt
-							javax.mail.Message message1 = new MimeMessage(sessionMail);
-							message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
-							message1.setRecipients(javax.mail.Message.RecipientType.TO,
-									InternetAddress.parse(ga.getReceiver()));
-							if (ga.getSubject() != null)
-								message1.setSubject(ga.getSubject());
-							if (ga.getBody() != null)
-								message1.setText(ga.getBody());
-							else if (body != null)
-								message1.setText(body);
-
-							Transport.send(message1);
 						}
+					} else {
+						// se false --> ifttt
+						javax.mail.Message message1 = new MimeMessage(sessionMail);
+						message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
+						message1.setRecipients(javax.mail.Message.RecipientType.TO,
+								InternetAddress.parse(ga.getReceiver()));
+						if (ga.getSubject() != null)
+							message1.setSubject(ga.getSubject());
+						if (ga.getBody() != null)
+							message1.setText(ga.getBody());
+						else if (body != null)
+							message1.setText(body);
+
+						Transport.send(message1);
 					}
 				}
+
 			} else if (atype.compareTo("calendar") == 0 && clientGmail != null) {
 
 				CalendarAction ca = calendarManager.findCalendarActionById(aid);
