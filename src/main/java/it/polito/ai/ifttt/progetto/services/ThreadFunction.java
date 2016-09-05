@@ -453,6 +453,7 @@ public class ThreadFunction extends Thread {
 															String hour = wt.getOra();
 															String timezone = wt.getTimezone();
 															DateFormat formatter = new SimpleDateFormat("HH:mm");
+															formatter.setLenient(false);
 															try {
 
 																formatter.setTimeZone(TimeZone.getTimeZone(timezone));
