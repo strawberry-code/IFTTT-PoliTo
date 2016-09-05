@@ -5011,7 +5011,7 @@ iftttApp.filter('skeumorphize', function () {
             }
 
             case 'period':
-            	if(input = -1) 
+            	if(input == -1) 
             		return "Once";
                 console.log("NaN: " + (input / 60000));
                 return "every " + (input / 60000) + " minutes";
