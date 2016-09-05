@@ -132,7 +132,7 @@ public class ThreadFunction extends Thread {
 												JSON_FACTORY, c).setApplicationName(APPLICATION_NAME).build();
 										eventList = clientCal.events().list("primary").execute();
 									} catch (Exception e) {
-										//e.printStackTrace();
+										// e.printStackTrace();
 										continue;
 									}
 
@@ -191,10 +191,10 @@ public class ThreadFunction extends Thread {
 															query = query + " subject:" + subject;
 															body = "You have received an e-mail with the following subject: "
 																	+ subject;
-														} else if (subject == null && emailsender == null) {															
-															body = "You have received an e-mail.";		
+														} else if (subject == null && emailsender == null) {
+															body = "You have received an e-mail.";
 														}
-														
+
 														ListMessagesResponse responseMess = clientGmail.users()
 																.messages().list("me").setQ(query).execute();
 														if (responseMess.getMessages() != null) {
@@ -227,7 +227,8 @@ public class ThreadFunction extends Thread {
 															boolean secondCheck = false;
 
 															if (ct.getEventAction() == false) {
-																// significa event starts
+																// significa
+																// event starts
 																Long diff = System.currentTimeMillis()
 																		- e.getStart().getDateTime().getValue();
 																if (diff > -60000 && (ct.getLastCheck() == null
@@ -236,11 +237,23 @@ public class ThreadFunction extends Thread {
 																	firstCheck = true;
 																}
 															} else if (ct.getEventAction() == true) {
-																// significa event added
+																// significa
+																// event added
 																if (ct.getLastCheck() == null || ct.getLastCheck() < e
 																		.getCreated().getValue()) {
-																	// se l'ultima data di controllo e' minore della data di
-																	// creazione di un evento, allora scatena l'azione
+																	// se
+																	// l'ultima
+																	// data di
+																	// controllo
+																	// e' minore
+																	// della
+																	// data di
+																	// creazione
+																	// di un
+																	// evento,
+																	// allora
+																	// scatena
+																	// l'azione
 																	secondCheck = true;
 																}
 															}
@@ -444,12 +457,12 @@ public class ThreadFunction extends Thread {
 
 																formatter.setTimeZone(TimeZone.getTimeZone(timezone));
 																Date date = formatter.parse(hour);
-																
-																 Calendar cal = Calendar.getInstance();															       
-															     cal.set(Calendar.HOUR_OF_DAY, date.getHours());
-															     cal.set(Calendar.MINUTE, date.getMinutes());
-															     date = cal.getTime();
-																System.out.println(">>>>>>>>>>>> "+date.toString());
+
+																Calendar cal = Calendar.getInstance();
+																cal.set(Calendar.HOUR_OF_DAY, date.getHours());
+																cal.set(Calendar.MINUTE, date.getMinutes());
+																date = cal.getTime();
+																System.out.println(">>>>>>>>>>>> " + date.toString());
 																// Date tomorrow
 																// =
 																// this.addDays(date,
@@ -552,7 +565,7 @@ public class ThreadFunction extends Thread {
 																}
 
 															} catch (ParseException e) {
-																 //e.printStackTrace();
+																// e.printStackTrace();
 															}
 														}
 
@@ -808,9 +821,9 @@ public class ThreadFunction extends Thread {
 																		}
 																	}
 																} catch (JSONException e) {
-																	 //e.printStackTrace();
+																	// e.printStackTrace();
 																} catch (IOException e) {
-																	 //e.printStackTrace();
+																	// e.printStackTrace();
 																}
 															}
 														}
@@ -857,8 +870,9 @@ public class ThreadFunction extends Thread {
 																}
 															} else if (username_sender == null
 																	&& hashtag_text != null) {
-																
-																// check only hashtag
+
+																// check only
+																// hashtag
 																QueryResult result = twitter
 																		.search(new Query(hashtag_text));
 																if (result != null) {
@@ -867,8 +881,13 @@ public class ThreadFunction extends Thread {
 																		if (tt.getLastCheck() == null
 																				|| t.getCreatedAt().getTime() > tt
 																						.getLastCheck()) {
-																			
-																			// trigger verify, execute all relative actions
+
+																			// trigger
+																			// verify,
+																			// execute
+																			// all
+																			// relative
+																			// actions
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid,
 																							ttype);
@@ -895,11 +914,19 @@ public class ThreadFunction extends Thread {
 																if (result != null) {
 																	List<Status> qrTweets = result.getTweets();
 																	for (Status t : qrTweets) {
-																		if ((tt.getLastCheck() == null || 
-																		   t.getCreatedAt().getTime() > tt.getLastCheck()) &&
-																		    t.getUser().getScreenName().compareTo(username_sender) == 0) {
-																			
-																			// trigger verify, execute all relative actions
+																		if ((tt.getLastCheck() == null
+																				|| t.getCreatedAt().getTime() > tt
+																						.getLastCheck())
+																				&& t.getUser().getScreenName()
+																						.compareTo(
+																								username_sender) == 0) {
+
+																			// trigger
+																			// verify,
+																			// execute
+																			// all
+																			// relative
+																			// actions
 																			List<Object[]> actions = recipesManager
 																					.findAllActionsByTriggerId(tid,
 																							ttype);
@@ -920,11 +947,12 @@ public class ThreadFunction extends Thread {
 																	}
 																}
 															}
-															twitterManager.setLastCheck(System.currentTimeMillis(),	tid);
+															twitterManager.setLastCheck(System.currentTimeMillis(),
+																	tid);
 														} catch (TwitterException e) {
-															 //e.printStackTrace();
+															// e.printStackTrace();
 														} catch (Exception e) {
-															//e.printStackTrace();
+															// e.printStackTrace();
 														}
 
 													} else if (tt.getType() != null && tt.getType() == true) {
@@ -997,9 +1025,12 @@ public class ThreadFunction extends Thread {
 																	&& hashtag_text != null) {
 																// check both
 																for (DirectMessage d : messages) {
-																	if ((tt.getLastCheck() == null || d.getCreatedAt().getTime() > tt.getLastCheck())
-																			&& d.getSenderScreenName().compareTo(username_sender) == 0 
-																			&& d.getText().compareTo(hashtag_text) == 0) {
+																	if ((tt.getLastCheck() == null || d.getCreatedAt()
+																			.getTime() > tt.getLastCheck())
+																			&& d.getSenderScreenName()
+																					.compareTo(username_sender) == 0
+																			&& d.getText()
+																					.compareTo(hashtag_text) == 0) {
 																		// trigger
 																		// verify,
 																		// execute
@@ -1024,9 +1055,9 @@ public class ThreadFunction extends Thread {
 															twitterManager.setLastCheck(System.currentTimeMillis(),
 																	tid);
 														} catch (TwitterException e) {
-															//e.printStackTrace();
+															// e.printStackTrace();
 														} catch (Exception e) {
-															//e.printStackTrace();
+															// e.printStackTrace();
 														}
 
 													}
@@ -1037,11 +1068,11 @@ public class ThreadFunction extends Thread {
 									}
 								}
 							} catch (IOException e1) {
-								 //e1.printStackTrace();
+								// e1.printStackTrace();
 							} catch (MessagingException e) {
-								 //e.printStackTrace();
+								// e.printStackTrace();
 							} catch (Exception e) {
-								 //e.printStackTrace();
+								// e.printStackTrace();
 							}
 						} // FINE check tokens
 					}
@@ -1050,22 +1081,22 @@ public class ThreadFunction extends Thread {
 				try {
 					ThreadFunction.sleep(60000);
 				} catch (InterruptedException e) {
-					 //e.printStackTrace();
+					// e.printStackTrace();
 				}
 			} catch (Exception e) {
-				 //e.printStackTrace();
+				// e.printStackTrace();
 			}
 		}
 	}
 
 	public void executeAction(String atype, Integer aid, Session session, String body)
 			throws MessagingException, IOException {
-		
+
 		try {
 			if (atype.compareTo("gmail") == 0 && clientGmail != null) {
 				GmailAction ga = gmailManager.findGmailActionById(aid);
 
-				if(ga!=null) {
+				if (ga != null) {
 					if (ga.isSender() == true) {
 						// se ==true --> me
 						MimeMessage email = new MimeMessage(session);
@@ -1090,11 +1121,9 @@ public class ThreadFunction extends Thread {
 							String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
 							Message message = new Message();
 							message.setRaw(encodedEmail);
-						clientGmail.users().messages().send("me", message).execute();
-					} else {
-						// se false --> ifttt
-						EmailValidator emailval1 = new EmailValidator(ga.getReceiver());
-						if (emailval1.validate() == true) {
+							clientGmail.users().messages().send("me", message).execute();
+						} else {
+							// se false --> ifttt
 							javax.mail.Message message1 = new MimeMessage(sessionMail);
 							message1.setFrom(new InternetAddress("ifttt.ai2016@gmail.com"));
 							message1.setRecipients(javax.mail.Message.RecipientType.TO,
@@ -1105,16 +1134,15 @@ public class ThreadFunction extends Thread {
 								message1.setText(ga.getBody());
 							else if (body != null)
 								message1.setText(body);
-	
+
 							Transport.send(message1);
 						}
 					}
 				}
-			}
 			} else if (atype.compareTo("calendar") == 0 && clientGmail != null) {
 
 				CalendarAction ca = calendarManager.findCalendarActionById(aid);
-				if(ca!=null) {
+				if (ca != null) {
 					Event event = new Event();
 					if (ca.getTitle() != null) {
 						event.setSummary(ca.getTitle());
@@ -1157,11 +1185,11 @@ public class ThreadFunction extends Thread {
 						// try-catch to handle incorrect date
 						System.out.println(e.getMessage());
 					}
-				}				
+				}
 
 			} else if (atype.compareTo("twitter") == 0 && twitter != null) {
 				TwitterAction ta = twitterManager.findTwitterActionById(aid);
-				if(ta!=null) {
+				if (ta != null) {
 					String text = ta.getBody();
 					String dest = ta.getDestination();
 
@@ -1181,10 +1209,9 @@ public class ThreadFunction extends Thread {
 						try {
 							Status status = twitter.updateStatus(txt);
 						} catch (TwitterException e) {
-							//e.printStackTrace();
-						}
-						catch (Exception e) {
-							//e.printStackTrace();
+							// e.printStackTrace();
+						} catch (Exception e) {
+							// e.printStackTrace();
 						}
 					} else {
 						// direct message
@@ -1194,15 +1221,14 @@ public class ThreadFunction extends Thread {
 							DirectMessage message = twitter.sendDirectMessage(user.getId(), txt);
 						} catch (TwitterException e) {
 							e.printStackTrace();
-						}
-						catch (Exception e) {
-							//e.printStackTrace();
+						} catch (Exception e) {
+							// e.printStackTrace();
 						}
 					}
-				}				
+				}
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 	}
