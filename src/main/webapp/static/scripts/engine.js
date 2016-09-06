@@ -5175,6 +5175,10 @@ function sedingServerAllRun(loginDataSend) {
             	  alertWarning("Selected field can't be blank! Please, fill them.");
                   $('#recipedDescriptionModal').modal('hide');
             }
+            else if(response == -4) {
+          	  alertWarning("Recipe's description is too long.");
+                $('#recipedDescriptionModal').modal('hide');
+            }
             else {
 
                 $('#recipedDescriptionModal').modal('hide');
@@ -5263,6 +5267,10 @@ function sedingServerAllRunput(loginDataSend) {
             else if(response == -3) {
           	  alertWarning("Selected field can't be blank! Please, fill them.");
                 $('#recipedDescriptionModal').modal('hide');
+            }
+            else if(response == -4) {
+            	  alertWarning("Recipe's description is too long.");
+                  $('#recipedDescriptionModal').modal('hide');
             }
             else {
                 //alertVariable="Warning: the recipe is not update try again or go home";

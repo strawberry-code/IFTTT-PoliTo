@@ -185,6 +185,10 @@ public class RecipesManagerImpl implements RecipesManager {
 			// begin transaction
 			Transaction tx = session.beginTransaction();
 			try {
+				
+				if(ricetta.get("description").toString().length()>255) {
+					return -4;
+				}
 
 				// TRIGGER
 				if (triggerType.compareTo("calendar") == 0) {
@@ -661,6 +665,9 @@ public class RecipesManagerImpl implements RecipesManager {
 			Transaction tx = session.beginTransaction();
 			try {
 				
+				if(ricetta.get("description").toString().length()>255) {
+					return -4;
+				}
 				if(rec.getDescription().compareTo(ricetta.get("description").toString())!=0) {
 					//cambia solo la descrizione
 					rec.setDescription((String) ricetta.get("description"));
