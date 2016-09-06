@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 
+@SuppressWarnings("serial")
 @Entity
 public class Users implements Serializable {	
 	@Id

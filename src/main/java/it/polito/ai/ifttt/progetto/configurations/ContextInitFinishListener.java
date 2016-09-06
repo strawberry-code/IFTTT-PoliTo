@@ -1,7 +1,6 @@
 package it.polito.ai.ifttt.progetto.configurations;
 
 import javax.mail.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 

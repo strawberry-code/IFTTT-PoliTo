@@ -2,7 +2,6 @@ package it.polito.ai.ifttt.progetto.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -200,7 +199,7 @@ public class ThreadFunction extends Thread {
 														if (responseMess.getMessages() != null) {
 															// c'e' qualche
 															// messaggio
-															for (Message m : responseMess.getMessages()) {
+															for (@SuppressWarnings("unused") Message m : responseMess.getMessages()) {
 																List<Object[]> actions = recipesManager
 																		.findAllActionsByTriggerId(tid, ttype);
 																for (Object[] a : actions) {
@@ -464,8 +463,6 @@ public class ThreadFunction extends Thread {
 																cal.set(Calendar.MINUTE, date.getMinutes());
 																cal.setTimeZone(TimeZone.getTimeZone(timezone));
 																date = cal.getTime();
-																//date = this.parseDate(date.toString(), TimeZone.getTimeZone(timezone));
-																System.out.println(">>>>>>>>>>>> " + date.toString());
 																// Date tomorrow
 																// =
 																// this.addDays(date,
@@ -1098,6 +1095,7 @@ public class ThreadFunction extends Thread {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void executeAction(String atype, Integer aid, Session session, String body)
 			throws MessagingException, IOException {
 
@@ -1245,11 +1243,6 @@ public class ThreadFunction extends Thread {
 		}
 
 	}
-
-	// per convertire i gradi Fahrenheit ritornati in Celsius
-	// public Float ConverToCelsius(Float temp) {
-	// return ((temp - 32) * 5) / 9;
-	// }
 
 	public static Date addDays(Date date, int days) {
 		Calendar cal = Calendar.getInstance();

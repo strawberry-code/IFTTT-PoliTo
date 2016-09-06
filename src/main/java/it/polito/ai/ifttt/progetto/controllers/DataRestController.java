@@ -18,7 +18,6 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -476,6 +475,7 @@ public class DataRestController {
 		return code;
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "forgotPassword", method = RequestMethod.POST)
 	Integer forgotPassword(@RequestBody requestClass data) {
 		Integer code = 0;

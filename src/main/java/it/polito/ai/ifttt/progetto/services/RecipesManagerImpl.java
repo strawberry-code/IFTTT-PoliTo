@@ -1,21 +1,12 @@
 package it.polito.ai.ifttt.progetto.services;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import org.hibernate.Query;
@@ -40,7 +31,6 @@ import it.polito.ai.ifttt.progetto.models.Users;
 import it.polito.ai.ifttt.progetto.models.WeatherTrigger;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
-import twitter4j.RateLimitStatus;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -135,6 +125,7 @@ public class RecipesManagerImpl implements RecipesManager {
 		return actionsid;
 	}
 
+	@SuppressWarnings("unused")
 	public Integer addRecipe(String data) {
 
 		// I need session e transaction here, because I have to
@@ -598,6 +589,7 @@ public class RecipesManagerImpl implements RecipesManager {
 		return recipeid;
 	}
 
+	@SuppressWarnings("unused")
 	public Integer modifyRecipe(Integer id, String data) {
 		Session session = sessionFactory.openSession();
 	//	System.out.println(data);

@@ -2,8 +2,6 @@ package it.polito.ai.ifttt.progetto.services;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
