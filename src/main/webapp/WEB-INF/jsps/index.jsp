@@ -344,7 +344,8 @@
 							description for this recipe:</label>
 						<textarea class="form-control" rows="5"
 							id="recipedDescriptionInput"
-							data-ng-model="recipedDescriptionInput"></textarea>
+							data-ng-model="recipedDescriptionInput" maxlength="255"></textarea>
+							<span>{{255 - recipedDescriptionInput.length}} left </span>
 						<div class="row text-center" style="padding-top: 25px;">
 							<button type="submit" class="btn btn-primary"
 								data-ng-click="saveRecipeDescription()">Submit</button>
