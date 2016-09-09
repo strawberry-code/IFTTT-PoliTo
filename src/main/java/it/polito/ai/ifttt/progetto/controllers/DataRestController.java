@@ -468,10 +468,11 @@ public class DataRestController {
 				code = loginManager.deleteAccount(user);
 			}
 		}
-		
-		HttpSession session = request.getSession();
-		synchronized (session) {
-			session.invalidate();
+		if(code==0){
+			HttpSession session = request.getSession();
+			synchronized (session) {
+				session.invalidate();
+			}
 		} 
 
 		// code:
