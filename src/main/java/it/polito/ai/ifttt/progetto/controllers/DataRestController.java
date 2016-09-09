@@ -18,6 +18,8 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -452,7 +454,7 @@ public class DataRestController {
 
 	@SuppressWarnings("static-access")
 	@RequestMapping(value = "deleteAccount", method = RequestMethod.POST)
-	Integer deleteAccount(@RequestBody requestClass data) {
+	Integer deleteAccount(@RequestBody requestClass data, HttpServletRequest request) {
 		Integer code = 0;
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
@@ -466,6 +468,11 @@ public class DataRestController {
 				code = loginManager.deleteAccount(user);
 			}
 		}
+		
+		HttpSession session = request.getSession();
+		synchronized (session) {
+			session.invalidate();
+		} 
 
 		// code:
 		// 0 success

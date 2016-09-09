@@ -156,7 +156,7 @@ public class RecipesManagerImpl implements RecipesManager {
 			//e.printStackTrace();
 			return -1;
 		}
-
+		
 		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		Users user = loginManager.findUserByUsername(username);
 		if (user == null) {
