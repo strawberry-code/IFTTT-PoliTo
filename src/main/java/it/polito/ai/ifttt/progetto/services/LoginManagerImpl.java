@@ -117,7 +117,6 @@ public class LoginManagerImpl implements LoginManager {
 
 				// save the new user in the db
 				Integer id = (Integer) session.save(user);
-				tx.commit();
 
 				// send email with activation link
 				try {
@@ -134,7 +133,7 @@ public class LoginManagerImpl implements LoginManager {
 
 				} catch (MessagingException e) {
 					tx.rollback();
-					throw new RuntimeException(e);
+					return -1;
 				}
 			} catch (Exception e) {
 				// if some errors during the transaction occur,
@@ -142,6 +141,7 @@ public class LoginManagerImpl implements LoginManager {
 				tx.rollback();
 				return -1;
 			}
+			tx.commit();
 		} 
 		catch(Exception e){
 			return -1;
